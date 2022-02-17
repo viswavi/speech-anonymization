@@ -1,0 +1,6 @@
+[submodule "s3prl"]
+	path = s3prl
+	url = https://github.com/s3prl/s3prl.git
+[submodule "speechbrain"]
+	path = speechbrain
+	url = https://github.com/speechbrain/speechbrain.git
