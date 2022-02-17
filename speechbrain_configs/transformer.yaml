@@ -37,7 +37,6 @@ train_csv: !ref <data_folder>/train.csv
 valid_csv: !ref <data_folder>/dev-clean.csv
 test_csv:
     - !ref <data_folder>/test-clean.csv
-    - !ref <data_folder>/test-other.csv
 ckpt_interval_minutes: 30 # save checkpoint every N min
 
 # Training parameters
@@ -248,7 +247,7 @@ speed_perturb: !new:speechbrain.processing.speech_augmentation.SpeedPerturb
     orig_freq: !ref <sample_rate>
     speeds: [95, 100, 105]
 
-compute_features: !new:speechbrain.lobes.features.Fbank
+compute_features: !new:speechbrain.lobes.features.MFCC
     sample_rate: !ref <sample_rate>
     n_fft: !ref <n_fft>
     n_mels: !ref <n_mels>
