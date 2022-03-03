@@ -5,7 +5,7 @@ import torch.nn.functional as F
 from math import floor
 
 def cosine_distance_2d(x,y):
-    return 1-F.cosine_similarity(x, y, dim=1)
+    return 1 - F.cosine_similarity(x, y, dim=1)
 
 def _pairwise_dists(x, dist_fn, fill_diagonal=False, diag_value=10e6):
 

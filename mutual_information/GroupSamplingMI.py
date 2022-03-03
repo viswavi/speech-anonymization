@@ -1,18 +1,19 @@
 import tqdm
-import torch
 
 import numpy as np
 import pandas as pd
 
 from .ClusterMI import *
 
+
+"""
+A wrapper class that performs several iterations over different sets of samples 
+"""
 class GroupSampler(object):
 
     def __init__(self, groups, sample_size):
-
         self.groups            = groups
         self.sample_size       = sample_size
-
         self.create_groups()
 
     def sample_groups(self):
