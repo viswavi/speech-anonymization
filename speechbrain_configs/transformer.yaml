@@ -66,6 +66,7 @@ sex_classification_acc: !name:speechbrain.utils.Accuracy.AccuracyStats
 loss_reconstruction: !new:torch.nn.L1Loss
     reduction: 'mean'
 loss_sex_classification: !new:torch.nn.NLLLoss
+balanced_classes: True
 
 # stages related parameters
 stage_one_epochs: 90

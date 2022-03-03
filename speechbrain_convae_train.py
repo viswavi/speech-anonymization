@@ -54,6 +54,8 @@ import speechbrain as sb
 from hyperpyyaml import load_hyperpyyaml
 from speechbrain.utils.distributed import run_on_main
 from models.ConvAutoEncoder import ConvAutoencoder
+from speechbrain.dataio.sampler import ReproducibleWeightedRandomSampler
+from mutual_information.MILoss import *
 
 logger = logging.getLogger(__name__)
 
@@ -373,7 +375,13 @@ def dataio_prepare(hparams):
     )
     return train_data, valid_data, test_datasets, tokenizer
 
-
+def class_balanced_sampler(classes, num_of_epochs):
+    classes_unique, counts = np.unique(classes, return_counts=True)
+    class_weights = [sum(counts) / c for c in counts]
+    example_weights = [class_weights[e] for e in classes]
+    return ReproducibleWeightedRandomSampler(
+        example_weights, epoch=num_of_epochs, replacement=False, num_samples=len(example_weights)
+    )
 if __name__ == "__main__":
     # CLI:
     hparams_file, run_opts, overrides = sb.parse_arguments(sys.argv[1:])
@@ -428,6 +436,10 @@ if __name__ == "__main__":
     sa_brain.modules['ConvAE'] = model
 
     hparams["model"].append(sa_brain.modules['ConvAE'])
+
+    if hparams["balanced_classes"]:
+        train_sampler = class_balanced_sampler(train_data.gender, hparams["number_of_epochs"])
+        hparams["train_dataloader_opts"]["sampler"] = train_sampler
 
     # Training
     sa_brain.fit(

@@ -243,7 +243,7 @@ def dataio_prep(hparams):
     """
 
     # Initialization of the label encoder. The label encoder assigns to each
-    # of the observed label a unique index (e.g, 'male': 0, 'female': 1)
+    # of the observed label a unique index (e.g, 'M': 0, 'F': 1)
     label_encoder = sb.dataio.encoder.CategoricalEncoder()
 
     # Define audio pipeline
