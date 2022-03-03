@@ -24,7 +24,7 @@ train_log: !ref <output_folder>/train_log.txt
 pretrained_lm_tokenizer_path: speechbrain/asr-transformer-transformerlm-librispeech
 
 # Data files
-data_folder: /Users/vijay/Downloads/LibriSpeech # e.g., /path/to/LibriSpeech
+data_folder: /Users/akrutikushwaha/Downloads/LibriSpeech/LibriSpeech # e.g., /path/to/LibriSpeech
 # If RIRS_NOISES dir exists in /localscratch/xxx_corpus/RIRS_NOISES
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
@@ -44,13 +44,28 @@ ckpt_interval_minutes: 30 # save checkpoint every N min
 # The global batch size is computed as batch_size * n_gpus * gradient_accumulation.
 # Empirically, we found that this value should be >= 128.
 # Please, set your parameters accordingly.
+# number_of_epochs: 110
+# batch_size: 16 # This works for 2x GPUs with 32GB
+# ctc_weight: 0.3
+# gradient_accumulation: 4
+# gradient_clipping: 5.0
+# loss_reduction: 'batchmean'
+# sorting: random
+
+## PARAMS FOR CONVAUTOENCODER ##
+convae_feature_dim: 660
 number_of_epochs: 110
-batch_size: 16 # This works for 2x GPUs with 32GB
-ctc_weight: 0.3
-gradient_accumulation: 4
+batch_size: 1
+recon_loss_weight: 0.5
+sex_loss_weight: 0.5
+gradient_accumulation: 1
 gradient_clipping: 5.0
 loss_reduction: 'batchmean'
 sorting: random
+sex_classification_acc: !name:speechbrain.utils.Accuracy.AccuracyStats
+loss_reconstruction: !new:torch.nn.L1Loss
+    reduction: 'mean'
+loss_sex_classification: !new:torch.nn.NLLLoss
 
 # stages related parameters
 stage_one_epochs: 90
@@ -151,14 +166,15 @@ seq_lin: !new:speechbrain.nnet.linear.Linear
     n_neurons: !ref <output_neurons>
 
 modules:
-    CNN: !ref <CNN>
-    Transformer: !ref <Transformer>
-    seq_lin: !ref <seq_lin>
-    ctc_lin: !ref <ctc_lin>
     normalize: !ref <normalize>
+    # CNN: !ref <CNN>
+    # Transformer: !ref <Transformer>
+    # seq_lin: !ref <seq_lin>
+    # ctc_lin: !ref <ctc_lin>
 
 model: !new:torch.nn.ModuleList
-    - [!ref <CNN>, !ref <Transformer>, !ref <seq_lin>, !ref <ctc_lin>]
+    -[]
+    #- [!ref <CNN>, !ref <Transformer>, !ref <seq_lin>, !ref <ctc_lin>]
 
 # define two optimizers here for two-stage training
 Adam: !name:torch.optim.Adam
