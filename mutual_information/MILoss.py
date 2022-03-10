@@ -4,8 +4,7 @@ from .GroupSamplingMI import *
 
 
 """
-expecting class-balanced input by batch
-and target/labels by batch
+expecting class-balanced training minibatch
 """
 class MILoss(nn.Module):
     """
