@@ -124,7 +124,7 @@ class SexAnonymizationTraining(sb.core.Brain):
         if stage != sb.Stage.TRAIN:
             current_epoch = self.hparams.epoch_counter.current
             # compute the accuracy of the sex prediction
-            self.acc_metric.append(sex_logits, sex_label, torch.tensor(sex_label.shape[0]))
+            self.sex_classification_acc.append(sex_logits.unsqueeze(1), sex_label.unsqueeze(1), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
 
         return loss
 
@@ -424,7 +424,9 @@ if __name__ == "__main__":
         run_opts=run_opts,
         checkpointer=hparams["checkpointer"],
     )
+    sa_brain.acc_metric = []
 
+    model = model.to("cuda:0")
     sa_brain.modules['ConvAE'] = model
 
     hparams["model"].append(sa_brain.modules['ConvAE'])
