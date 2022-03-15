@@ -1,3 +1,5 @@
+__author__ = "Francisco Teixeira"
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

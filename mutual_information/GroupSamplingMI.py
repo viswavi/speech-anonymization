@@ -1,3 +1,5 @@
+__author__ = "Francisco Teixeira"
+
 import tqdm
 
 import numpy as np
