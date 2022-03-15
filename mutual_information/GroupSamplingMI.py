@@ -1,3 +1,5 @@
+__author__ = "Francisco Teixeira"
+
 import tqdm
 
 import numpy as np
@@ -37,7 +39,6 @@ class GroupSampler(object):
         self.samples_per_group = {key:len(value) for key, value in groups_dict.items()}
 
 class GroupSamplingMI(ClusterMI):
-
     def __init__(self, n_samples=1, n_classes=2, n_iterations=100, k=3, dist_metric=cosine_distance_2d):
         super(GroupSamplingMI, self).__init__(n_classes, k, dist_metric)
 
@@ -48,7 +49,7 @@ class GroupSamplingMI(ClusterMI):
         group_sampler = GroupSampler(groups, self.n_samples)
         
         mi = []
-        for i in tqdm.tqdm(range(0, self.n_iterations)):
+        for _ in tqdm.tqdm(range(0, self.n_iterations)):
             idx = group_sampler.sample_groups()
             X_ = X[idx]
             y_ = y[idx]

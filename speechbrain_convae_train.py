@@ -117,10 +117,12 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech, feats)
         sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
+        mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch)
 
         loss = (
             self.hparams.recon_loss_weight * recon_loss
             + self.hparams.sex_loss_weight * sex_loss
+            + self.hparams.mi_loss_weight * mi_loss
         )
 
         if stage != sb.Stage.TRAIN:

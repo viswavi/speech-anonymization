@@ -56,8 +56,9 @@ ckpt_interval_minutes: 30 # save checkpoint every N min
 convae_feature_dim: 660
 number_of_epochs: 110
 batch_size: 1
-recon_loss_weight: 0.5
-sex_loss_weight: 0.5
+recon_loss_weight: 0.4
+sex_loss_weight: 0.4
+mi_loss_weight: 0.2
 gradient_accumulation: 1
 gradient_clipping: 5.0
 loss_reduction: 'batchmean'
@@ -66,6 +67,7 @@ sex_classification_acc: !name:speechbrain.utils.Accuracy.AccuracyStats
 loss_reconstruction: !new:torch.nn.L1Loss
     reduction: 'mean'
 loss_sex_classification: !new:torch.nn.NLLLoss
+loss_mutual_information: !new:mutual_information.MILoss
 balanced_classes: True
 
 # stages related parameters
