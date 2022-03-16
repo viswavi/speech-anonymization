@@ -53,7 +53,7 @@ ckpt_interval_minutes: 30 # save checkpoint every N min
 # sorting: random
 
 ## PARAMS FOR CONVAUTOENCODER ##
-convae_feature_dim: 660
+convae_feature_dim: 80
 number_of_epochs: 110
 batch_size: 1
 recon_loss_weight: 0.5
