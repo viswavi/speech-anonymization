@@ -426,7 +426,7 @@ if __name__ == "__main__":
     )
     sa_brain.acc_metric = []
 
-    model = model.to("cuda:0")
+    model = model.to(sa_brain.device)
     sa_brain.modules['ConvAE'] = model
 
     hparams["model"].append(sa_brain.modules['ConvAE'])
