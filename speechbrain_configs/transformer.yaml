@@ -29,11 +29,11 @@ data_folder: /home/vijayv/workhorse3/LibriSpeech
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
 data_folder_rirs: !ref <data_folder>
-train_splits: ["train-10-samples"]
+train_splits: ["train-clean-100"]
 dev_splits: ["dev-clean"]
 test_splits: ["test-clean"]
 skip_prep: False
-train_csv: !ref <data_folder>/train-10-samples.csv
+train_csv: !ref <data_folder>/train-clean-100.csv
 valid_csv: !ref <data_folder>/dev-clean.csv
 test_csv:
     - !ref <data_folder>/test-clean.csv
@@ -263,7 +263,7 @@ speed_perturb: !new:speechbrain.processing.speech_augmentation.SpeedPerturb
     orig_freq: !ref <sample_rate>
     speeds: [95, 100, 105]
 
-compute_features: !new:speechbrain.lobes.features.MFCC
+compute_features: !new:speechbrain.lobes.features.Fbank
     sample_rate: !ref <sample_rate>
     n_fft: !ref <n_fft>
     n_mels: !ref <n_mels>

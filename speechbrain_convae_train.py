@@ -5,7 +5,7 @@ Vijay's comments
 Running instructions:
 
 python speechbrain_train.py \
-    speechbrain/recipes/LibriSpeech/ASR/transformer/hparams/transformer.yaml \
+    speechbrain_configs/transformer.yaml \
     --device cpu
 
 -------------------------------------------------------------------------------
