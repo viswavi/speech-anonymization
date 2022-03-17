@@ -10,7 +10,7 @@
 # Seed needs to be set at top of yaml, before objects with parameters are made
 seed: 8886
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
-output_folder: !ref results/transformer/<seed>
+output_folder: !ref results/transformer_60_epoch/<seed>
 wer_file: !ref <output_folder>/wer.txt
 save_folder: !ref <output_folder>/save
 train_log: !ref <output_folder>/train_log.txt
@@ -24,7 +24,7 @@ train_log: !ref <output_folder>/train_log.txt
 pretrained_lm_tokenizer_path: speechbrain/asr-transformer-transformerlm-librispeech
 
 # Data files
-data_folder: /home/vijayv/workhorse3/LibriSpeech
+data_folder: /home/ec2-user/LibriSpeech
 # If RIRS_NOISES dir exists in /localscratch/xxx_corpus/RIRS_NOISES
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
@@ -37,7 +37,7 @@ train_csv: !ref <data_folder>/train-clean-100.csv
 valid_csv: !ref <data_folder>/dev-clean.csv
 test_csv:
     - !ref <data_folder>/test-clean.csv
-ckpt_interval_minutes: 30 # save checkpoint every N min
+ckpt_interval_minutes: 60 # save checkpoint every N min
 
 # Training parameters
 # To make Transformers converge, the global bath size should be large enough.
@@ -54,12 +54,12 @@ ckpt_interval_minutes: 30 # save checkpoint every N min
 
 ## PARAMS FOR CONVAUTOENCODER ##
 convae_feature_dim: 80
-number_of_epochs: 110
+number_of_epochs: 30
 batch_size: 1
 recon_loss_weight: 0.4
 sex_loss_weight: 0.4
 mi_loss_weight: 0.2
-gradient_accumulation: 1
+gradient_accumulation: 10
 gradient_clipping: 5.0
 loss_reduction: 'batchmean'
 sorting: random
