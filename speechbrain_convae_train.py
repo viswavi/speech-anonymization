@@ -53,12 +53,14 @@ from pathlib import Path
 import speechbrain as sb
 from hyperpyyaml import load_hyperpyyaml
 from speechbrain.utils.distributed import run_on_main
+from speechbrain.utils.train_logger import TensorboardLogger
 from models.ConvAutoEncoder import ConvAutoencoder
 from speechbrain.dataio.sampler import ReproducibleWeightedRandomSampler
 from mutual_information.MILoss import *
 
 logger = logging.getLogger(__name__)
 
+import visualization
 sys.path.append("speechbrain/recipes/LibriSpeech")
 # 1.  # Dataset prep (parsing Librispeech)
 from librispeech_prepare import prepare_librispeech  # noqa
@@ -129,6 +131,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             current_epoch = self.hparams.epoch_counter.current
             # compute the accuracy of the sex prediction
             self.sex_classification_acc.append(sex_logits.unsqueeze(1), sex_label.unsqueeze(1), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
+            self.recon_loss[-1].append(recon_loss)
 
         return loss
 
@@ -167,6 +170,10 @@ class SexAnonymizationTraining(sb.core.Brain):
         """Gets called at the beginning of each epoch"""
         if stage != sb.Stage.TRAIN:
             self.sex_classification_acc = self.hparams.sex_classification_acc()
+            if not hasattr(self, "recon_loss"):
+                self.recon_loss = [[]]
+            else:
+                self.recon_loss.append([])
 
     def on_stage_end(self, stage, stage_loss, epoch):
         """Gets called at the end of a epoch."""
@@ -390,6 +397,8 @@ if __name__ == "__main__":
     with open(hparams_file) as fin:
         hparams = load_hyperpyyaml(fin, overrides)
 
+    tensorboard_logger = TensorboardLogger()
+
     # If distributed_launch=True then
     # create ddp_group with the right communication protocol
     sb.utils.distributed.ddp_init_group(run_opts)
@@ -464,3 +473,12 @@ if __name__ == "__main__":
             max_key="ACC",
             test_loader_kwargs=hparams["test_dataloader_opts"],
         )
+
+    recon_loss_averages = []
+    for epoch_losses in sa_brain.recon_loss:
+        epoch_loss_values = [v.item() for v in epoch_losses]
+        recon_loss_averages.append(sum(epoch_loss_values) / len(epoch_loss_values))
+    output_folder = hparams["output_folder"]
+    plot_path = os.path.join(output_folder, "learning_curve.png")
+    visualization.draw_lines(recon_loss_averages, "Epoch", "Avg. Recon. Loss", "Learning Curve", plot_path)
+    print(f"Wrote reconstruction error learning curve to {plot_path}")
