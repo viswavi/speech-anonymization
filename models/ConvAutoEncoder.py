@@ -108,6 +108,7 @@ class ConvAutoencoder(nn.Module):
 
         ## sex classifier ##
         sex_classifier_logits = self.sex_classifier(stat_pooling)
+        print(sex_classifier_logits)
         
         ## decode ##
         input = self.decoder(input)
