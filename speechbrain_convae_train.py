@@ -1,50 +1,5 @@
 #!/usr/bin/env python3
-"""
-Vijay's comments
-----
-Running instructions:
 
-python speechbrain_train.py \
-    speechbrain_configs/transformer.yaml \
-    --device cpu
-
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
-
-Recipe for training a Transformer ASR system with librispeech.
-The system employs an encoder, a decoder, and an attention mechanism
-between them. Decoding is performed with (CTC/Att joint) beamsearch coupled with a neural
-language model.
-
-To run this recipe, do the following:
-> python train.py hparams/transformer.yaml
-> python train.py hparams/conformer.yaml
-
-With the default hyperparameters, the system employs a convolutional frontend and a transformer.
-The decoder is based on a Transformer decoder. Beamsearch coupled with a Transformer
-language model is used  on the top of decoder probabilities.
-
-The neural network is trained on both CTC and negative-log likelihood
-targets and sub-word units estimated with Byte Pairwise Encoding (BPE)
-are used as basic recognition tokens. Training is performed on the full
-LibriSpeech dataset (960 h).
-
-The best model is the average of the checkpoints from last 5 epochs.
-
-The experiment file is flexibple enough to support a large variety of
-different systems. By properly changing the parameter files, you can try
-different encoders, decoders, tokens (e.g, characters instead of BPE),
-training split (e.g, train-clean 100 rather than the full one), and many
-other possible variations.
-
-
-Authors
- * Jianyuan Zhong 2020
- * Mirco Ravanelli 2020
- * Peter Plantinga 2020
- * Samuele Cornell 2020
- * Titouan Parcollet 2021
-"""
 import os
 import sys
 import torch
@@ -54,8 +9,8 @@ import speechbrain as sb
 from hyperpyyaml import load_hyperpyyaml
 from speechbrain.utils.distributed import run_on_main
 from models.ConvAutoEncoder import ConvAutoencoder
-from speechbrain.dataio.sampler import ReproducibleWeightedRandomSampler
-from mutual_information.MILoss import *
+from models.SpeechBrain_ASR import ASR
+from speechbrain.pretrained import EncoderDecoderASR
 
 logger = logging.getLogger(__name__)
 
@@ -82,9 +37,8 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         # compute features
         feats = self.hparams.compute_features(wavs)
-
         current_epoch = self.hparams.epoch_counter.current
-        feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
+        #feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
 
         # need to swap to [ BATCH_SIZE x MFCC_FEATURE_DIM x NUM_TIMESTAMPS ]
         feats = feats.reshape(self.hparams.batch_size, feats.shape[2], feats.shape[1])
@@ -102,12 +56,15 @@ class SexAnonymizationTraining(sb.core.Brain):
     def compute_objectives(self, predictions, batch, stage):
         """Forward computations from the waveform batches to the output probabilities."""
         reconstructed_speech, sex_logits  = predictions
+        batch = batch.to(sa_brain.device)
 
         sex_label = batch.gender
         wavs, wav_lens = batch.sig
+        tokens_bos, _ = batch.tokens_bos
 
         # compute features
         feats = self.hparams.compute_features(wavs)
+        orig_feats = feats
 
         # need to swap to [ BATCH_SIZE x MFCC_FEATURE_DIM x NUM_TIMESTAMPS ]
         feats = feats.reshape(self.hparams.batch_size, feats.shape[2], feats.shape[1])
@@ -115,20 +72,35 @@ class SexAnonymizationTraining(sb.core.Brain):
         if feats.shape[2]%4 != 0:
             feats = torch.nn.functional.pad(input=feats, pad=(0, 4-feats.shape[2]%4, 0, 0, 0, 0,), mode='constant', value=0)
 
+        utility_loss = 0.0
+        if self.hparams.utility_loss_weight > 0:
+            orig_enc_out, orig_prob = self.asr_brain.get_predictions(orig_feats, wav_lens, tokens_bos, batch, do_ctc=False)
+            recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1]), wav_lens, tokens_bos, batch, do_ctc=False)
+            utility_loss = self.hparams.loss_utility(recon_enc_out, orig_enc_out)
+
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech, feats)
         sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
-        mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch)
 
         loss = (
             self.hparams.recon_loss_weight * recon_loss
             + self.hparams.sex_loss_weight * sex_loss
-            + self.hparams.mi_loss_weight * mi_loss
+            + self.hparams.utility_loss_weight * utility_loss
         )
 
         if stage != sb.Stage.TRAIN:
             current_epoch = self.hparams.epoch_counter.current
             # compute the accuracy of the sex prediction
-            self.sex_classification_acc.append(sex_logits.unsqueeze(1), sex_label.unsqueeze(1), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
+            self.sex_classification_acc.append(sex_logits.unsqueeze(1), torch.tensor(sex_label).unsqueeze(1), torch.tensor([self.hparams.batch_size]).to(self.device))
+            
+            if stage == sb.Stage.VALID:
+                recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1]), wav_lens, tokens_bos, batch, do_ctc=False)
+                orig_enc_out, orig_prob = self.asr_brain.get_predictions(orig_feats, wav_lens, tokens_bos, batch, do_ctc=False)
+        
+                self.utility_similarity_aggregator.append(self.hparams.asr_similarity(recon_enc_out, orig_enc_out))
+
+            else:
+                ids, predicted_words, target_words = self.asr_brain.get_predictions(reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1]), wav_lens, tokens_bos, batch, do_ctc=True)
+                self.wer_metric.append(ids, predicted_words, target_words)
 
         return loss
 
@@ -167,6 +139,9 @@ class SexAnonymizationTraining(sb.core.Brain):
         """Gets called at the beginning of each epoch"""
         if stage != sb.Stage.TRAIN:
             self.sex_classification_acc = self.hparams.sex_classification_acc()
+            self.utility_similarity_aggregator = self.hparams.utility_similarity_aggregator()
+            if stage == sb.Stage.TEST:
+                self.wer_metric = self.hparams.error_rate_computer()
 
     def on_stage_end(self, stage, stage_loss, epoch):
         """Gets called at the end of a epoch."""
@@ -176,6 +151,9 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.train_stats = stage_stats
         else:
             stage_stats["ACC"] = self.sex_classification_acc.summarize()
+            stage_stats["Utility_Retention"] = self.utility_similarity_aggregator.summarize()
+            if stage == sb.Stage.TEST:
+                stage_stats["WER"] = self.wer_metric.summarize()
             current_epoch = self.hparams.epoch_counter.current
             
         # log stats and save checkpoint at end-of-epoch
@@ -204,8 +182,8 @@ class SexAnonymizationTraining(sb.core.Brain):
                 valid_stats=stage_stats,
             )
             self.checkpointer.save_and_keep_only(
-                meta={"ACC": stage_stats["ACC"], "epoch": epoch},
-                max_keys=["ACC"],
+                meta={"ACC": stage_stats["ACC"], "Utility_Retition": stage_stats["Utility_Retition"], "epoch": epoch},
+                max_keys=["ACC", "Utility_Retition"],
                 num_to_keep=5,
             )
 
@@ -214,8 +192,8 @@ class SexAnonymizationTraining(sb.core.Brain):
                 stats_meta={"Epoch loaded": self.hparams.epoch_counter.current},
                 test_stats=stage_stats,
             )
-            # with open(self.hparams.wer_file, "w") as w:
-            #     self.wer_metric.write_stats(w)
+            with open(self.hparams.wer_file, "w") as w:
+                self.wer_metric.write_stats(w)
 
             # save the averaged checkpoint at the end of the evaluation stage
             # delete the rest of the intermediate checkpoints
@@ -268,9 +246,32 @@ class SexAnonymizationTraining(sb.core.Brain):
                     device=torch.device(self.device)
                 )
 
+        hparams["pretrainer"].collect_files()
+        hparams["pretrainer"].load_collected(device=run_opts["device"])
+        self.asr_brain = ASR(
+            modules=hparams["asr_modules"],
+            opt_class=hparams["Adam"],
+            hparams=hparams,
+            run_opts=run_opts,
+            checkpointer=hparams["checkpointer"],
+        )
+        self.asr_brain.tokenizer = hparams["tokenizer"]
+        self.asr_brain.tokenizer.Load("pretrained_models/asr-transformer-transformerlm-librispeech/tokenizer.ckpt")
+
     def on_evaluate_start(self, max_key=None, min_key=None):
         """perform checkpoint averge if needed"""
         super().on_evaluate_start()
+        hparams["pretrainer"].collect_files()
+        hparams["pretrainer"].load_collected(device=run_opts["device"])
+        self.asr_brain = ASR(
+            modules=hparams["asr_modules"],
+            opt_class=hparams["Adam"],
+            hparams=hparams,
+            run_opts=run_opts,
+            checkpointer=hparams["checkpointer"],
+        )
+        self.asr_brain.tokenizer = hparams["tokenizer"]
+        self.asr_brain.tokenizer.Load("pretrained_models/asr-transformer-transformerlm-librispeech/tokenizer.ckpt")
 
         ckpts = self.checkpointer.find_checkpoints(
             max_key=max_key, min_key=min_key
@@ -377,13 +378,7 @@ def dataio_prepare(hparams):
     )
     return train_data, valid_data, test_datasets, tokenizer
 
-def class_balanced_sampler(classes, num_of_epochs):
-    classes_unique, counts = np.unique(classes, return_counts=True)
-    class_weights = [sum(counts) / c for c in counts]
-    example_weights = [class_weights[e] for e in classes]
-    return ReproducibleWeightedRandomSampler(
-        example_weights, epoch=num_of_epochs, replacement=False, num_samples=len(example_weights)
-    )
+
 if __name__ == "__main__":
     # CLI:
     hparams_file, run_opts, overrides = sb.parse_arguments(sys.argv[1:])
@@ -434,18 +429,13 @@ if __name__ == "__main__":
         run_opts=run_opts,
         checkpointer=hparams["checkpointer"],
     )
-    sa_brain.acc_metric = []
 
     model = model.to(sa_brain.device)
     sa_brain.modules['ConvAE'] = model
 
     hparams["model"].append(sa_brain.modules['ConvAE'])
 
-    if hparams["balanced_classes"]:
-        train_sampler = class_balanced_sampler(train_data.gender, hparams["number_of_epochs"])
-        hparams["train_dataloader_opts"]["sampler"] = train_sampler
-
-    # Training
+    #Training
     sa_brain.fit(
         sa_brain.hparams.epoch_counter,
         train_data,
@@ -462,5 +452,5 @@ if __name__ == "__main__":
         sa_brain.evaluate(
             test_datasets[k],
             max_key="ACC",
-            test_loader_kwargs=hparams["test_dataloader_opts"],
+            test_loader_kwargs=hparams["test_dataloader_opts"]
         )
