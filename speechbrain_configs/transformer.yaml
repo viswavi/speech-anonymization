@@ -10,7 +10,7 @@
 # Seed needs to be set at top of yaml, before objects with parameters are made
 seed: 8886
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
-output_folder: !ref results/transformer_60_epoch/<seed>
+output_folder: !ref /home/ubuntu/speech_anonymization/results/transformer/<seed>
 wer_file: !ref <output_folder>/wer.txt
 save_folder: !ref <output_folder>/save
 train_log: !ref <output_folder>/train_log.txt
@@ -24,7 +24,7 @@ train_log: !ref <output_folder>/train_log.txt
 pretrained_lm_tokenizer_path: speechbrain/asr-transformer-transformerlm-librispeech
 
 # Data files
-data_folder: /home/ec2-user/LibriSpeech
+data_folder: /home/ubuntu/LibriSpeech # e.g., /path/to/LibriSpeech
 # If RIRS_NOISES dir exists in /localscratch/xxx_corpus/RIRS_NOISES
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
@@ -33,9 +33,9 @@ train_splits: ["train-clean-100"]
 dev_splits: ["dev-clean"]
 test_splits: ["test-clean"]
 skip_prep: False
-train_csv: !ref <data_folder>/train-clean-100.csv
+train_csv: !ref <data_folder>/train.csv
 valid_csv: !ref <data_folder>/dev-clean.csv
-test_csv:
+test_csv: 
     - !ref <data_folder>/test-clean.csv
 ckpt_interval_minutes: 60 # save checkpoint every N min
 
@@ -46,7 +46,7 @@ ckpt_interval_minutes: 60 # save checkpoint every N min
 # Please, set your parameters accordingly.
 # number_of_epochs: 110
 # batch_size: 16 # This works for 2x GPUs with 32GB
-# ctc_weight: 0.3
+ctc_weight: 0.3
 # gradient_accumulation: 4
 # gradient_clipping: 5.0
 # loss_reduction: 'batchmean'
@@ -54,21 +54,24 @@ ckpt_interval_minutes: 60 # save checkpoint every N min
 
 ## PARAMS FOR CONVAUTOENCODER ##
 convae_feature_dim: 80
-number_of_epochs: 30
-batch_size: 1
+number_of_epochs: 110
+batch_size: 10
 recon_loss_weight: 0.4
-sex_loss_weight: 0.4
-mi_loss_weight: 0.2
-gradient_accumulation: 10
+sex_loss_weight: 0.3
+utility_loss_weight: 0.3
+gradient_accumulation: 1
 gradient_clipping: 5.0
 loss_reduction: 'batchmean'
 sorting: random
 sex_classification_acc: !name:speechbrain.utils.Accuracy.AccuracyStats
+utility_similarity: !name:torch.nn.CosineSimilarity
+    dim: -1
+    eps: 0.000001
+utility_similarity_aggregator: !name:utils.utility_similarity_aggregator.SimilarityMetricsStats
 loss_reconstruction: !new:torch.nn.L1Loss
     reduction: 'mean'
 loss_sex_classification: !new:torch.nn.NLLLoss
-loss_mutual_information: !new:mutual_information.MILoss
-balanced_classes: True
+loss_utility: !new:utils.cosine_similarity_loss.CosineSimilarityLoss
 
 # stages related parameters
 stage_one_epochs: 90
@@ -170,14 +173,19 @@ seq_lin: !new:speechbrain.nnet.linear.Linear
 
 modules:
     normalize: !ref <normalize>
-    # CNN: !ref <CNN>
-    # Transformer: !ref <Transformer>
-    # seq_lin: !ref <seq_lin>
-    # ctc_lin: !ref <ctc_lin>
 
 model: !new:torch.nn.ModuleList
     -[]
-    #- [!ref <CNN>, !ref <Transformer>, !ref <seq_lin>, !ref <ctc_lin>]
+
+asr_modules:
+    normalize: !ref <normalize>
+    CNN: !ref <CNN>
+    Transformer: !ref <Transformer>
+    seq_lin: !ref <seq_lin>
+    ctc_lin: !ref <ctc_lin>
+
+asr_model: !new:torch.nn.ModuleList
+    - [!ref <CNN>, !ref <Transformer>, !ref <seq_lin>, !ref <ctc_lin>]
 
 # define two optimizers here for two-stage training
 Adam: !name:torch.optim.Adam
@@ -282,10 +290,11 @@ acc_computer: !name:speechbrain.utils.Accuracy.AccuracyStats
 # and it will be loaded into "lm" which is pointing to the <lm_model> defined
 # before.
 pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
-    collect_in: !ref <save_folder>
     loadables:
         lm: !ref <lm_model>
         tokenizer: !ref <tokenizer>
+        asr_model: !ref <asr_model>
     paths:
+        asr_model: !ref <pretrained_lm_tokenizer_path>/asr.ckpt
         lm: !ref <pretrained_lm_tokenizer_path>/lm.ckpt
         tokenizer: !ref <pretrained_lm_tokenizer_path>/tokenizer.ckpt
