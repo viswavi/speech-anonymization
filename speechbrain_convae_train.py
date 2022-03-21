@@ -8,12 +8,14 @@ from pathlib import Path
 import speechbrain as sb
 from hyperpyyaml import load_hyperpyyaml
 from speechbrain.utils.distributed import run_on_main
+from speechbrain.utils.train_logger import TensorboardLogger
 from models.ConvAutoEncoder import ConvAutoencoder
 from models.SpeechBrain_ASR import ASR
 from speechbrain.pretrained import EncoderDecoderASR
 
 logger = logging.getLogger(__name__)
 
+import visualization
 sys.path.append("speechbrain/recipes/LibriSpeech")
 # 1.  # Dataset prep (parsing Librispeech)
 from librispeech_prepare import prepare_librispeech  # noqa
@@ -385,6 +387,8 @@ if __name__ == "__main__":
     with open(hparams_file) as fin:
         hparams = load_hyperpyyaml(fin, overrides)
 
+    tensorboard_logger = TensorboardLogger()
+
     # If distributed_launch=True then
     # create ddp_group with the right communication protocol
     sb.utils.distributed.ddp_init_group(run_opts)
@@ -452,5 +456,14 @@ if __name__ == "__main__":
         sa_brain.evaluate(
             test_datasets[k],
             max_key="ACC",
-            test_loader_kwargs=hparams["test_dataloader_opts"]
+            test_loader_kwargs=hparams["test_dataloader_opts"],
         )
+
+    recon_loss_averages = []
+    for epoch_losses in sa_brain.recon_loss:
+        epoch_loss_values = [v.item() for v in epoch_losses]
+        recon_loss_averages.append(sum(epoch_loss_values) / len(epoch_loss_values))
+    output_folder = hparams["output_folder"]
+    plot_path = os.path.join(output_folder, "learning_curve.png")
+    visualization.draw_lines(recon_loss_averages, "Epoch", "Avg. Recon. Loss", "Learning Curve", plot_path)
+    print(f"Wrote reconstruction error learning curve to {plot_path}")
