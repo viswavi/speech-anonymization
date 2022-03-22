@@ -43,4 +43,4 @@ class SimilarityMetricsStats(MetricStats):
             self.scores = torch.stack(self.scores)
 
         self.summary["average"] = torch.sum(self.scores)/self.scores.shape[0]
-        return self.summary
+        return self.summary["average"]

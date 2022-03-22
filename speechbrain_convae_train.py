@@ -1,3 +1,10 @@
+"""
+Running instructions:
+python speechbrain_convae_train.py \
+    speechbrain_configs/convae.yaml \
+    --device cpu
+"""
+
 #!/usr/bin/env python3
 
 import os
@@ -12,10 +19,11 @@ from speechbrain.utils.train_logger import TensorboardLogger
 from models.ConvAutoEncoder import ConvAutoencoder
 from models.SpeechBrain_ASR import ASR
 from speechbrain.pretrained import EncoderDecoderASR
+#import visualization
 
 logger = logging.getLogger(__name__)
 
-import visualization
+#import visualization
 sys.path.append("speechbrain/recipes/LibriSpeech")
 # 1.  # Dataset prep (parsing Librispeech)
 from librispeech_prepare import prepare_librispeech  # noqa
@@ -92,16 +100,22 @@ class SexAnonymizationTraining(sb.core.Brain):
         if stage != sb.Stage.TRAIN:
             current_epoch = self.hparams.epoch_counter.current
             # compute the accuracy of the sex prediction
-            self.sex_classification_acc.append(sex_logits.unsqueeze(1), torch.tensor(sex_label).unsqueeze(1), torch.tensor([self.hparams.batch_size]).to(self.device))
-            
+            self.sex_classification_acc.append(sex_logits.unsqueeze(1), sex_label.unsqueeze(1), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
+            self.recon_loss[-1].append(recon_loss)
+
             if stage == sb.Stage.VALID:
                 recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1]), wav_lens, tokens_bos, batch, do_ctc=False)
                 orig_enc_out, orig_prob = self.asr_brain.get_predictions(orig_feats, wav_lens, tokens_bos, batch, do_ctc=False)
         
-                self.utility_similarity_aggregator.append(self.hparams.asr_similarity(recon_enc_out, orig_enc_out))
+                cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
+                self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(self.hparams.batch_size, -1), orig_enc_out.view(self.hparams.batch_size, -1)))
 
             else:
                 ids, predicted_words, target_words = self.asr_brain.get_predictions(reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1]), wav_lens, tokens_bos, batch, do_ctc=True)
+                o_ids, o_predicted_words, o_target_words = self.asr_brain.get_predictions(orig_feats, wav_lens, tokens_bos, batch, do_ctc=True)
+                print(predicted_words)
+                print(target_words)
+                print(o_predicted_words)
                 self.wer_metric.append(ids, predicted_words, target_words)
 
         return loss
@@ -139,7 +153,12 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def on_stage_start(self, stage, epoch):
         """Gets called at the beginning of each epoch"""
+        print("starting of epoch "+str(self.hparams.epoch_counter.current))
         if stage != sb.Stage.TRAIN:
+            if not hasattr(self, "recon_loss"):
+                self.recon_loss = [[]]
+            else:
+                self.recon_loss.append([])
             self.sex_classification_acc = self.hparams.sex_classification_acc()
             self.utility_similarity_aggregator = self.hparams.utility_similarity_aggregator()
             if stage == sb.Stage.TEST:
@@ -154,6 +173,7 @@ class SexAnonymizationTraining(sb.core.Brain):
         else:
             stage_stats["ACC"] = self.sex_classification_acc.summarize()
             stage_stats["Utility_Retention"] = self.utility_similarity_aggregator.summarize()
+
             if stage == sb.Stage.TEST:
                 stage_stats["WER"] = self.wer_metric.summarize()
             current_epoch = self.hparams.epoch_counter.current
@@ -184,8 +204,8 @@ class SexAnonymizationTraining(sb.core.Brain):
                 valid_stats=stage_stats,
             )
             self.checkpointer.save_and_keep_only(
-                meta={"ACC": stage_stats["ACC"], "Utility_Retition": stage_stats["Utility_Retition"], "epoch": epoch},
-                max_keys=["ACC", "Utility_Retition"],
+                meta={"ACC": stage_stats["ACC"], "Utility_Retention": stage_stats["Utility_Retention"], "epoch": epoch},
+                max_keys=["ACC", "Utility_Retention"],
                 num_to_keep=5,
             )
 
@@ -387,7 +407,7 @@ if __name__ == "__main__":
     with open(hparams_file) as fin:
         hparams = load_hyperpyyaml(fin, overrides)
 
-    tensorboard_logger = TensorboardLogger()
+    #tensorboard_logger = TensorboardLogger()
 
     # If distributed_launch=True then
     # create ddp_group with the right communication protocol
@@ -418,6 +438,7 @@ if __name__ == "__main__":
     # here we create the datasets objects as well as tokenization and encoding
     train_data, valid_data, test_datasets, tokenizer = dataio_prepare(hparams)
 
+
     model = ConvAutoencoder(hparams["convae_feature_dim"])
 
     # We download the pretrained LM from HuggingFace (or elsewhere depending on
@@ -434,12 +455,18 @@ if __name__ == "__main__":
         checkpointer=hparams["checkpointer"],
     )
 
+    sa_brain.acc_metric = []
+
     model = model.to(sa_brain.device)
+    #model.load_state_dict(torch.load("model_checkpoints/initial_baseline_30_epochs/model.ckpt"))
+
     sa_brain.modules['ConvAE'] = model
 
     hparams["model"].append(sa_brain.modules['ConvAE'])
-
-    #Training
+    #hparams["model"].load_state_dict(torch.load("model_checkpoints/initial_baseline_30_epochs/model.ckpt"))
+    
+    print("done loading")
+    # Training
     sa_brain.fit(
         sa_brain.hparams.epoch_counter,
         train_data,
@@ -454,8 +481,8 @@ if __name__ == "__main__":
             hparams["output_folder"], "wer_{}.txt".format(k)
         )
         sa_brain.evaluate(
-            test_datasets[k],
-            max_key="ACC",
+            valid_data,
+            max_key="Utility_Retention",
             test_loader_kwargs=hparams["test_dataloader_opts"],
         )
 
