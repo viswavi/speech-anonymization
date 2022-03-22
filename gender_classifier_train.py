@@ -195,7 +195,7 @@ class GenderBrain(sb.Brain):
         else:
             stats = {
                 "loss": stage_loss,
-                "error": self.error_metrics.summarize("average"),
+                "error": self.error_metrics.summarize(threshold=0.5),
             }
 
         # At the end of validation...
