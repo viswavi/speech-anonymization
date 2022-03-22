@@ -134,14 +134,6 @@ class GenderBrain(sb.Brain):
         _, lens = batch.sig
         gender, _ = batch.gender_encoded
 
-        print("lens:")
-        print(lens)
-
-        print("gender:")
-        print(gender)
-        print("predictions:")
-        print(predictions)
-
         # Concatenate labels (due to data augmentation)
         if stage == sb.Stage.TRAIN and hasattr(self.modules, "env_corrupt"):
             gender = torch.cat([gender, gender], dim=0)
@@ -152,7 +144,7 @@ class GenderBrain(sb.Brain):
 
         # Append this batch of losses to the loss metric for easy
         self.loss_metric.append(
-            batch.id, predictions, gender, lens, reduction="batch"
+            batch.id, predictions, gender
         )
 
         # Compute classification error at test time
