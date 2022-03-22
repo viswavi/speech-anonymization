@@ -190,7 +190,7 @@ asr_model: !new:torch.nn.ModuleList
 
 # define two optimizers here for two-stage training
 Adam: !name:torch.optim.Adam
-    lr: 0
+    lr: 0.001
     betas: (0.9, 0.98)
     eps: 0.000000001
 
