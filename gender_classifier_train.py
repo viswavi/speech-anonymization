@@ -134,6 +134,14 @@ class GenderBrain(sb.Brain):
         _, lens = batch.sig
         gender, _ = batch.gender_encoded
 
+        print("lens:")
+        print(lens)
+
+        print("gender:")
+        print(gender)
+        print("predictions:")
+        print(predictions)
+
         # Concatenate labels (due to data augmentation)
         if stage == sb.Stage.TRAIN and hasattr(self.modules, "env_corrupt"):
             gender = torch.cat([gender, gender], dim=0)
