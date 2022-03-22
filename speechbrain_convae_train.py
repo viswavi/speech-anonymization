@@ -19,6 +19,7 @@ from speechbrain.utils.train_logger import TensorboardLogger
 from models.ConvAutoEncoder import ConvAutoencoder
 from models.SpeechBrain_ASR import ASR
 from speechbrain.pretrained import EncoderDecoderASR
+from mutual_information.MILoss import *
 #import visualization
 
 logger = logging.getLogger(__name__)
@@ -53,19 +54,27 @@ class SexAnonymizationTraining(sb.core.Brain):
         # need to swap to [ BATCH_SIZE x MFCC_FEATURE_DIM x NUM_TIMESTAMPS ]
         feats = feats.reshape(self.hparams.batch_size, feats.shape[2], feats.shape[1])
         # AE model expects %4 sized dimension for proper reconstruction 
+        have_padded = False
+        pad = 0
         if feats.shape[2]%4 != 0:
+            pad = 4-feats.shape[2]%4
             feats = torch.nn.functional.pad(input=feats, pad=(0, 4-feats.shape[2]%4, 0, 0, 0, 0,), mode='constant', value=0)
+            have_padded = True
 
         if stage == sb.Stage.TRAIN:
             if hasattr(self.hparams, "augmentation"):
                 feats = self.hparams.augmentation(feats)
 
         # forward pass through the model
-        return self.modules.ConvAE(feats)
+        return self.modules.ConvAE(feats), (have_padded, pad)
 
     def compute_objectives(self, predictions, batch, stage):
         """Forward computations from the waveform batches to the output probabilities."""
-        reconstructed_speech, sex_logits  = predictions
+        reconstructed_speech, sex_logits = predictions[0]
+        have_padded, pad = predictions[1]
+
+        if have_padded:
+            reconstructed_speech = reconstructed_speech[:, :, :-pad]
         batch = batch.to(sa_brain.device)
 
         sex_label = batch.gender
@@ -78,30 +87,29 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         # need to swap to [ BATCH_SIZE x MFCC_FEATURE_DIM x NUM_TIMESTAMPS ]
         feats = feats.reshape(self.hparams.batch_size, feats.shape[2], feats.shape[1])
-        # AE model expects %4 sized dimension for proper reconstruction 
-        if feats.shape[2]%4 != 0:
-            feats = torch.nn.functional.pad(input=feats, pad=(0, 4-feats.shape[2]%4, 0, 0, 0, 0,), mode='constant', value=0)
 
         utility_loss = 0.0
-        if self.hparams.utility_loss_weight > 0:
-            orig_enc_out, orig_prob = self.asr_brain.get_predictions(orig_feats, wav_lens, tokens_bos, batch, do_ctc=False)
-            recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1]), wav_lens, tokens_bos, batch, do_ctc=False)
-            utility_loss = self.hparams.loss_utility(recon_enc_out, orig_enc_out)
+        #if self.hparams.utility_loss_weight > 0:
+            #orig_enc_out, orig_prob = self.asr_brain.get_predictions(orig_feats, wav_lens, tokens_bos, batch, do_ctc=False)
+            #recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1]), wav_lens, tokens_bos, batch, do_ctc=False)
+            #utility_loss = self.hparams.loss_utility(recon_enc_out, orig_enc_out)
 
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech, feats)
         sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
+        mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch)
 
         loss = (
             self.hparams.recon_loss_weight * recon_loss
             + self.hparams.sex_loss_weight * sex_loss
-            + self.hparams.utility_loss_weight * utility_loss
+            #+ self.hparams.utility_loss_weight * utility_loss
+            + self.hparams.mi_loss_weight * mi_loss
         )
 
         if stage != sb.Stage.TRAIN:
             current_epoch = self.hparams.epoch_counter.current
             # compute the accuracy of the sex prediction
             self.sex_classification_acc.append(sex_logits.unsqueeze(1), sex_label.unsqueeze(1), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
-            self.recon_loss[-1].append(recon_loss)
+            #self.recon_loss[-1].append(recon_loss)
 
             if stage == sb.Stage.VALID:
                 recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1]), wav_lens, tokens_bos, batch, do_ctc=False)
@@ -153,7 +161,6 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def on_stage_start(self, stage, epoch):
         """Gets called at the beginning of each epoch"""
-        print("starting of epoch "+str(self.hparams.epoch_counter.current))
         if stage != sb.Stage.TRAIN:
             if not hasattr(self, "recon_loss"):
                 self.recon_loss = [[]]
@@ -174,8 +181,8 @@ class SexAnonymizationTraining(sb.core.Brain):
             stage_stats["ACC"] = self.sex_classification_acc.summarize()
             stage_stats["Utility_Retention"] = self.utility_similarity_aggregator.summarize()
 
-            if stage == sb.Stage.TEST:
-                stage_stats["WER"] = self.wer_metric.summarize()
+            # if stage == sb.Stage.TEST:
+            #     stage_stats["WER"] = self.wer_metric.summarize()
             current_epoch = self.hparams.epoch_counter.current
             
         # log stats and save checkpoint at end-of-epoch
@@ -204,8 +211,8 @@ class SexAnonymizationTraining(sb.core.Brain):
                 valid_stats=stage_stats,
             )
             self.checkpointer.save_and_keep_only(
-                meta={"ACC": stage_stats["ACC"], "Utility_Retention": stage_stats["Utility_Retention"], "epoch": epoch},
-                max_keys=["ACC", "Utility_Retention"],
+                meta={"ACC": stage_stats["ACC"], "epoch": epoch},
+                max_keys=["ACC"],
                 num_to_keep=5,
             )
 
@@ -214,8 +221,8 @@ class SexAnonymizationTraining(sb.core.Brain):
                 stats_meta={"Epoch loaded": self.hparams.epoch_counter.current},
                 test_stats=stage_stats,
             )
-            with open(self.hparams.wer_file, "w") as w:
-                self.wer_metric.write_stats(w)
+            # with open(self.hparams.wer_file, "w") as w:
+            #     self.wer_metric.write_stats(w)
 
             # save the averaged checkpoint at the end of the evaluation stage
             # delete the rest of the intermediate checkpoints
@@ -228,7 +235,6 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def check_and_reset_optimizer(self):
         """reset the optimizer if training enters stage 2"""
-        current_epoch = self.hparams.epoch_counter.current
         if not hasattr(self, "switched"):
             self.switched = False
             if isinstance(self.optimizer, torch.optim.SGD):
@@ -236,7 +242,7 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         if self.switched is True:
             return
-
+        current_epoch = self.hparams.epoch_counter.current
         if current_epoch > self.hparams.stage_one_epochs:
             self.optimizer = self.hparams.SGD(self.modules.parameters())
 
@@ -253,6 +259,7 @@ class SexAnonymizationTraining(sb.core.Brain):
         current_epoch = self.hparams.epoch_counter.current
         current_optimizer = self.optimizer
         if current_epoch > self.hparams.stage_one_epochs:
+            print("resetting")
             del self.optimizer
             self.optimizer = self.hparams.SGD(self.modules.parameters())
 
@@ -268,32 +275,9 @@ class SexAnonymizationTraining(sb.core.Brain):
                     device=torch.device(self.device)
                 )
 
-        hparams["pretrainer"].collect_files()
-        hparams["pretrainer"].load_collected(device=run_opts["device"])
-        self.asr_brain = ASR(
-            modules=hparams["asr_modules"],
-            opt_class=hparams["Adam"],
-            hparams=hparams,
-            run_opts=run_opts,
-            checkpointer=hparams["checkpointer"],
-        )
-        self.asr_brain.tokenizer = hparams["tokenizer"]
-        self.asr_brain.tokenizer.Load("pretrained_models/asr-transformer-transformerlm-librispeech/tokenizer.ckpt")
-
     def on_evaluate_start(self, max_key=None, min_key=None):
         """perform checkpoint averge if needed"""
         super().on_evaluate_start()
-        hparams["pretrainer"].collect_files()
-        hparams["pretrainer"].load_collected(device=run_opts["device"])
-        self.asr_brain = ASR(
-            modules=hparams["asr_modules"],
-            opt_class=hparams["Adam"],
-            hparams=hparams,
-            run_opts=run_opts,
-            checkpointer=hparams["checkpointer"],
-        )
-        self.asr_brain.tokenizer = hparams["tokenizer"]
-        self.asr_brain.tokenizer.Load("pretrained_models/asr-transformer-transformerlm-librispeech/tokenizer.ckpt")
 
         ckpts = self.checkpointer.find_checkpoints(
             max_key=max_key, min_key=min_key
@@ -458,13 +442,26 @@ if __name__ == "__main__":
     sa_brain.acc_metric = []
 
     model = model.to(sa_brain.device)
-    #model.load_state_dict(torch.load("model_checkpoints/initial_baseline_30_epochs/model.ckpt"))
 
     sa_brain.modules['ConvAE'] = model
 
     hparams["model"].append(sa_brain.modules['ConvAE'])
-    #hparams["model"].load_state_dict(torch.load("model_checkpoints/initial_baseline_30_epochs/model.ckpt"))
+
+    hparams["model"].load_state_dict(torch.load("model_checkpoints/initial_baseline_30_epochs/model.ckpt"))
     
+    hparams["pretrainer"].collect_files()
+    hparams["pretrainer"].load_collected(device=run_opts["device"])
+    sa_brain.asr_brain = ASR(
+        modules=hparams["asr_modules"],
+        hparams=hparams,
+        run_opts=run_opts,
+        )
+    sa_brain.asr_brain.tokenizer = hparams["tokenizer"]
+    sa_brain.asr_brain.tokenizer.Load("pretrained_models/asr-transformer-transformerlm-librispeech/tokenizer.ckpt")
+    hparams["asr_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/asr.ckpt"))
+    #hparams["normalize"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/normalizer.ckpt"))
+    hparams["lm_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/lm.ckpt"))
+
     print("done loading")
     # Training
     sa_brain.fit(
@@ -482,7 +479,7 @@ if __name__ == "__main__":
         )
         sa_brain.evaluate(
             valid_data,
-            max_key="Utility_Retention",
+            max_key="ACC",
             test_loader_kwargs=hparams["test_dataloader_opts"],
         )
 
