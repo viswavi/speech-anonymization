@@ -165,9 +165,7 @@ class GenderBrain(sb.Brain):
         """
 
         # Set up statistics trackers for this stage
-        self.loss_metric = sb.utils.metric_stats.MetricStats(
-            metric=sb.nnet.losses.nll_loss
-        )
+        self.loss_metric = self.hparams.error_stats()
 
         # Set up evaluation-only statistics trackers
         if stage != sb.Stage.TRAIN:
