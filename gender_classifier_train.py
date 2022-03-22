@@ -134,6 +134,8 @@ class GenderBrain(sb.Brain):
         _, lens = batch.sig
         gender, _ = batch.gender_encoded
 
+
+
         # Concatenate labels (due to data augmentation)
         if stage == sb.Stage.TRAIN and hasattr(self.modules, "env_corrupt"):
             gender = torch.cat([gender, gender], dim=0)
@@ -144,12 +146,12 @@ class GenderBrain(sb.Brain):
 
         # Append this batch of losses to the loss metric for easy
         self.loss_metric.append(
-            batch.id, predictions, gender
+            batch.id, predictions, gender, lens, reduction="batch"
         )
 
         # Compute classification error at test time
         if stage != sb.Stage.TRAIN:
-            self.error_metrics.append(batch.id, predictions, gender)
+            self.error_metrics.append(batch.id, predictions, gender, lens)
         return loss
 
     def on_stage_start(self, stage, epoch=None):
@@ -165,7 +167,9 @@ class GenderBrain(sb.Brain):
         """
 
         # Set up statistics trackers for this stage
-        self.loss_metric = self.hparams.error_stats()
+        self.loss_metric = sb.utils.metric_stats.MetricStats(
+            metric=sb.nnet.losses.nll_loss
+        )
 
         # Set up evaluation-only statistics trackers
         if stage != sb.Stage.TRAIN:
@@ -191,32 +195,32 @@ class GenderBrain(sb.Brain):
 
         # Summarize the statistics from the stage for record-keeping.
         else:
-            summary = self.valid_metrics.summarize(threshold=0.5)
+            stats = {
+                "loss": stage_loss,
+                "error": self.error_metrics.summarize("average"),
+            }
 
-        # At the end of validation...
-        if stage == sb.Stage.VALID:
-            old_lr, new_lr = self.hparams.lr_annealing(epoch)
-            sb.nnet.schedulers.update_learning_rate(self.optimizer, new_lr)
+            # At the end of validation...
+            if stage == sb.Stage.VALID:
+                old_lr, new_lr = self.hparams.lr_annealing(epoch)
+                sb.nnet.schedulers.update_learning_rate(self.optimizer, new_lr)
 
-            self.hparams.train_logger.log_stats(
-                stats_meta={"epoch": epoch, "lr": old_lr},
-                train_stats={"loss": self.train_loss},
-                valid_stats={"loss": stage_loss, "summary": summary},
-            )
-            self.checkpointer.save_and_keep_only(
-                meta={"loss": stage_loss, "summary": summary},
-                num_to_keep=1,
-                min_keys=["loss"],
-                name="epoch_{}".format(epoch),
-            )
+                # The train_logger writes a summary to stdout and to the logfile.
+                self.hparams.train_logger.log_stats(
+                    {"Epoch": epoch, "lr": old_lr},
+                    train_stats={"loss": self.train_loss},
+                    valid_stats=stats,
+                )
 
+                # Save the current checkpoint and delete previous checkpoints,
+                self.checkpointer.save_and_keep_only(meta=stats, min_keys=["error"])
 
-        # We also write statistics about test data to stdout and to the logfile.
-        if stage == sb.Stage.TEST:
-            self.hparams.train_logger.log_stats(
-                stats_meta={"Epoch loaded": self.hparams.epoch_counter.current},
-                test_stats={"loss": stage_loss, "summary": summary},
-            )
+            # We also write statistics about test data to stdout and to the logfile.
+            if stage == sb.Stage.TEST:
+                self.hparams.train_logger.log_stats(
+                    {"Epoch loaded": self.hparams.epoch_counter.current},
+                    test_stats=stats,
+                )
 
 def dataio_prepare(hparams):
     """This function prepares the datasets to be used in the brain class.
