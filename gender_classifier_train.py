@@ -149,8 +149,7 @@ class GenderBrain(sb.Brain):
 
         # Compute classification error at test time
         if stage != sb.Stage.TRAIN:
-            self.error_metrics.append(batch.id, predictions, gender, lens)
-
+            self.error_metrics.append(batch.id, predictions, gender)
         return loss
 
     def on_stage_start(self, stage, epoch=None):
