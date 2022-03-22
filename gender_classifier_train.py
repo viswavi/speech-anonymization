@@ -193,34 +193,32 @@ class GenderBrain(sb.Brain):
 
         # Summarize the statistics from the stage for record-keeping.
         else:
-            stats = {
-                "loss": stage_loss,
-                "error": self.error_metrics.summarize(threshold=0.5),
-            }
+            summary = self.valid_metrics.summarize(threshold=0.5)
 
         # At the end of validation...
         if stage == sb.Stage.VALID:
-
             old_lr, new_lr = self.hparams.lr_annealing(epoch)
             sb.nnet.schedulers.update_learning_rate(self.optimizer, new_lr)
 
-            # The train_logger writes a summary to stdout and to the logfile.
             self.hparams.train_logger.log_stats(
-                {"Epoch": epoch, "lr": old_lr},
+                stats_meta={"epoch": epoch, "lr": old_lr},
                 train_stats={"loss": self.train_loss},
-                valid_stats=stats,
+                valid_stats={"loss": stage_loss, "summary": summary},
+            )
+            self.checkpointer.save_and_keep_only(
+                meta={"loss": stage_loss, "summary": summary},
+                num_to_keep=1,
+                min_keys=["loss"],
+                name="epoch_{}".format(epoch),
             )
 
-            # Save the current checkpoint and delete previous checkpoints,
-            self.checkpointer.save_and_keep_only(meta=stats, min_keys=["error"])
 
         # We also write statistics about test data to stdout and to the logfile.
         if stage == sb.Stage.TEST:
             self.hparams.train_logger.log_stats(
-                {"Epoch loaded": self.hparams.epoch_counter.current},
-                test_stats=stats,
+                stats_meta={"Epoch loaded": self.hparams.epoch_counter.current},
+                test_stats={"loss": stage_loss, "summary": summary},
             )
-
 
 def dataio_prepare(hparams):
     """This function prepares the datasets to be used in the brain class.
