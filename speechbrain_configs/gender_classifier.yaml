@@ -7,7 +7,7 @@
 # #################################
 
 # Seed needs to be set at top of yaml, before objects with parameters are made
-seed: 1986
+seed: 1230
 __set_seed: !!python/object/apply:torch.manual_seed [!ref <seed>]
 
 # If you plan to train a system on an HPC cluster with a big dataset,
@@ -18,16 +18,28 @@ __set_seed: !!python/object/apply:torch.manual_seed [!ref <seed>]
 # 4- Set data_folder with the local path.
 # Reading data from the local disk of the compute node (e.g. $SLURM_TMPDIR with SLURM-based clusters) is very important.
 # It allows you to read the data much faster without slowing down the shared filesystem.
-data_folder: ./data
-output_folder: !ref ./results/gender/<seed>
+data_folder: ./data/LibriSpeech
+data_folder_rirs: !ref <data_folder>
+train_splits: ["train-clean-100"]
+dev_splits: ["dev-clean"]
+test_splits: ["test-clean"]
+skip_prep: False
+train_csv: !ref <data_folder>/train.csv
+valid_csv: !ref <data_folder>/dev-clean.csv
+test_csv:
+  - !ref <data_folder>/test-clean.csv
+
+sorting: random
+
+output_folder: !ref ./results/gender_classifier/<seed>
 save_folder: !ref <output_folder>/save
 train_log: !ref <output_folder>/train_log.txt
 
 # Path where data manifest files will be stored
 # The data manifest files are created by the data preparation script.
-train_annotation: train.json
-valid_annotation: valid.json
-test_annotation: test.json
+#train_annotation: train.json
+#valid_annotation: valid.json
+#test_annotation: test.json
 
 # The train logger writes training statistics to a file, as well as stdout.
 train_logger: !new:speechbrain.utils.train_logger.FileTrainLogger
@@ -80,7 +92,7 @@ mean_var_norm: !new:speechbrain.processing.features.InputNormalization
 # To design a custom model, either just edit the simple CustomModel
 # class that's listed here, or replace this `!new` call with a line
 # pointing to a different file you've defined.
-embedding_model: !new:custom_model.Xvector
+embedding_model: !new:models.external_gender_classifiers.Xvector
     in_channels: !ref <n_mels>
     activation: !name:torch.nn.LeakyReLU
     tdnn_blocks: 5
@@ -89,12 +101,14 @@ embedding_model: !new:custom_model.Xvector
     tdnn_dilations: [1, 2, 3, 1, 1]
     lin_neurons: !ref <emb_dim>
 
-classifier: !new:custom_model.Classifier
+classifier: !new:models.external_gender_classifiers.Classifier
     input_shape: [null, null, !ref <emb_dim>]
     activation: !name:torch.nn.LeakyReLU
     lin_blocks: 1
     lin_neurons: !ref <emb_dim>
     out_neurons: !ref <n_classes>
+
+label_encoder: !new:speechbrain.dataio.encoder.CategoricalEncoder
 
 # The first object passed to the Brain class is this "Epoch Counter"
 # which is saved by the Checkpointer so that training can be resumed
