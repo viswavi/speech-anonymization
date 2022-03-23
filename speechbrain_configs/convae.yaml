@@ -10,12 +10,15 @@
 # Seed needs to be set at top of yaml, before objects with parameters are made
 seed: 8886
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
-output_folder: !ref /home/ubuntu/speech-anonymization/results/transformer_recon0.4_gender0.4_mi0.2_60_epoch_adam_lr_1.0/<seed>
+folder: /home/ubuntu/speech-anonymization/results/
+output_folder: !ref <folder>/<seed>
 wer_file: !ref <output_folder>/wer.txt
 save_folder: !ref <output_folder>/save
 train_log: !ref <output_folder>/train_log.txt
 
 pretrained_folder: !ref /home/ubuntu/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
+
+model_type: convae
 
 # Language model (LM) pretraining
 # NB: To avoid mismatch, the speech recognizer must be trained with the same
@@ -35,10 +38,10 @@ train_splits: ["train-clean-100"]
 dev_splits: ["dev-clean"]
 test_splits: ["test-clean"]
 skip_prep: False
-train_csv: !ref <data_folder>/train.csv
+train_csv: !ref <data_folder>/train-2.csv
 valid_csv: !ref <data_folder>/dev-clean.csv
 test_csv: 
-    - !ref <data_folder>/test-clean.csv
+    - !ref <data_folder>/test-clean-10.csv
 ckpt_interval_minutes: 60 # save checkpoint every N min
 
 # Training parameters
@@ -56,12 +59,12 @@ ctc_weight: 0.3
 
 ## PARAMS FOR CONVAUTOENCODER ##
 convae_feature_dim: 80
-number_of_epochs: 20
+number_of_epochs: 30
 batch_size: 1
-recon_loss_weight: 4.0
-sex_loss_weight: 4.0
+recon_loss_weight: 1.0
+sex_loss_weight: 0.0
 utility_loss_weight: 0.0
-mi_loss_weight: 2.0
+mi_loss_weight: 0.0
 gradient_accumulation: 10
 gradient_clipping: 5.0
 loss_reduction: 'batchmean'
@@ -72,10 +75,10 @@ utility_similarity:
 utility_similarity_aggregator: !name:utils.utility_similarity_aggregator.SimilarityMetricsStats
 
 loss_reconstruction: !new:torch.nn.L1Loss
-    reduction: 'mean'
+    reduction: mean
 loss_sex_classification: !new:torch.nn.NLLLoss
 loss_utility: !new:utils.cosine_similarity_loss.CosineSimilarityLoss
-loss_mutual_information: !new:mutual_information.MILoss
+#loss_mutual_information: !new:mutual_information.MILoss
 
 # stages related parameters
 stage_one_epochs: 90

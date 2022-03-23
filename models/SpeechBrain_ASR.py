@@ -19,7 +19,7 @@ class ASR(sb.core.Brain):
         current_epoch = self.hparams.epoch_counter.current
 
         #current_epoch = self.hparams.epoch_counter.current
-        feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
+        # feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
 
         # forward modules
         src = self.modules.CNN(feats)
@@ -77,7 +77,7 @@ class ASR(sb.core.Brain):
         with torch.no_grad():
             predictions = self.compute_forward(feats, wav_lens, tokens_bos, batch, stage=stage, do_ctc=do_ctc)
             if do_ctc:
-                return self.compute_objectives(predictions, batch, stage=sb.Stage.TEST)
+                return predictions, self.compute_objectives(predictions, batch, stage=sb.Stage.TEST)
             return predictions
         
 
