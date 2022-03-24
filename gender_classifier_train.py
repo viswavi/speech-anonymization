@@ -132,8 +132,6 @@ class GenderBrain(sb.Brain):
         """
 
         _, lens = batch.sig
-
-
         gender, _ = batch.gender_encoded
         print("Gender in batch = ")
         print(gender)
@@ -203,27 +201,27 @@ class GenderBrain(sb.Brain):
                 "error": self.error_metrics.summarize("average"),
             }
 
-            # At the end of validation...
-            if stage == sb.Stage.VALID:
-                old_lr, new_lr = self.hparams.lr_annealing(epoch)
-                sb.nnet.schedulers.update_learning_rate(self.optimizer, new_lr)
+        # At the end of validation...
+        if stage == sb.Stage.VALID:
+            old_lr, new_lr = self.hparams.lr_annealing(epoch)
+            sb.nnet.schedulers.update_learning_rate(self.optimizer, new_lr)
 
-                # The train_logger writes a summary to stdout and to the logfile.
-                self.hparams.train_logger.log_stats(
-                    {"Epoch": epoch, "lr": old_lr},
-                    train_stats={"loss": self.train_loss},
-                    valid_stats=stats,
-                )
+            # The train_logger writes a summary to stdout and to the logfile.
+            self.hparams.train_logger.log_stats(
+                {"Epoch": epoch, "lr": old_lr},
+                train_stats={"loss": self.train_loss},
+                valid_stats=stats,
+            )
 
-                # Save the current checkpoint and delete previous checkpoints,
-                self.checkpointer.save_and_keep_only(meta=stats, min_keys=["error"])
+            # Save the current checkpoint and delete previous checkpoints,
+            self.checkpointer.save_and_keep_only(meta=stats, min_keys=["error"])
 
-            # We also write statistics about test data to stdout and to the logfile.
-            if stage == sb.Stage.TEST:
-                self.hparams.train_logger.log_stats(
-                    {"Epoch loaded": self.hparams.epoch_counter.current},
-                    test_stats=stats,
-                )
+        # We also write statistics about test data to stdout and to the logfile.
+        if stage == sb.Stage.TEST:
+            self.hparams.train_logger.log_stats(
+                {"Epoch loaded": self.hparams.epoch_counter.current},
+                test_stats=stats,
+            )
 
 def dataio_prepare(hparams):
     """This function prepares the datasets to be used in the brain class.
