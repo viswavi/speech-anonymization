@@ -149,7 +149,7 @@ class GenderBrain(sb.Brain):
 
         # Compute classification error at test time
         if stage != sb.Stage.TRAIN:
-            self.error_metrics.append(batch.id, predictions, gender)
+            self.error_metrics.append(batch.id, predictions, gender, lens)
         return loss
 
     def on_stage_start(self, stage, epoch=None):
@@ -200,7 +200,6 @@ class GenderBrain(sb.Brain):
 
         # At the end of validation...
         if stage == sb.Stage.VALID:
-
             old_lr, new_lr = self.hparams.lr_annealing(epoch)
             sb.nnet.schedulers.update_learning_rate(self.optimizer, new_lr)
 
@@ -220,7 +219,6 @@ class GenderBrain(sb.Brain):
                 {"Epoch loaded": self.hparams.epoch_counter.current},
                 test_stats=stats,
             )
-
 
 def dataio_prepare(hparams):
     """This function prepares the datasets to be used in the brain class.
