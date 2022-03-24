@@ -59,7 +59,7 @@ n_mels: 80
 # Training Parameters
 number_of_epochs: 35
 batch_size: 32
-lr_start: 1
+lr_start: 0.001
 lr_final: 0.0001
 n_classes: 2 # In this case, we have 2 classes as we are assuming a gender binary
 emb_dim: 512 # dimensionality of the embeddings
@@ -139,10 +139,16 @@ opt_class: !name:torch.optim.Adam
 # This function manages learning rate annealing over the epochs.
 # We here use the simple lr annealing method that linearly decreases
 # the lr from the initial value to the final one.
-lr_annealing: !new:speechbrain.nnet.schedulers.LinearScheduler
-    initial_value: !ref <lr_start>
-    final_value: !ref <lr_final>
-    epoch_count: !ref <number_of_epochs>
+#lr_annealing: !new:speechbrain.nnet.schedulers.LinearScheduler
+#    initial_value: !ref <lr_start>
+#    final_value: !ref <lr_final>
+#    epoch_count: !ref <number_of_epochs>
+
+
+lr_annealing: !new:speechbrain.nnet.schedulers.ReduceLROnPlateau
+    factor: 0.5
+    patience: 2
+    dont_halve_until_epoch: 5
 
 # This object is used for saving the state of training both so that it
 # can be resumed if it gets interrupted, and also so that the best checkpoint
