@@ -132,8 +132,11 @@ class GenderBrain(sb.Brain):
         """
 
         _, lens = batch.sig
-        gender, _ = batch.gender_encoded
 
+
+        gender, _ = batch.gender_encoded
+        print("Gender in batch = ")
+        print(gender)
 
 
         # Concatenate labels (due to data augmentation)
