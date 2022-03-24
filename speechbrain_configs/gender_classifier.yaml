@@ -59,7 +59,7 @@ n_mels: 80
 # Training Parameters
 number_of_epochs: 35
 batch_size: 32
-lr_start: 0.001
+lr_start: 1
 lr_final: 0.0001
 n_classes: 2 # In this case, we have 2 classes as we are assuming a gender binary
 emb_dim: 512 # dimensionality of the embeddings
