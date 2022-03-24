@@ -200,7 +200,7 @@ class GenderBrain(sb.Brain):
 
         # At the end of validation...
         if stage == sb.Stage.VALID:
-            old_lr, new_lr = self.hparams.lr_annealing(epoch)
+            old_lr, new_lr = self.hparams.lr_annealing([self.optimizer], epoch, stage_loss)
             sb.nnet.schedulers.update_learning_rate(self.optimizer, new_lr)
 
             # The train_logger writes a summary to stdout and to the logfile.
