@@ -19,7 +19,7 @@ class ASR(sb.core.Brain):
         current_epoch = self.hparams.epoch_counter.current
 
         #current_epoch = self.hparams.epoch_counter.current
-        # feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
+        #feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
 
         # forward modules
         src = self.modules.CNN(feats)

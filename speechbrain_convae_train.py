@@ -2,7 +2,9 @@
 Running instructions:
 python speechbrain_convae_train.py \
     speechbrain_configs/convae.yaml \
-    --device cpu
+    --device cpu \
+    --model_type [convae / fcae] \
+    --folder <path_to_output_dir>
 """
 
 #!/usr/bin/env python3
@@ -54,7 +56,7 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         # need to swap to [ BATCH_SIZE x MFCC_FEATURE_DIM x NUM_TIMESTAMPS ]
         if self.hparams.model_type == "convae":
-            feats = feats.reshape(self.hparams.batch_size, feats.shape[2], feats.shape[1])
+            feats = feats.reshape(feats.shape[0], feats.shape[2], feats.shape[1])
 
         # AE model expects %4 sized dimension for proper reconstruction 
         have_padded = False
@@ -93,7 +95,7 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         # need to swap to [ BATCH_SIZE x MFCC_FEATURE_DIM x NUM_TIMESTAMPS ]
         if self.hparams.model_type == "convae":
-            feats = feats.reshape(self.hparams.batch_size, feats.shape[2], feats.shape[1])
+            feats = feats.reshape(feats.shape[0], feats.shape[2], feats.shape[1])
 
         utility_loss = 0.0
         #if self.hparams.utility_loss_weight > 0:
@@ -120,14 +122,14 @@ class SexAnonymizationTraining(sb.core.Brain):
             #self.recon_loss[-1].append(recon_loss)
 
             if self.hparams.model_type == "convae":
-                    reconstructed_speech = reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1])
+                    reconstructed_speech = reconstructed_speech.reshape(reconstructed_speech.shape[0], reconstructed_speech.shape[2], reconstructed_speech.shape[1])
 
             if stage == sb.Stage.VALID:
                 recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=False)
                 orig_enc_out, orig_prob = self.asr_brain.get_predictions(orig_feats, wav_lens, tokens_bos, batch, do_ctc=False)
         
                 cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
-                self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(self.hparams.batch_size, -1), orig_enc_out.view(self.hparams.batch_size, -1)))
+                self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
 
             else:
                 enc_out, predictions = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=True)
@@ -144,7 +146,7 @@ class SexAnonymizationTraining(sb.core.Brain):
                 self.wer_metric.append(ids, predicted_words, target_words)
 
                 cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
-                self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(self.hparams.batch_size, -1), orig_enc_out.view(self.hparams.batch_size, -1)))
+                self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
 
         return loss
 

@@ -71,25 +71,51 @@ class ConvAutoencoder(nn.Module):
         self.encoder=nn.Sequential(
             nn.Conv1d(in_channels=self.mfcc_feature_dim, out_channels=128, kernel_size=15, stride=1, padding=7),
             GLU(),
+            #nn.Conv1d(in_channels=128, out_channels=128, kernel_size=5, stride=1, padding=2),
+            # nn.InstanceNorm1d(num_features=128, affine=True),
+            # GLU(),
+            # nn.Conv1d(in_channels=128, out_channels=128, kernel_size=5, stride=1, padding=2),
+            #nn.InstanceNorm1d(num_features=128, affine=True),
+            # GLU(),
             nn.Conv1d(in_channels=128, out_channels=256, kernel_size=5, stride=2, padding=2),
             nn.InstanceNorm1d(num_features=256, affine=True),
             GLU(),
+            # nn.Conv1d(in_channels=256, out_channels=256, kernel_size=5, stride=1, padding=2),
+            # nn.InstanceNorm1d(num_features=256, affine=True),
+            # GLU(),
+            # nn.Conv1d(in_channels=256, out_channels=256, kernel_size=5, stride=1, padding=2),
+            #nn.InstanceNorm1d(num_features=256, affine=True),
+            # GLU(),
             nn.Conv1d(in_channels=256, out_channels=512, kernel_size=5, stride=2, padding=2),
             nn.InstanceNorm1d(num_features=512, affine=True),
-            GLU()
+            GLU(),
+            # nn.Conv1d(in_channels=512, out_channels=512, kernel_size=5, stride=1, padding=2),
+            #nn.InstanceNorm1d(num_features=512, affine=True),
+            # GLU(),
+            # nn.Conv1d(in_channels=512, out_channels=512, kernel_size=5, stride=1, padding=2),
+            # nn.InstanceNorm1d(num_features=512, affine=True),
+            # GLU()
         )
 
         ## decoder layers ##
         self.decoder=nn.Sequential(
             nn.Conv1d(in_channels=512, out_channels=1024, kernel_size=5, stride=1, padding=2),
-            PixelShuffle(upscale_factor=2), 
+            #nn.Conv1d(in_channels=1024, out_channels=1024, kernel_size=5, stride=1, padding=2),
+            #nn.Conv1d(in_channels=1024, out_channels=1024, kernel_size=5, stride=1, padding=2),
+            #PixelShuffle(upscale_factor=2), 
+            nn.ConvTranspose1d(in_channels=1024, out_channels=1024 // 2, kernel_size=5, stride=2, padding=2, output_padding=1),
             nn.InstanceNorm1d(num_features=1024 // 2, affine=True),
             GLU(),
             nn.Conv1d(in_channels=1024 // 2, out_channels=512, kernel_size=5, stride=1, padding=2),
-            PixelShuffle(upscale_factor=2), 
+            #nn.Conv1d(in_channels=512, out_channels=512, kernel_size=5, stride=1, padding=2),
+            #nn.Conv1d(in_channels=512, out_channels=512, kernel_size=5, stride=1, padding=2),
+            #PixelShuffle(upscale_factor=2), 
+            nn.ConvTranspose1d(in_channels=512, out_channels=512 // 2, kernel_size=5, stride=2, padding=2, output_padding=1),
             nn.InstanceNorm1d(num_features=512 // 2, affine=True),
             GLU(),
-            nn.Conv1d(in_channels=512 // 2, out_channels=self.mfcc_feature_dim, kernel_size=15, stride=1, padding=7),
+            #nn.Conv1d(in_channels=512 // 2, out_channels=512 // 2, kernel_size=15, stride=1, padding=7),
+            #nn.Conv1d(in_channels=512 // 2, out_channels=512 // 2, kernel_size=15, stride=1, padding=7),
+            nn.Conv1d(in_channels=512 // 2, out_channels=self.mfcc_feature_dim, kernel_size=15, stride=1, padding=7)
         )
 
         ## Sex classifier: num_classes = 2 ##
@@ -99,7 +125,9 @@ class ConvAutoencoder(nn.Module):
     def forward(self, input):
         ## encode ##
         out = input
+        #print(input.shape)
         input = self.encoder(input)
+        #print(input.shape)
 
         ## statistics pooling ##
         mean = torch.mean(input, 2)
@@ -108,6 +136,70 @@ class ConvAutoencoder(nn.Module):
 
         ## sex classifier ##
         sex_classifier_logits = self.sex_classifier(stat_pooling)
+        
+        ## decode ##
+        input = self.decoder(input)
+        #print(input.shape)
+        ## return reconstructed speech feature for reconstruction loss, sex classification for cross entropy loss ##
+        return input, sex_classifier_logits
+
+
+# sanity check model
+
+class FullyConnSexClassifier(nn.Module):
+    def __init__(self, num_classes):
+        super(FullyConnSexClassifier, self).__init__()
+        self.fc1 = nn.Linear(40, 20)
+        self.fc2 = nn.Linear(20, num_classes)
+
+    def forward(self, input):
+        input = GradReverse.grad_reverse(input)
+        logits = F.relu(self.fc1(input))
+        logits = F.log_softmax(self.fc2(logits), 1)
+        return logits
+
+class FullyConnectedAutoencoder(nn.Module):
+    def __init__(self, mfcc_feature_dim, batch_size):
+        super(FullyConnectedAutoencoder, self).__init__()
+        
+        ## model parameters ##
+        self.mfcc_feature_dim = mfcc_feature_dim
+        self.batch_size = batch_size
+
+        ## encoder layers ##
+        self.encoder=nn.Sequential(
+            nn.Linear(in_features=self.mfcc_feature_dim, out_features=60),
+            nn.ReLU(),
+            nn.Linear(in_features=60, out_features=40),
+            nn.ReLU(),
+            nn.Linear(in_features=40, out_features=20)
+        )
+
+        ## decoder layers ##
+        self.decoder=nn.Sequential(
+            nn.Linear(in_features=20, out_features=40),
+            nn.ReLU(),
+            nn.Linear(in_features=40, out_features=60),
+            nn.ReLU(),
+            nn.Linear(in_features=60, out_features=80)
+        )
+
+        ## Sex classifier: num_classes = 2 ##
+        self.sex_classifier = FullyConnSexClassifier(2)
+
+    def forward(self, input):
+        ## encode ##
+        out = input
+        input = self.encoder(input)
+
+        ## statistics pooling ##
+        mean = torch.mean(input.reshape(input.shape[0], input.shape[2], input.shape[1]), 2)
+        std = torch.std(input.reshape(input.shape[0], input.shape[2], input.shape[1]), 2)
+        stat_pooling = torch.cat((mean, std), 1)
+
+        ## sex classifier ##
+        sex_classifier_logits = self.sex_classifier(stat_pooling)
+        #sex_classifier_logits = torch.rand((1,2)).to(torch.device("cuda"))
         
         ## decode ##
         input = self.decoder(input)
