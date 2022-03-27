@@ -45,10 +45,11 @@ import os
 import speechbrain as sb
 from pathlib import Path
 from hyperpyyaml import load_hyperpyyaml
-# from utils.mini_librispeech_prepare import prepare_mini_librispeech
-
+from speechbrain.utils.distributed import run_on_main
 sys.path.append("speechbrain/recipes/LibriSpeech")
 from librispeech_prepare import prepare_librispeech  # noqa
+
+
 
 # 1.  # Dataset prep (parsing Librispeech)
 
@@ -78,6 +79,8 @@ class GenderBrain(sb.Brain):
         # Compute features, embeddings, and predictions
         feats, lens = self.prepare_features(batch.sig, stage)
         embeddings = self.modules.embedding_model(feats, lens)
+        # embeddings = hparams["embedding_model"](feats, lens)
+
         predictions = self.modules.classifier(embeddings)
 
         return predictions
@@ -200,7 +203,7 @@ class GenderBrain(sb.Brain):
 
         # At the end of validation...
         if stage == sb.Stage.VALID:
-            old_lr, new_lr = self.hparams.lr_annealing(epoch)
+            old_lr, new_lr = self.hparams.lr_annealing([self.optimizer], epoch, stage_loss)
             sb.nnet.schedulers.update_learning_rate(self.optimizer, new_lr)
 
             # The train_logger writes a summary to stdout and to the logfile.
@@ -336,6 +339,14 @@ if __name__ == "__main__":
 
     # Create dataset objects "train", "valid", and "test".
     train_data, valid_data, test_datasets = dataio_prepare(hparams)
+
+    # TODO right place?
+    run_on_main(hparams["pretrainer"].collect_files)
+    hparams["pretrainer"].load_collected(device=(run_opts["device"]))
+    hparams["embedding_model"].eval()
+    hparams["embedding_model"].to(run_opts["device"])
+
+
 
     # Initialize the Brain object to prepare for mask training.
     gender_brain = GenderBrain(
