@@ -344,9 +344,9 @@ if __name__ == "__main__":
 
     # TODO right place?
     run_on_main(hparams["pretrainer"].collect_files)
-    hparams["pretrainer"].load_collected(device=(hparams["device"]))
+    hparams["pretrainer"].load_collected(device=(run_opts["device"]))
     hparams["embedding_model"].eval()
-    hparams["embedding_model"].to(hparams["device"])
+    hparams["embedding_model"].to(run_opts["device"])
 
 
 
