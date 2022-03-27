@@ -81,6 +81,7 @@ n_classes: 2 # In this case, we have 2 classes as we are assuming a gender binar
 emb_dim: 512 # dimensionality of the embeddings
 dataloader_options:
     batch_size: !ref <batch_size>
+    shuffle: True
 
 
 # Added noise and reverb come from OpenRIR dataset, automatically
@@ -161,7 +162,13 @@ opt_class: !name:torch.optim.Adam
 lr_annealing: !new:speechbrain.nnet.schedulers.ReduceLROnPlateau
     factor: 0.5
     patience: 2
-    dont_halve_until_epoch: 5
+    dont_halve_until_epoch: 2
+
+lr_sgd: 0.000025
+SGD: !name:torch.optim.SGD
+    lr: !ref <lr_sgd>
+    momentum: 0.99
+    nesterov: True
 
 # This object is used for saving the state of training both so that it
 # can be resumed if it gets interrupted, and also so that the best checkpoint

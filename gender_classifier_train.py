@@ -78,10 +78,8 @@ class GenderBrain(sb.Brain):
 
         # Compute features, embeddings, and predictions
         feats, lens = self.prepare_features(batch.sig, stage)
-
-
-        # embeddings = self.modules.embedding_model(feats, lens)
-        embeddings = hparams["embedding_model"](feats, lens)
+        embeddings = self.modules.embedding_model(feats, lens)
+        # embeddings = hparams["embedding_model"](feats, lens)
 
         predictions = self.modules.classifier(embeddings)
 
