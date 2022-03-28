@@ -53,8 +53,27 @@ ckpt_interval_minutes: 15 # save checkpoint every N min
 
 # Feature parameters
 sample_rate: 16000
+<<<<<<< HEAD
 n_fft: 400
 n_mels: 80
+=======
+n_mels: 24
+
+pretrain_path: speechbrain/spkrec-xvect-voxceleb
+mean_var_norm_emb: !new:speechbrain.processing.features.InputNormalization
+    norm_type: global
+    std_norm: False
+
+pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
+    collect_in: !ref <save_folder>
+    loadables:
+        embedding_model: !ref <embedding_model>
+        mean_var_norm_emb: !ref <mean_var_norm_emb>
+    paths:
+        embedding_model: !ref <pretrain_path>/embedding_model.ckpt
+        mean_var_norm_emb: !ref <pretrain_path>/mean_var_norm_emb.ckpt
+
+>>>>>>> b95f2375914afde637a6394836de7663f83988a9
 
 # Training Parameters
 number_of_epochs: 35
@@ -65,6 +84,7 @@ n_classes: 2 # In this case, we have 2 classes as we are assuming a gender binar
 emb_dim: 512 # dimensionality of the embeddings
 dataloader_options:
     batch_size: !ref <batch_size>
+    shuffle: True
 
 
 # Added noise and reverb come from OpenRIR dataset, automatically
@@ -86,7 +106,10 @@ augmentation: !new:speechbrain.lobes.augment.TimeDomainSpecAugment
 # Feature extraction
 compute_features: !new:speechbrain.lobes.features.Fbank
     sample_rate: !ref <sample_rate>
+<<<<<<< HEAD
     n_fft: !ref <n_fft>
+=======
+>>>>>>> b95f2375914afde637a6394836de7663f83988a9
     n_mels: !ref <n_mels>
 
 # Mean and std normalization of the input features
@@ -94,10 +117,8 @@ mean_var_norm: !new:speechbrain.processing.features.InputNormalization
     norm_type: sentence
     std_norm: False
 
-# To design a custom model, either just edit the simple CustomModel
-# class that's listed here, or replace this `!new` call with a line
-# pointing to a different file you've defined.
-embedding_model: !new:models.external_gender_classifiers.Xvector
+
+embedding_model: !new:speechbrain.lobes.models.Xvector.Xvector
     in_channels: !ref <n_mels>
     activation: !name:torch.nn.LeakyReLU
     tdnn_blocks: 5
@@ -106,7 +127,7 @@ embedding_model: !new:models.external_gender_classifiers.Xvector
     tdnn_dilations: [1, 2, 3, 1, 1]
     lin_neurons: !ref <emb_dim>
 
-classifier: !new:models.external_gender_classifiers.Classifier
+classifier: !new:speechbrain.lobes.models.Xvector.Classifier
     input_shape: [null, null, !ref <emb_dim>]
     activation: !name:torch.nn.LeakyReLU
     lin_blocks: 1
@@ -139,10 +160,22 @@ opt_class: !name:torch.optim.Adam
 # This function manages learning rate annealing over the epochs.
 # We here use the simple lr annealing method that linearly decreases
 # the lr from the initial value to the final one.
-lr_annealing: !new:speechbrain.nnet.schedulers.LinearScheduler
-    initial_value: !ref <lr_start>
-    final_value: !ref <lr_final>
-    epoch_count: !ref <number_of_epochs>
+#lr_annealing: !new:speechbrain.nnet.schedulers.LinearScheduler
+#    initial_value: !ref <lr_start>
+#    final_value: !ref <lr_final>
+#    epoch_count: !ref <number_of_epochs>
+
+
+lr_annealing: !new:speechbrain.nnet.schedulers.ReduceLROnPlateau
+    factor: 0.5
+    patience: 2
+    dont_halve_until_epoch: 2
+
+lr_sgd: 0.000025
+SGD: !name:torch.optim.SGD
+    lr: !ref <lr_sgd>
+    momentum: 0.99
+    nesterov: True
 
 # This object is used for saving the state of training both so that it
 # can be resumed if it gets interrupted, and also so that the best checkpoint
