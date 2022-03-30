@@ -20,7 +20,7 @@ import speechbrain as sb
 from hyperpyyaml import load_hyperpyyaml
 from speechbrain.utils.distributed import run_on_main
 from speechbrain.utils.train_logger import TensorboardLogger
-from models.ConvAutoEncoder import ConvAutoencoder, FullyConnectedAutoencoder
+from models.ConvAutoEncoder import ConvAutoencoder, FullyConnectedAutoencoder, SmallConvAutoencoder
 from models.SpeechBrain_ASR import ASR
 #from mutual_information.MILoss import *
 #import visualization
@@ -103,9 +103,15 @@ class SexAnonymizationTraining(sb.core.Brain):
             #recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1]), wav_lens, tokens_bos, batch, do_ctc=False)
             #utility_loss = self.hparams.loss_utility(recon_enc_out, orig_enc_out)
 
+        feats = feats.reshape(feats.shape[0], feats.shape[2], feats.shape[1])
+        reconstructed_speech = reconstructed_speech.reshape(reconstructed_speech.shape[0], reconstructed_speech.shape[2], reconstructed_speech.shape[1])
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech, feats)
+        feats = feats.reshape(feats.shape[0], feats.shape[2], feats.shape[1])
+        reconstructed_speech = reconstructed_speech.reshape(reconstructed_speech.shape[0], reconstructed_speech.shape[2], reconstructed_speech.shape[1])
+        
         #print(self.hparams.loss_reconstruction(reconstructed_speech, reconstructed_speech))
-        sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
+        #sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
+        sex_loss = 0.0
         #mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch)
 
         loss = (
@@ -140,9 +146,9 @@ class SexAnonymizationTraining(sb.core.Brain):
                 orig_enc_out, orig_prob, _, _, _, _, = enc_out
                 o_ids, o_predicted_words, o_target_words = predictions
                 
-                print(predicted_words)
-                print(target_words)
-                print(o_predicted_words)
+                # print(predicted_words)
+                # print(target_words)
+                # print(o_predicted_words)
                 self.wer_metric.append(ids, predicted_words, target_words)
 
                 cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
@@ -445,7 +451,8 @@ if __name__ == "__main__":
     train_data, valid_data, test_datasets, tokenizer = dataio_prepare(hparams)
 
     if hparams["model_type"] == "convae":
-        model = ConvAutoencoder(hparams["convae_feature_dim"])
+        #model = ConvAutoencoder(hparams["convae_feature_dim"])
+        model = SmallConvAutoencoder(hparams["convae_feature_dim"])
     else:
         model = FullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
 
