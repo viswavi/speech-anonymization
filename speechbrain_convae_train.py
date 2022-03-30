@@ -487,7 +487,7 @@ if __name__ == "__main__":
     hparams["lm_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/lm.ckpt"))
 
     print("done loading")
-    Training
+    #Training
     sa_brain.fit(
         sa_brain.hparams.epoch_counter,
         train_data,
