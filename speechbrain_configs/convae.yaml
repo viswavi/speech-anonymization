@@ -10,12 +10,15 @@
 # Seed needs to be set at top of yaml, before objects with parameters are made
 seed: 8886
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
-output_folder: !ref /home/ubuntu/speech-anonymization/results/transformer_60_epoch/<seed>
+folder: /home/ubuntu/speech-anonymization/results/
+output_folder: !ref <folder>/<seed>
 wer_file: !ref <output_folder>/wer.txt
 save_folder: !ref <output_folder>/save
 train_log: !ref <output_folder>/train_log.txt
 
 pretrained_folder: !ref /home/ubuntu/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
+
+model_type: convae
 
 # Language model (LM) pretraining
 # NB: To avoid mismatch, the speech recognizer must be trained with the same
@@ -26,19 +29,19 @@ pretrained_folder: !ref /home/ubuntu/speech-anonymization/model_checkpoints/init
 pretrained_lm_tokenizer_path: speechbrain/asr-transformer-transformerlm-librispeech
 
 # Data files
-data_folder: /home/ubuntu/LibriSpeech2/LibriSpeech # e.g., /path/to/LibriSpeech
+data_folder: /home/ubuntu/LibriSpeech # e.g., /path/to/LibriSpeech
 # If RIRS_NOISES dir exists in /localscratch/xxx_corpus/RIRS_NOISES
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
 data_folder_rirs: !ref <data_folder>
-train_splits: ["train-clean-100"]
-dev_splits: ["dev-clean"]
+train_splits: ["train"]
+dev_splits: ["dev-clean-100"]
 test_splits: ["test-clean"]
 skip_prep: False
 train_csv: !ref <data_folder>/train.csv
-valid_csv: !ref <data_folder>/dev-clean.csv
+valid_csv: !ref <data_folder>/dev-clean-100.csv
 test_csv: 
-    - !ref <data_folder>/test-clean.csv
+    - !ref <data_folder>/test-clean-10.csv
 ckpt_interval_minutes: 60 # save checkpoint every N min
 
 # Training parameters
@@ -56,23 +59,26 @@ ctc_weight: 0.3
 
 ## PARAMS FOR CONVAUTOENCODER ##
 convae_feature_dim: 80
-number_of_epochs: 60
-batch_size: 1
+number_of_epochs: 30
+batch_size: 10
 recon_loss_weight: 1.0
 sex_loss_weight: 0.0
 utility_loss_weight: 0.0
 mi_loss_weight: 0.0
-gradient_accumulation: 10
+gradient_accumulation: 1
 gradient_clipping: 5.0
 loss_reduction: 'batchmean'
 sorting: random
+
 sex_classification_acc: !name:speechbrain.utils.Accuracy.AccuracyStats
 utility_similarity: 
 utility_similarity_aggregator: !name:utils.utility_similarity_aggregator.SimilarityMetricsStats
+
 loss_reconstruction: !new:torch.nn.L1Loss
-    reduction: 'mean'
+    reduction: mean
 loss_sex_classification: !new:torch.nn.NLLLoss
 loss_utility: !new:utils.cosine_similarity_loss.CosineSimilarityLoss
+#loss_mutual_information: !new:mutual_information.MILoss
 
 # stages related parameters
 stage_one_epochs: 90
@@ -90,10 +96,10 @@ train_dataloader_opts:
     shuffle: True
 
 valid_dataloader_opts:
-    batch_size: 1
+    batch_size: !ref <batch_size>
 
 test_dataloader_opts:
-    batch_size: 1
+    batch_size: !ref <batch_size>
 
 ####################### Model parameters ###########################
 # Transformer
@@ -301,3 +307,4 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         lm: !ref <pretrained_lm_tokenizer_path>/lm.ckpt
         tokenizer: !ref <pretrained_lm_tokenizer_path>/tokenizer.ckpt
         normalize: !ref <pretrained_lm_tokenizer_path>/normalizer.ckpt
+

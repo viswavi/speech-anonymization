@@ -1,0 +1,511 @@
+%WER 5.22 [ 135 / 2587, 18 ins, 14 del, 103 sub ]
+%SER 62.00 [ 62 / 100 ]
+Scored 100 sentences, 0 not present in hyp.
+================================================================================
+ALIGNMENTS
+
+Format:
+<utterance-id>, WER DETAILS
+<eps> ; reference  ; on ; the ; first ;  line
+  I   ;     S      ; =  ;  =  ;   S   ;   D  
+ and  ; hypothesis ; on ; the ; third ; <eps>
+================================================================================
+2078-142845-0023, %WER 100.00 [ 2 / 2, 0 ins, 0 del, 2 sub ]
+HOT ; ROLLS
+ S  ;   S  
+ AT ;  ONCE
+================================================================================
+2412-153947-0012, %WER 60.00 [ 3 / 5, 1 ins, 0 del, 2 sub ]
+THERE ; WAS ; ALSO ; ANOTHER ; CAUSE ; <eps>
+  =   ;  =  ;  =   ;    S    ;   S   ;   I  
+THERE ; WAS ; ALSO ;    IN   ; EVERY ; PLACE
+================================================================================
+2078-142845-0003, %WER 0.00 [ 0 / 2, 0 ins, 0 del, 0 sub ]
+SEVENTEEN ; EIGHTEEN
+    =     ;    =    
+SEVENTEEN ; EIGHTEEN
+================================================================================
+2078-142845-0048, %WER 0.00 [ 0 / 3, 0 ins, 0 del, 0 sub ]
+SEVENTEEN ; THIRTY ; FOUR
+    =     ;   =    ;  =  
+SEVENTEEN ; THIRTY ; FOUR
+================================================================================
+2078-142845-0024, %WER 0.00 [ 0 / 3, 0 ins, 0 del, 0 sub ]
+SEVENTEEN ; TWENTY ; FOUR
+    =     ;   =    ;  =  
+SEVENTEEN ; TWENTY ; FOUR
+================================================================================
+2078-142845-0022, %WER 50.00 [ 1 / 2, 0 ins, 0 del, 1 sub ]
+EXCELLENT ; ROLLS
+    =     ;   S  
+EXCELLENT ;  ONES
+================================================================================
+2078-142845-0044, %WER 50.00 [ 1 / 2, 0 ins, 0 del, 1 sub ]
+ITALIAN ; RUSKS
+   =    ;   S  
+ITALIAN ; RASPS
+================================================================================
+2078-142845-0026, %WER 0.00 [ 0 / 4, 0 ins, 0 del, 0 sub ]
+TO ; MAKE ; DRY ; TOAST
+=  ;  =   ;  =  ;   =  
+TO ; MAKE ; DRY ; TOAST
+================================================================================
+2412-153947-0000, %WER 25.00 [ 1 / 4, 1 ins, 0 del, 0 sub ]
+PREFACE ; TO ; <eps> ; SECOND ; EDITION
+   =    ; =  ;   I   ;   =    ;    =   
+PREFACE ; TO ;  THE  ; SECOND ; EDITION
+================================================================================
+2412-153954-0023, %WER 0.00 [ 0 / 7, 0 ins, 0 del, 0 sub ]
+THIS ; HAD ; SOME ; EFFECT ; IN ; CALMING ; HIM
+ =   ;  =  ;  =   ;   =    ; =  ;    =    ;  = 
+THIS ; HAD ; SOME ; EFFECT ; IN ; CALMING ; HIM
+================================================================================
+2412-153954-0008, %WER 0.00 [ 0 / 9, 0 ins, 0 del, 0 sub ]
+THE ; MEN ; WERE ; AS ; HANDSOME ; AS ; THE ; WOMEN ; BEAUTIFUL
+ =  ;  =  ;  =   ; =  ;    =     ; =  ;  =  ;   =   ;     =    
+THE ; MEN ; WERE ; AS ; HANDSOME ; AS ; THE ; WOMEN ; BEAUTIFUL
+================================================================================
+2078-142845-0049, %WER 0.00 [ 0 / 2, 0 ins, 0 del, 0 sub ]
+ILLUSTRATION ; RUSKS
+     =       ;   =  
+ILLUSTRATION ; RUSKS
+================================================================================
+2412-153948-0010, %WER 0.00 [ 0 / 9, 0 ins, 0 del, 0 sub ]
+THE ; COUNTRY ; WAS ; THE ; GRANDEST ; THAT ; CAN ; BE ; IMAGINED
+ =  ;    =    ;  =  ;  =  ;    =     ;  =   ;  =  ; =  ;    =    
+THE ; COUNTRY ; WAS ; THE ; GRANDEST ; THAT ; CAN ; BE ; IMAGINED
+================================================================================
+2078-142845-0002, %WER 33.33 [ 2 / 6, 0 ins, 1 del, 1 sub ]
+TO ; MAKE ; GOOD ;  HOME  ;  MADE ; BREAD
+=  ;  =   ;  =   ;   S    ;   D   ;   =  
+TO ; MAKE ; GOOD ; HOMELY ; <eps> ; BREAD
+================================================================================
+2412-153948-0005, %WER 0.00 [ 0 / 11, 0 ins, 0 del, 0 sub ]
+I ; WAS ; DELIGHTED ; WITH ; THE ; COUNTRY ; AND ; THE ; MANNER ; OF ; LIFE
+= ;  =  ;     =     ;  =   ;  =  ;    =    ;  =  ;  =  ;   =    ; =  ;  =  
+I ; WAS ; DELIGHTED ; WITH ; THE ; COUNTRY ; AND ; THE ; MANNER ; OF ; LIFE
+================================================================================
+2412-153947-0001, %WER 22.22 [ 2 / 9, 0 ins, 1 del, 1 sub ]
+THIS ; IS ; A ; MISTAKE ; THOUGH ;   A   ; PERFECTLY ; NATURAL ; ONE
+ =   ; =  ; = ;    =    ;   S    ;   D   ;     =     ;    =    ;  = 
+THIS ; IS ; A ; MISTAKE ;  NOW   ; <eps> ; PERFECTLY ; NATURAL ; ONE
+================================================================================
+2078-142845-0009, %WER 33.33 [ 1 / 3, 1 ins, 0 del, 0 sub ]
+ILLUSTRATION ; ITALIAN ; <eps> ; MILLET
+     =       ;    =    ;   I   ;   =   
+ILLUSTRATION ; ITALIAN ;  AND  ; MILLET
+================================================================================
+2412-153948-0015, %WER 0.00 [ 0 / 13, 0 ins, 0 del, 0 sub ]
+I ; WOULD ; TRY ; THE ; NEARER ; RANGE ; AND ; SEE ; HOW ; FAR ; I ; COULD ; GO
+= ;   =   ;  =  ;  =  ;   =    ;   =   ;  =  ;  =  ;  =  ;  =  ; = ;   =   ; = 
+I ; WOULD ; TRY ; THE ; NEARER ; RANGE ; AND ; SEE ; HOW ; FAR ; I ; COULD ; GO
+================================================================================
+2412-153954-0022, %WER 0.00 [ 0 / 11, 0 ins, 0 del, 0 sub ]
+THE ; DESIGN ; WAS ; DIFFERENT ; BUT ; THE ; THING ; WAS ; CLEARLY ; THE ; SAME
+ =  ;   =    ;  =  ;     =     ;  =  ;  =  ;   =   ;  =  ;    =    ;  =  ;  =  
+THE ; DESIGN ; WAS ; DIFFERENT ; BUT ; THE ; THING ; WAS ; CLEARLY ; THE ; SAME
+================================================================================
+2412-153948-0002, %WER 54.55 [ 6 / 11, 0 ins, 0 del, 6 sub ]
+ NO ;   ONE   ; WHO ;   IS   ; HIMSELF ; HONEST ; WILL ; DOUBT ; MY ; BEING ; SO
+ S  ;    S    ;  S  ;   S    ;    S    ;   S    ;  =   ;   =   ; =  ;   =   ; = 
+NOW ; LETTING ; THE ; LIZARD ;  ITSELF ; ALWAYS ; WILL ; DOUBT ; MY ; BEING ; SO
+================================================================================
+2412-153954-0013, %WER 9.09 [ 1 / 11, 0 ins, 0 del, 1 sub ]
+I ; SAW ; A ; FEW ; SHEEP ; WITH ; ROUNDED ; NOSES ; AND ; ENORMOUS ; TAILS
+= ;  =  ; = ;  =  ;   =   ;  =   ;    S    ;   =   ;  =  ;    =     ;   =  
+I ; SAW ; A ; FEW ; SHEEP ; WITH ;  RAGGED ; NOSES ; AND ; ENORMOUS ; TAILS
+================================================================================
+2412-153954-0002, %WER 0.00 [ 0 / 10, 0 ins, 0 del, 0 sub ]
+THE ; STREETS ; WERE ; NARROW ; AND ; UNPAVED ; BUT ; VERY ; FAIRLY ; CLEAN
+ =  ;    =    ;  =   ;   =    ;  =  ;    =    ;  =  ;  =   ;   =    ;   =  
+THE ; STREETS ; WERE ; NARROW ; AND ; UNPAVED ; BUT ; VERY ; FAIRLY ; CLEAN
+================================================================================
+2412-153954-0024, %WER 7.69 [ 1 / 13, 0 ins, 0 del, 1 sub ]
+HE ; BEGAN ; PRESENTLY ; TO ; RELENT ; AND ; SPOKE ; TO ; ME ; IN ; A ; KINDER ; MANNER
+=  ;   =   ;     =     ; =  ;   =    ;  =  ;   =   ; =  ; =  ; =  ; = ;   S    ;   =   
+HE ; BEGAN ; PRESENTLY ; TO ; RELENT ; AND ; SPOKE ; TO ; ME ; IN ; A ; KINDLY ; MANNER
+================================================================================
+2078-142845-0035, %WER 28.57 [ 2 / 7, 0 ins, 0 del, 2 sub ]
+SUFFICIENT ;  ALLOW  ; TWO ; CRUMPETS ; TO ; EACH ; PERSON
+    =      ;    S    ;  =  ;    S     ; =  ;  =   ;   =   
+SUFFICIENT ; ALLOWED ; TWO ;  POUNDS  ; TO ; EACH ; PERSON
+================================================================================
+2078-142845-0042, %WER 20.00 [ 1 / 5, 0 ins, 0 del, 1 sub ]
+VICTORIA ;  BUNS ; SEVENTEEN ; THIRTY ; TWO
+   =     ;   S   ;     =     ;   =    ;  = 
+VICTORIA ; BONDS ; SEVENTEEN ; THIRTY ; TWO
+================================================================================
+2078-142845-0038, %WER 0.00 [ 0 / 12, 0 ins, 0 del, 0 sub ]
+FROM ; FIFTEEN ; TO ; TWENTY ; MINUTES ; WILL ; BE ; REQUIRED ; TO ; BAKE ; THEM ; NICELY
+ =   ;    =    ; =  ;   =    ;    =    ;  =   ; =  ;    =     ; =  ;  =   ;  =   ;   =   
+FROM ; FIFTEEN ; TO ; TWENTY ; MINUTES ; WILL ; BE ; REQUIRED ; TO ; BAKE ; THEM ; NICELY
+================================================================================
+2078-142845-0011, %WER 0.00 [ 0 / 10, 0 ins, 0 del, 0 sub ]
+IT ; WILL ; GROW ; ON ; POOR ; SOILS ; AND ; IS ; EXTREMELY ; PRODUCTIVE
+=  ;  =   ;  =   ; =  ;  =   ;   =   ;  =  ; =  ;     =     ;     =     
+IT ; WILL ; GROW ; ON ; POOR ; SOILS ; AND ; IS ; EXTREMELY ; PRODUCTIVE
+================================================================================
+2078-142845-0029, %WER 12.50 [ 1 / 8, 0 ins, 0 del, 1 sub ]
+TO ; MAKE ; HOT ; BUTTERED ; TOAST ; SEVENTEEN ; TWENTY ; SIX
+=  ;  =   ;  S  ;    =     ;   =   ;     =     ;   =    ;  = 
+TO ; MAKE ;  UP ; BUTTERED ; TOAST ; SEVENTEEN ; TWENTY ; SIX
+================================================================================
+2412-153947-0016, %WER 0.00 [ 0 / 17, 0 ins, 0 del, 0 sub ]
+THIS ; HOWEVER ; MAY ; NOT ; BE ; FOR ; THE ; COPYRIGHT ; WILL ; PROBABLY ; EXPIRE ; IN ; A ; LITTLE ; OVER ; TWELVE ; YEARS
+ =   ;    =    ;  =  ;  =  ; =  ;  =  ;  =  ;     =     ;  =   ;    =     ;   =    ; =  ; = ;   =    ;  =   ;   =    ;   =  
+THIS ; HOWEVER ; MAY ; NOT ; BE ; FOR ; THE ; COPYRIGHT ; WILL ; PROBABLY ; EXPIRE ; IN ; A ; LITTLE ; OVER ; TWELVE ; YEARS
+================================================================================
+2078-142845-0018, %WER 7.69 [ 1 / 13, 0 ins, 0 del, 1 sub ]
+IF ; CARRIED ; ANY ; DISTANCE ; IT ; SHOULD ; BE ; STORED ; AWAY ; IN ; AIR ; TIGHT ; VESSELS
+=  ;    =    ;  =  ;    =     ; =  ;   =    ; =  ;   S    ;  =   ; =  ;  =  ;   =   ;    =   
+IF ; CARRIED ; ANY ; DISTANCE ; IT ; SHOULD ; BE ; STOWED ; AWAY ; IN ; AIR ; TIGHT ; VESSELS
+================================================================================
+2078-142845-0046, %WER 0.00 [ 0 / 12, 0 ins, 0 del, 0 sub ]
+IT ; IS ; NOT ; CULTIVATED ; IN ; ENGLAND ; BEING ; PRINCIPALLY ; CONFINED ; TO ; THE ; EAST
+=  ; =  ;  =  ;     =      ; =  ;    =    ;   =   ;      =      ;    =     ; =  ;  =  ;  =  
+IT ; IS ; NOT ; CULTIVATED ; IN ; ENGLAND ; BEING ; PRINCIPALLY ; CONFINED ; TO ; THE ; EAST
+================================================================================
+2412-153948-0008, %WER 10.53 [ 2 / 19, 1 ins, 0 del, 1 sub ]
+IT ; IS ; SURPRISING ; HOW ; SOON ; THE ; EYE ; BECOMES ; ACCUSTOMED ; TO ; MISSING ; <eps> ; TWENTY ; SHEEP ; OUT ; OF ; TWO ; OR ; THREE ; HUNDRED
+=  ; =  ;     =      ;  =  ;  =   ;  =  ;  =  ;    =    ;     =      ; =  ;    S    ;   I   ;   =    ;   =   ;  =  ; =  ;  =  ; =  ;   =   ;    =   
+IT ; IS ; SURPRISING ; HOW ; SOON ; THE ; EYE ; BECOMES ; ACCUSTOMED ; TO ;    BE   ;  SEEN ; TWENTY ; SHEEP ; OUT ; OF ; TWO ; OR ; THREE ; HUNDRED
+================================================================================
+2412-153954-0005, %WER 0.00 [ 0 / 12, 0 ins, 0 del, 0 sub ]
+EACH ; FEATURE ; WAS ; FINISHED ; EYELIDS ; EYELASHES ; AND ; EARS ; BEING ; ALMOST ; INVARIABLY ; PERFECT
+ =   ;    =    ;  =  ;    =     ;    =    ;     =     ;  =  ;  =   ;   =   ;   =    ;     =      ;    =   
+EACH ; FEATURE ; WAS ; FINISHED ; EYELIDS ; EYELASHES ; AND ; EARS ; BEING ; ALMOST ; INVARIABLY ; PERFECT
+================================================================================
+2412-153954-0011, %WER 0.00 [ 0 / 16, 0 ins, 0 del, 0 sub ]
+I ; EXPRESSED ; BY ; SIGNS ; MY ; ADMIRATION ; AND ; PLEASURE ; TO ; MY ; GUIDES ; AND ; THEY ; WERE ; GREATLY ; PLEASED
+= ;     =     ; =  ;   =   ; =  ;     =      ;  =  ;    =     ; =  ; =  ;   =    ;  =  ;  =   ;  =   ;    =    ;    =   
+I ; EXPRESSED ; BY ; SIGNS ; MY ; ADMIRATION ; AND ; PLEASURE ; TO ; MY ; GUIDES ; AND ; THEY ; WERE ; GREATLY ; PLEASED
+================================================================================
+2412-153948-0009, %WER 4.76 [ 1 / 21, 0 ins, 0 del, 1 sub ]
+IT ; WAS ; A ; MONOTONOUS ; LIFE ; BUT ; IT ; WAS ; VERY ; HEALTHY ; AND ; ONE ; DOES ; NOT ; MUCH ; MIND ; ANYTHING ; WHEN ; ONE ; IS ; WELL
+=  ;  =  ; = ;     =      ;  =   ;  =  ; S  ;  =  ;  =   ;    =    ;  =  ;  =  ;  =   ;  =  ;  =   ;  =   ;    =     ;  =   ;  =  ; =  ;  =  
+IT ; WAS ; A ; MONOTONOUS ; LIFE ; BUT ; HE ; WAS ; VERY ; HEALTHY ; AND ; ONE ; DOES ; NOT ; MUCH ; MIND ; ANYTHING ; WHEN ; ONE ; IS ; WELL
+================================================================================
+2412-153954-0021, %WER 0.00 [ 0 / 22, 0 ins, 0 del, 0 sub ]
+WE ; PASSED ; MANY ; CASES ; AND ; AT ; LAST ; CAME ; TO ; ONE ; IN ; WHICH ; THERE ; WERE ; SEVERAL ; CLOCKS ; AND ; TWO ; OR ; THREE ; OLD ; WATCHES
+=  ;   =    ;  =   ;   =   ;  =  ; =  ;  =   ;  =   ; =  ;  =  ; =  ;   =   ;   =   ;  =   ;    =    ;   =    ;  =  ;  =  ; =  ;   =   ;  =  ;    =   
+WE ; PASSED ; MANY ; CASES ; AND ; AT ; LAST ; CAME ; TO ; ONE ; IN ; WHICH ; THERE ; WERE ; SEVERAL ; CLOCKS ; AND ; TWO ; OR ; THREE ; OLD ; WATCHES
+================================================================================
+2412-153948-0012, %WER 18.18 [ 4 / 22, 2 ins, 0 del, 2 sub ]
+EACH ; MUST ; CRY ; LOUDER ; AND ; WANDER ; FARTHER ; <eps> ; <eps> ; YET ; MAY ; LUCK ; BE ; WITH ; THEM ; BOTH ; THAT ; THEY ; MAY ; FIND ; THEIR ; OWN ; AT ; NIGHTFALL
+ =   ;  =   ;  =  ;   =    ;  =  ;   S    ;    S    ;   I   ;   I   ;  =  ;  =  ;  =   ; =  ;  =   ;  =   ;  =   ;  =   ;  =   ;  =  ;  =   ;   =   ;  =  ; =  ;     =    
+EACH ; MUST ; CRY ; LOUDER ; AND ;  WANT  ;    TO   ;  FIND ;  HER  ; YET ; MAY ; LUCK ; BE ; WITH ; THEM ; BOTH ; THAT ; THEY ; MAY ; FIND ; THEIR ; OWN ; AT ; NIGHTFALL
+================================================================================
+2412-153947-0002, %WER 5.00 [ 1 / 20, 0 ins, 0 del, 1 sub ]
+ON ; MY ; RETURN ; I ; PURPOSELY ; AVOIDED ; LOOKING ; INTO ; IT ; UNTIL ; I ; HAD ; SENT ; BACK ; MY ; LAST ; REVISES ; TO ; THE ; PRINTER
+=  ; =  ;   =    ; = ;     =     ;    =    ;    =    ;  =   ; =  ;   =   ; = ;  =  ;  =   ;  =   ; =  ;  =   ;    S    ; =  ;  =  ;    =   
+ON ; MY ; RETURN ; I ; PURPOSELY ; AVOIDED ; LOOKING ; INTO ; IT ; UNTIL ; I ; HAD ; SENT ; BACK ; MY ; LAST ;  LINES  ; TO ; THE ; PRINTER
+================================================================================
+2412-153954-0017, %WER 12.50 [ 3 / 24, 0 ins, 1 del, 2 sub ]
+THE ; OTHER ; LOOKED ; PALE ; AND ; ILL ; BUT ; HE ; WAS ; MARVELLOUSLY ; SELF ; CONTAINED ; AND ; IT ; WAS ; IMPOSSIBLE ; TO ; SAY ; WHAT ; WAS ; THE ; MATTER ; WITH ; HIM
+ S  ;   D   ;   =    ;  =   ;  =  ;  =  ;  =  ; =  ;  =  ;      S       ;  =   ;     =     ;  =  ; =  ;  =  ;     =      ; =  ;  =  ;  =   ;  =  ;  =  ;   =    ;  =   ;  = 
+ HE ; <eps> ; LOOKED ; PALE ; AND ; ILL ; BUT ; HE ; WAS ; MARVELOUSLY  ; SELF ; CONTAINED ; AND ; IT ; WAS ; IMPOSSIBLE ; TO ; SAY ; WHAT ; WAS ; THE ; MATTER ; WITH ; HIM
+================================================================================
+2078-142845-0045, %WER 11.76 [ 2 / 17, 0 ins, 0 del, 2 sub ]
+THEY ; SHOULD ; BE ; KEPT ; IN ; A ; CLOSED ; TIN ; CANISTER ; IN ; A ; DRY ; PLACE ; TO ; PRESERVE ; THEIR ; CRISPNESS
+ =   ;   =    ; =  ;  =   ; =  ; = ;   S    ;  =  ;    =     ; =  ; = ;  =  ;   =   ; =  ;    =     ;   =   ;     S    
+THEY ; SHOULD ; BE ; KEPT ; IN ; A ; CLOSE  ; TIN ; CANISTER ; IN ; A ; DRY ; PLACE ; TO ; PRESERVE ; THEIR ; CHRISTMAS
+================================================================================
+2412-153954-0019, %WER 3.45 [ 1 / 29, 0 ins, 0 del, 1 sub ]
+BUT ; BY ; AND ; BY ; THEY ; CAME ; TO ; MY ; WATCH ; WHICH ; I ; HAD ; HIDDEN ; AWAY ; IN ; THE ; INMOST ; POCKET ; THAT ; I ; HAD ; AND ; HAD ; FORGOTTEN ; WHEN ; THEY ; BEGAN ; THEIR ; SEARCH
+ =  ; =  ;  =  ; =  ;  =   ;  =   ; =  ; =  ;   =   ;   =   ; = ;  =  ;   =    ;  =   ; =  ;  =  ;   =    ;   S    ;  =   ; = ;  =  ;  =  ;  =  ;     =     ;  =   ;  =   ;   =   ;   =   ;   =   
+BUT ; BY ; AND ; BY ; THEY ; CAME ; TO ; MY ; WATCH ; WHICH ; I ; HAD ; HIDDEN ; AWAY ; IN ; THE ; INMOST ;  PART  ; THAT ; I ; HAD ; AND ; HAD ; FORGOTTEN ; WHEN ; THEY ; BEGAN ; THEIR ; SEARCH
+================================================================================
+2078-142845-0050, %WER 5.26 [ 1 / 19, 0 ins, 0 del, 1 sub ]
+MODE ; PUT ; THE ; MILK ; AND ; BUTTER ; INTO ; A ; SAUCEPAN ; AND ; KEEP ; SHAKING ; IT ; ROUND ; UNTIL ; THE ; LATTER ; IS ; MELTED
+ S   ;  =  ;  =  ;  =   ;  =  ;   =    ;  =   ; = ;    =     ;  =  ;  =   ;    =    ; =  ;   =   ;   =   ;  =  ;   =    ; =  ;   =   
+NOW  ; PUT ; THE ; MILK ; AND ; BUTTER ; INTO ; A ; SAUCEPAN ; AND ; KEEP ; SHAKING ; IT ; ROUND ; UNTIL ; THE ; LATTER ; IS ; MELTED
+================================================================================
+2412-153954-0010, %WER 4.00 [ 1 / 25, 0 ins, 0 del, 1 sub ]
+THE ; CHILDREN ; WERE ; INFINITE ; IN ; NUMBER ; AND ; EXCEEDINGLY ;  MERRY  ; I ; NEED ; HARDLY ; SAY ; THAT ; THEY ; CAME ; IN ; FOR ; THEIR ; FULL ; SHARE ; OF ; THE ; PREVAILING ; BEAUTY
+ =  ;    =     ;  =   ;    =     ; =  ;   =    ;  =  ;      =      ;    S    ; = ;  =   ;   =    ;  =  ;  =   ;  =   ;  =   ; =  ;  =  ;   =   ;  =   ;   =   ; =  ;  =  ;     =      ;   =   
+THE ; CHILDREN ; WERE ; INFINITE ; IN ; NUMBER ; AND ; EXCEEDINGLY ; MARRIED ; I ; NEED ; HARDLY ; SAY ; THAT ; THEY ; CAME ; IN ; FOR ; THEIR ; FULL ; SHARE ; OF ; THE ; PREVAILING ; BEAUTY
+================================================================================
+2412-153954-0020, %WER 0.00 [ 0 / 25, 0 ins, 0 del, 0 sub ]
+AGAIN ; THERE ; WAS ; A ; VERY ; OLD ; CARRIAGE ; WHOSE ; WHEELS ; IN ; SPITE ; OF ; RUST ; AND ; DECAY ; I ; COULD ; SEE ; HAD ; BEEN ; DESIGNED ; ORIGINALLY ; FOR ; IRON ; RAILS
+  =   ;   =   ;  =  ; = ;  =   ;  =  ;    =     ;   =   ;   =    ; =  ;   =   ; =  ;  =   ;  =  ;   =   ; = ;   =   ;  =  ;  =  ;  =   ;    =     ;     =      ;  =  ;  =   ;   =  
+AGAIN ; THERE ; WAS ; A ; VERY ; OLD ; CARRIAGE ; WHOSE ; WHEELS ; IN ; SPITE ; OF ; RUST ; AND ; DECAY ; I ; COULD ; SEE ; HAD ; BEEN ; DESIGNED ; ORIGINALLY ; FOR ; IRON ; RAILS
+================================================================================
+2412-153954-0012, %WER 0.00 [ 0 / 22, 0 ins, 0 del, 0 sub ]
+THE ; COUNTRY ; WAS ; HIGHLY ; CULTIVATED ; EVERY ; LEDGE ; BEING ; PLANTED ; WITH ; CHESTNUTS ; WALNUTS ; AND ; APPLE ; TREES ; FROM ; WHICH ; THE ; APPLES ; WERE ; NOW ; GATHERING
+ =  ;    =    ;  =  ;   =    ;     =      ;   =   ;   =   ;   =   ;    =    ;  =   ;     =     ;    =    ;  =  ;   =   ;   =   ;  =   ;   =   ;  =  ;   =    ;  =   ;  =  ;     =    
+THE ; COUNTRY ; WAS ; HIGHLY ; CULTIVATED ; EVERY ; LEDGE ; BEING ; PLANTED ; WITH ; CHESTNUTS ; WALNUTS ; AND ; APPLE ; TREES ; FROM ; WHICH ; THE ; APPLES ; WERE ; NOW ; GATHERING
+================================================================================
+2412-153954-0003, %WER 6.45 [ 2 / 31, 0 ins, 0 del, 2 sub ]
+THE ;  VINE  ; GREW ; OUTSIDE ; MANY ; OF ; THE ; HOUSES ; AND ; THERE ; WERE ; SOME ; WITH ; SIGN ; BOARDS ; ON ; WHICH ; WAS ; PAINTED ; A ; BOTTLE ; AND ; A ; GLASS ; THAT ; MADE ; ME ; FEEL ; MUCH ; AT ; HOME
+ =  ;   S    ;  S   ;    =    ;  =   ; =  ;  =  ;   =    ;  =  ;   =   ;  =   ;  =   ;  =   ;  =   ;   =    ; =  ;   =   ;  =  ;    =    ; = ;   =    ;  =  ; = ;   =   ;  =   ;  =   ; =  ;  =   ;  =   ; =  ;  =  
+THE ; LIGHTS ; WERE ; OUTSIDE ; MANY ; OF ; THE ; HOUSES ; AND ; THERE ; WERE ; SOME ; WITH ; SIGN ; BOARDS ; ON ; WHICH ; WAS ; PAINTED ; A ; BOTTLE ; AND ; A ; GLASS ; THAT ; MADE ; ME ; FEEL ; MUCH ; AT ; HOME
+================================================================================
+2078-142845-0014, %WER 5.88 [ 1 / 17, 0 ins, 0 del, 1 sub ]
+ANOTHER ; ADVANTAGE ; THE ; RED ; WHEATS ; POSSESS ; IS ; THEIR ; COMPARATIVE ; IMMUNITY ; FROM ; THE ; ATTACKS ; OF ; MILDEW ; AND ; FLY
+   =    ;     =     ;  =  ;  =  ;   S    ;    =    ; =  ;   =   ;      =      ;    =     ;  =   ;  =  ;    =    ; =  ;   =    ;  =  ;  = 
+ANOTHER ; ADVANTAGE ; THE ; RED ; WEEDS  ; POSSESS ; IS ; THEIR ; COMPARATIVE ; IMMUNITY ; FROM ; THE ; ATTACKS ; OF ; MILDEW ; AND ; FLY
+================================================================================
+2412-153947-0013, %WER 7.41 [ 2 / 27, 0 ins, 0 del, 2 sub ]
+THE ; FIRST ; EDITION ; OF ; EREWHON ; SOLD ; IN ; ABOUT ; THREE ; WEEKS ;  I  ; HAD ; NOT ; TAKEN ; MOULDS ; AND ; AS ; THE ; DEMAND ; WAS ; STRONG ; IT ; WAS ; SET ; UP ; AGAIN ; IMMEDIATELY
+ =  ;   =   ;    =    ; =  ;    =    ;  =   ; =  ;   =   ;   =   ;   =   ;  S  ;  =  ;  =  ;   =   ;   S    ;  =  ; =  ;  =  ;   =    ;  =  ;   =    ; =  ;  =  ;  =  ; =  ;   =   ;      =     
+THE ; FIRST ; EDITION ; OF ; EREWHON ; SOLD ; IN ; ABOUT ; THREE ; WEEKS ; BUT ; HAD ; NOT ; TAKEN ; MOLDS  ; AND ; AS ; THE ; DEMAND ; WAS ; STRONG ; IT ; WAS ; SET ; UP ; AGAIN ; IMMEDIATELY
+================================================================================
+2412-153954-0007, %WER 7.14 [ 2 / 28, 0 ins, 0 del, 2 sub ]
+EVEN ; IN ; MIDDLE ; AGE ; THEY ; WERE ; STILL ; COMELY ; AND ; THE ; OLD ; GREY ; HAIRED ; WOMEN ; AT ; THEIR ; COTTAGE ; DOORS ; HAD ; A ; DIGNITY ; NOT ; TO ; SAY ; MAJESTY ; OF ; THEIR ; OWN
+ =   ; =  ;   =    ;  =  ;  =   ;  =   ;   =   ;   =    ;  =  ;  =  ;  =  ;  S   ;   S    ;   =   ; =  ;   =   ;    =    ;   =   ;  =  ; = ;    =    ;  =  ; =  ;  =  ;    =    ; =  ;   =   ;  = 
+EVEN ; IN ; MIDDLE ; AGE ; THEY ; WERE ; STILL ; COMELY ; AND ; THE ; OLD ; RED  ; HEADED ; WOMEN ; AT ; THEIR ; COTTAGE ; DOORS ; HAD ; A ; DIGNITY ; NOT ; TO ; SAY ; MAJESTY ; OF ; THEIR ; OWN
+================================================================================
+2412-153954-0016, %WER 3.70 [ 1 / 27, 0 ins, 0 del, 1 sub ]
+IN ; FACT ; ONE ; OF ; THEM ; WAS ; PLAINLY ; VERY ; MUCH ; OUT ; OF ;  HEALTH ; AND ; COUGHED ; VIOLENTLY ; FROM ; TIME ; TO ; TIME ; IN ; SPITE ; OF ; MANIFEST ; EFFORTS ; TO ; SUPPRESS ; IT
+=  ;  =   ;  =  ; =  ;  =   ;  =  ;    =    ;  =   ;  =   ;  =  ; =  ;    S    ;  =  ;    =    ;     =     ;  =   ;  =   ; =  ;  =   ; =  ;   =   ; =  ;    =     ;    =    ; =  ;    =     ; = 
+IN ; FACT ; ONE ; OF ; THEM ; WAS ; PLAINLY ; VERY ; MUCH ; OUT ; OF ; SPIRITS ; AND ; COUGHED ; VIOLENTLY ; FROM ; TIME ; TO ; TIME ; IN ; SPITE ; OF ; MANIFEST ; EFFORTS ; TO ; SUPPRESS ; IT
+================================================================================
+2412-153948-0003, %WER 16.13 [ 5 / 31, 3 ins, 1 del, 1 sub ]
+I ; REACHED ; MY ; DESTINATION ; IN ; ONE ; OF ; THE ; LAST ; MONTHS ; OF ; EIGHTEEN ; SIXTY ; EIGHT ; BUT ; I ; DARE ; NOT ; MENTION ; THE ; SEASON ; LEST ; THE ; READER ; SHOULD ; GATHER ; IN ; WHICH ; HEMISPHERE ; I ; WAS  ; <eps> ; <eps> ; <eps>
+= ;    =    ; =  ;      =      ; =  ;  =  ; =  ;  =  ;  =   ;   =    ; =  ;    =     ;   =   ;   =   ;  =  ; = ;  =   ;  =  ;    =    ;  =  ;   =    ;  =   ;  =  ;   =    ;   =    ;   =    ; =  ;   =   ;     D      ; = ;  S   ;   I   ;   I   ;   I  
+I ; REACHED ; MY ; DESTINATION ; IN ; ONE ; OF ; THE ; LAST ; MONTHS ; OF ; EIGHTEEN ; SIXTY ; EIGHT ; BUT ; I ; DARE ; NOT ; MENTION ; THE ; SEASON ; LEST ; THE ; READER ; SHOULD ; GATHER ; IN ; WHICH ;   <eps>    ; I ; MUST ;   GO  ;   AT  ;  ONCE
+================================================================================
+2412-153948-0013, %WER 4.00 [ 1 / 25, 1 ins, 0 del, 0 sub ]
+I ; HAD ; NO ; MONEY ; BUT ; IF ; I ; COULD ; ONLY ; FIND ; <eps> ; WORKABLE ; COUNTRY ; I ; MIGHT ; STOCK ; IT ; WITH ; BORROWED ; CAPITAL ; AND ; CONSIDER ; MYSELF ; A ; MADE ; MAN
+= ;  =  ; =  ;   =   ;  =  ; =  ; = ;   =   ;  =   ;  =   ;   I   ;    =     ;    =    ; = ;   =   ;   =   ; =  ;  =   ;    =     ;    =    ;  =  ;    =     ;   =    ; = ;  =   ;  = 
+I ; HAD ; NO ; MONEY ; BUT ; IF ; I ; COULD ; ONLY ; FIND ;   A   ; WORKABLE ; COUNTRY ; I ; MIGHT ; STOCK ; IT ; WITH ; BORROWED ; CAPITAL ; AND ; CONSIDER ; MYSELF ; A ; MADE ; MAN
+================================================================================
+2412-153947-0004, %WER 0.00 [ 0 / 27, 0 ins, 0 del, 0 sub ]
+I ; REGRET ; THAT ; REVIEWERS ; HAVE ; IN ; SOME ; CASES ; BEEN ; INCLINED ; TO ; TREAT ; THE ; CHAPTERS ; ON ; MACHINES ; AS ; AN ; ATTEMPT ; TO ; REDUCE ; MISTER ; DARWIN'S ; THEORY ; TO ; AN ; ABSURDITY
+= ;   =    ;  =   ;     =     ;  =   ; =  ;  =   ;   =   ;  =   ;    =     ; =  ;   =   ;  =  ;    =     ; =  ;    =     ; =  ; =  ;    =    ; =  ;   =    ;   =    ;    =     ;   =    ; =  ; =  ;     =    
+I ; REGRET ; THAT ; REVIEWERS ; HAVE ; IN ; SOME ; CASES ; BEEN ; INCLINED ; TO ; TREAT ; THE ; CHAPTERS ; ON ; MACHINES ; AS ; AN ; ATTEMPT ; TO ; REDUCE ; MISTER ; DARWIN'S ; THEORY ; TO ; AN ; ABSURDITY
+================================================================================
+2412-153947-0009, %WER 0.00 [ 0 / 26, 0 ins, 0 del, 0 sub ]
+I ; ALSO ; WROTE ; ABOUT ; THIS ; TIME ; THE ; SUBSTANCE ; OF ; WHAT ; ULTIMATELY ; BECAME ; THE ; MUSICAL ; BANKS ; AND ; THE ; TRIAL ; OF ; A ; MAN ; FOR ; BEING ; IN ; A ; CONSUMPTION
+= ;  =   ;   =   ;   =   ;  =   ;  =   ;  =  ;     =     ; =  ;  =   ;     =      ;   =    ;  =  ;    =    ;   =   ;  =  ;  =  ;   =   ; =  ; = ;  =  ;  =  ;   =   ; =  ; = ;      =     
+I ; ALSO ; WROTE ; ABOUT ; THIS ; TIME ; THE ; SUBSTANCE ; OF ; WHAT ; ULTIMATELY ; BECAME ; THE ; MUSICAL ; BANKS ; AND ; THE ; TRIAL ; OF ; A ; MAN ; FOR ; BEING ; IN ; A ; CONSUMPTION
+================================================================================
+2078-142845-0027, %WER 5.26 [ 1 / 19, 1 ins, 0 del, 0 sub ]
+NEVER ; USE ; <eps> ; NEW ; BREAD ; FOR ; MAKING ; ANY ; KIND ; OF ; TOAST ; AS ; IT ; EATS ; HEAVY ; AND ; BESIDES ; IS ; VERY ; EXTRAVAGANT
+  =   ;  =  ;   I   ;  =  ;   =   ;  =  ;   =    ;  =  ;  =   ; =  ;   =   ; =  ; =  ;  =   ;   =   ;  =  ;    =    ; =  ;  =   ;      =     
+NEVER ; USE ;   A   ; NEW ; BREAD ; FOR ; MAKING ; ANY ; KIND ; OF ; TOAST ; AS ; IT ; EATS ; HEAVY ; AND ; BESIDES ; IS ; VERY ; EXTRAVAGANT
+================================================================================
+2412-153947-0007, %WER 0.00 [ 0 / 29, 0 ins, 0 del, 0 sub ]
+I ; MUST ; NOT ; CONCLUDE ; WITHOUT ; EXPRESSING ; MY ; MOST ; SINCERE ; THANKS ; TO ; MY ; CRITICS ; AND ; TO ; THE ; PUBLIC ; FOR ; THE ; LENIENCY ; AND ; CONSIDERATION ; WITH ; WHICH ; THEY ; HAVE ; TREATED ; MY ; ADVENTURES
+= ;  =   ;  =  ;    =     ;    =    ;     =      ; =  ;  =   ;    =    ;   =    ; =  ; =  ;    =    ;  =  ; =  ;  =  ;   =    ;  =  ;  =  ;    =     ;  =  ;       =       ;  =   ;   =   ;  =   ;  =   ;    =    ; =  ;     =     
+I ; MUST ; NOT ; CONCLUDE ; WITHOUT ; EXPRESSING ; MY ; MOST ; SINCERE ; THANKS ; TO ; MY ; CRITICS ; AND ; TO ; THE ; PUBLIC ; FOR ; THE ; LENIENCY ; AND ; CONSIDERATION ; WITH ; WHICH ; THEY ; HAVE ; TREATED ; MY ; ADVENTURES
+================================================================================
+2412-153948-0007, %WER 0.00 [ 0 / 34, 0 ins, 0 del, 0 sub ]
+THERE ; WERE ; A ; GOOD ; MANY ; SHEEP ; WHICH ; I ; KNEW ; AS ; TWO ; OR ; THREE ; BLACK ; EWES ; AND ; A ; BLACK ; LAMB ; OR ; TWO ; AND ; SEVERAL ; OTHERS ; WHICH ; HAD ; SOME ; DISTINGUISHING ; MARK ; WHEREBY ; I ; COULD ; TELL ; THEM
+  =   ;  =   ; = ;  =   ;  =   ;   =   ;   =   ; = ;  =   ; =  ;  =  ; =  ;   =   ;   =   ;  =   ;  =  ; = ;   =   ;  =   ; =  ;  =  ;  =  ;    =    ;   =    ;   =   ;  =  ;  =   ;       =        ;  =   ;    =    ; = ;   =   ;  =   ;  =  
+THERE ; WERE ; A ; GOOD ; MANY ; SHEEP ; WHICH ; I ; KNEW ; AS ; TWO ; OR ; THREE ; BLACK ; EWES ; AND ; A ; BLACK ; LAMB ; OR ; TWO ; AND ; SEVERAL ; OTHERS ; WHICH ; HAD ; SOME ; DISTINGUISHING ; MARK ; WHEREBY ; I ; COULD ; TELL ; THEM
+================================================================================
+2078-142845-0019, %WER 0.00 [ 0 / 20, 0 ins, 0 del, 0 sub ]
+SOME ; OF ; THE ; PREPARATIONS ; OF ; MAIZE ; FLOUR ; ARE ; VERY ; GOOD ; AND ; WHEN ; PARTAKEN ; IN ; MODERATION ; SUITABLE ; FOOD ; FOR ; ALMOST ; EVERYBODY
+ =   ; =  ;  =  ;      =       ; =  ;   =   ;   =   ;  =  ;  =   ;  =   ;  =  ;  =   ;    =     ; =  ;     =      ;    =     ;  =   ;  =  ;   =    ;     =    
+SOME ; OF ; THE ; PREPARATIONS ; OF ; MAIZE ; FLOUR ; ARE ; VERY ; GOOD ; AND ; WHEN ; PARTAKEN ; IN ; MODERATION ; SUITABLE ; FOOD ; FOR ; ALMOST ; EVERYBODY
+================================================================================
+2412-153947-0003, %WER 3.12 [ 1 / 32, 0 ins, 0 del, 1 sub ]
+THEN ; I ; HAD ; MUCH ; PLEASURE ; IN ; READING ; IT ; BUT ; WAS ; INDEED ; SURPRISED ; AT ; THE ; MANY ; LITTLE ; POINTS ; OF ; SIMILARITY ; BETWEEN ; THE ; TWO ; BOOKS ; IN ; SPITE ; OF ; THEIR ; ENTIRE ; INDEPENDENCE ; TO ; ONE ; ANOTHER
+ S   ; = ;  =  ;  =   ;    =     ; =  ;    =    ; =  ;  =  ;  =  ;   =    ;     =     ; =  ;  =  ;  =   ;   =    ;   =    ; =  ;     =      ;    =    ;  =  ;  =  ;   =   ; =  ;   =   ; =  ;   =   ;   =    ;      =       ; =  ;  =  ;    =   
+NOW  ; I ; HAD ; MUCH ; PLEASURE ; IN ; READING ; IT ; BUT ; WAS ; INDEED ; SURPRISED ; AT ; THE ; MANY ; LITTLE ; POINTS ; OF ; SIMILARITY ; BETWEEN ; THE ; TWO ; BOOKS ; IN ; SPITE ; OF ; THEIR ; ENTIRE ; INDEPENDENCE ; TO ; ONE ; ANOTHER
+================================================================================
+2412-153948-0014, %WER 0.00 [ 0 / 38, 0 ins, 0 del, 0 sub ]
+THERE ; WAS ; NO ; ONE ; IN ; THE ; WHOLE ; WORLD ; WHO ; HAD ; THE ; SMALLEST ; IDEA ; SAVE ; THOSE ; WHO ; WERE ; THEMSELVES ; ON ; THE ; OTHER ; SIDE ; OF ; IT ; IF ; INDEED ; THERE ; WAS ; ANY ; ONE ; AT ; ALL ; COULD ; I ; HOPE ; TO ; CROSS ; IT
+  =   ;  =  ; =  ;  =  ; =  ;  =  ;   =   ;   =   ;  =  ;  =  ;  =  ;    =     ;  =   ;  =   ;   =   ;  =  ;  =   ;     =      ; =  ;  =  ;   =   ;  =   ; =  ; =  ; =  ;   =    ;   =   ;  =  ;  =  ;  =  ; =  ;  =  ;   =   ; = ;  =   ; =  ;   =   ; = 
+THERE ; WAS ; NO ; ONE ; IN ; THE ; WHOLE ; WORLD ; WHO ; HAD ; THE ; SMALLEST ; IDEA ; SAVE ; THOSE ; WHO ; WERE ; THEMSELVES ; ON ; THE ; OTHER ; SIDE ; OF ; IT ; IF ; INDEED ; THERE ; WAS ; ANY ; ONE ; AT ; ALL ; COULD ; I ; HOPE ; TO ; CROSS ; IT
+================================================================================
+2412-153948-0011, %WER 6.67 [ 2 / 30, 0 ins, 0 del, 2 sub ]
+SO ; LONELY ; AND ; SO ; SOLEMN ; WITH ; THE ; SAD ; GREY ; CLOUDS ; ABOVE ; AND ; NO ; SOUND ; SAVE ; A ; LOST ; LAMB ; BLEATING ; UPON ; THE ; MOUNTAIN ; SIDE ; AS ; THOUGH ; ITS ; LITTLE ; HEART ; WERE ; BREAKING
+=  ;   =    ;  =  ; =  ;   =    ;  =   ;  =  ;  =  ;  S   ;   =    ;   =   ;  =  ; =  ;   =   ;  =   ; = ;  =   ;  =   ;    S     ;  =   ;  =  ;    =     ;  =   ; =  ;   =    ;  =  ;   =    ;   =   ;  =   ;    =    
+SO ; LONELY ; AND ; SO ; SOLEMN ; WITH ; THE ; SAD ; GRAY ; CLOUDS ; ABOVE ; AND ; NO ; SOUND ; SAVE ; A ; LOST ; LAMB ; BLEEDING ; UPON ; THE ; MOUNTAIN ; SIDE ; AS ; THOUGH ; ITS ; LITTLE ; HEART ; WERE ; BREAKING
+================================================================================
+2412-153954-0001, %WER 3.23 [ 1 / 31, 0 ins, 0 del, 1 sub ]
+MY ; GUIDES ; HOWEVER ; WERE ; WELL ; KNOWN ; AND ; THE ; NATURAL ; POLITENESS ; OF ; THE ; PEOPLE ; PREVENTED ; THEM ; FROM ; PUTTING ; ME ; TO ; ANY ; INCONVENIENCE ; BUT ; THEY ; COULD ; NOT ; HELP ; EYEING ; ME ; NOR ; I ; THEM
+=  ;   =    ;    =    ;  =   ;  S   ;   =   ;  =  ;  =  ;    =    ;     =      ; =  ;  =  ;   =    ;     =     ;  =   ;  =   ;    =    ; =  ; =  ;  =  ;       =       ;  =  ;  =   ;   =   ;  =  ;  =   ;   =    ; =  ;  =  ; = ;  =  
+MY ; GUIDES ; HOWEVER ; WERE ; LONG ; KNOWN ; AND ; THE ; NATURAL ; POLITENESS ; OF ; THE ; PEOPLE ; PREVENTED ; THEM ; FROM ; PUTTING ; ME ; TO ; ANY ; INCONVENIENCE ; BUT ; THEY ; COULD ; NOT ; HELP ; EYEING ; ME ; NOR ; I ; THEM
+================================================================================
+2078-142845-0034, %WER 5.26 [ 1 / 19, 0 ins, 0 del, 1 sub ]
+MUFFINS ; AND ; CRUMPETS ; SHOULD ; ALWAYS ; BE ; SERVED ; ON ; SEPARATE ; DISHES ; AND ; BOTH ; TOASTED ; AND ; SERVED ; AS ; EXPEDITIOUSLY ; AS ; POSSIBLE
+   =    ;  =  ;    S     ;   =    ;   =    ; =  ;   =    ; =  ;    =     ;   =    ;  =  ;  =   ;    =    ;  =  ;   =    ; =  ;       =       ; =  ;    =    
+MUFFINS ; AND ; TRUMPETS ; SHOULD ; ALWAYS ; BE ; SERVED ; ON ; SEPARATE ; DISHES ; AND ; BOTH ; TOASTED ; AND ; SERVED ; AS ; EXPEDITIOUSLY ; AS ; POSSIBLE
+================================================================================
+2078-142845-0015, %WER 15.38 [ 4 / 26, 0 ins, 0 del, 4 sub ]
+MODE ; BOIL ; THE ; RICE ; IN ; WATER ; UNTIL ; IT ; IS ; QUITE ; TENDER ; POUR ; OFF ; THE ; WATER ; AND ; PUT ; THE ; RICE ; BEFORE ; IT ; IS ;  COLD  ; TO ; THE ; FLOUR
+ S   ;  =   ;  =  ;  =   ; =  ;   =   ;   =   ; =  ; =  ;   =   ;   =    ;  S   ;  =  ;  =  ;   =   ;  =  ;  =  ;  =  ;  =   ;   =    ; =  ; =  ;   S    ; =  ;  =  ;   S  
+NOW  ; BOIL ; THE ; RICE ; IN ; WATER ; UNTIL ; IT ; IS ; QUITE ; TENDER ; PUT  ; OFF ; THE ; WATER ; AND ; PUT ; THE ; RICE ; BEFORE ; IT ; IS ; CALLED ; TO ; THE ;  FIRE
+================================================================================
+2078-142845-0013, %WER 9.52 [ 2 / 21, 0 ins, 0 del, 2 sub ]
+A ; YELLOW ; VARIETY ; CALLED ; GOLDEN ; MILLET ; IS ; SOLD ; IN ; THE ; GROCERS  ; SHOPS ; FOR ; MAKING ; PUDDINGS ; AND ; IS ; VERY ; DELICATE ; AND ; WHOLESOME
+= ;   S    ;    =    ;   =    ;   =    ;   =    ; =  ;  =   ; =  ;  =  ;    S     ;   =   ;  =  ;   =    ;    =     ;  =  ; =  ;  =   ;    =     ;  =  ;     =    
+A ; YOUNG  ; VARIETY ; CALLED ; GOLDEN ; MILLET ; IS ; SOLD ; IN ; THE ; GROCER'S ; SHOPS ; FOR ; MAKING ; PUDDINGS ; AND ; IS ; VERY ; DELICATE ; AND ; WHOLESOME
+================================================================================
+2412-153954-0000, %WER 0.00 [ 0 / 35, 0 ins, 0 del, 0 sub ]
+SHORTLY ; AFTER ; PASSING ; ONE ; OF ; THESE ; CHAPELS ; WE ; CAME ; SUDDENLY ; UPON ; A ; VILLAGE ; WHICH ; STARTED ; UP ; OUT ; OF ; THE ; MIST ; AND ; I ; WAS ; ALARMED ; LEST ; I ; SHOULD ; BE ; MADE ; AN ; OBJECT ; OF ; CURIOSITY ; OR ; DISLIKE
+   =    ;   =   ;    =    ;  =  ; =  ;   =   ;    =    ; =  ;  =   ;    =     ;  =   ; = ;    =    ;   =   ;    =    ; =  ;  =  ; =  ;  =  ;  =   ;  =  ; = ;  =  ;    =    ;  =   ; = ;   =    ; =  ;  =   ; =  ;   =    ; =  ;     =     ; =  ;    =   
+SHORTLY ; AFTER ; PASSING ; ONE ; OF ; THESE ; CHAPELS ; WE ; CAME ; SUDDENLY ; UPON ; A ; VILLAGE ; WHICH ; STARTED ; UP ; OUT ; OF ; THE ; MIST ; AND ; I ; WAS ; ALARMED ; LEST ; I ; SHOULD ; BE ; MADE ; AN ; OBJECT ; OF ; CURIOSITY ; OR ; DISLIKE
+================================================================================
+2412-153947-0011, %WER 12.90 [ 4 / 31, 1 ins, 0 del, 3 sub ]
+I ; ATTRIBUTE  ; ITS ; UNLOOKED ; FOR ; SUCCESS ; MAINLY ; TO ; TWO ; EARLY ; FAVOURABLE ; REVIEWS ; THE ; FIRST ; IN ; THE ; PALL ; MALL ; GAZETTE ; OF ; APRIL ; TWELFTH ; AND ; THE ; SECOND ; IN ; THE ; SPECTATOR ; OF ; APRIL ; TWENTIETH ; <eps> 
+= ;     S      ;  =  ;    =     ;  =  ;    =    ;   =    ; =  ;  =  ;   =   ;     S      ;    =    ;  =  ;   =   ; =  ;  =  ;  =   ;  =   ;    =    ; =  ;   =   ;    =    ;  =  ;  =  ;   =    ; =  ;  =  ;     =     ; =  ;   =   ;     S     ;   I   
+I ; ATTRIBUTED ; ITS ; UNLOOKED ; FOR ; SUCCESS ; MAINLY ; TO ; TWO ; EARLY ; FAVORABLE  ; REVIEWS ; THE ; FIRST ; IN ; THE ; PALL ; MALL ; GAZETTE ; OF ; APRIL ; TWELFTH ; AND ; THE ; SECOND ; IN ; THE ; SPECTATOR ; OF ; APRIL ;   TWENTY  ; EIGHTH
+================================================================================
+2412-153954-0006, %WER 6.25 [ 2 / 32, 0 ins, 0 del, 2 sub ]
+THEIR ; EXPRESSION ; WAS ; DIVINE ; AND ; AS ; THEY ; GLANCED ; AT ; ME ; TIMIDLY ; BUT ; WITH ; PARTED ; LIPS ;  IN ; GREAT ; BEWILDERMENT ; I ; FORGOT ; ALL ; THOUGHTS ; OF ; THEIR ; CONVERSION ;  IN ; FEELINGS ; THAT ; WERE ; FAR ; MORE ; EARTHLY
+  =   ;     =      ;  =  ;   =    ;  =  ; =  ;  =   ;    =    ; =  ; =  ;    =    ;  =  ;  =   ;   =    ;  =   ;  S  ;   =   ;      =       ; = ;   =    ;  =  ;    =     ; =  ;   =   ;     =      ;  S  ;    =     ;  =   ;  =   ;  =  ;  =   ;    =   
+THEIR ; EXPRESSION ; WAS ; DIVINE ; AND ; AS ; THEY ; GLANCED ; AT ; ME ; TIMIDLY ; BUT ; WITH ; PARTED ; LIPS ; AND ; GREAT ; BEWILDERMENT ; I ; FORGOT ; ALL ; THOUGHTS ; OF ; THEIR ; CONVERSION ; AND ; FEELINGS ; THAT ; WERE ; FAR ; MORE ; EARTHLY
+================================================================================
+2078-142845-0051, %WER 0.00 [ 0 / 26, 0 ins, 0 del, 0 sub ]
+WHEN ; COLD ; THEY ; SHOULD ; BE ; PUT ; INTO ; TIN ; CANISTERS ; TO ; KEEP ; THEM ; DRY ; AND ; IF ; INTENDED ; FOR ; THE ; CHEESE ; COURSE ; THE ; SIFTED ; SUGAR ; SHOULD ; BE ; OMITTED
+ =   ;  =   ;  =   ;   =    ; =  ;  =  ;  =   ;  =  ;     =     ; =  ;  =   ;  =   ;  =  ;  =  ; =  ;    =     ;  =  ;  =  ;   =    ;   =    ;  =  ;   =    ;   =   ;   =    ; =  ;    =   
+WHEN ; COLD ; THEY ; SHOULD ; BE ; PUT ; INTO ; TIN ; CANISTERS ; TO ; KEEP ; THEM ; DRY ; AND ; IF ; INTENDED ; FOR ; THE ; CHEESE ; COURSE ; THE ; SIFTED ; SUGAR ; SHOULD ; BE ; OMITTED
+================================================================================
+2412-153954-0004, %WER 16.67 [ 5 / 30, 0 ins, 0 del, 5 sub ]
+EVEN ; ON ; THIS ; LEDGE ; OF ; HUMAN ; SOCIETY ; THERE ; WAS ; A ; STUNTED ; GROWTH ; OF ;  SHOPLETS ; WHICH ; HAD ; TAKEN ; ROOT ; AND ; VEGETATED ; SOMEHOW ; THOUGH ; AS ; IN ; AN ; AIR ; MERCANTILE ; OF ; THE ; BLEAKEST
+ =   ; S  ;  =   ;   S   ; =  ;   =   ;    =    ;   =   ;  =  ; = ;    =    ;   S    ; =  ;     S     ;   =   ;  =  ;   =   ;  S   ;  =  ;     =     ;    =    ;   =    ; =  ; =  ; =  ;  =  ;     =      ; =  ;  =  ;    =    
+EVEN ; IN ; THIS ; LIGHT ; OF ; HUMAN ; SOCIETY ; THERE ; WAS ; A ; STUNTED ; GIRLS  ; OF ; SHOPLANDS ; WHICH ; HAD ; TAKEN ; HER  ; AND ; VEGETATED ; SOMEHOW ; THOUGH ; AS ; IN ; AN ; AIR ; MERCANTILE ; OF ; THE ; BLEAKEST
+================================================================================
+2412-153954-0009, %WER 0.00 [ 0 / 33, 0 ins, 0 del, 0 sub ]
+I ; HAVE ; ALWAYS ; DELIGHTED ; IN ; AND ; REVERENCED ; BEAUTY ; BUT ; I ; FELT ; SIMPLY ; ABASHED ; IN ; THE ; PRESENCE ; OF ; SUCH ; A ; SPLENDID ; TYPE ; A ; COMPOUND ; OF ; ALL ; THAT ; IS ; BEST ; IN ; EGYPTIAN ; GREEK ; AND ; ITALIAN
+= ;  =   ;   =    ;     =     ; =  ;  =  ;     =      ;   =    ;  =  ; = ;  =   ;   =    ;    =    ; =  ;  =  ;    =     ; =  ;  =   ; = ;    =     ;  =   ; = ;    =     ; =  ;  =  ;  =   ; =  ;  =   ; =  ;    =     ;   =   ;  =  ;    =   
+I ; HAVE ; ALWAYS ; DELIGHTED ; IN ; AND ; REVERENCED ; BEAUTY ; BUT ; I ; FELT ; SIMPLY ; ABASHED ; IN ; THE ; PRESENCE ; OF ; SUCH ; A ; SPLENDID ; TYPE ; A ; COMPOUND ; OF ; ALL ; THAT ; IS ; BEST ; IN ; EGYPTIAN ; GREEK ; AND ; ITALIAN
+================================================================================
+2412-153948-0001, %WER 0.00 [ 0 / 35, 0 ins, 0 del, 0 sub ]
+IT ; WILL ; BE ; SEEN ; THAT ; I ; DID ; NOT ; SUCCEED ; IN ; MY ; DESIGN ; AND ; THAT ; HOWEVER ; MUCH ; I ; MAY ; HAVE ; MET ; WITH ; THAT ; WAS ; NEW ; AND ; STRANGE ; I ; HAVE ; BEEN ; UNABLE ; TO ; REAP ; ANY ; PECUNIARY ; ADVANTAGE
+=  ;  =   ; =  ;  =   ;  =   ; = ;  =  ;  =  ;    =    ; =  ; =  ;   =    ;  =  ;  =   ;    =    ;  =   ; = ;  =  ;  =   ;  =  ;  =   ;  =   ;  =  ;  =  ;  =  ;    =    ; = ;  =   ;  =   ;   =    ; =  ;  =   ;  =  ;     =     ;     =    
+IT ; WILL ; BE ; SEEN ; THAT ; I ; DID ; NOT ; SUCCEED ; IN ; MY ; DESIGN ; AND ; THAT ; HOWEVER ; MUCH ; I ; MAY ; HAVE ; MET ; WITH ; THAT ; WAS ; NEW ; AND ; STRANGE ; I ; HAVE ; BEEN ; UNABLE ; TO ; REAP ; ANY ; PECUNIARY ; ADVANTAGE
+================================================================================
+2412-153947-0008, %WER 9.38 [ 3 / 32, 1 ins, 0 del, 2 sub ]
+IT ; WAS ; WRITTEN ; IN ; THE ; UPPER ; RANGITATA ; DISTRICT ; OF ; THE ; CANTERBURY ; PROVINCE ; AS ; IT ; THEN ; WAS ; OF ; NEW ; ZEALAND ; AND ; APPEARED ; AT ; CHRISTCHURCH ; <eps>  ; IN ; THE ; PRESS ; NEWSPAPER ; JUNE ; THIRTEENTH ; EIGHTEEN ; SIXTY ; THREE
+=  ;  =  ;    =    ; =  ;  =  ;   =   ;     S     ;    =     ; =  ;  =  ;     =      ;    =     ; =  ; =  ;  =   ;  =  ; =  ;  =  ;    =    ;  =  ;    =     ; =  ;      S       ;   I    ; =  ;  =  ;   =   ;     =     ;  =   ;     =      ;    =     ;   =   ;   =  
+IT ; WAS ; WRITTEN ; IN ; THE ; UPPER ;  RANGATA  ; DISTRICT ; OF ; THE ; CANTERBURY ; PROVINCE ; AS ; IT ; THEN ; WAS ; OF ; NEW ; ZEALAND ; AND ; APPEARED ; AT ;    CHRIST    ; CHURCH ; IN ; THE ; PRESS ; NEWSPAPER ; JUNE ; THIRTEENTH ; EIGHTEEN ; SIXTY ; THREE
+================================================================================
+2412-153947-0015, %WER 5.41 [ 2 / 37, 0 ins, 0 del, 2 sub ]
+I ;  AM ; STILL ; FAIRLY ; WELL ; SATISFIED ; WITH ; THOSE ; PARTS ; OF ; EREWHON ; THAT ; WERE ; REPEATEDLY ; REWRITTEN ; BUT ; FROM ; THOSE ; THAT ; HAD ; ONLY ; A ; SINGLE ; WRITING ; I ; WOULD ; GLADLY ; CUT ; OUT ; SOME ; FORTY ; OR ; FIFTY ; PAGES ; IF ; I ; COULD
+= ;  S  ;   =   ;   =    ;  =   ;     =     ;  =   ;   =   ;   =   ; =  ;    S    ;  =   ;  =   ;     =      ;     =     ;  =  ;  =   ;   =   ;  =   ;  =  ;  =   ; = ;   =    ;    =    ; = ;   =   ;   =    ;  =  ;  =  ;  =   ;   =   ; =  ;   =   ;   =   ; =  ; = ;   =  
+I ; WAS ; STILL ; FAIRLY ; WELL ; SATISFIED ; WITH ; THOSE ; PARTS ; OF ;  EUROPE ; THAT ; WERE ; REPEATEDLY ; REWRITTEN ; BUT ; FROM ; THOSE ; THAT ; HAD ; ONLY ; A ; SINGLE ; WRITING ; I ; WOULD ; GLADLY ; CUT ; OUT ; SOME ; FORTY ; OR ; FIFTY ; PAGES ; IF ; I ; COULD
+================================================================================
+2078-142845-0033, %WER 0.00 [ 0 / 32, 0 ins, 0 del, 0 sub ]
+HE ; SAYS ; THAT ; BY ; CUTTING ; THROUGH ; FOUR ; OR ; FIVE ; SLICES ; AT ; A ; TIME ; ALL ; THE ; BUTTER ; IS ; SQUEEZED ; OUT ; OF ; THE ; UPPER ; ONES ; WHILE ; THE ; BOTTOM ; ONE ; IS ; SWIMMING ; IN ; FAT ; LIQUID
+=  ;  =   ;  =   ; =  ;    =    ;    =    ;  =   ; =  ;  =   ;   =    ; =  ; = ;  =   ;  =  ;  =  ;   =    ; =  ;    =     ;  =  ; =  ;  =  ;   =   ;  =   ;   =   ;  =  ;   =    ;  =  ; =  ;    =     ; =  ;  =  ;   =   
+HE ; SAYS ; THAT ; BY ; CUTTING ; THROUGH ; FOUR ; OR ; FIVE ; SLICES ; AT ; A ; TIME ; ALL ; THE ; BUTTER ; IS ; SQUEEZED ; OUT ; OF ; THE ; UPPER ; ONES ; WHILE ; THE ; BOTTOM ; ONE ; IS ; SWIMMING ; IN ; FAT ; LIQUID
+================================================================================
+2412-153954-0015, %WER 0.00 [ 0 / 37, 0 ins, 0 del, 0 sub ]
+SUFFICE ; IT ; THAT ; I ; FOUND ; MYSELF ; TAKEN ; BEFORE ; THE ; CHIEF ; MAGISTRATE ; AND ; BY ; HIS ; ORDERS ; WAS ; PLACED ; IN ; AN ; APARTMENT ; WITH ; TWO ; OTHER ; PEOPLE ; WHO ; WERE ; THE ; FIRST ; I ; HAD ; SEEN ; LOOKING ; ANYTHING ; BUT ; WELL ; AND ; HANDSOME
+   =    ; =  ;  =   ; = ;   =   ;   =    ;   =   ;   =    ;  =  ;   =   ;     =      ;  =  ; =  ;  =  ;   =    ;  =  ;   =    ; =  ; =  ;     =     ;  =   ;  =  ;   =   ;   =    ;  =  ;  =   ;  =  ;   =   ; = ;  =  ;  =   ;    =    ;    =     ;  =  ;  =   ;  =  ;    =    
+SUFFICE ; IT ; THAT ; I ; FOUND ; MYSELF ; TAKEN ; BEFORE ; THE ; CHIEF ; MAGISTRATE ; AND ; BY ; HIS ; ORDERS ; WAS ; PLACED ; IN ; AN ; APARTMENT ; WITH ; TWO ; OTHER ; PEOPLE ; WHO ; WERE ; THE ; FIRST ; I ; HAD ; SEEN ; LOOKING ; ANYTHING ; BUT ; WELL ; AND ; HANDSOME
+================================================================================
+2078-142845-0028, %WER 3.23 [ 1 / 31, 0 ins, 0 del, 1 sub ]
+MOVE ; IT ; BACKWARDS ; AND ; FORWARDS ; UNTIL ; THE ; BREAD ; IS ; NICELY ; COLOURED ; THEN ; TURN ; IT ; AND ; TOAST ; THE ; OTHER ; SIDE ; AND ; DO ; NOT ; PLACE ; IT ; SO ; NEAR ; THE ; FIRE ; THAT ; IT ; BLACKENS
+ =   ; =  ;     =     ;  =  ;    =     ;   =   ;  =  ;   =   ; =  ;   =    ;    S     ;  =   ;  =   ; =  ;  =  ;   =   ;  =  ;   =   ;  =   ;  =  ; =  ;  =  ;   =   ; =  ; =  ;  =   ;  =  ;  =   ;  =   ; =  ;    =    
+MOVE ; IT ; BACKWARDS ; AND ; FORWARDS ; UNTIL ; THE ; BREAD ; IS ; NICELY ; COLORED  ; THEN ; TURN ; IT ; AND ; TOAST ; THE ; OTHER ; SIDE ; AND ; DO ; NOT ; PLACE ; IT ; SO ; NEAR ; THE ; FIRE ; THAT ; IT ; BLACKENS
+================================================================================
+2078-142845-0047, %WER 3.85 [ 1 / 26, 0 ins, 0 del, 1 sub ]
+WHEN ; WE ; TAKE ; INTO ; ACCOUNT ; THAT ; THE ; ARABIANS ; ARE ; FOND ; OF ; LIZARDS ; AND ; LOCUSTS ; AS ; ARTICLES ; OF ; FOOD ; THEIR ;  CUISINE  ; ALTOGETHER ; IS ; SCARCELY ; A ; TEMPTING ; ONE
+ =   ; =  ;  =   ;  =   ;    =    ;  =   ;  =  ;    =     ;  =  ;  =   ; =  ;    =    ;  =  ;    =    ; =  ;    =     ; =  ;  =   ;   =   ;     S     ;     =      ; =  ;    =     ; = ;    =     ;  = 
+WHEN ; WE ; TAKE ; INTO ; ACCOUNT ; THAT ; THE ; ARABIANS ; ARE ; FOND ; OF ; LIZARDS ; AND ; LOCUSTS ; AS ; ARTICLES ; OF ; FOOD ; THEIR ; BRAZILIAN ; ALTOGETHER ; IS ; SCARCELY ; A ; TEMPTING ; ONE
+================================================================================
+2412-153948-0000, %WER 0.00 [ 0 / 36, 0 ins, 0 del, 0 sub ]
+IF ; THE ; READER ; WILL ; EXCUSE ; ME ; I ; WILL ; SAY ; NOTHING ; OF ; MY ; ANTECEDENTS ; NOR ; OF ; THE ; CIRCUMSTANCES ; WHICH ; LED ; ME ; TO ; LEAVE ; MY ; NATIVE ; COUNTRY ; THE ; NARRATIVE ; WOULD ; BE ; TEDIOUS ; TO ; HIM ; AND ; PAINFUL ; TO ; MYSELF
+=  ;  =  ;   =    ;  =   ;   =    ; =  ; = ;  =   ;  =  ;    =    ; =  ; =  ;      =      ;  =  ; =  ;  =  ;       =       ;   =   ;  =  ; =  ; =  ;   =   ; =  ;   =    ;    =    ;  =  ;     =     ;   =   ; =  ;    =    ; =  ;  =  ;  =  ;    =    ; =  ;   =   
+IF ; THE ; READER ; WILL ; EXCUSE ; ME ; I ; WILL ; SAY ; NOTHING ; OF ; MY ; ANTECEDENTS ; NOR ; OF ; THE ; CIRCUMSTANCES ; WHICH ; LED ; ME ; TO ; LEAVE ; MY ; NATIVE ; COUNTRY ; THE ; NARRATIVE ; WOULD ; BE ; TEDIOUS ; TO ; HIM ; AND ; PAINFUL ; TO ; MYSELF
+================================================================================
+2412-153947-0006, %WER 4.88 [ 2 / 41, 0 ins, 0 del, 2 sub ]
+BUT ; THIS ; HAD ;  AN ; EFFECT ; OF ; WHICH ; I ; HAVE ; LITTLE ; REASON ; TO ; COMPLAIN ; FOR ; I ; WAS ; ALLOWED ; ALMOST ; TO ; CALL ; THEM ; LIFE ; LONG ; SELF ; DECEIVERS ; TO ; THEIR ; FACES ; AND ; THEY ; SAID ; IT ; WAS ; QUITE ; TRUE ; BUT ; THAT ; IT ; DID ; NOT ; MATTER
+ =  ;  =   ;  =  ;  S  ;   =    ; S  ;   =   ; = ;  =   ;   =    ;   =    ; =  ;    =     ;  =  ; = ;  =  ;    =    ;   =    ; =  ;  =   ;  =   ;  =   ;  =   ;  =   ;     =     ; =  ;   =   ;   =   ;  =  ;  =   ;  =   ; =  ;  =  ;   =   ;  =   ;  =  ;  =   ; =  ;  =  ;  =  ;   =   
+BUT ; THIS ; HAD ; THE ; EFFECT ; IN ; WHICH ; I ; HAVE ; LITTLE ; REASON ; TO ; COMPLAIN ; FOR ; I ; WAS ; ALLOWED ; ALMOST ; TO ; CALL ; THEM ; LIFE ; LONG ; SELF ; DECEIVERS ; TO ; THEIR ; FACES ; AND ; THEY ; SAID ; IT ; WAS ; QUITE ; TRUE ; BUT ; THAT ; IT ; DID ; NOT ; MATTER
+================================================================================
+2078-142845-0030, %WER 3.33 [ 1 / 30, 1 ins, 0 del, 0 sub ]
+A ; LOAF ; OF ; HOUSEHOLD ; BREAD ; ABOUT ; TWO ; DAYS ; OLD ; ANSWERS ; FOR ; MAKING ; <eps> ; TOAST ; BETTER ; THAN ; COTTAGE ; BREAD ; THE ; LATTER ; NOT ; BEING ; A ; GOOD ; SHAPE ; AND ; TOO ; CRUSTY ; FOR ; THE ; PURPOSE
+= ;  =   ; =  ;     =     ;   =   ;   =   ;  =  ;  =   ;  =  ;    =    ;  =  ;   =    ;   I   ;   =   ;   =    ;  =   ;    =    ;   =   ;  =  ;   =    ;  =  ;   =   ; = ;  =   ;   =   ;  =  ;  =  ;   =    ;  =  ;  =  ;    =   
+A ; LOAF ; OF ; HOUSEHOLD ; BREAD ; ABOUT ; TWO ; DAYS ; OLD ; ANSWERS ; FOR ; MAKING ;   A   ; TOAST ; BETTER ; THAN ; COTTAGE ; BREAD ; THE ; LATTER ; NOT ; BEING ; A ; GOOD ; SHAPE ; AND ; TOO ; CRUSTY ; FOR ; THE ; PURPOSE
+================================================================================
+2412-153954-0018, %WER 4.26 [ 2 / 47, 0 ins, 0 del, 2 sub ]
+THEY ; FELT ; MY ; PULSE ; THEY ; LOOKED ; AT ; MY ; TONGUE ; THEY ; LISTENED ; AT ; MY ; CHEST ; THEY ; FELT ; ALL ; MY ; MUSCLES ; AND ; AT ; THE ; END ; OF ; EACH ; OPERATION  ; THEY ; LOOKED ; AT ; THE ; CHIEF ; AND ; NODDED ; AND ; SAID ; SOMETHING ; IN ; A ; TONE ; QUITE ; PLEASANT ; AS ; THOUGH ; I ; WERE ; ALL ; RIGHT
+ =   ;  =   ; =  ;   =   ;  =   ;   =    ; =  ; =  ;   =    ;  =   ;    =     ; =  ; =  ;   =   ;  =   ;  =   ;  =  ; =  ;    =    ;  =  ; =  ;  =  ;  =  ; =  ;  =   ;     S      ;  =   ;   =    ; =  ;  =  ;   S   ;  =  ;   =    ;  =  ;  =   ;     =     ; =  ; = ;  =   ;   =   ;    =     ; =  ;   =    ; = ;  =   ;  =  ;   =  
+THEY ; FELT ; MY ; PULSE ; THEY ; LOOKED ; AT ; MY ; TONGUE ; THEY ; LISTENED ; AT ; MY ; CHEST ; THEY ; FELT ; ALL ; MY ; MUSCLES ; AND ; AT ; THE ; END ; OF ; EACH ; RECREATION ; THEY ; LOOKED ; AT ; THE ; CHEEK ; AND ; NODDED ; AND ; SAID ; SOMETHING ; IN ; A ; TONE ; QUITE ; PLEASANT ; AS ; THOUGH ; I ; WERE ; ALL ; RIGHT
+================================================================================
+2412-153947-0014, %WER 5.41 [ 2 / 37, 0 ins, 0 del, 2 sub ]
+I ; MADE ; A ; FEW ; FURTHER ; VERY ; TRIFLING ; ALTERATIONS ; BEFORE ; MOULDS ; WERE ; TAKEN ; BUT ; SINCE ; THE ; SUMMER ; OF ; EIGHTEEN ; SEVENTY ; TWO ; AS ; NEW ; EDITIONS ; WERE ; FROM ; TIME ; TO ; TIME ; WANTED ; THEY ; HAVE ; BEEN ; PRINTED ; FROM ; STEREOS ; THEN ; MADE
+= ;  =   ; = ;  =  ;    =    ;  =   ;    =     ;      =      ;   =    ;   S    ;  =   ;   =   ;  =  ;   =   ;  =  ;   =    ; =  ;    =     ;    =    ;  =  ; =  ;  =  ;    =     ;  =   ;  =   ;  =   ; =  ;  =   ;   =    ;  =   ;  S   ;  =   ;    =    ;  =   ;    =    ;  =   ;  =  
+I ; MADE ; A ; FEW ; FURTHER ; VERY ; TRIFLING ; ALTERATIONS ; BEFORE ;  ALL   ; WERE ; TAKEN ; BUT ; SINCE ; THE ; SUMMER ; OF ; EIGHTEEN ; SEVENTY ; TWO ; AS ; NEW ; EDITIONS ; WERE ; FROM ; TIME ; TO ; TIME ; WANTED ; THEY ; HAD  ; BEEN ; PRINTED ; FROM ; STEREOS ; THEN ; MADE
+================================================================================
+2078-142845-0032, %WER 2.70 [ 1 / 37, 0 ins, 0 del, 1 sub ]
+SOYER  ; RECOMMENDS ; THAT ; EACH ; SLICE ; SHOULD ; BE ; CUT ; INTO ; PIECES ; AS ; SOON ; AS ; IT ; IS ; BUTTERED ; AND ; WHEN ; ALL ; ARE ; READY ; THAT ; THEY ; SHOULD ; BE ; PILED ; LIGHTLY ; ON ; THE ; DISH ; THEY ; ARE ; INTENDED ; TO ; BE ; SERVED ; ON
+  S    ;     =      ;  =   ;  =   ;   =   ;   =    ; =  ;  =  ;  =   ;   =    ; =  ;  =   ; =  ; =  ; =  ;    =     ;  =  ;  =   ;  =  ;  =  ;   =   ;  =   ;  =   ;   =    ; =  ;   =   ;    =    ; =  ;  =  ;  =   ;  =   ;  =  ;    =     ; =  ; =  ;   =    ; = 
+SAWYER ; RECOMMENDS ; THAT ; EACH ; SLICE ; SHOULD ; BE ; CUT ; INTO ; PIECES ; AS ; SOON ; AS ; IT ; IS ; BUTTERED ; AND ; WHEN ; ALL ; ARE ; READY ; THAT ; THEY ; SHOULD ; BE ; PILED ; LIGHTLY ; ON ; THE ; DISH ; THEY ; ARE ; INTENDED ; TO ; BE ; SERVED ; ON
+================================================================================
+2078-142845-0012, %WER 0.00 [ 0 / 33, 0 ins, 0 del, 0 sub ]
+IT ; HAS ; BEEN ; INTRODUCED ; INTO ; ITALY ; WHERE ; THEY ; MAKE ; A ; COARSE ; BREAD ; FROM ; IT ; AND ; IT ; IS ; ALSO ; EMPLOYED ; IN ; PASTRY ; AND ; PUDDINGS ; THEY ; ALSO ; USE ; IT ; FOR ; FEEDING ; HORSES ; AND ; DOMESTIC ; FOWLS
+=  ;  =  ;  =   ;     =      ;  =   ;   =   ;   =   ;  =   ;  =   ; = ;   =    ;   =   ;  =   ; =  ;  =  ; =  ; =  ;  =   ;    =     ; =  ;   =    ;  =  ;    =     ;  =   ;  =   ;  =  ; =  ;  =  ;    =    ;   =    ;  =  ;    =     ;   =  
+IT ; HAS ; BEEN ; INTRODUCED ; INTO ; ITALY ; WHERE ; THEY ; MAKE ; A ; COARSE ; BREAD ; FROM ; IT ; AND ; IT ; IS ; ALSO ; EMPLOYED ; IN ; PASTRY ; AND ; PUDDINGS ; THEY ; ALSO ; USE ; IT ; FOR ; FEEDING ; HORSES ; AND ; DOMESTIC ; FOWLS
+================================================================================
+2412-153947-0005, %WER 4.08 [ 2 / 49, 0 ins, 1 del, 1 sub ]
+I ; AM ; SURPRISED ; HOWEVER ; THAT ; THE ; BOOK ; AT ; WHICH ; SUCH ; AN ; EXAMPLE ; OF ; THE ; SPECIOUS ; MISUSE ; OF ; ANALOGY ; WOULD ; SEEM ; MOST ; NATURALLY ; LEVELLED ; SHOULD ; HAVE ; OCCURRED ; TO ; NO ; REVIEWER ; NEITHER ; SHALL ; I ; MENTION ; THE ; NAME ; OF ; THE ;    BOOK   ;  HERE ; THOUGH ; I ; SHOULD ; FANCY ; THAT ; THE ; HINT ; GIVEN ; WILL ; SUFFICE
+= ; =  ;     =     ;    =    ;  =   ;  =  ;  =   ; =  ;   =   ;  =   ; =  ;    =    ; =  ;  =  ;    =     ;   =    ; =  ;    =    ;   =   ;  =   ;  =   ;     =     ;    =     ;   =    ;  =   ;    =     ; =  ; =  ;    =     ;    =    ;   =   ; = ;    =    ;  =  ;  =   ; =  ;  =  ;     S     ;   D   ;   =    ; = ;   =    ;   =   ;  =   ;  =  ;  =   ;   =   ;  =   ;    =   
+I ; AM ; SURPRISED ; HOWEVER ; THAT ; THE ; BOOK ; AT ; WHICH ; SUCH ; AN ; EXAMPLE ; OF ; THE ; SPECIOUS ; MISUSE ; OF ; ANALOGY ; WOULD ; SEEM ; MOST ; NATURALLY ; LEVELLED ; SHOULD ; HAVE ; OCCURRED ; TO ; NO ; REVIEWER ; NEITHER ; SHALL ; I ; MENTION ; THE ; NAME ; OF ; THE ; PROCUREUR ; <eps> ; THOUGH ; I ; SHOULD ; FANCY ; THAT ; THE ; HINT ; GIVEN ; WILL ; SUFFICE
+================================================================================
+2078-142845-0010, %WER 6.45 [ 2 / 31, 1 ins, 0 del, 1 sub ]
+<eps> ; ITALIAN ; MILLET ; OR ; GREAT ; INDIAN ; MILLET ; IS ; CULTIVATED ; IN ; EGYPT ; AND ; NUBIA ; WHERE ; IT ; IS ; CALLED ; DHOURRA ; AND ; IS ; USED ; AS ; HUMAN ; FOOD ; AS ; WELL ; AS ; FOR ; THE ; FERMENTATION ; OF ; BEER
+  I   ;    =    ;   =    ; =  ;   =   ;   =    ;   =    ; =  ;     =      ; =  ;   =   ;  =  ;   =   ;   =   ; =  ; =  ;   =    ;    S    ;  =  ; =  ;  =   ; =  ;   =   ;  =   ; =  ;  =   ; =  ;  =  ;  =  ;      =       ; =  ;  =  
+ THE  ; ITALIAN ; MILLET ; OR ; GREAT ; INDIAN ; MILLET ; IS ; CULTIVATED ; IN ; EGYPT ; AND ; NUBIA ; WHERE ; IT ; IS ; CALLED ;   DORA  ; AND ; IS ; USED ; AS ; HUMAN ; FOOD ; AS ; WELL ; AS ; FOR ; THE ; FERMENTATION ; OF ; BEER
+================================================================================
+2078-142845-0006, %WER 6.52 [ 3 / 46, 0 ins, 1 del, 2 sub ]
+LOOK ; AT ; IT ; FROM ; TIME ; TO ; TIME ; WHEN ; IT ; HAS ; BEEN ; LAID ; FOR ; NEARLY ; AN ; HOUR ; AND ; WHEN ; THE ; YEAST ; HAS ; RISEN ; AND ; BROKEN ; THROUGH ; THE ;  FLOUR  ; SO ; THAT ; BUBBLES ; APPEAR ; IN ; IT ; YOU ; WILL ; KNOW ; THAT ; IT ; IS ; READY ; TO ; BE ; MADE ; UP ; INTO ; DOUGH
+ =   ; =  ; =  ;  =   ;  =   ; =  ;  =   ;  =   ; =  ;  =  ;  =   ;  =   ;  =  ;   =    ; =  ;  =   ;  =  ;  =   ;  S  ;   D   ;  =  ;   =   ;  =  ;   =    ;    =    ;  =  ;    S    ; =  ;  =   ;    =    ;   =    ; =  ; =  ;  =  ;  =   ;  =   ;  =   ; =  ; =  ;   =   ; =  ; =  ;  =   ; =  ;  =   ;   =  
+LOOK ; AT ; IT ; FROM ; TIME ; TO ; TIME ; WHEN ; IT ; HAS ; BEEN ; LAID ; FOR ; NEARLY ; AN ; HOUR ; AND ; WHEN ;  IT ; <eps> ; HAS ; RISEN ; AND ; BROKEN ; THROUGH ; THE ; FLOWERS ; SO ; THAT ; BUBBLES ; APPEAR ; IN ; IT ; YOU ; WILL ; KNOW ; THAT ; IT ; IS ; READY ; TO ; BE ; MADE ; UP ; INTO ; DOUGH
+================================================================================
+2412-153948-0006, %WER 3.39 [ 2 / 59, 0 ins, 0 del, 2 sub ]
+ I   ; WAS ; TO ; SEE ; THE ; SHEEP ; NOT ; NECESSARILY ; CLOSE ; AT ; HAND ; NOR ; TO ; GET ; THEM ; IN ; A ; SINGLE ; MOB ; BUT ; TO ; SEE ; ENOUGH ; OF ; THEM ; HERE ; AND ; THERE ; TO ; FEEL ; EASY ; THAT ; NOTHING ; HAD ; GONE ; WRONG ; THIS ; WAS ; NO ; DIFFICULT ; MATTER ; FOR ; THERE ; WERE ; NOT ; ABOVE ; EIGHT ; HUNDRED ; OF ; THEM ; AND ; BEING ; ALL ; BREEDING ; EWES ; THEY ; WERE ; PRETTY ; QUIET
+ S   ;  =  ; =  ;  =  ;  =  ;   =   ;  =  ;      =      ;   =   ; =  ;  =   ;  =  ; =  ;  =  ;  =   ; =  ; = ;   =    ;  =  ;  =  ; =  ;  =  ;   =    ; =  ;  =   ;  =   ;  =  ;   =   ; =  ;  =   ;  =   ;  =   ;    =    ;  =  ;  =   ;   =   ;  =   ;  =  ; =  ;     =     ;   =    ;  =  ;   S   ;  =   ;  =  ;   =   ;   =   ;    =    ; =  ;  =   ;  =  ;   =   ;  =  ;    =     ;  =   ;  =   ;  =   ;   =    ;   =  
+THAT ; WAS ; TO ; SEE ; THE ; SHEEP ; NOT ; NECESSARILY ; CLOSE ; AT ; HAND ; NOR ; TO ; GET ; THEM ; IN ; A ; SINGLE ; MOB ; BUT ; TO ; SEE ; ENOUGH ; OF ; THEM ; HERE ; AND ; THERE ; TO ; FEEL ; EASY ; THAT ; NOTHING ; HAD ; GONE ; WRONG ; THIS ; WAS ; NO ; DIFFICULT ; MATTER ; FOR ;  THEY ; WERE ; NOT ; ABOVE ; EIGHT ; HUNDRED ; OF ; THEM ; AND ; BEING ; ALL ; BREEDING ; EWES ; THEY ; WERE ; PRETTY ; QUIET
+================================================================================
+2078-142845-0031, %WER 2.44 [ 1 / 41, 0 ins, 0 del, 1 sub ]
+CUT ; AS ; MANY ; NICE ; EVEN ; SLICES ; AS ; MAY ; BE ; REQUIRED ; RATHER ; MORE ; THAN ; ONE ; QUARTER ; INCH ; IN ; THICKNESS ; AND ; TOAST ; THEM ; BEFORE ; A ; VERY ; BRIGHT ; FIRE ; WITHOUT ; ALLOWING ; THE ; BREAD ; TO ; BLACKEN ; WHICH ; SPOILS ; THE ; APPEARANCE ; AND ; FLAVOUR ; OF ; ALL ; TOAST
+ =  ; =  ;  =   ;  =   ;  =   ;   =    ; =  ;  =  ; =  ;    =     ;   =    ;  =   ;  =   ;  =  ;    =    ;  =   ; =  ;     =     ;  =  ;   =   ;  =   ;   =    ; = ;  =   ;   =    ;  =   ;    =    ;    =     ;  =  ;   =   ; =  ;    =    ;   =   ;   =    ;  =  ;     =      ;  =  ;    S    ; =  ;  =  ;   =  
+CUT ; AS ; MANY ; NICE ; EVEN ; SLICES ; AS ; MAY ; BE ; REQUIRED ; RATHER ; MORE ; THAN ; ONE ; QUARTER ; INCH ; IN ; THICKNESS ; AND ; TOAST ; THEM ; BEFORE ; A ; VERY ; BRIGHT ; FIRE ; WITHOUT ; ALLOWING ; THE ; BREAD ; TO ; BLACKEN ; WHICH ; SPOILS ; THE ; APPEARANCE ; AND ;  FLAVOR ; OF ; ALL ; TOAST
+================================================================================
+2412-153947-0010, %WER 1.75 [ 1 / 57, 0 ins, 0 del, 1 sub ]
+I ; SEE ; FROM ; MY ; SECOND ; PREFACE ; THAT ; I ; TOOK ; THE ; BOOK ; TO ; MESSRS ; CHAPMAN ; AND ; HALL ; MAY ; FIRST ; EIGHTEEN ; SEVENTY ; ONE ; AND ; ON ; THEIR ; REJECTION ; OF ; IT ; UNDER ; THE ; ADVICE ; OF ; ONE ; WHO ; HAS ; ATTAINED ; THE ; HIGHEST ; RANK ; AMONG ; LIVING ; WRITERS ; I ; LET ; IT ; SLEEP ; TILL ; I ; TOOK ; IT ; TO ; MISTER ; TRUBNER ; EARLY ; IN ; EIGHTEEN ; SEVENTY ; TWO
+= ;  =  ;  =   ; =  ;   =    ;    =    ;  =   ; = ;  =   ;  =  ;  =   ; =  ;   =    ;    =    ;  =  ;  =   ;  =  ;   =   ;    =     ;    =    ;  =  ;  =  ; =  ;   =   ;     =     ; =  ; =  ;   =   ;  =  ;   =    ; =  ;  =  ;  =  ;  =  ;    =     ;  =  ;    =    ;  =   ;   =   ;   =    ;    =    ; = ;  =  ; =  ;   =   ;  =   ; = ;  =   ; =  ; =  ;   =    ;    S    ;   =   ; =  ;    =     ;    =    ;  = 
+I ; SEE ; FROM ; MY ; SECOND ; PREFACE ; THAT ; I ; TOOK ; THE ; BOOK ; TO ; MESSRS ; CHAPMAN ; AND ; HALL ; MAY ; FIRST ; EIGHTEEN ; SEVENTY ; ONE ; AND ; ON ; THEIR ; REJECTION ; OF ; IT ; UNDER ; THE ; ADVICE ; OF ; ONE ; WHO ; HAS ; ATTAINED ; THE ; HIGHEST ; RANK ; AMONG ; LIVING ; WRITERS ; I ; LET ; IT ; SLEEP ; TILL ; I ; TOOK ; IT ; TO ; MISTER ;  TREVOR ; EARLY ; IN ; EIGHTEEN ; SEVENTY ; TWO
+================================================================================
+2412-153954-0014, %WER 0.00 [ 0 / 54, 0 ins, 0 del, 0 sub ]
+IN ; ABOUT ; FOUR ; HOURS ; OF ; WALKING ; FROM ; THE ; TIME ; WE ; STARTED ; AND ; AFTER ; PASSING ; TWO ; OR ; THREE ; MORE ; VILLAGES ; WE ; CAME ; UPON ; A ; CONSIDERABLE ; TOWN ; AND ; MY ; GUIDES ; MADE ; MANY ; ATTEMPTS ; TO ; MAKE ; ME ; UNDERSTAND ; SOMETHING ; BUT ; I ; GATHERED ; NO ; INKLING ; OF ; THEIR ; MEANING ; EXCEPT ; THAT ; I ; NEED ; BE ; UNDER ; NO ; APPREHENSION ; OF ; DANGER
+=  ;   =   ;  =   ;   =   ; =  ;    =    ;  =   ;  =  ;  =   ; =  ;    =    ;  =  ;   =   ;    =    ;  =  ; =  ;   =   ;  =   ;    =     ; =  ;  =   ;  =   ; = ;      =       ;  =   ;  =  ; =  ;   =    ;  =   ;  =   ;    =     ; =  ;  =   ; =  ;     =      ;     =     ;  =  ; = ;    =     ; =  ;    =    ; =  ;   =   ;    =    ;   =    ;  =   ; = ;  =   ; =  ;   =   ; =  ;      =       ; =  ;   =   
+IN ; ABOUT ; FOUR ; HOURS ; OF ; WALKING ; FROM ; THE ; TIME ; WE ; STARTED ; AND ; AFTER ; PASSING ; TWO ; OR ; THREE ; MORE ; VILLAGES ; WE ; CAME ; UPON ; A ; CONSIDERABLE ; TOWN ; AND ; MY ; GUIDES ; MADE ; MANY ; ATTEMPTS ; TO ; MAKE ; ME ; UNDERSTAND ; SOMETHING ; BUT ; I ; GATHERED ; NO ; INKLING ; OF ; THEIR ; MEANING ; EXCEPT ; THAT ; I ; NEED ; BE ; UNDER ; NO ; APPREHENSION ; OF ; DANGER
+================================================================================
+2078-142845-0008, %WER 14.55 [ 8 / 55, 0 ins, 2 del, 6 sub ]
+TURN ; IT ; THEN ; ON ; TO ; A ;   PASTE    ; BOARD ;   OR  ; VERY ; CLEAN ; DRESSER ; AND ; WITH ; A ; LARGE ; SHARP ; KNIFE ;  DIVIDE ;   IT  ; IN ; TWO ; MAKE ; IT ; UP ; QUICKLY ; INTO ; LOAVES ; AND ; DISPATCH ; IT ; TO ; THE ; OVEN ; MAKE ; ONE ; OR ; TWO ; INCISIONS ; ACROSS ; THE ; TOPS ; OF ; THE ; LOAVES ; AS ; THEY ; WILL ; RISE ; MORE ; EASILY ; IF ; THIS ; BE ; DONE
+ =   ; =  ;  S   ; =  ; =  ; = ;     S      ;   S   ;   D   ;  =   ;   =   ;    =    ;  =  ;  =   ; = ;   =   ;   =   ;   =   ;    S    ;   D   ; =  ;  =  ;  =   ; =  ; =  ;    =    ;  =   ;   =    ;  =  ;    S     ; =  ; =  ;  =  ;  =   ;  =   ;  =  ; =  ;  =  ;     =     ;   =    ;  =  ;  S   ; =  ;  =  ;   =    ; =  ;  =   ;  =   ;  =   ;  =   ;   =    ; =  ;  =   ; =  ;  =  
+TURN ; IT ;  IN  ; ON ; TO ; A ; PASTEBOARD ;   A   ; <eps> ; VERY ; CLEAN ; DRESSER ; AND ; WITH ; A ; LARGE ; SHARP ; KNIFE ; DIVIDED ; <eps> ; IN ; TWO ; MAKE ; IT ; UP ; QUICKLY ; INTO ; LOAVES ; AND ; DESPATCH ; IT ; TO ; THE ; OVEN ; MAKE ; ONE ; OR ; TWO ; INCISIONS ; ACROSS ; THE ; TOP  ; OF ; THE ; LOAVES ; AS ; THEY ; WILL ; RISE ; MORE ; EASILY ; IF ; THIS ; BE ; DONE
+================================================================================
+2078-142845-0007, %WER 0.00 [ 0 / 53, 0 ins, 0 del, 0 sub ]
+THEN ; PLACE ; THE ; PAN ; ON ; A ; STRONG ; CHAIR ; OR ; DRESSER ; OR ; TABLE ; OF ; CONVENIENT ; HEIGHT ; POUR ; INTO ; THE ; SPONGE ; THE ; REMAINDER ; OF ; THE ; WARM ; MILK ; AND ; WATER ; STIR ; INTO ; IT ; AS ; MUCH ; OF ; THE ; FLOUR ; AS ; YOU ; CAN ; WITH ; THE ; SPOON ; THEN ; WIPE ; IT ; OUT ; CLEAN ; WITH ; YOUR ; FINGERS ; AND ; LAY ; IT ; ASIDE
+ =   ;   =   ;  =  ;  =  ; =  ; = ;   =    ;   =   ; =  ;    =    ; =  ;   =   ; =  ;     =      ;   =    ;  =   ;  =   ;  =  ;   =    ;  =  ;     =     ; =  ;  =  ;  =   ;  =   ;  =  ;   =   ;  =   ;  =   ; =  ; =  ;  =   ; =  ;  =  ;   =   ; =  ;  =  ;  =  ;  =   ;  =  ;   =   ;  =   ;  =   ; =  ;  =  ;   =   ;  =   ;  =   ;    =    ;  =  ;  =  ; =  ;   =  
+THEN ; PLACE ; THE ; PAN ; ON ; A ; STRONG ; CHAIR ; OR ; DRESSER ; OR ; TABLE ; OF ; CONVENIENT ; HEIGHT ; POUR ; INTO ; THE ; SPONGE ; THE ; REMAINDER ; OF ; THE ; WARM ; MILK ; AND ; WATER ; STIR ; INTO ; IT ; AS ; MUCH ; OF ; THE ; FLOUR ; AS ; YOU ; CAN ; WITH ; THE ; SPOON ; THEN ; WIPE ; IT ; OUT ; CLEAN ; WITH ; YOUR ; FINGERS ; AND ; LAY ; IT ; ASIDE
+================================================================================
+2078-142845-0039, %WER 3.77 [ 2 / 53, 0 ins, 0 del, 2 sub ]
+THESE ; BUNS ; MAY ; BE ; VARIED ; BY ; ADDING ; A ; FEW ; CURRANTS ; CANDIED ; PEEL ; OR ; CARAWAY ; SEEDS ; TO ; THE ; OTHER ; INGREDIENTS ; AND ; THE ; ABOVE ; MIXTURE ; ANSWERS ; FOR ; HOT ; CROSS ; BUNS ; BY ; PUTTING ; IN ; A ; LITTLE ; GROUND ; ALLSPICE ; AND ; BY ; PRESSING ; A ; TIN ; MOULD ; IN ; THE ; FORM ; OF ; A ; CROSS ; IN ; THE ; CENTRE ; OF ; THE ; BUN
+  =   ;  =   ;  =  ; =  ;   =    ; =  ;   =    ; = ;  =  ;    =     ;    =    ;  =   ; =  ;    =    ;   =   ; =  ;  =  ;   =   ;      =      ;  =  ;  =  ;   =   ;    =    ;    =    ;  =  ;  =  ;   =   ;  =   ; =  ;    =    ; =  ; = ;   =    ;   =    ;    =     ;  =  ; =  ;    S     ; = ;  =  ;   S   ; =  ;  =  ;  =   ; =  ; = ;   =   ; =  ;  =  ;   =    ; =  ;  =  ;  = 
+THESE ; BUNS ; MAY ; BE ; VARIED ; BY ; ADDING ; A ; FEW ; CURRANTS ; CANDIED ; PEEL ; OR ; CARAWAY ; SEEDS ; TO ; THE ; OTHER ; INGREDIENTS ; AND ; THE ; ABOVE ; MIXTURE ; ANSWERS ; FOR ; HOT ; CROSS ; BUNS ; BY ; PUTTING ; IN ; A ; LITTLE ; GROUND ; ALLSPICE ; AND ; BY ; PLACING  ; A ; TIN ;  LOW  ; IN ; THE ; FORM ; OF ; A ; CROSS ; IN ; THE ; CENTRE ; OF ; THE ; BUN
+================================================================================
+2078-142845-0043, %WER 0.00 [ 0 / 51, 0 ins, 0 del, 0 sub ]
+MODE ; WHISK ; THE ; EGG ; STIR ; IN ; THE ; SUGAR ; AND ; BEAT ; THESE ; INGREDIENTS ; WELL ; TOGETHER ; BEAT ; THE ; BUTTER ; TO ; A ; CREAM ; STIR ; IN ; THE ; GROUND ; RICE ; CURRANTS ; AND ; CANDIED ; PEEL ; AND ; AS ; MUCH ; FLOUR ; AS ; WILL ; MAKE ; IT ; OF ; SUCH ; A ; CONSISTENCY ; THAT ; IT ; MAY ; BE ; ROLLED ; INTO ; SEVEN ; OR ; EIGHT ; BALLS
+ =   ;   =   ;  =  ;  =  ;  =   ; =  ;  =  ;   =   ;  =  ;  =   ;   =   ;      =      ;  =   ;    =     ;  =   ;  =  ;   =    ; =  ; = ;   =   ;  =   ; =  ;  =  ;   =    ;  =   ;    =     ;  =  ;    =    ;  =   ;  =  ; =  ;  =   ;   =   ; =  ;  =   ;  =   ; =  ; =  ;  =   ; = ;      =      ;  =   ; =  ;  =  ; =  ;   =    ;  =   ;   =   ; =  ;   =   ;   =  
+MODE ; WHISK ; THE ; EGG ; STIR ; IN ; THE ; SUGAR ; AND ; BEAT ; THESE ; INGREDIENTS ; WELL ; TOGETHER ; BEAT ; THE ; BUTTER ; TO ; A ; CREAM ; STIR ; IN ; THE ; GROUND ; RICE ; CURRANTS ; AND ; CANDIED ; PEEL ; AND ; AS ; MUCH ; FLOUR ; AS ; WILL ; MAKE ; IT ; OF ; SUCH ; A ; CONSISTENCY ; THAT ; IT ; MAY ; BE ; ROLLED ; INTO ; SEVEN ; OR ; EIGHT ; BALLS
+================================================================================
+2412-153948-0004, %WER 1.37 [ 1 / 73, 0 ins, 0 del, 1 sub ]
+SHEEP ; AND ; CATTLE ; WERE ; INTRODUCED ; AND ; BRED ; WITH ; EXTREME ; RAPIDITY ; MEN ; TOOK ; UP ; THEIR ; FIFTY ; THOUSAND ; OR ; ONE ; HUNDRED ; THOUSAND ; ACRES ; OF ; COUNTRY ; GOING ; INLAND ; ONE ; BEHIND ; THE ; OTHER ; TILL ; IN ; A ; FEW ; YEARS ; THERE ; WAS ; NOT ; AN ; ACRE ; BETWEEN ; THE ; SEA ; AND ; THE ; FRONT ; RANGES ; WHICH ; WAS ; NOT ; TAKEN ; UP ; AND ; STATIONS ; EITHER ; FOR ; SHEEP ; OR ; CATTLE ; WERE ;   SPOTTED   ; ABOUT ; AT ; INTERVALS ; OF ; SOME ; TWENTY ; OR ; THIRTY ; MILES ; OVER ; THE ; WHOLE ; COUNTRY
+  =   ;  =  ;   =    ;  =   ;     =      ;  =  ;  =   ;  =   ;    =    ;    =     ;  =  ;  =   ; =  ;   =   ;   =   ;    =     ; =  ;  =  ;    =    ;    =     ;   =   ; =  ;    =    ;   =   ;   =    ;  =  ;   =    ;  =  ;   =   ;  =   ; =  ; = ;  =  ;   =   ;   =   ;  =  ;  =  ; =  ;  =   ;    =    ;  =  ;  =  ;  =  ;  =  ;   =   ;   =    ;   =   ;  =  ;  =  ;   =   ; =  ;  =  ;    =     ;   =    ;  =  ;   =   ; =  ;   =    ;  =   ;      S      ;   =   ; =  ;     =     ; =  ;  =   ;   =    ; =  ;   =    ;   =   ;  =   ;  =  ;   =   ;    =   
+SHEEP ; AND ; CATTLE ; WERE ; INTRODUCED ; AND ; BRED ; WITH ; EXTREME ; RAPIDITY ; MEN ; TOOK ; UP ; THEIR ; FIFTY ; THOUSAND ; OR ; ONE ; HUNDRED ; THOUSAND ; ACRES ; OF ; COUNTRY ; GOING ; INLAND ; ONE ; BEHIND ; THE ; OTHER ; TILL ; IN ; A ; FEW ; YEARS ; THERE ; WAS ; NOT ; AN ; ACRE ; BETWEEN ; THE ; SEA ; AND ; THE ; FRONT ; RANGES ; WHICH ; WAS ; NOT ; TAKEN ; UP ; AND ; STATIONS ; EITHER ; FOR ; SHEEP ; OR ; CATTLE ; WERE ; ESTABLISHED ; ABOUT ; AT ; INTERVALS ; OF ; SOME ; TWENTY ; OR ; THIRTY ; MILES ; OVER ; THE ; WHOLE ; COUNTRY
+================================================================================
+2078-142845-0004, %WER 1.67 [ 1 / 60, 0 ins, 1 del, 0 sub ]
+ MODE ; PUT ; THE ; FLOUR ; INTO ; A ; LARGE ; EARTHENWARE ; BOWL ; OR ; DEEP ; PAN ; THEN ; WITH ; A ; STRONG ; METAL ; OR ; WOODEN ; SPOON ; HOLLOW ; OUT ; THE ; MIDDLE ; BUT ; DO ; NOT ; CLEAR ; IT ; ENTIRELY ; AWAY ; FROM ; THE ; BOTTOM ; OF ; THE ; PAN ; AS ; IN ; THAT ; CASE ; THE ; SPONGE ; OR ; LEAVEN ; AS ; IT ; WAS ; FORMERLY ; TERMED ; WOULD ; STICK ; TO ; IT ; WHICH ; IT ; OUGHT ; NOT ; TO ; DO
+  D   ;  =  ;  =  ;   =   ;  =   ; = ;   =   ;      =      ;  =   ; =  ;  =   ;  =  ;  =   ;  =   ; = ;   =    ;   =   ; =  ;   =    ;   =   ;   =    ;  =  ;  =  ;   =    ;  =  ; =  ;  =  ;   =   ; =  ;    =     ;  =   ;  =   ;  =  ;   =    ; =  ;  =  ;  =  ; =  ; =  ;  =   ;  =   ;  =  ;   =    ; =  ;   =    ; =  ; =  ;  =  ;    =     ;   =    ;   =   ;   =   ; =  ; =  ;   =   ; =  ;   =   ;  =  ; =  ; = 
+<eps> ; PUT ; THE ; FLOUR ; INTO ; A ; LARGE ; EARTHENWARE ; BOWL ; OR ; DEEP ; PAN ; THEN ; WITH ; A ; STRONG ; METAL ; OR ; WOODEN ; SPOON ; HOLLOW ; OUT ; THE ; MIDDLE ; BUT ; DO ; NOT ; CLEAR ; IT ; ENTIRELY ; AWAY ; FROM ; THE ; BOTTOM ; OF ; THE ; PAN ; AS ; IN ; THAT ; CASE ; THE ; SPONGE ; OR ; LEAVEN ; AS ; IT ; WAS ; FORMERLY ; TERMED ; WOULD ; STICK ; TO ; IT ; WHICH ; IT ; OUGHT ; NOT ; TO ; DO
+================================================================================
+2078-142845-0025, %WER 5.33 [ 4 / 75, 1 ins, 1 del, 2 sub ]
+WHEN ; THEY ; ARE ; QUITE ; HOT ; DIVIDE ; THEM ; LENGTHWISE ; INTO ; THREE ; PUT ; SOME ; THIN ; FLAKES ; OF ; GOOD ; BUTTER ; BETWEEN ; THE ; SLICES ; PRESS ; THE ; ROLLS ; TOGETHER ; AND ; PUT ; THEM ; IN ; THE ; OVEN ; FOR ; A ; MINUTE ; OR ; TWO ; BUT ; NOT ; LONGER ; OR ; THE ; BUTTER ; WOULD ; OIL ; TAKE ; THEM ; OUT ; OF ; THE ; OVEN ; SPREAD ; THE ; BUTTER ; EQUALLY ; OVER ; DIVIDE ; THE ; ROLLS ; IN ; HALF ; AND ; PUT ; THEM ; ON ; TO ; A ; VERY ; HOT ; CLEAN ; DISH ; AND ; SEND ; THEM ; INSTANTLY ; TO ; <eps> ; TABLE
+ =   ;  =   ;  =  ;   =   ;  =  ;   =    ;  =   ;     =      ;  =   ;   =   ;  =  ;  =   ;  =   ;   =    ; =  ;  =   ;   =    ;    =    ;  =  ;   =    ;   =   ;  =  ;   =   ;    =     ;  =  ;  =  ;  =   ; =  ;  =  ;  =   ;  =  ; = ;   =    ; =  ;  =  ;  =  ;  =  ;   =    ; =  ;  =  ;   =    ;   S   ;  =  ;  =   ;  =   ;  =  ; =  ;  =  ;  =   ;   =    ;  =  ;   =    ;    =    ;  =   ;   =    ;  =  ;   =   ; =  ;  =   ;  =  ;  =  ;  =   ; =  ; =  ; = ;  =   ;  =  ;   =   ;  =   ;  =  ;  =   ;  S   ;     D     ; =  ;   I   ;   =  
+WHEN ; THEY ; ARE ; QUITE ; HOT ; DIVIDE ; THEM ; LENGTHWISE ; INTO ; THREE ; PUT ; SOME ; THIN ; FLAKES ; OF ; GOOD ; BUTTER ; BETWEEN ; THE ; SLICES ; PRESS ; THE ; ROLLS ; TOGETHER ; AND ; PUT ; THEM ; IN ; THE ; OVEN ; FOR ; A ; MINUTE ; OR ; TWO ; BUT ; NOT ; LONGER ; OR ; THE ; BUTTER ;  ONE  ; OIL ; TAKE ; THEM ; OUT ; OF ; THE ; OVEN ; SPREAD ; THE ; BUTTER ; EQUALLY ; OVER ; DIVIDE ; THE ; ROLLS ; IN ; HALF ; AND ; PUT ; THEM ; ON ; TO ; A ; VERY ; HOT ; CLEAN ; DISH ; AND ; SEND ;  IT  ;   <eps>   ; TO ;  THE  ; TABLE
+================================================================================
+2078-142845-0005, %WER 16.47 [ 14 / 85, 2 ins, 4 del, 8 sub ]
+NEXT ; TAKE ; EITHER ; A ; LARGE ; TABLESPOONFUL ;  <eps>   ; OF ; BREWER'S ; YEAST ; WHICH ; HAS ; BEEN ; RENDERED ; SOLID ; BY ; MIXING ; IT ; WITH ; PLENTY ; OF ; COLD ; WATER ; AND ; LETTING ; IT ; AFTERWARDS ; STAND ; TO ; SETTLE ; FOR ; A ; DAY ; AND ; NIGHT ; OR ; NEARLY ; AN ; OUNCE ; OF ; GERMAN ; YEAST ; PUT ; IT ; INTO ; A ; LARGE ; BASIN ; AND ; PROCEED ; TO ; MIX ; IT ; SO ; THAT ; IT ; SHALL ; BE ; AS ; SMOOTH ; AS ; CREAM ; WITH ; THREE ; QUARTERS ;  PINT ; OF ;  WARM ; MILK ; AND ; WATER ; OR ; <eps>  ; WITH ; WATER ; ONLY ; THOUGH ; EVEN ; A ; VERY ; LITTLE ;  MILK  ; WILL ;  MUCH ; IMPROVE ; THE ; BREAD
+ =   ;  =   ;   =    ; = ;   =   ;       S       ;    I     ; =  ;    S     ;   D   ;   =   ;  =  ;  =   ;    =     ;   =   ; =  ;   =    ; =  ;  =   ;   =    ; =  ;  =   ;   =   ;  =  ;    =    ; =  ;     =      ;   =   ; =  ;   =    ;  =  ; = ;  =  ;  =  ;   =   ; =  ;   =    ; =  ;   =   ; =  ;   =    ;   =   ;  =  ; =  ;  =   ; = ;   =   ;   =   ;  =  ;    =    ; =  ;  =  ; =  ; =  ;  =   ; =  ;   =   ; =  ; =  ;   =    ; =  ;   =   ;  =   ;   =   ;    S     ;   S   ; =  ;   D   ;  =   ;  =  ;   =   ; S  ;   I    ;  =   ;   =   ;  =   ;   =    ;  =   ; = ;  =   ;   =    ;   S    ;  S   ;   D   ;    D    ;  =  ;   S  
+NEXT ; TAKE ; EITHER ; A ; LARGE ;     TABLE     ; SPOONFUL ; OF ; BERRIES  ; <eps> ; WHICH ; HAS ; BEEN ; RENDERED ; SOLID ; BY ; MIXING ; IT ; WITH ; PLENTY ; OF ; COLD ; WATER ; AND ; LETTING ; IT ; AFTERWARDS ; STAND ; TO ; SETTLE ; FOR ; A ; DAY ; AND ; NIGHT ; OR ; NEARLY ; AN ; OUNCE ; OF ; GERMAN ; YEAST ; PUT ; IT ; INTO ; A ; LARGE ; BASIN ; AND ; PROCEED ; TO ; MIX ; IT ; SO ; THAT ; IT ; SHALL ; BE ; AS ; SMOOTH ; AS ; CREAM ; WITH ; THREE ; QUARTER  ; PINTS ; OF ; <eps> ; MILK ; AND ; WATER ; A  ; LITTLE ; WITH ; WATER ; ONLY ; THOUGH ; EVEN ; A ; VERY ; LITTLE ; BOILED ;  IN  ; <eps> ;  <eps>  ; THE ; WATER

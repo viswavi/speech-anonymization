@@ -1,0 +1,511 @@
+%WER 11.00 [ 158 / 1436, 18 ins, 17 del, 123 sub ]
+%SER 59.00 [ 59 / 100 ]
+Scored 100 sentences, 0 not present in hyp.
+================================================================================
+ALIGNMENTS
+
+Format:
+<utterance-id>, WER DETAILS
+<eps> ; reference  ; on ; the ; first ;  line
+  I   ;     S      ; =  ;  =  ;   S   ;   D  
+ and  ; hypothesis ; on ; the ; third ; <eps>
+================================================================================
+61-70968-0058, %WER 0.00 [ 0 / 5, 0 ins, 0 del, 0 sub ]
+WILL ; YOU ; FORGIVE ; ME ; NOW
+ =   ;  =  ;    =    ; =  ;  = 
+WILL ; YOU ; FORGIVE ; ME ; NOW
+================================================================================
+61-70970-0005, %WER 33.33 [ 2 / 6, 0 ins, 1 del, 1 sub ]
+THE ;  LAD   ;  HAD  ; CHECKED ; HIM ; THEN
+ =  ;   S    ;   D   ;    =    ;  =  ;  =  
+THE ; LATTER ; <eps> ; CHECKED ; HIM ; THEN
+================================================================================
+61-70968-0038, %WER 0.00 [ 0 / 2, 0 ins, 0 del, 0 sub ]
+ROBIN ; FITZOOTH
+  =   ;    =    
+ROBIN ; FITZOOTH
+================================================================================
+61-70970-0008, %WER 75.00 [ 3 / 4, 0 ins, 0 del, 3 sub ]
+NOW ; TO ; BED ; BOY
+ S  ; S  ;  S  ;  = 
+NOT ; A  ; BIG ; BOY
+================================================================================
+61-70968-0059, %WER 28.57 [ 2 / 7, 0 ins, 0 del, 2 sub ]
+ IT ;  WILL ; BE ; NO ; DISAPPOINTMENT ; TO ; ME
+ S  ;   S   ; =  ; =  ;       =        ; =  ; = 
+YOU ; WON'T ; BE ; NO ; DISAPPOINTMENT ; TO ; ME
+================================================================================
+61-70970-0006, %WER 66.67 [ 4 / 6, 0 ins, 1 del, 3 sub ]
+NEVER ;  THAT  ; SIR ; HE ;   HAD    ;  SAID
+  =   ;   S    ;  S  ; =  ;    S     ;   D  
+NEVER ; THAT'S ; HER ; HE ; ANSWERED ; <eps>
+================================================================================
+61-70968-0018, %WER 50.00 [ 3 / 6, 0 ins, 0 del, 3 sub ]
+SO ; I ; DID ; PUSH ; THIS ; FELLOW
+=  ; = ;  =  ;  S   ;  S   ;   S   
+SO ; I ; DID ; JUST ;  AS  ;  WELL 
+================================================================================
+61-70970-0017, %WER 37.50 [ 3 / 8, 0 ins, 0 del, 3 sub ]
+REST ; AND ; BE ; STILL ; UNTIL ;  I   ;  WARN ; YOU
+ =   ;  =  ; =  ;   =   ;   S   ;  S   ;   S   ;  = 
+REST ; AND ; BE ; STILL ;   IN  ; TIME ; WON'T ; YOU
+================================================================================
+61-70968-0062, %WER 28.57 [ 2 / 7, 0 ins, 0 del, 2 sub ]
+AY ; AND  ; SHOW ; YOU ; SOME ; PRETTY ; TRICKS
+S  ;  S   ;  =   ;  =  ;  =   ;   =    ;   =   
+I  ; WILL ; SHOW ; YOU ; SOME ; PRETTY ; TRICKS
+================================================================================
+61-70968-0012, %WER 33.33 [ 2 / 6, 0 ins, 1 del, 1 sub ]
+CRIES ; OF ;   A   ; NOTTINGHAM ;  A  ; NOTTINGHAM
+  =   ; =  ;   D   ;     =      ;  S  ;     =     
+CRIES ; OF ; <eps> ; NOTTINGHAM ; AND ; NOTTINGHAM
+================================================================================
+61-70968-0052, %WER 22.22 [ 2 / 9, 0 ins, 0 del, 2 sub ]
+BUT ; WHO ;  IS ; THIS ; FELLOW ; PLUCKING ; AT ; YOUR ; SLEEVE
+ =  ;  =  ;  S  ;  =   ;   =    ;    =     ; =  ;  S   ;   =   
+BUT ; WHO ; WAS ; THIS ; FELLOW ; PLUCKING ; AT ; HER  ; SLEEVE
+================================================================================
+61-70968-0021, %WER 0.00 [ 0 / 7, 0 ins, 0 del, 0 sub ]
+SURELY ; WE ; CAN ; SUBMIT ; WITH ; GOOD ; GRACE
+  =    ; =  ;  =  ;   =    ;  =   ;  =   ;   =  
+SURELY ; WE ; CAN ; SUBMIT ; WITH ; GOOD ; GRACE
+================================================================================
+61-70968-0044, %WER 0.00 [ 0 / 11, 0 ins, 0 del, 0 sub ]
+IT ; WILL ; NOT ; BE ; SAFE ; FOR ; YOU ; TO ; STAY ; HERE ; NOW
+=  ;  =   ;  =  ; =  ;  =   ;  =  ;  =  ; =  ;  =   ;  =   ;  = 
+IT ; WILL ; NOT ; BE ; SAFE ; FOR ; YOU ; TO ; STAY ; HERE ; NOW
+================================================================================
+61-70968-0042, %WER 0.00 [ 0 / 10, 0 ins, 0 del, 0 sub ]
+MONTFICHET ; CALLED ; OUT ; FOR ; ROBIN ; TO ; GIVE ; HIM ; AN ; ARM
+    =      ;   =    ;  =  ;  =  ;   =   ; =  ;  =   ;  =  ; =  ;  = 
+MONTFICHET ; CALLED ; OUT ; FOR ; ROBIN ; TO ; GIVE ; HIM ; AN ; ARM
+================================================================================
+61-70968-0031, %WER 0.00 [ 0 / 5, 0 ins, 0 del, 0 sub ]
+SILENCE ; YOU ; KNAVE ; CRIED ; MONTFICHET
+   =    ;  =  ;   =   ;   =   ;     =     
+SILENCE ; YOU ; KNAVE ; CRIED ; MONTFICHET
+================================================================================
+61-70968-0036, %WER 0.00 [ 0 / 7, 0 ins, 0 del, 0 sub ]
+GEORGE ; MONTFICHET ; WILL ; NEVER ; FORGET ; THIS ; DAY
+  =    ;     =      ;  =   ;   =   ;   =    ;  =   ;  = 
+GEORGE ; MONTFICHET ; WILL ; NEVER ; FORGET ; THIS ; DAY
+================================================================================
+61-70968-0006, %WER 0.00 [ 0 / 11, 0 ins, 0 del, 0 sub ]
+BUT ; THEN ; THE ; PICTURE ; WAS ; GONE ; AS ; QUICKLY ; AS ; IT ; CAME
+ =  ;  =   ;  =  ;    =    ;  =  ;  =   ; =  ;    =    ; =  ; =  ;  =  
+BUT ; THEN ; THE ; PICTURE ; WAS ; GONE ; AS ; QUICKLY ; AS ; IT ; CAME
+================================================================================
+61-70968-0002, %WER 0.00 [ 0 / 7, 0 ins, 0 del, 0 sub ]
+A ; GOLDEN ; FORTUNE ; AND ; A ; HAPPY ; LIFE
+= ;   =    ;    =    ;  =  ; = ;   =   ;  =  
+A ; GOLDEN ; FORTUNE ; AND ; A ; HAPPY ; LIFE
+================================================================================
+61-70968-0048, %WER 0.00 [ 0 / 9, 0 ins, 0 del, 0 sub ]
+AND ; HENRY ; MIGHT ; RETURN ; TO ; ENGLAND ; AT ; ANY ; MOMENT
+ =  ;   =   ;   =   ;   =    ; =  ;    =    ; =  ;  =  ;   =   
+AND ; HENRY ; MIGHT ; RETURN ; TO ; ENGLAND ; AT ; ANY ; MOMENT
+================================================================================
+61-70970-0010, %WER 27.27 [ 3 / 11, 0 ins, 2 del, 1 sub ]
+DISMISS ; YOUR ; SQUIRE ; ROBIN ; AND ; BID ; ME ; GOOD ;    E    ;   E   ;   N  
+   =    ;  =   ;   =    ;   =   ;  =  ;  =  ; =  ;  =   ;    S    ;   D   ;   D  
+DISMISS ; YOUR ; SQUIRE ; ROBIN ; AND ; BID ; ME ; GOOD ; EVENING ; <eps> ; <eps>
+================================================================================
+61-70970-0012, %WER 0.00 [ 0 / 12, 0 ins, 0 del, 0 sub ]
+YET ; HE ; WILL ; TEACH ; YOU ; A ; FEW ; TRICKS ; WHEN ; MORNING ; IS ; COME
+ =  ; =  ;  =   ;   =   ;  =  ; = ;  =  ;   =    ;  =   ;    =    ; =  ;  =  
+YET ; HE ; WILL ; TEACH ; YOU ; A ; FEW ; TRICKS ; WHEN ; MORNING ; IS ; COME
+================================================================================
+61-70970-0032, %WER 12.50 [ 1 / 8, 0 ins, 0 del, 1 sub ]
+ENQUIRED ; ROBIN ; WITH ; HIS ; SUSPICIONS ; STILL ; UPON ; HIM
+   S     ;   =   ;  =   ;  =  ;     =      ;   =   ;  =   ;  = 
+INQUIRED ; ROBIN ; WITH ; HIS ; SUSPICIONS ; STILL ; UPON ; HIM
+================================================================================
+61-70968-0051, %WER 33.33 [ 3 / 9, 1 ins, 0 del, 2 sub ]
+BEG  ; ME ; A  ; <eps> ; ROOM ; OF ; THE ; SHERIFF ; CHILD ; QUICKLY
+ S   ; =  ; S  ;   I   ;  =   ; =  ;  =  ;    =    ;   =   ;    =   
+TAKE ; ME ; TO ;  THE  ; ROOM ; OF ; THE ; SHERIFF ; CHILD ; QUICKLY
+================================================================================
+61-70970-0030, %WER 25.00 [ 2 / 8, 0 ins, 1 del, 1 sub ]
+  SAVE  ;   ME  ; MASTERS ; BUT ; YOU ; STARTLED ; ME ; RARELY
+   S    ;   D   ;    =    ;  =  ;  =  ;    =     ; =  ;   =   
+SAINTLY ; <eps> ; MASTERS ; BUT ; YOU ; STARTLED ; ME ; RARELY
+================================================================================
+61-70970-0009, %WER 0.00 [ 0 / 10, 0 ins, 0 del, 0 sub ]
+TIS ; LATE ; AND ; I ; GO ; MYSELF ; WITHIN ; A ; SHORT ; SPACE
+ =  ;  =   ;  =  ; = ; =  ;   =    ;   =    ; = ;   =   ;   =  
+TIS ; LATE ; AND ; I ; GO ; MYSELF ; WITHIN ; A ; SHORT ; SPACE
+================================================================================
+61-70970-0014, %WER 0.00 [ 0 / 11, 0 ins, 0 del, 0 sub ]
+PRESENTLY ; HE ; CROSSED ; THE ; FLOOR ; OF ; HIS ; ROOM ; WITH ; DECIDED ; STEP
+    =     ; =  ;    =    ;  =  ;   =   ; =  ;  =  ;  =   ;  =   ;    =    ;  =  
+PRESENTLY ; HE ; CROSSED ; THE ; FLOOR ; OF ; HIS ; ROOM ; WITH ; DECIDED ; STEP
+================================================================================
+61-70970-0033, %WER 18.18 [ 2 / 11, 0 ins, 0 del, 2 sub ]
+TRULY ; SUCH ; A ; HORSE ; SHOULD ; BE ; WORTH ; MUCH ; IN ; NOTTINGHAM ; FAIR
+  =   ;  =   ; = ;   =   ;   S    ; =  ;   =   ;  =   ; =  ;     =      ;  S  
+TRULY ; SUCH ; A ; HORSE ; WOULD  ; BE ; WORTH ; MUCH ; IN ; NOTTINGHAM ; HERE
+================================================================================
+61-70968-0029, %WER 16.67 [ 2 / 12, 0 ins, 0 del, 2 sub ]
+THE ; SQUIRE ; HELPED ; TO ; THRUST ; THEM ; ALL  ; IN ; AND ; ENTERED ; SWIFTLY ; HIMSELF
+ =  ;   =    ;   =    ; =  ;   =    ;  S   ;  S   ; =  ;  =  ;    =    ;    =    ;    =   
+THE ; SQUIRE ; HELPED ; TO ; THRUST ; THE  ; MOLE ; IN ; AND ; ENTERED ; SWIFTLY ; HIMSELF
+================================================================================
+61-70968-0008, %WER 35.71 [ 5 / 14, 0 ins, 1 del, 4 sub ]
+ TAKE  ; YOUR ; PLACE  ;  AND  ; LET ; US ; SEE ; WHAT ; THE ; CRYSTAL ; CAN ; SHOW ; TO ; YOU
+  S    ;  S   ;   S    ;   D   ;  =  ; =  ;  =  ;  =   ;  =  ;    S    ;  =  ;  =   ; =  ;  = 
+TAKING ; ALL  ; PLACES ; <eps> ; LET ; US ; SEE ; WHAT ; THE ; CRISPIN ; CAN ; SHOW ; TO ; YOU
+================================================================================
+61-70968-0046, %WER 0.00 [ 0 / 8, 0 ins, 0 del, 0 sub ]
+NOTTINGHAM ; CASTLE ; WAS ; REACHED ; AND ; ADMITTANCE ; WAS ; DEMANDED
+    =      ;   =    ;  =  ;    =    ;  =  ;     =      ;  =  ;    =    
+NOTTINGHAM ; CASTLE ; WAS ; REACHED ; AND ; ADMITTANCE ; WAS ; DEMANDED
+================================================================================
+61-70968-0007, %WER 71.43 [ 5 / 7, 0 ins, 1 del, 4 sub ]
+SISTER ; NELL ;   DO  ;  YOU  ; HEAR ;  THESE  ; MARVELS 
+  =    ;  S   ;   S   ;   D   ;  =   ;    S    ;    S    
+SISTER ; NOW  ; DON'T ; <eps> ; HEAR ; THERE'S ; MOTHER'S
+================================================================================
+61-70968-0056, %WER 8.33 [ 1 / 12, 0 ins, 0 del, 1 sub ]
+THE ; WINE ; DID ; CERTAINLY ; BRING ; BACK ; THE ; COLOR  ; TO ; THE ; SQUIRE'S ; CHEEKS
+ =  ;  =   ;  =  ;     =     ;   =   ;  =   ;  =  ;   S    ; =  ;  =  ;    =     ;   =   
+THE ; WINE ; DID ; CERTAINLY ; BRING ; BACK ; THE ; COLOUR ; TO ; THE ; SQUIRE'S ; CHEEKS
+================================================================================
+61-70968-0001, %WER 0.00 [ 0 / 10, 0 ins, 0 del, 0 sub ]
+GIVE ; NOT ; SO ; EARNEST ; A ; MIND ; TO ; THESE ; MUMMERIES ; CHILD
+ =   ;  =  ; =  ;    =    ; = ;  =   ; =  ;   =   ;     =     ;   =  
+GIVE ; NOT ; SO ; EARNEST ; A ; MIND ; TO ; THESE ; MUMMERIES ; CHILD
+================================================================================
+61-70970-0023, %WER 0.00 [ 0 / 8, 0 ins, 0 del, 0 sub ]
+BE ; NOT ; SO ; FOOLISH ; FRIEND ; SAID ; FITZOOTH ; CROSSLY
+=  ;  =  ; =  ;    =    ;   =    ;  =   ;    =     ;    =   
+BE ; NOT ; SO ; FOOLISH ; FRIEND ; SAID ; FITZOOTH ; CROSSLY
+================================================================================
+61-70968-0016, %WER 15.38 [ 2 / 13, 0 ins, 0 del, 2 sub ]
+AND ; THEN ; THEY ; BECAME ; VEXED ; AND ; WOULD ; HAVE ; SNATCHED ; YOUR ; PURSE ; FROM ; US
+ =  ;  =   ;  =   ;   =    ;   =   ;  =  ;   =   ;  =   ;    =     ;  S   ;   S   ;  =   ; = 
+AND ; THEN ; THEY ; BECAME ; VEXED ; AND ; WOULD ; HAVE ; SNATCHED ; OUR  ; PARTS ; FROM ; US
+================================================================================
+61-70968-0060, %WER 0.00 [ 0 / 11, 0 ins, 0 del, 0 sub ]
+NO ; THANKS ; I ; AM ; GLAD ; TO ; GIVE ; YOU ; SUCH ; EASY ; HAPPINESS
+=  ;   =    ; = ; =  ;  =   ; =  ;  =   ;  =  ;  =   ;  =   ;     =    
+NO ; THANKS ; I ; AM ; GLAD ; TO ; GIVE ; YOU ; SUCH ; EASY ; HAPPINESS
+================================================================================
+61-70970-0019, %WER 0.00 [ 0 / 12, 0 ins, 0 del, 0 sub ]
+AT ; LAST ; ALL ; WAS ; QUIET ; AND ; BLACK ; IN ; THE ; COURTYARD ; OF ; GAMEWELL
+=  ;  =   ;  =  ;  =  ;   =   ;  =  ;   =   ; =  ;  =  ;     =     ; =  ;    =    
+AT ; LAST ; ALL ; WAS ; QUIET ; AND ; BLACK ; IN ; THE ; COURTYARD ; OF ; GAMEWELL
+================================================================================
+61-70968-0039, %WER 33.33 [ 3 / 9, 1 ins, 0 del, 2 sub ]
+AND ; MINE ; IS ; WILL ; <eps> ; STUTELEY ; SHALL ; WE ; BE ; COMRADES
+ =  ;  =   ; S  ;  S   ;   I   ;    =     ;   =   ; =  ; =  ;    =    
+AND ; MINE ; AS ; WELL ;   AS  ; STUTELEY ; SHALL ; WE ; BE ; COMRADES
+================================================================================
+61-70970-0003, %WER 27.27 [ 3 / 11, 0 ins, 2 del, 1 sub ]
+IF ; FOR  ;   A   ;  WHIM ; YOU ; BEGGAR ; YOURSELF ; I ; CANNOT ; STAY ; YOU
+=  ;  S   ;   D   ;   D   ;  =  ;   =    ;    =     ; = ;   =    ;  =   ;  = 
+IF ; ONLY ; <eps> ; <eps> ; YOU ; BEGGAR ; YOURSELF ; I ; CANNOT ; STAY ; YOU
+================================================================================
+61-70968-0040, %WER 0.00 [ 0 / 12, 0 ins, 0 del, 0 sub ]
+RIGHT ; WILLINGLY ; FOR ; BETWEEN ; US ; WE ; HAVE ; WON ; THE ; BATTLE ; ANSWERED ; ROBIN
+  =   ;     =     ;  =  ;    =    ; =  ; =  ;  =   ;  =  ;  =  ;   =    ;    =     ;   =  
+RIGHT ; WILLINGLY ; FOR ; BETWEEN ; US ; WE ; HAVE ; WON ; THE ; BATTLE ; ANSWERED ; ROBIN
+================================================================================
+61-70968-0055, %WER 23.08 [ 3 / 13, 1 ins, 0 del, 2 sub ]
+ROBIN ; WAS ; GLAD ; WHEN ; AT ; LENGTH ; <eps> ; THEY ; WERE ; LEFT ; TO ; THEIR ; OWN ; DEVICES
+  =   ;  =  ;  =   ;  =   ; S  ;   S    ;   I   ;  =   ;  =   ;  =   ; =  ;   =   ;  =  ;    =   
+ROBIN ; WAS ; GLAD ; WHEN ; IN ;  THE   ; NIGHT ; THEY ; WERE ; LEFT ; TO ; THEIR ; OWN ; DEVICES
+================================================================================
+61-70970-0022, %WER 0.00 [ 0 / 10, 0 ins, 0 del, 0 sub ]
+ROBIN ; ENTERED ; THE ; HUT ; DRAGGING ; THE ; UNWILLING ; ESQUIRE ; AFTER ; HIM
+  =   ;    =    ;  =  ;  =  ;    =     ;  =  ;     =     ;    =    ;   =   ;  = 
+ROBIN ; ENTERED ; THE ; HUT ; DRAGGING ; THE ; UNWILLING ; ESQUIRE ; AFTER ; HIM
+================================================================================
+61-70970-0029, %WER 18.18 [ 2 / 11, 1 ins, 0 del, 1 sub ]
+FROM ; THE ; BLACKNESS ; BEHIND ; THE ; LIGHT ; THEY ; HEARD ; A ; VOICE ; WARRENTON'S ;  <eps> 
+ =   ;  =  ;     =     ;   =    ;  =  ;   =   ;  =   ;   =   ; = ;   =   ;      S      ;    I   
+FROM ; THE ; BLACKNESS ; BEHIND ; THE ; LIGHT ; THEY ; HEARD ; A ; VOICE ;     WAR     ; ENGINES
+================================================================================
+61-70970-0040, %WER 0.00 [ 0 / 11, 0 ins, 0 del, 0 sub ]
+THEY ; REGAINED ; THEIR ; APARTMENT ; APPARENTLY ; WITHOUT ; DISTURBING ; THE ; HOUSEHOLD ; OF ; GAMEWELL
+ =   ;    =     ;   =   ;     =     ;     =      ;    =    ;     =      ;  =  ;     =     ; =  ;    =    
+THEY ; REGAINED ; THEIR ; APARTMENT ; APPARENTLY ; WITHOUT ; DISTURBING ; THE ; HOUSEHOLD ; OF ; GAMEWELL
+================================================================================
+61-70970-0002, %WER 33.33 [ 4 / 12, 2 ins, 1 del, 1 sub ]
+MOST ; OF ; ALL ; ROBIN ; THOUGHT ; OF ; HIS ; FATHER ; <eps> ; WHAT ; WOULD ; HE ; COUNSEL ; <eps>
+ =   ; =  ;  =  ;   =   ;    =    ; =  ;  =  ;   =    ;   I   ;  =   ;   D   ; =  ;    S    ;   I  
+MOST ; OF ; ALL ; ROBIN ; THOUGHT ; OF ; HIS ; FATHER ;  AND  ; WHAT ; <eps> ; HE ;  CAN'T  ;   DO 
+================================================================================
+61-70968-0034, %WER 112.50 [ 9 / 8, 3 ins, 0 del, 6 sub ]
+ A  ; MONTFICHET ;    A    ; MONTFICHET ; GAMEWELL ;    TO   ; <eps> ; <eps> ; <eps> ; THE ; RESCUE
+ S  ;     S      ;    S    ;     S      ;    S     ;    S    ;   I   ;   I   ;   I   ;  =  ;   =   
+I'M ;    NOT     ; FISHING ;    I'M     ;   NOT    ; FISHING ;  GAME ;  I'LL ;  GET  ; THE ; RESCUE
+================================================================================
+61-70968-0032, %WER 0.00 [ 0 / 16, 0 ins, 0 del, 0 sub ]
+HE ; FELT ; FOR ; AND ; FOUND ; THE ; WIZARD'S ; BLACK ; CLOTH ; THE ; SQUIRE ; WAS ; QUITE ; OUT ; OF ; BREATH
+=  ;  =   ;  =  ;  =  ;   =   ;  =  ;    =     ;   =   ;   =   ;  =  ;   =    ;  =  ;   =   ;  =  ; =  ;   =   
+HE ; FELT ; FOR ; AND ; FOUND ; THE ; WIZARD'S ; BLACK ; CLOTH ; THE ; SQUIRE ; WAS ; QUITE ; OUT ; OF ; BREATH
+================================================================================
+61-70968-0037, %WER 20.00 [ 2 / 10, 0 ins, 0 del, 2 sub ]
+WHAT ; IS ; YOUR ; NAME ; LORDING ; ASKED ; THE ; LITTLE ; STROLLER ; PRESENTLY
+ =   ; =  ;  =   ;  =   ;    S    ;   =   ;  =  ;   =    ;    S     ;     =    
+WHAT ; IS ; YOUR ; NAME ;  LARKIN ; ASKED ; THE ; LITTLE ;   GIRL   ; PRESENTLY
+================================================================================
+61-70968-0003, %WER 0.00 [ 0 / 15, 0 ins, 0 del, 0 sub ]
+HE ; WAS ; LIKE ; UNTO ; MY ; FATHER ; IN ; A ; WAY ; AND ; YET ; WAS ; NOT ; MY ; FATHER
+=  ;  =  ;  =   ;  =   ; =  ;   =    ; =  ; = ;  =  ;  =  ;  =  ;  =  ;  =  ; =  ;   =   
+HE ; WAS ; LIKE ; UNTO ; MY ; FATHER ; IN ; A ; WAY ; AND ; YET ; WAS ; NOT ; MY ; FATHER
+================================================================================
+61-70970-0013, %WER 13.33 [ 2 / 15, 1 ins, 0 del, 1 sub ]
+THERE ; WAS ; NO ; CHANCE ; TO ; ALTER ; HIS ; SLEEPING ; ROOM ; TO ; ONE ; NEARER ; TO ; GAMEWELL'S ; <eps> ; CHAMBER
+  =   ;  =  ; =  ;   =    ; =  ;   =   ;  =  ;    =     ;  =   ; =  ;  =  ;   =    ; =  ;     S      ;   I   ;    =   
+THERE ; WAS ; NO ; CHANCE ; TO ; ALTER ; HIS ; SLEEPING ; ROOM ; TO ; ONE ; NEARER ; TO ;    GAIN    ;  HIS  ; CHAMBER
+================================================================================
+61-70970-0016, %WER 5.26 [ 1 / 19, 0 ins, 0 del, 1 sub ]
+WE ; WILL ; GO ; OUT ; TOGETHER ; TO ; THE ; BOWER ; THERE ; IS ; A ; WAY ; DOWN ; TO ; THE ; COURT ; FROM ;  MY  ; WINDOW
+=  ;  =   ; =  ;  =  ;    =     ; =  ;  =  ;   =   ;   =   ; =  ; = ;  =  ;  =   ; =  ;  =  ;   =   ;  =   ;  S   ;   =   
+WE ; WILL ; GO ; OUT ; TOGETHER ; TO ; THE ; BOWER ; THERE ; IS ; A ; WAY ; DOWN ; TO ; THE ; COURT ; FROM ; THAT ; WINDOW
+================================================================================
+61-70968-0025, %WER 8.33 [ 1 / 12, 0 ins, 0 del, 1 sub ]
+COME ; TO ; ME ; MEN ; HERE ; HERE ; HE ; RAISED ; HIS ; VOICE ; STILL ; LOUDER
+ =   ; =  ; =  ;  S  ;  =   ;  =   ; =  ;   =    ;  =  ;   =   ;   =   ;   =   
+COME ; TO ; ME ; MAN ; HERE ; HERE ; HE ; RAISED ; HIS ; VOICE ; STILL ; LOUDER
+================================================================================
+61-70968-0013, %WER 16.67 [ 2 / 12, 0 ins, 0 del, 2 sub ]
+BEFORE ; THEM ; FLED ; THE ; STROLLER ; AND ; HIS ; THREE ; SONS ;  CAPLESS  ; AND ; TERRIFIED
+  =    ;  =   ;  =   ;  =  ;    S     ;  =  ;  =  ;   =   ;  =   ;     S     ;  =  ;     =    
+BEFORE ; THEM ; FLED ; THE ; STRONGER ; AND ; HIS ; THREE ; SONS ; COUNTLESS ; AND ; TERRIFIED
+================================================================================
+61-70970-0007, %WER 0.00 [ 0 / 17, 0 ins, 0 del, 0 sub ]
+HE ; WAS ; IN ; DEEP ; CONVERSE ; WITH ; THE ; CLERK ; AND ; ENTERED ; THE ; HALL ; HOLDING ; HIM ; BY ; THE ; ARM
+=  ;  =  ; =  ;  =   ;    =     ;  =   ;  =  ;   =   ;  =  ;    =    ;  =  ;  =   ;    =    ;  =  ; =  ;  =  ;  = 
+HE ; WAS ; IN ; DEEP ; CONVERSE ; WITH ; THE ; CLERK ; AND ; ENTERED ; THE ; HALL ; HOLDING ; HIM ; BY ; THE ; ARM
+================================================================================
+61-70970-0034, %WER 11.11 [ 1 / 9, 0 ins, 0 del, 1 sub ]
+NAY ; NAY ; LORDING ; ANSWERED ; WARRENTON ; WITH ; A ; HALF ; LAUGH
+ =  ;  =  ;    S    ;    =     ;     =     ;  =   ; = ;  =   ;   =  
+NAY ; NAY ;   LORD  ; ANSWERED ; WARRENTON ; WITH ; A ; HALF ; LAUGH
+================================================================================
+61-70968-0009, %WER 0.00 [ 0 / 11, 0 ins, 0 del, 0 sub ]
+LIKE ; AS ; NOT ; YOUNG ; MASTER ; THOUGH ; I ; AM ; AN ; OLD ; MAN
+ =   ; =  ;  =  ;   =   ;   =    ;   =    ; = ; =  ; =  ;  =  ;  = 
+LIKE ; AS ; NOT ; YOUNG ; MASTER ; THOUGH ; I ; AM ; AN ; OLD ; MAN
+================================================================================
+61-70970-0018, %WER 0.00 [ 0 / 14, 0 ins, 0 del, 0 sub ]
+THE ; HOURS ; PASSED ; WEARILY ; BY ; AND ; MOVEMENT ; COULD ; YET ; BE ; HEARD ; ABOUT ; THE ; HALL
+ =  ;   =   ;   =    ;    =    ; =  ;  =  ;    =     ;   =   ;  =  ; =  ;   =   ;   =   ;  =  ;  =  
+THE ; HOURS ; PASSED ; WEARILY ; BY ; AND ; MOVEMENT ; COULD ; YET ; BE ; HEARD ; ABOUT ; THE ; HALL
+================================================================================
+61-70968-0022, %WER 30.77 [ 4 / 13, 1 ins, 0 del, 3 sub ]
+TIS ; FINE ; FOR ; YOU ; TO ; TALK ; OLD ; MAN ; ANSWERED ; THE ; LEAN ; SULLEN ; APPRENTICE ; <eps>
+ =  ;  =   ;  =  ;  =  ; =  ;  =   ;  =  ;  =  ;    =     ;  =  ;  S   ;   S    ;     S      ;   I  
+TIS ; FINE ; FOR ; YOU ; TO ; TALK ; OLD ; MAN ; ANSWERED ; THE ; LYNX ;   ON   ;    THE     ; PIPES
+================================================================================
+61-70968-0047, %WER 0.00 [ 0 / 15, 0 ins, 0 del, 0 sub ]
+MASTER ; MONCEUX ; THE ; SHERIFF ; OF ; NOTTINGHAM ; WAS ; MIGHTILY ; PUT ; ABOUT ; WHEN ; TOLD ; OF ; THE ; RIOTING
+  =    ;    =    ;  =  ;    =    ; =  ;     =      ;  =  ;    =     ;  =  ;   =   ;  =   ;  =   ; =  ;  =  ;    =   
+MASTER ; MONCEUX ; THE ; SHERIFF ; OF ; NOTTINGHAM ; WAS ; MIGHTILY ; PUT ; ABOUT ; WHEN ; TOLD ; OF ; THE ; RIOTING
+================================================================================
+61-70968-0000, %WER 0.00 [ 0 / 17, 0 ins, 0 del, 0 sub ]
+HE ; BEGAN ; A ; CONFUSED ; COMPLAINT ; AGAINST ; THE ; WIZARD ; WHO ; HAD ; VANISHED ; BEHIND ; THE ; CURTAIN ; ON ; THE ; LEFT
+=  ;   =   ; = ;    =     ;     =     ;    =    ;  =  ;   =    ;  =  ;  =  ;    =     ;   =    ;  =  ;    =    ; =  ;  =  ;  =  
+HE ; BEGAN ; A ; CONFUSED ; COMPLAINT ; AGAINST ; THE ; WIZARD ; WHO ; HAD ; VANISHED ; BEHIND ; THE ; CURTAIN ; ON ; THE ; LEFT
+================================================================================
+61-70968-0026, %WER 4.76 [ 1 / 21, 0 ins, 0 del, 1 sub ]
+THE ; STROLLERS ; TOOK ; THEIR ; PART ; IN ; IT ; WITH ; HEARTY ; ZEST ; NOW ; THAT ; THEY ; HAD ; SOME ; CHANCE ; OF ; BEATING ; OFF ; THEIR ; FOES
+ =  ;     S     ;  =   ;   =   ;  =   ; =  ; =  ;  =   ;   =    ;  =   ;  =  ;  =   ;  =   ;  =  ;  =   ;   =    ; =  ;    =    ;  =  ;   =   ;  =  
+THE ;  DRUMMERS ; TOOK ; THEIR ; PART ; IN ; IT ; WITH ; HEARTY ; ZEST ; NOW ; THAT ; THEY ; HAD ; SOME ; CHANCE ; OF ; BEATING ; OFF ; THEIR ; FOES
+================================================================================
+61-70970-0020, %WER 8.33 [ 1 / 12, 0 ins, 0 del, 1 sub ]
+WILL ; WHISPERED ; ROBIN ; OPENING ; HIS ; DOOR ; AS ; HE ; SPOKE ; ARE ; YOU ; READY
+ S   ;     =     ;   =   ;    =    ;  =  ;  =   ; =  ; =  ;   =   ;  =  ;  =  ;   =  
+WELL ; WHISPERED ; ROBIN ; OPENING ; HIS ; DOOR ; AS ; HE ; SPOKE ; ARE ; YOU ; READY
+================================================================================
+61-70968-0023, %WER 5.88 [ 1 / 17, 0 ins, 0 del, 1 sub ]
+BUT ; I ; WRESTLED ; WITH ; THIS ; FELLOW ; AND ; DO ; KNOW ; THAT ; HE ; PLAYED ; UNFAIRLY ; IN ; THE ; SECOND ; BOUT
+ =  ; = ;    =     ;  =   ;  =   ;   =    ;  =  ; =  ;  =   ;  =   ; =  ;   =    ;    =     ; =  ;  =  ;   =    ;  S  
+BUT ; I ; WRESTLED ; WITH ; THIS ; FELLOW ; AND ; DO ; KNOW ; THAT ; HE ; PLAYED ; UNFAIRLY ; IN ; THE ; SECOND ; PART
+================================================================================
+61-70968-0057, %WER 21.43 [ 3 / 14, 0 ins, 0 del, 3 sub ]
+THESE ; ESCAPADES ; ARE ; NOT ; FOR ; OLD ; GAMEWELL ; LAD ; HIS ; DAY ; HAS ; COME ; TO ; TWILIGHT
+  S   ;     =     ;  =  ;  =  ;  =  ;  =  ;    S     ;  S  ;  =  ;  =  ;  =  ;  =   ; =  ;    =    
+ HIS  ; ESCAPADES ; ARE ; NOT ; FOR ; OLD ; GAMELAND ; AND ; HIS ; DAY ; HAS ; COME ; TO ; TWILIGHT
+================================================================================
+61-70968-0005, %WER 0.00 [ 0 / 16, 0 ins, 0 del, 0 sub ]
+THIS ; WAS ; SO ; SWEET ; A ; LADY ; SIR ; AND ; IN ; SOME ; MANNER ; I ; DO ; THINK ; SHE ; DIED
+ =   ;  =  ; =  ;   =   ; = ;  =   ;  =  ;  =  ; =  ;  =   ;   =    ; = ; =  ;   =   ;  =  ;  =  
+THIS ; WAS ; SO ; SWEET ; A ; LADY ; SIR ; AND ; IN ; SOME ; MANNER ; I ; DO ; THINK ; SHE ; DIED
+================================================================================
+61-70970-0027, %WER 0.00 [ 0 / 13, 0 ins, 0 del, 0 sub ]
+ROBIN ; CAREFULLY ; DESCENDED ; THE ; LADDER ; AND ; FOUND ; HIMSELF ; SOON ; UPON ; FIRM ; ROCKY ; GROUND
+  =   ;     =     ;     =     ;  =  ;   =    ;  =  ;   =   ;    =    ;  =   ;  =   ;  =   ;   =   ;   =   
+ROBIN ; CAREFULLY ; DESCENDED ; THE ; LADDER ; AND ; FOUND ; HIMSELF ; SOON ; UPON ; FIRM ; ROCKY ; GROUND
+================================================================================
+61-70968-0020, %WER 0.00 [ 0 / 13, 0 ins, 0 del, 0 sub ]
+SHAME ; ON ; YOU ; CITIZENS ; CRIED ; HE ; I ; BLUSH ; FOR ; MY ; FELLOWS ; OF ; NOTTINGHAM
+  =   ; =  ;  =  ;    =     ;   =   ; =  ; = ;   =   ;  =  ; =  ;    =    ; =  ;     =     
+SHAME ; ON ; YOU ; CITIZENS ; CRIED ; HE ; I ; BLUSH ; FOR ; MY ; FELLOWS ; OF ; NOTTINGHAM
+================================================================================
+61-70968-0017, %WER 5.56 [ 1 / 18, 0 ins, 1 del, 0 sub ]
+I ; COULD ; NOT ; SEE ; MY ; BOY ; INJURED ; EXCELLENCE ; FOR ;  BUT  ; DOING ; HIS ; DUTY ; AS ; ONE ; OF ; CUMBERLAND'S ; SONS
+= ;   =   ;  =  ;  =  ; =  ;  =  ;    =    ;     =      ;  =  ;   D   ;   =   ;  =  ;  =   ; =  ;  =  ; =  ;      =       ;  =  
+I ; COULD ; NOT ; SEE ; MY ; BOY ; INJURED ; EXCELLENCE ; FOR ; <eps> ; DOING ; HIS ; DUTY ; AS ; ONE ; OF ; CUMBERLAND'S ; SONS
+================================================================================
+61-70970-0031, %WER 10.53 [ 2 / 19, 0 ins, 0 del, 2 sub ]
+CRIED ; HE ; WAVING ; THE ; LANTHORN ; BEFORE ; HIM ; TO ; MAKE ; SURE ; THAT ; THESE ; WERE ; NO ; GHOSTS ; IN ; FRONT ; OF ; HIM
+  =   ; =  ;   =    ;  =  ;    S     ;   =    ;  =  ; =  ;  =   ;  =   ;  =   ;   =   ;  =   ; =  ;   S    ; =  ;   =   ; =  ;  = 
+CRIED ; HE ; WAVING ; THE ; LANTERN  ; BEFORE ; HIM ; TO ; MAKE ; SURE ; THAT ; THESE ; WERE ; NO ; GHOST  ; IN ; FRONT ; OF ; HIM
+================================================================================
+61-70968-0015, %WER 76.92 [ 10 / 13, 4 ins, 0 del, 6 sub ]
+NAY ; WE ; REFUSED ;  THEIR  ; REQUEST ; <eps> ; <eps> ; MOST ; POLITELY ; MOST ; NOBLE ; <eps> ; <eps> ; SAID ; THE ; LITTLE ; STROLLER
+ =  ; =  ;    S    ;    S    ;    S    ;   I   ;   I   ;  =   ;    =     ;  S   ;   S   ;   I   ;   I   ;  =   ;  =  ;   =    ;    S    
+NAY ; WE ;   WERE  ; FRIENDS ;  THERE  ;   AT  ; LEAST ; MOST ; POLITELY ; YOU  ;  MUST ;  KNOW ;  BILL ; SAID ; THE ; LITTLE ; SCHOLAR 
+================================================================================
+61-70970-0021, %WER 0.00 [ 0 / 18, 0 ins, 0 del, 0 sub ]
+THEY ; THEN ; RENEWED ; THEIR ; JOURNEY ; AND ; UNDER ; THE ; BETTER ; LIGHT ; MADE ; A ; SAFE ; CROSSING ; OF ; THE ; STABLE ; ROOFS
+ =   ;  =   ;    =    ;   =   ;    =    ;  =  ;   =   ;  =  ;   =    ;   =   ;  =   ; = ;  =   ;    =     ; =  ;  =  ;   =    ;   =  
+THEY ; THEN ; RENEWED ; THEIR ; JOURNEY ; AND ; UNDER ; THE ; BETTER ; LIGHT ; MADE ; A ; SAFE ; CROSSING ; OF ; THE ; STABLE ; ROOFS
+================================================================================
+61-70970-0026, %WER 15.79 [ 3 / 19, 0 ins, 0 del, 3 sub ]
+FITZOOTH'S ; HAND ; RESTED ; AT ; LAST ; UPON ; THE ; TOP ;  RUNG ; OF ;  A  ; LADDER ; AND ; SLOWLY ; THE ; TRUTH ; CAME ; TO ; HIM
+    S      ;  =   ;   =    ; =  ;  =   ;  =   ;  =  ;  =  ;   S   ; =  ;  S  ;   =    ;  =  ;   =    ;  =  ;   =   ;  =   ; =  ;  = 
+   HIS     ; HAND ; RESTED ; AT ; LAST ; UPON ; THE ; TOP ; ROUND ; OF ; THE ; LADDER ; AND ; SLOWLY ; THE ; TRUTH ; CAME ; TO ; HIM
+================================================================================
+61-70968-0019, %WER 7.69 [ 1 / 13, 0 ins, 0 del, 1 sub ]
+IT ; IS ; ENOUGH ; SAID ; GEORGE ; GAMEWELL ; SHARPLY ; AND ; HE ; TURNED ; UPON ; THE ; CROWD
+=  ; =  ;   =    ;  =   ;   =    ;    =     ;    =    ;  S  ; =  ;   =    ;  =   ;  =  ;   =  
+IT ; IS ; ENOUGH ; SAID ; GEORGE ; GAMEWELL ; SHARPLY ;  AS ; HE ; TURNED ; UPON ; THE ; CROWD
+================================================================================
+61-70968-0061, %WER 20.00 [ 3 / 15, 0 ins, 0 del, 3 sub ]
+YOU ; ARE ; A ; WORTHY ; LEECH ; WILL ; PRESENTLY ; WHISPERED ; ROBIN ; THE ;  WINE ; HAS ; WORKED ; A ; MARVEL
+ =  ;  =  ; = ;   S    ;   =   ;  S   ;     =     ;     =     ;   =   ;  =  ;   S   ;  =  ;   =    ; = ;   =   
+YOU ; ARE ; A ; MIGHTY ; LEECH ; WELL ; PRESENTLY ; WHISPERED ; ROBIN ; THE ; LIGHT ; HAS ; WORKED ; A ; MARVEL
+================================================================================
+61-70968-0050, %WER 10.00 [ 2 / 20, 0 ins, 0 del, 2 sub ]
+HE ; MADE ; AN ; EFFORT ; TO ; HIDE ; HIS ; CONDITION ; FROM ; THEM ; ALL  ; AND ; ROBIN ; FELT ; HIS ; FINGERS ; TIGHTEN ; UPON ; HIS ; ARM
+=  ;  =   ; =  ;   =    ; =  ;  =   ;  =  ;     =     ;  =   ;  S   ;  S   ;  =  ;   =   ;  =   ;  =  ;    =    ;    =    ;  =   ;  =  ;  = 
+HE ; MADE ; AN ; EFFORT ; TO ; HIDE ; HIS ; CONDITION ; FROM ; THE  ; WALL ; AND ; ROBIN ; FELT ; HIS ; FINGERS ; TIGHTEN ; UPON ; HIS ; ARM
+================================================================================
+61-70968-0030, %WER 0.00 [ 0 / 17, 0 ins, 0 del, 0 sub ]
+NOW ; BE ; SILENT ; ON ; YOUR ; LIVES ; HE ; BEGAN ; BUT ; THE ; CAPTURED ; APPRENTICE ; SET ; UP ; AN ; INSTANT ; SHOUT
+ =  ; =  ;   =    ; =  ;  =   ;   =   ; =  ;   =   ;  =  ;  =  ;    =     ;     =      ;  =  ; =  ; =  ;    =    ;   =  
+NOW ; BE ; SILENT ; ON ; YOUR ; LIVES ; HE ; BEGAN ; BUT ; THE ; CAPTURED ; APPRENTICE ; SET ; UP ; AN ; INSTANT ; SHOUT
+================================================================================
+61-70968-0033, %WER 0.00 [ 0 / 19, 0 ins, 0 del, 0 sub ]
+THRUSTING ; OPEN ; THE ; PROPER ; ENTRANCE ; OF ; THE ; TENT ; ROBIN ; SUDDENLY ; RUSHED ; FORTH ; WITH ; HIS ; BURDEN ; WITH ; A ; GREAT ; SHOUT
+    =     ;  =   ;  =  ;   =    ;    =     ; =  ;  =  ;  =   ;   =   ;    =     ;   =    ;   =   ;  =   ;  =  ;   =    ;  =   ; = ;   =   ;   =  
+THRUSTING ; OPEN ; THE ; PROPER ; ENTRANCE ; OF ; THE ; TENT ; ROBIN ; SUDDENLY ; RUSHED ; FORTH ; WITH ; HIS ; BURDEN ; WITH ; A ; GREAT ; SHOUT
+================================================================================
+61-70970-0037, %WER 12.50 [ 2 / 16, 0 ins, 0 del, 2 sub ]
+HIS ; TONES ; RANG ; PLEASANTLY ; ON ; WARRENTON'S  ; EARS ; AND ; FORTHWITH ;  A  ; GOOD ; FELLOWSHIP ; WAS ; HERALDED ; BETWEEN ; THEM
+ =  ;   =   ;  =   ;     =      ; =  ;      S       ;  =   ;  =  ;     =     ;  S  ;  =   ;     =      ;  =  ;    =     ;    =    ;  =  
+HIS ; TONES ; RANG ; PLEASANTLY ; ON ; WARRINGTON'S ; EARS ; AND ; FORTHWITH ; THE ; GOOD ; FELLOWSHIP ; WAS ; HERALDED ; BETWEEN ; THEM
+================================================================================
+61-70968-0024, %WER 11.11 [ 2 / 18, 0 ins, 1 del, 1 sub ]
+SPOKE ; THE ; SQUIRE ; LOSING ; ALL ; PATIENCE ; AND ; IT ; WAS ; TO ; YOU ; THAT ; I ; GAVE ; ANOTHER ; PURSE  ;   IN  ; CONSOLATION
+  =   ;  =  ;   =    ;   =    ;  =  ;    =     ;  =  ; =  ;  =  ; =  ;  =  ;  =   ; = ;  =   ;    =    ;   S    ;   D   ;      =     
+SPOKE ; THE ; SQUIRE ; LOSING ; ALL ; PATIENCE ; AND ; IT ; WAS ; TO ; YOU ; THAT ; I ; GAVE ; ANOTHER ; PERSON ; <eps> ; CONSOLATION
+================================================================================
+61-70970-0000, %WER 0.00 [ 0 / 22, 0 ins, 0 del, 0 sub ]
+YOUNG ; FITZOOTH ; HAD ; BEEN ; COMMANDED ; TO ; HIS ; MOTHER'S ; CHAMBER ; SO ; SOON ; AS ; HE ; HAD ; COME ; OUT ; FROM ; HIS ; CONVERSE ; WITH ; THE ; SQUIRE
+  =   ;    =     ;  =  ;  =   ;     =     ; =  ;  =  ;    =     ;    =    ; =  ;  =   ; =  ; =  ;  =  ;  =   ;  =  ;  =   ;  =  ;    =     ;  =   ;  =  ;   =   
+YOUNG ; FITZOOTH ; HAD ; BEEN ; COMMANDED ; TO ; HIS ; MOTHER'S ; CHAMBER ; SO ; SOON ; AS ; HE ; HAD ; COME ; OUT ; FROM ; HIS ; CONVERSE ; WITH ; THE ; SQUIRE
+================================================================================
+61-70970-0011, %WER 13.33 [ 2 / 15, 0 ins, 1 del, 1 sub ]
+AS ;  ANY  ; IN ; ENGLAND ; I ; WOULD ; SAY ; SAID ; GAMEWELL ; PROUDLY ; THAT ; IS ; IN ; HIS ; DAY
+=  ;   D   ; =  ;    =    ; = ;   =   ;  =  ;  =   ;    S     ;    =    ;  =   ; =  ; =  ;  =  ;  = 
+AS ; <eps> ; IN ; ENGLAND ; I ; WOULD ; SAY ; SAID ; CAMILLA  ; PROUDLY ; THAT ; IS ; IN ; HIS ; DAY
+================================================================================
+61-70970-0001, %WER 23.53 [ 4 / 17, 1 ins, 0 del, 3 sub ]
+THERE ; BEFELL ; <eps>  ; AN ; ANXIOUS ; INTERVIEW ; MISTRESS ; FITZOOTH ; ARGUING ; FOR ; AND ; AGAINST ; THE ;  SQUIRE'S  ; PROJECT ; IN ; A ; BREATH
+  S   ;   S    ;   I    ; =  ;    =    ;     =     ;    =     ;    =     ;    =    ;  =  ;  =  ;    =    ;  =  ;     S      ;    =    ; =  ; = ;   =   
+ AND  ;   IT   ; BECAME ; AN ; ANXIOUS ; INTERVIEW ; MISTRESS ; FITZOOTH ; ARGUING ; FOR ; AND ; AGAINST ; THE ; SQUATTER'S ; PROJECT ; IN ; A ; BREATH
+================================================================================
+61-70968-0011, %WER 0.00 [ 0 / 23, 0 ins, 0 del, 0 sub ]
+HE ; GAVE ; WAY ; TO ; THE ; OTHERS ; VERY ; READILY ; AND ; RETREATED ; UNPERCEIVED ; BY ; THE ; SQUIRE ; AND ; MISTRESS ; FITZOOTH ; TO ; THE ; REAR ; OF ; THE ; TENT
+=  ;  =   ;  =  ; =  ;  =  ;   =    ;  =   ;    =    ;  =  ;     =     ;      =      ; =  ;  =  ;   =    ;  =  ;    =     ;    =     ; =  ;  =  ;  =   ; =  ;  =  ;  =  
+HE ; GAVE ; WAY ; TO ; THE ; OTHERS ; VERY ; READILY ; AND ; RETREATED ; UNPERCEIVED ; BY ; THE ; SQUIRE ; AND ; MISTRESS ; FITZOOTH ; TO ; THE ; REAR ; OF ; THE ; TENT
+================================================================================
+61-70970-0028, %WER 4.00 [ 1 / 25, 0 ins, 0 del, 1 sub ]
+STUTELEY ; WAS ; BY ; HIS ; SIDE ; IN ; A ; FLASH ; AND ; THEN ; THEY ; BOTH ; BEGAN ; FEELING ; ABOUT ; THEM ; TO ; ASCERTAIN ; THE ; SHAPE ; AND ; CHARACTER ; OF ; THIS ; VAULT
+   =     ;  =  ; =  ;  =  ;  =   ; =  ; = ;   =   ;  =  ;  =   ;  =   ;  =   ;   =   ;    =    ;   =   ;  =   ; =  ;     =     ;  =  ;   =   ;  =  ;     =     ; =  ;  =   ;   S  
+STUTELEY ; WAS ; BY ; HIS ; SIDE ; IN ; A ; FLASH ; AND ; THEN ; THEY ; BOTH ; BEGAN ; FEELING ; ABOUT ; THEM ; TO ; ASCERTAIN ; THE ; SHAPE ; AND ; CHARACTER ; OF ; THIS ; FAULT
+================================================================================
+61-70970-0039, %WER 0.00 [ 0 / 24, 0 ins, 0 del, 0 sub ]
+HE ; IMPLORES ; US ; TO ; BE ; DISCREET ; AS ; THE ; GRAVE ; IN ; THIS ; MATTER ; FOR ; IN ; SOOTH ; HIS ; LIFE ; IS ; IN ; THE ; HOLLOW ; OF ; OUR ; HANDS
+=  ;    =     ; =  ; =  ; =  ;    =     ; =  ;  =  ;   =   ; =  ;  =   ;   =    ;  =  ; =  ;   =   ;  =  ;  =   ; =  ; =  ;  =  ;   =    ; =  ;  =  ;   =  
+HE ; IMPLORES ; US ; TO ; BE ; DISCREET ; AS ; THE ; GRAVE ; IN ; THIS ; MATTER ; FOR ; IN ; SOOTH ; HIS ; LIFE ; IS ; IN ; THE ; HOLLOW ; OF ; OUR ; HANDS
+================================================================================
+61-70968-0043, %WER 0.00 [ 0 / 16, 0 ins, 0 del, 0 sub ]
+FRIENDS ; SAID ; MONTFICHET ; FAINTLY ; TO ; THE ; WRESTLERS ; BEAR ; US ; ESCORT ; SO ; FAR ; AS ; THE ; SHERIFF'S ; HOUSE
+   =    ;  =   ;     =      ;    =    ; =  ;  =  ;     =     ;  =   ; =  ;   =    ; =  ;  =  ; =  ;  =  ;     =     ;   =  
+FRIENDS ; SAID ; MONTFICHET ; FAINTLY ; TO ; THE ; WRESTLERS ; BEAR ; US ; ESCORT ; SO ; FAR ; AS ; THE ; SHERIFF'S ; HOUSE
+================================================================================
+61-70970-0036, %WER 10.00 [ 2 / 20, 0 ins, 0 del, 2 sub ]
+ROBIN ; FITZOOTH ; SAW ; THAT ; HIS ; DOUBTS ; OF ; WARRENTON ; HAD ; BEEN ; UNFAIR ; AND ; HE ; BECAME ; ASHAMED ; OF ; HIMSELF ; FOR ; HARBORING  ; THEM
+  =   ;    =     ;  =  ;  =   ;  =  ;   =    ; =  ;     S     ;  =  ;  =   ;   =    ;  =  ; =  ;   =    ;    =    ; =  ;    =    ;  =  ;     S      ;  =  
+ROBIN ; FITZOOTH ; SAW ; THAT ; HIS ; DOUBTS ; OF ;  LAWRENCE ; HAD ; BEEN ; UNFAIR ; AND ; HE ; BECAME ; ASHAMED ; OF ; HIMSELF ; FOR ; HARBOURING ; THEM
+================================================================================
+61-70968-0041, %WER 8.33 [ 2 / 24, 0 ins, 0 del, 2 sub ]
+I ; LIKE ; YOU ; WILL ; YOU ; ARE ; THE ; SECOND ; WILL ; THAT ; I ; HAVE ; MET ; AND ; LIKED ; WITHIN ; TWO ; DAYS ; IS ; THERE ; A ; SIGN ; IN ; THAT
+= ;  =   ;  =  ;  S   ;  =  ;  =  ;  =  ;   =    ;  S   ;  =   ; = ;  =   ;  =  ;  =  ;   =   ;   =    ;  =  ;  =   ; =  ;   =   ; = ;  =   ; =  ;  =  
+I ; LIKE ; YOU ; WELL ; YOU ; ARE ; THE ; SECOND ; GIRL ; THAT ; I ; HAVE ; MET ; AND ; LIKED ; WITHIN ; TWO ; DAYS ; IS ; THERE ; A ; SIGN ; IN ; THAT
+================================================================================
+61-70968-0027, %WER 0.00 [ 0 / 23, 0 ins, 0 del, 0 sub ]
+ROBIN ; AND ; THE ; LITTLE ; TUMBLER ; BETWEEN ; THEM ; TRIED ; TO ; FORCE ; THE ; SQUIRE ; TO ; STAND ; BACK ; AND ; VERY ; VALIANTLY ; DID ; THESE ; TWO ; COMPORT ; THEMSELVES
+  =   ;  =  ;  =  ;   =    ;    =    ;    =    ;  =   ;   =   ; =  ;   =   ;  =  ;   =    ; =  ;   =   ;  =   ;  =  ;  =   ;     =     ;  =  ;   =   ;  =  ;    =    ;     =     
+ROBIN ; AND ; THE ; LITTLE ; TUMBLER ; BETWEEN ; THEM ; TRIED ; TO ; FORCE ; THE ; SQUIRE ; TO ; STAND ; BACK ; AND ; VERY ; VALIANTLY ; DID ; THESE ; TWO ; COMPORT ; THEMSELVES
+================================================================================
+61-70970-0024, %WER 8.70 [ 2 / 23, 1 ins, 0 del, 1 sub ]
+THEY ; MOVED ; THEREAFTER ; CAUTIOUSLY ; ABOUT ; THE ; HUT ; GROPING ; BEFORE ; AND ; ABOUT ; THEM ; TO ; FIND ; SOMETHING ; TO ; SHOW ; THAT ; WARRENTON ; <eps> ; HAD ; FULFILLED ; HIS ; MISSION
+ =   ;   =   ;     =      ;     =      ;   =   ;  =  ;  =  ;    =    ;   =    ;  =  ;   =   ;  =   ; =  ;  =   ;     =     ; =  ;  =   ;  =   ;     S     ;   I   ;  =  ;     =     ;  =  ;    =   
+THEY ; MOVED ; THEREAFTER ; CAUTIOUSLY ; ABOUT ; THE ; HUT ; GROPING ; BEFORE ; AND ; ABOUT ; THEM ; TO ; FIND ; SOMETHING ; TO ; SHOW ; THAT ;    THE    ;  MIND ; HAD ; FULFILLED ; HIS ; MISSION
+================================================================================
+61-70970-0035, %WER 8.70 [ 2 / 23, 0 ins, 0 del, 2 sub ]
+WARRENTON  ; SPOKE ; THUS ; WITH ; SIGNIFICANCE ; TO ; SHOW ; ROBIN ; THAT ; HE ; WAS ; NOT ; TO ; THINK ; GEOFFREY'S ; CLAIMS ; TO ; THE ; ESTATE ; WOULD ; BE ; PASSED ; BY
+    S      ;   =   ;  =   ;  =   ;      =       ; =  ;  =   ;   =   ;  =   ; =  ;  =  ;  =  ; =  ;   =   ;     S      ;   =    ; =  ;  =  ;   =    ;   =   ; =  ;   =    ; = 
+WARRINGTON ; SPOKE ; THUS ; WITH ; SIGNIFICANCE ; TO ; SHOW ; ROBIN ; THAT ; HE ; WAS ; NOT ; TO ; THINK ; JEFFREY'S  ; CLAIMS ; TO ; THE ; ESTATE ; WOULD ; BE ; PASSED ; BY
+================================================================================
+61-70970-0025, %WER 6.45 [ 2 / 31, 0 ins, 0 del, 2 sub ]
+THEY ; WERE ; UPON ; THE ; VERGE ; OF ; AN ; OPEN ; TRAP ; IN ; THE ; FAR ; CORNER ; OF ; THE ; HUT ; AND ;  STUTELEY ; HAD ; TRIPPED ; OVER ; THE ; EDGE ; OF ; THE ; REVERSED ; FLAP ; MOUTH ; OF ; THIS ; PIT
+ =   ;  =   ;  =   ;  =  ;   =   ; =  ; =  ;  =   ;  =   ; =  ;  =  ;  =  ;   =    ; =  ;  =  ;  =  ;  =  ;     S     ;  =  ;    =    ;  =   ;  =  ;  =   ; =  ;  =  ;    =     ;  S   ;   =   ; =  ;  =   ;  = 
+THEY ; WERE ; UPON ; THE ; VERGE ; OF ; AN ; OPEN ; TRAP ; IN ; THE ; FAR ; CORNER ; OF ; THE ; HUT ; AND ; CERTAINLY ; HAD ; TRIPPED ; OVER ; THE ; EDGE ; OF ; THE ; REVERSED ; FLAT ; MOUTH ; OF ; THIS ; PIT
+================================================================================
+61-70968-0014, %WER 12.50 [ 3 / 24, 0 ins, 0 del, 3 sub ]
+WHAT ; IS ; THE ; TUMULT ; AND ; RIOTING ; CRIED ; OUT ; THE ; SQUIRE ; AUTHORITATIVELY ; AND ; HE ; BLEW ; TWICE ; ON ;  A  ; SILVER ; WHISTLE ; WHICH ; HUNG ; AT ; HIS ; BELT
+ S   ; =  ;  =  ;   =    ;  S  ;    =    ;   =   ;  =  ;  =  ;   =    ;        =        ;  =  ; =  ;  =   ;   =   ; =  ;  S  ;   =    ;    =    ;   =   ;  =   ; =  ;  =  ;  =  
+THAT ; IS ; THE ; TUMULT ;  OF ; RIOTING ; CRIED ; OUT ; THE ; SQUIRE ; AUTHORITATIVELY ; AND ; HE ; BLEW ; TWICE ; ON ; THE ; SILVER ; WHISTLE ; WHICH ; HUNG ; AT ; HIS ; BELT
+================================================================================
+61-70968-0054, %WER 0.00 [ 0 / 30, 0 ins, 0 del, 0 sub ]
+MISTRESS ; FITZOOTH ; HAD ; BEEN ; CARRIED ; OFF ; BY ; THE ; SHERIFF'S ; DAUGHTER ; AND ; HER ; MAIDS ; AS ; SOON ; AS ; THEY ; HAD ; ENTERED ; THE ; HOUSE ; SO ; THAT ; ROBIN ; ALONE ; HAD ; THE ; CARE ; OF ; MONTFICHET
+   =     ;    =     ;  =  ;  =   ;    =    ;  =  ; =  ;  =  ;     =     ;    =     ;  =  ;  =  ;   =   ; =  ;  =   ; =  ;  =   ;  =  ;    =    ;  =  ;   =   ; =  ;  =   ;   =   ;   =   ;  =  ;  =  ;  =   ; =  ;     =     
+MISTRESS ; FITZOOTH ; HAD ; BEEN ; CARRIED ; OFF ; BY ; THE ; SHERIFF'S ; DAUGHTER ; AND ; HER ; MAIDS ; AS ; SOON ; AS ; THEY ; HAD ; ENTERED ; THE ; HOUSE ; SO ; THAT ; ROBIN ; ALONE ; HAD ; THE ; CARE ; OF ; MONTFICHET
+================================================================================
+61-70968-0035, %WER 12.00 [ 3 / 25, 0 ins, 1 del, 2 sub ]
+TAKING ; ADVANTAGE ; OF ; THIS ; THE ; SQUIRE'S ; FEW ; MEN ; REDOUBLED ; THEIR ; EFFORTS ; AND ; ENCOURAGED ; BY ; ROBIN'S  ;  AND  ; THE ; LITTLE ; STROLLER'S ; CRIES ; FOUGHT ; THEIR ; WAY ; TO ; HIM
+  =    ;     =     ; =  ;  =   ;  =  ;    =     ;  S  ;  =  ;     =     ;   =   ;    =    ;  =  ;     =      ; =  ;    S     ;   D   ;  =  ;   =    ;     =      ;   =   ;   =    ;   =   ;  =  ; =  ;  = 
+TAKING ; ADVANTAGE ; OF ; THIS ; THE ; SQUIRE'S ; TWO ; MEN ; REDOUBLED ; THEIR ; EFFORTS ; AND ; ENCOURAGED ; BY ; ROBINSON ; <eps> ; THE ; LITTLE ; STROLLER'S ; CRIES ; FOUGHT ; THEIR ; WAY ; TO ; HIM
+================================================================================
+61-70968-0049, %WER 45.45 [ 10 / 22, 1 ins, 1 del, 8 sub ]
+HAVE ; YOUR ; WILL ; <eps> ; CHILD ;  IF  ; THE ; BOY ; ALSO ; WILLS ;   IT  ; MONTFICHET ; ANSWERED ; FEELING ; TOO ; ILL ; TO ; OPPOSE ; ANYTHING ; VERY ; STRONGLY ; JUST ; THEN
+ S   ;  S   ;  S   ;   I   ;   =   ;  S   ;  S  ;  S  ;  S   ;   S   ;   D   ;     =      ;    =     ;    =    ;  =  ;  =  ; =  ;   =    ;    =     ;  =   ;    =     ;  =   ;  =  
+ I   ;  AM  ; VERY ;  WELL ; CHILD ; IT'S ; ALL ;  SO ; WELL ;  SAID ; <eps> ; MONTFICHET ; ANSWERED ; FEELING ; TOO ; ILL ; TO ; OPPOSE ; ANYTHING ; VERY ; STRONGLY ; JUST ; THEN
+================================================================================
+61-70968-0010, %WER 0.00 [ 0 / 28, 0 ins, 0 del, 0 sub ]
+FORTHWITH ; ALL ; RAN ; TO ; THE ; OPENING ; OF ; THE ; TENT ; TO ; SEE ; WHAT ; MIGHT ; BE ; AMISS ; BUT ; MASTER ; WILL ; WHO ; PEEPED ; OUT ; FIRST ; NEEDED ; NO ; MORE ; THAN ; ONE ; GLANCE
+    =     ;  =  ;  =  ; =  ;  =  ;    =    ; =  ;  =  ;  =   ; =  ;  =  ;  =   ;   =   ; =  ;   =   ;  =  ;   =    ;  =   ;  =  ;   =    ;  =  ;   =   ;   =    ; =  ;  =   ;  =   ;  =  ;   =   
+FORTHWITH ; ALL ; RAN ; TO ; THE ; OPENING ; OF ; THE ; TENT ; TO ; SEE ; WHAT ; MIGHT ; BE ; AMISS ; BUT ; MASTER ; WILL ; WHO ; PEEPED ; OUT ; FIRST ; NEEDED ; NO ; MORE ; THAN ; ONE ; GLANCE
+================================================================================
+61-70970-0015, %WER 12.00 [ 3 / 25, 0 ins, 0 del, 3 sub ]
+WILL ; CRIED ; HE ; SOFTLY ; AND ; STUTELEY ; WHO ; HAD ; CHOSEN ; HIS ; COUCH ; ACROSS ; THE ; DOOR ; OF ; HIS ; YOUNG ; MASTER'S ; CHAMBER ; SPRANG ; UP ; AT ; ONCE ;  IN ;  ANSWER 
+ S   ;   =   ; =  ;   =    ;  =  ;    =     ;  =  ;  =  ;   =    ;  =  ;   =   ;   =    ;  =  ;  =   ; =  ;  =  ;   =   ;    =     ;    =    ;   =    ; =  ; =  ;  =   ;  S  ;    S    
+WELL ; CRIED ; HE ; SOFTLY ; AND ; STUTELEY ; WHO ; HAD ; CHOSEN ; HIS ; COUCH ; ACROSS ; THE ; DOOR ; OF ; HIS ; YOUNG ; MASTER'S ; CHAMBER ; SPRANG ; UP ; AT ; ONCE ; AND ; ANSWERED
+================================================================================
+61-70970-0038, %WER 5.13 [ 2 / 39, 0 ins, 1 del, 1 sub ]
+THE ; OLD ; SERVANT ; TOLD ; HIM ; QUIETLY ; AS ; THEY ; CREPT ; BACK ; TO ; GAMEWELL ; THAT ; THIS ;  PASSAGE   ;  WAY  ; LED ; FROM ; THE ; HUT ; IN ; THE ; PLEASANCE ; TO ; SHERWOOD ; AND ; THAT ; GEOFFREY ; FOR ; THE ; TIME ; WAS ; HIDING ; WITH ; THE ; OUTLAWS ; IN ; THE ; FOREST
+ =  ;  =  ;    =    ;  =   ;  =  ;    =    ; =  ;  =   ;   =   ;  =   ; =  ;    =     ;  =   ;  =   ;     S      ;   D   ;  =  ;  =   ;  =  ;  =  ; =  ;  =  ;     =     ; =  ;    =     ;  =  ;  =   ;    =     ;  =  ;  =  ;  =   ;  =  ;   =    ;  =   ;  =  ;    =    ; =  ;  =  ;   =   
+THE ; OLD ; SERVANT ; TOLD ; HIM ; QUIETLY ; AS ; THEY ; CREPT ; BACK ; TO ; GAMEWELL ; THAT ; THIS ; PASSAGEWAY ; <eps> ; LED ; FROM ; THE ; HUT ; IN ; THE ; PLEASANCE ; TO ; SHERWOOD ; AND ; THAT ; GEOFFREY ; FOR ; THE ; TIME ; WAS ; HIDING ; WITH ; THE ; OUTLAWS ; IN ; THE ; FOREST
+================================================================================
+61-70970-0004, %WER 5.88 [ 2 / 34, 0 ins, 0 del, 2 sub ]
+BUT ; TAKE ; IT ; WHILST ; I ; LIVE ; AND ; WEAR ; MONTFICHET'S ; SHIELD ; IN ; THE ; DAYS ; WHEN ; MY ; EYES ; CAN ; BE ; REJOICED ; BY ; SO ; BRAVE ; A ; SIGHT ; FOR ; YOU ; WILL ; NE'ER ; DISGRACE ; OUR ; SCUTCHEON ; I ; WARRANT ; ME
+ =  ;  =   ; =  ;   S    ; = ;  =   ;  =  ;  =   ;      =       ;   =    ; =  ;  =  ;  =   ;  =   ; =  ;  =   ;  =  ; =  ;    =     ; =  ; =  ;   =   ; = ;   =   ;  =  ;  =  ;  =   ;   =   ;    =     ;  =  ;     S     ; = ;    =    ; = 
+BUT ; TAKE ; IT ;  MUST  ; I ; LIVE ; AND ; WEAR ; MONTFICHET'S ; SHIELD ; IN ; THE ; DAYS ; WHEN ; MY ; EYES ; CAN ; BE ; REJOICED ; BY ; SO ; BRAVE ; A ; SIGHT ; FOR ; YOU ; WILL ; NE'ER ; DISGRACE ; OUR ;  STATUTES ; I ; WARRANT ; ME
