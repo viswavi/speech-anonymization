@@ -19,7 +19,7 @@ class ASR(sb.core.Brain):
         current_epoch = self.hparams.epoch_counter.current
 
         #current_epoch = self.hparams.epoch_counter.current
-        feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
+        #feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
 
         # forward modules
         src = self.modules.CNN(feats)
@@ -77,7 +77,7 @@ class ASR(sb.core.Brain):
         with torch.no_grad():
             predictions = self.compute_forward(feats, wav_lens, tokens_bos, batch, stage=stage, do_ctc=do_ctc)
             if do_ctc:
-                return self.compute_objectives(predictions, batch, stage=sb.Stage.TEST)
+                return predictions, self.compute_objectives(predictions, batch, stage=sb.Stage.TEST)
             return predictions
         
 
@@ -90,7 +90,6 @@ class ASR(sb.core.Brain):
     def on_evaluate_start(self, max_key=None, min_key=None):
         """perform checkpoint averge if needed"""
         super().on_evaluate_start()
-        self.hparams.asr_model.load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/asr.ckpt"))
         self.hparams.asr_model.eval()
 
     def get_predictions(self, feats, wav_lens, tokens_bos, batch, do_ctc=False):

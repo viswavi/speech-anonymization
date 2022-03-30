@@ -1,0 +1,16 @@
+%WER 0.00 [ 0 / 11, 0 ins, 0 del, 0 sub ]
+%SER 0.00 [ 0 / 1 ]
+Scored 1 sentences, 0 not present in hyp.
+================================================================================
+ALIGNMENTS
+
+Format:
+<utterance-id>, WER DETAILS
+<eps> ; reference  ; on ; the ; first ;  line
+  I   ;     S      ; =  ;  =  ;   S   ;   D  
+ and  ; hypothesis ; on ; the ; third ; <eps>
+================================================================================
+61-70970-0040, %WER 0.00 [ 0 / 11, 0 ins, 0 del, 0 sub ]
+THEY ; REGAINED ; THEIR ; APARTMENT ; APPARENTLY ; WITHOUT ; DISTURBING ; THE ; HOUSEHOLD ; OF ; GAMEWELL
+ =   ;    =     ;   =   ;     =     ;     =      ;    =    ;     =      ;  =  ;     =     ; =  ;    =    
+THEY ; REGAINED ; THEIR ; APARTMENT ; APPARENTLY ; WITHOUT ; DISTURBING ; THE ; HOUSEHOLD ; OF ; GAMEWELL
