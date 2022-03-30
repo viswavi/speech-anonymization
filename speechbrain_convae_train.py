@@ -98,13 +98,18 @@ class SexAnonymizationTraining(sb.core.Brain):
             feats = feats.reshape(feats.shape[0], feats.shape[2], feats.shape[1])
 
         utility_loss = 0.0
-        #if self.hparams.utility_loss_weight > 0:
-            #orig_enc_out, orig_prob = self.asr_brain.get_predictions(orig_feats, wav_lens, tokens_bos, batch, do_ctc=False)
-            #recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1]), wav_lens, tokens_bos, batch, do_ctc=False)
-            #utility_loss = self.hparams.loss_utility(recon_enc_out, orig_enc_out)
+        if self.hparams.utility_loss_weight > 0:
+            if self.hparams.model_type == "convae":
+                reconstructed_speech = reconstructed_speech.reshape(reconstructed_speech.shape[0], reconstructed_speech.shape[2], reconstructed_speech.shape[1])
+            
+            orig_enc_out, orig_prob = self.asr_brain.get_predictions(orig_feats, wav_lens, tokens_bos, batch, do_ctc=False)
+            recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1]), wav_lens, tokens_bos, batch, do_ctc=False)
+            utility_loss = self.hparams.loss_utility(recon_enc_out, orig_enc_out)
 
-        feats = feats.reshape(feats.shape[0], feats.shape[2], feats.shape[1])
-        reconstructed_speech = reconstructed_speech.reshape(reconstructed_speech.shape[0], reconstructed_speech.shape[2], reconstructed_speech.shape[1])
+            if self.hparams.model_type == "convae":
+                reconstructed_speech = reconstructed_speech.reshape(reconstructed_speech.shape[0], reconstructed_speech.shape[2], reconstructed_speech.shape[1])
+            
+
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech, feats)
         #print(self.hparams.loss_reconstruction(reconstructed_speech, reconstructed_speech))
         sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
@@ -113,7 +118,7 @@ class SexAnonymizationTraining(sb.core.Brain):
         loss = (
             self.hparams.recon_loss_weight * recon_loss
             + self.hparams.sex_loss_weight * sex_loss
-            #+ self.hparams.utility_loss_weight * utility_loss
+            + self.hparams.utility_loss_weight * utility_loss
             #+ self.hparams.mi_loss_weight * mi_loss
         )
 
@@ -124,7 +129,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             #self.recon_loss[-1].append(recon_loss)
 
             if self.hparams.model_type == "convae":
-                    reconstructed_speech = reconstructed_speech.reshape(reconstructed_speech.shape[0], reconstructed_speech.shape[2], reconstructed_speech.shape[1])
+                reconstructed_speech = reconstructed_speech.reshape(reconstructed_speech.shape[0], reconstructed_speech.shape[2], reconstructed_speech.shape[1])
 
             if stage == sb.Stage.VALID:
                 recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=False)
