@@ -7,7 +7,7 @@
 # #################################
 
 # Seed needs to be set at top of yaml, before objects with parameters are made
-seed: 1986
+seed: 1230
 __set_seed: !!python/object/apply:torch.manual_seed [!ref <seed>]
 
 # If you plan to train a system on an HPC cluster with a big dataset,
@@ -18,38 +18,68 @@ __set_seed: !!python/object/apply:torch.manual_seed [!ref <seed>]
 # 4- Set data_folder with the local path.
 # Reading data from the local disk of the compute node (e.g. $SLURM_TMPDIR with SLURM-based clusters) is very important.
 # It allows you to read the data much faster without slowing down the shared filesystem.
-data_folder: ./data
-output_folder: !ref ./results/gender/<seed>
+data_folder: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech
+data_folder_rirs: !ref <data_folder>
+train_splits: ["train-clean"]
+dev_splits: ["dev-clean"]
+test_splits: ["test-clean"]
+skip_prep: False
+train_csv: !ref <data_folder>/train.csv
+valid_csv: !ref <data_folder>/dev-clean.csv
+test_csv:
+  - !ref <data_folder>/test-clean.csv
+
+sorting: random
+
+output_folder: !ref ./results/gender_classifier/<seed>
 save_folder: !ref <output_folder>/save
 train_log: !ref <output_folder>/train_log.txt
 
 # Path where data manifest files will be stored
 # The data manifest files are created by the data preparation script.
-train_annotation: train.json
-valid_annotation: valid.json
-test_annotation: test.json
+#train_annotation: train.json
+#valid_annotation: valid.json
+#test_annotation: test.json
 
 # The train logger writes training statistics to a file, as well as stdout.
 train_logger: !new:speechbrain.utils.train_logger.FileTrainLogger
     save_file: !ref <train_log>
 
-error_stats: !name:speechbrain.utils.metric_stats.BinaryMetricStats
+error_stats: !name:speechbrain.utils.metric_stats.MetricStats
+    metric: !name:speechbrain.nnet.losses.classification_error
+        reduction: batch
 
 ckpt_interval_minutes: 15 # save checkpoint every N min
 
 # Feature parameters
-n_mels: 23
+sample_rate: 16000
+n_mels: 24
+
+pretrain_path: speechbrain/spkrec-xvect-voxceleb
+mean_var_norm_emb: !new:speechbrain.processing.features.InputNormalization
+    norm_type: global
+    std_norm: False
+
+pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
+    collect_in: !ref <save_folder>
+    loadables:
+        embedding_model: !ref <embedding_model>
+        mean_var_norm_emb: !ref <mean_var_norm_emb>
+    paths:
+        embedding_model: !ref <pretrain_path>/embedding_model.ckpt
+        mean_var_norm_emb: !ref <pretrain_path>/mean_var_norm_emb.ckpt
+
 
 # Training Parameters
-sample_rate: 16000
 number_of_epochs: 35
-batch_size: 16
+batch_size: 32
 lr_start: 0.001
 lr_final: 0.0001
 n_classes: 2 # In this case, we have 2 classes as we are assuming a gender binary
 emb_dim: 512 # dimensionality of the embeddings
 dataloader_options:
     batch_size: !ref <batch_size>
+    shuffle: True
 
 
 # Added noise and reverb come from OpenRIR dataset, automatically
@@ -70,6 +100,7 @@ augmentation: !new:speechbrain.lobes.augment.TimeDomainSpecAugment
 
 # Feature extraction
 compute_features: !new:speechbrain.lobes.features.Fbank
+    sample_rate: !ref <sample_rate>
     n_mels: !ref <n_mels>
 
 # Mean and std normalization of the input features
@@ -77,10 +108,8 @@ mean_var_norm: !new:speechbrain.processing.features.InputNormalization
     norm_type: sentence
     std_norm: False
 
-# To design a custom model, either just edit the simple CustomModel
-# class that's listed here, or replace this `!new` call with a line
-# pointing to a different file you've defined.
-embedding_model: !new:custom_model.Xvector
+
+embedding_model: !new:speechbrain.lobes.models.Xvector.Xvector
     in_channels: !ref <n_mels>
     activation: !name:torch.nn.LeakyReLU
     tdnn_blocks: 5
@@ -89,12 +118,14 @@ embedding_model: !new:custom_model.Xvector
     tdnn_dilations: [1, 2, 3, 1, 1]
     lin_neurons: !ref <emb_dim>
 
-classifier: !new:custom_model.Classifier
+classifier: !new:speechbrain.lobes.models.Xvector.Classifier
     input_shape: [null, null, !ref <emb_dim>]
     activation: !name:torch.nn.LeakyReLU
     lin_blocks: 1
     lin_neurons: !ref <emb_dim>
     out_neurons: !ref <n_classes>
+
+label_encoder: !new:speechbrain.dataio.encoder.CategoricalEncoder
 
 # The first object passed to the Brain class is this "Epoch Counter"
 # which is saved by the Checkpointer so that training can be resumed
@@ -120,10 +151,22 @@ opt_class: !name:torch.optim.Adam
 # This function manages learning rate annealing over the epochs.
 # We here use the simple lr annealing method that linearly decreases
 # the lr from the initial value to the final one.
-lr_annealing: !new:speechbrain.nnet.schedulers.LinearScheduler
-    initial_value: !ref <lr_start>
-    final_value: !ref <lr_final>
-    epoch_count: !ref <number_of_epochs>
+#lr_annealing: !new:speechbrain.nnet.schedulers.LinearScheduler
+#    initial_value: !ref <lr_start>
+#    final_value: !ref <lr_final>
+#    epoch_count: !ref <number_of_epochs>
+
+
+lr_annealing: !new:speechbrain.nnet.schedulers.ReduceLROnPlateau
+    factor: 0.5
+    patience: 2
+    dont_halve_until_epoch: 2
+
+lr_sgd: 0.000025
+SGD: !name:torch.optim.SGD
+    lr: !ref <lr_sgd>
+    momentum: 0.99
+    nesterov: True
 
 # This object is used for saving the state of training both so that it
 # can be resumed if it gets interrupted, and also so that the best checkpoint
