@@ -34,8 +34,8 @@ data_folder: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech # e.g
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
 data_folder_rirs: !ref <data_folder>
-train_splits: ["train"]
-dev_splits: ["dev-clean-100"]
+train_splits: ["train-clean"]
+dev_splits: ["dev-clean"]
 test_splits: ["test-clean"]
 skip_prep: False
 train_csv: !ref <data_folder>/train.csv
