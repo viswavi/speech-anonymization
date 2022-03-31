@@ -22,7 +22,6 @@ from speechbrain.utils.distributed import run_on_main
 from speechbrain.utils.train_logger import TensorboardLogger
 from models.ConvAutoEncoder import ConvAutoencoder, FullyConnectedAutoencoder, SmallConvAutoencoder
 from models.SpeechBrain_ASR import ASR
-from gender_classifier_train import GenderBrain
 #from mutual_information.MILoss import *
 #import visualization
 
@@ -55,16 +54,29 @@ class SexAnonymizationTraining(sb.core.Brain):
         current_epoch = self.hparams.epoch_counter.current
         feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
 
+        # need to swap to [ BATCH_SIZE x MFCC_FEATURE_DIM x NUM_TIMESTAMPS ]
+        # if self.hparams.model_type == "convae":
+        #     feats = feats.reshape(feats.shape[0], feats.shape[2], feats.shape[1])
+
+        # AE model expects %4 sized dimension for proper reconstruction 
+        have_padded = False
+        pad = 0
+        if feats.shape[2]%4 != 0:
+            pad = 4-feats.shape[2]%4
+            feats = torch.nn.functional.pad(input=feats, pad=(0, 4-feats.shape[2]%4, 0, 0, 0, 0,), mode='constant', value=0)
+            have_padded = True
+
         if stage == sb.Stage.TRAIN:
             if hasattr(self.hparams, "augmentation"):
                 feats = self.hparams.augmentation(feats)
 
         # forward pass through the model
-        return self.modules.ConvAE(feats)
+        return self.modules.ConvAE(feats), (have_padded, pad)
 
     def compute_objectives(self, predictions, batch, stage):
         """Forward computations from the waveform batches to the output probabilities."""
-        reconstructed_speech, sex_logits = predictions
+        reconstructed_speech, sex_logits = predictions[0]
+        have_padded, pad = predictions[1]
 
         if have_padded:
             reconstructed_speech = reconstructed_speech[:, :, :-pad]
