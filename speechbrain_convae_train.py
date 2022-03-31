@@ -468,10 +468,10 @@ if __name__ == "__main__":
         run_opts=run_opts,
         )
     sa_brain.asr_brain.tokenizer = hparams["tokenizer"]
-    sa_brain.asr_brain.tokenizer.Load("pretrained_ASR/tokenizer.ckpt")
-    hparams["asr_model"].load_state_dict(torch.load("pretrained_ASR/asr.ckpt"))
+    sa_brain.asr_brain.tokenizer.Load("/home/ec2-user/capstone/speech-anonymization/pretrained_ASR/tokenizer.ckpt")
+    hparams["asr_model"].load_state_dict(torch.load("/home/ec2-user/capstone/speech-anonymization/pretrained_ASR/asr.ckpt"))
     #hparams["normalize"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/normalizer.ckpt"))
-    hparams["lm_model"].load_state_dict(torch.load("pretrained_ASR/lm.ckpt"))
+    hparams["lm_model"].load_state_dict(torch.load("/home/ec2-user/capstone/speech-anonymization/pretrained_ASR/lm.ckpt"))
 
     print("done loading")
     # #Training
