@@ -70,7 +70,7 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         embedding_model: !ref <pretrain_path>/embedding_model.ckpt
         mean_var_norm_emb: !ref <pretrain_path>/mean_var_norm_emb.ckpt
 
->>>>>>> b95f2375914afde637a6394836de7663f83988a9
+
 
 # Training Parameters
 number_of_epochs: 35
