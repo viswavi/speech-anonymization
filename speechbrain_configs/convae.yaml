@@ -346,7 +346,7 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         normalize: !ref <normalize>
         # external classifier
         embedding_model: !ref <embedding_model>
-        external_classifier: !ref <classifier>
+        external_classifier: !ref <external_classifier>
         label_encoder: !ref <label_encoder>
     paths:
         asr_model: !ref <pretrained_lm_tokenizer_path>/asr.ckpt
