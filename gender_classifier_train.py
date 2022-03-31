@@ -341,8 +341,8 @@ if __name__ == "__main__":
     train_data, valid_data, test_datasets = dataio_prepare(hparams)
 
     # TODO right place?
-    run_on_main(hparams["pretrainer"].collect_files)
-    hparams["pretrainer"].load_collected(device=(run_opts["device"]))
+    # run_on_main(hparams["pretrainer"].collect_files)
+    # hparams["pretrainer"].load_collected(device=(run_opts["device"]))
     hparams["embedding_model"].eval()
     hparams["embedding_model"].to(run_opts["device"])
 
