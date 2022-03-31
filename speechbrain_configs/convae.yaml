@@ -39,9 +39,9 @@ dev_splits: ["dev-clean"]
 test_splits: ["test-clean"]
 skip_prep: False
 train_csv: !ref <data_folder>/train.csv
-valid_csv: !ref <data_folder>/dev-clean-100.csv
+valid_csv: !ref <data_folder>/dev-clean.csv
 test_csv: 
-    - !ref <data_folder>/test-clean-10.csv
+    - !ref <data_folder>/test-clean.csv
 ckpt_interval_minutes: 60 # save checkpoint every N min
 
 # Training parameters
