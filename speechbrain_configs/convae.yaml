@@ -71,6 +71,7 @@ loss_reduction: 'batchmean'
 sorting: random
 
 sex_classification_acc: !name:speechbrain.utils.Accuracy.AccuracyStats
+sex_classification_acc_extern: !name:speechbrain.utils.Accuracy.AccuracyStats
 utility_similarity: 
 utility_similarity_aggregator: !name:utils.utility_similarity_aggregator.SimilarityMetricsStats
 
@@ -180,6 +181,12 @@ seq_lin: !new:speechbrain.nnet.linear.Linear
 
 modules:
     normalize: !ref <normalize>
+
+    # external classifier
+    compute_features: !ref <compute_features>
+    embedding_model: !ref <embedding_model>
+    classifier: !ref <classifier>
+    mean_var_norm: !ref <mean_var_norm>
 
 model: !new:torch.nn.ModuleList
     -[]
@@ -292,6 +299,45 @@ train_logger: !new:speechbrain.utils.train_logger.FileTrainLogger
 error_rate_computer: !name:speechbrain.utils.metric_stats.ErrorRateStats
 acc_computer: !name:speechbrain.utils.Accuracy.AccuracyStats
 
+
+
+# Model parameters (external classifier)
+n_classes: 2
+emb_dim: 512 # dimensionality of the embeddings
+
+# Feature extraction
+compute_features: !new:speechbrain.lobes.features.Fbank
+    n_fft: !ref <n_fft>
+    n_mels: !ref <n_mels>
+
+# Mean and std normalization of the input features
+mean_var_norm: !new:speechbrain.processing.features.InputNormalization
+    norm_type: sentence
+    std_norm: False
+
+# To design a custom model, either just edit the simple CustomModel
+# class that's listed here, or replace this `!new` call with a line
+# pointing to a different file you've defined.
+embedding_model: !new:custom_model.Xvector
+    in_channels: !ref <n_mels>
+    activation: !name:torch.nn.LeakyReLU
+    tdnn_blocks: 5
+    tdnn_channels: [512, 512, 512, 512, 1500]
+    tdnn_kernel_sizes: [5, 3, 3, 1, 1]
+    tdnn_dilations: [1, 2, 3, 1, 1]
+    lin_neurons: !ref <emb_dim>
+
+classifier: !new:custom_model.Classifier
+    input_shape: [null, null, !ref <emb_dim>]
+    activation: !name:torch.nn.LeakyReLU
+    lin_blocks: 1
+    lin_neurons: !ref <emb_dim>
+    out_neurons: !ref <n_classes>
+label_encoder: !new:speechbrain.dataio.encoder.CategoricalEncoder # external classifier
+
+pretrained_path: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/trained_external_classifier_ckpt
+
+
 # The pretrainer allows a mapping between pretrained files and instances that
 # are declared in the yaml. E.g here, we will download the file lm.ckpt
 # and it will be loaded into "lm" which is pointing to the <lm_model> defined
@@ -302,9 +348,17 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         tokenizer: !ref <tokenizer>
         asr_model: !ref <model>
         normalize: !ref <normalize>
+        # external classifier
+        embedding_model: !ref <embedding_model>
+        classifier: !ref <classifier>
+        label_encoder: !ref <label_encoder>
     paths:
         asr_model: !ref <pretrained_lm_tokenizer_path>/asr.ckpt
         lm: !ref <pretrained_lm_tokenizer_path>/lm.ckpt
         tokenizer: !ref <pretrained_lm_tokenizer_path>/tokenizer.ckpt
         normalize: !ref <pretrained_lm_tokenizer_path>/normalizer.ckpt
+        # external classifier
+        embedding_model: !ref <pretrained_path>/embedding_model.ckpt
+        classifier: !ref <pretrained_path>/classifier.ckpt
+        label_encoder: !ref <pretrained_path>/label_encoder.txt
 

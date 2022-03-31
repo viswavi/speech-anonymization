@@ -35,6 +35,9 @@ from librispeech_prepare import prepare_librispeech  # noqa
 
 # Define training procedure
 class SexAnonymizationTraining(sb.core.Brain):
+    def evaluate_by_external(self, sig, labels):
+
+
     def compute_forward(self, batch, stage):
         """Forward computations from the waveform batches to the output probabilities."""
         batch = batch.to(self.device)
@@ -128,6 +131,12 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.sex_classification_acc.append(sex_logits.unsqueeze(1), sex_label.unsqueeze(1), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
             #self.recon_loss[-1].append(recon_loss)
 
+            # Evaluation: performing classification by externally trained sex classifier
+            embeddings_extern = self.modules.embedding_model(feats, wav_lens)
+            sex_logits_extern = self.modules.classifier(embeddings_extern)
+            self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(1), sex_label.unsqueeze(1),
+                                               torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
+
             if self.hparams.model_type == "convae":
                 reconstructed_speech = reconstructed_speech.reshape(reconstructed_speech.shape[0], reconstructed_speech.shape[2], reconstructed_speech.shape[1])
 
@@ -196,6 +205,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             else:
                 self.recon_loss.append([])
             self.sex_classification_acc = self.hparams.sex_classification_acc()
+            self.sexsex_classification_acc_extern = self.hparams.sex_classification_acc_extern()
             self.utility_similarity_aggregator = self.hparams.utility_similarity_aggregator()
             if stage == sb.Stage.TEST:
                 self.wer_metric = self.hparams.error_rate_computer()
@@ -208,6 +218,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.train_stats = stage_stats
         else:
             stage_stats["ACC"] = self.sex_classification_acc.summarize()
+            stage_stats["ACC_external"] = self.sex_classification_acc_extern.summarize()
             stage_stats["Utility_Retention"] = self.utility_similarity_aggregator.summarize()
 
             if stage == sb.Stage.TEST:
