@@ -305,10 +305,6 @@ acc_computer: !name:speechbrain.utils.Accuracy.AccuracyStats
 n_classes: 2
 emb_dim: 512 # dimensionality of the embeddings
 
-# Feature extraction
-compute_features: !new:speechbrain.lobes.features.Fbank
-    n_fft: !ref <n_fft>
-    n_mels: !ref <n_mels>
 
 # Mean and std normalization of the input features
 mean_var_norm: !new:speechbrain.processing.features.InputNormalization
