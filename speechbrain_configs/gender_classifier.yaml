@@ -61,14 +61,14 @@ mean_var_norm_emb: !new:speechbrain.processing.features.InputNormalization
     norm_type: global
     std_norm: False
 
-pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
-    collect_in: !ref <save_folder>
-    loadables:
-        embedding_model: !ref <embedding_model>
-        mean_var_norm_emb: !ref <mean_var_norm_emb>
-    paths:
-        embedding_model: !ref <pretrain_path>/embedding_model.ckpt
-        mean_var_norm_emb: !ref <pretrain_path>/mean_var_norm_emb.ckpt
+#pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
+#    collect_in: !ref <save_folder>
+#    loadables:
+#        embedding_model: !ref <embedding_model>
+#        mean_var_norm_emb: !ref <mean_var_norm_emb>
+#    paths:
+#        embedding_model: !ref <pretrain_path>/embedding_model.ckpt
+#        mean_var_norm_emb: !ref <pretrain_path>/mean_var_norm_emb.ckpt
 
 
 
