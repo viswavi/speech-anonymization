@@ -53,10 +53,6 @@ ckpt_interval_minutes: 15 # save checkpoint every N min
 
 # Feature parameters
 sample_rate: 16000
-<<<<<<< HEAD
-n_fft: 400
-n_mels: 80
-=======
 n_mels: 24
 
 pretrain_path: speechbrain/spkrec-xvect-voxceleb
@@ -106,10 +102,6 @@ augmentation: !new:speechbrain.lobes.augment.TimeDomainSpecAugment
 # Feature extraction
 compute_features: !new:speechbrain.lobes.features.Fbank
     sample_rate: !ref <sample_rate>
-<<<<<<< HEAD
-    n_fft: !ref <n_fft>
-=======
->>>>>>> b95f2375914afde637a6394836de7663f83988a9
     n_mels: !ref <n_mels>
 
 # Mean and std normalization of the input features
