@@ -21,6 +21,7 @@ train_log: results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr
 
 pretrained_folder: /home/ec2-user/capstone/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
 
+
 model_type: fcae
 
 # Language model (LM) pretraining
@@ -330,8 +331,7 @@ external_classifier: *id014
 label_encoder: &id016 !new:speechbrain.dataio.encoder.CategoricalEncoder
                                                                   # external classifier
 
-pretrained_path: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/trained_external_classifier_ckpt
-
+pretrained_path: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00
 
 # The pretrainer allows a mapping between pretrained files and instances that
 # are declared in the yaml. E.g here, we will download the file lm.ckpt
@@ -352,7 +352,7 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
     tokenizer: speechbrain/asr-transformer-transformerlm-librispeech/tokenizer.ckpt
     normalize: speechbrain/asr-transformer-transformerlm-librispeech/normalizer.ckpt
         # external classifier
-    embedding_model: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/trained_external_classifier_ckpt/embedding_model.ckpt
-    external_classifier: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/trained_external_classifier_ckpt/classifier.ckpt
-    label_encoder: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/trained_external_classifier_ckpt/label_encoder.txt
+    embedding_model: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/embedding_model.ckpt
+    external_classifier: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/classifier.ckpt
+    label_encoder: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/label_encoder.txt
 
