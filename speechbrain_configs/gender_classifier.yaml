@@ -53,7 +53,8 @@ ckpt_interval_minutes: 15 # save checkpoint every N min
 
 # Feature parameters
 sample_rate: 16000
-n_mels: 24
+n_fft: 400
+n_mels: 80
 
 pretrain_path: speechbrain/spkrec-xvect-voxceleb
 mean_var_norm_emb: !new:speechbrain.processing.features.InputNormalization
