@@ -133,7 +133,7 @@ class SexAnonymizationTraining(sb.core.Brain):
 
             # Evaluation: performing classification by externally trained sex classifier
             embeddings_extern = self.modules.embedding_model(feats, wav_lens)
-            sex_logits_extern = self.modules.classifier(embeddings_extern)
+            sex_logits_extern = self.modules.external_classifier(embeddings_extern)
             self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(1), sex_label.unsqueeze(1),
                                                torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
 
