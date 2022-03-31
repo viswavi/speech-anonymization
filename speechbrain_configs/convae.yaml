@@ -185,7 +185,7 @@ modules:
     # external classifier
     compute_features: !ref <compute_features>
     embedding_model: !ref <embedding_model>
-    classifier: !ref <classifier>
+    classifier: !ref <external_classifier>
     mean_var_norm: !ref <mean_var_norm>
 
 model: !new:torch.nn.ModuleList
