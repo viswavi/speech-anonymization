@@ -35,9 +35,6 @@ from librispeech_prepare import prepare_librispeech  # noqa
 
 # Define training procedure
 class SexAnonymizationTraining(sb.core.Brain):
-    def evaluate_by_external(self, sig, labels):
-
-
     def compute_forward(self, batch, stage):
         """Forward computations from the waveform batches to the output probabilities."""
         batch = batch.to(self.device)
