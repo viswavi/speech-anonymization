@@ -59,10 +59,10 @@ ctc_weight: 0.3
 
 ## PARAMS FOR CONVAUTOENCODER ##
 convae_feature_dim: 80
-number_of_epochs: 30
+number_of_epochs: 100
 batch_size: 10
-recon_loss_weight: 1.0
-sex_loss_weight: 0.0
+recon_loss_weight: 0.1
+sex_loss_weight: 0.9
 utility_loss_weight: 0.0
 mi_loss_weight: 0.0
 gradient_accumulation: 1
