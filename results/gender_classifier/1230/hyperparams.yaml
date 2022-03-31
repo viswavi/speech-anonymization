@@ -1,4 +1,4 @@
-# Generated 2022-03-27 from:
+# Generated 2022-03-31 from:
 # /home/ec2-user/capstone/speech-anonymization/speechbrain_configs/gender_classifier.yaml
 # yamllint disable
 # #################################
@@ -56,48 +56,40 @@ ckpt_interval_minutes: 15 # save checkpoint every N min
 
 # Feature parameters
 sample_rate: 16000
-n_mels: 24
-
+n_fft: 400
+n_mels: 80
 
 pretrain_path: speechbrain/spkrec-xvect-voxceleb
-mean_var_norm_emb: &id001 !new:speechbrain.processing.features.InputNormalization
+mean_var_norm_emb: !new:speechbrain.processing.features.InputNormalization
   norm_type: global
   std_norm: false
 
-pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
-  collect_in: ./results/gender_classifier/1230/save
-  loadables:
-    embedding_model: &id002 !new:speechbrain.lobes.models.Xvector.Xvector
-      in_channels: 24
-      activation: !name:torch.nn.LeakyReLU
-      tdnn_blocks: 5
-      tdnn_channels: [512, 512, 512, 512, 1500]
-      tdnn_kernel_sizes: [5, 3, 3, 1, 1]
-      tdnn_dilations: [1, 2, 3, 1, 1]
-      lin_neurons: 512
-
-    mean_var_norm_emb: *id001
-  paths:
-    embedding_model: speechbrain/spkrec-xvect-voxceleb/embedding_model.ckpt
-    mean_var_norm_emb: speechbrain/spkrec-xvect-voxceleb/mean_var_norm_emb.ckpt
+#pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
+#    collect_in: !ref <save_folder>
+#    loadables:
+#        embedding_model: !ref <embedding_model>
+#        mean_var_norm_emb: !ref <mean_var_norm_emb>
+#    paths:
+#        embedding_model: !ref <pretrain_path>/embedding_model.ckpt
+#        mean_var_norm_emb: !ref <pretrain_path>/mean_var_norm_emb.ckpt
 
 
 
 # Training Parameters
 number_of_epochs: 35
-batch_size: 16
+batch_size: 32
 lr_start: 0.001
 lr_final: 0.0001
 n_classes: 2 # In this case, we have 2 classes as we are assuming a gender binary
 emb_dim: 512 # dimensionality of the embeddings
 dataloader_options:
-  batch_size: 16
+  batch_size: 32
   shuffle: true
 
 
 # Added noise and reverb come from OpenRIR dataset, automatically
 # downloaded and prepared with this Environmental Corruption class.
-env_corrupt: &id004 !new:speechbrain.lobes.augment.EnvCorrupt
+env_corrupt: &id002 !new:speechbrain.lobes.augment.EnvCorrupt
   openrir_folder: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech
   babble_prob: 0.0
   reverb_prob: 0.0
@@ -107,17 +99,18 @@ env_corrupt: &id004 !new:speechbrain.lobes.augment.EnvCorrupt
 
 # Adds speech change + time and frequency dropouts (time-domain implementation)
 # # A small speed change help to improve the performance of gender as well.
-augmentation: &id005 !new:speechbrain.lobes.augment.TimeDomainSpecAugment
+augmentation: &id003 !new:speechbrain.lobes.augment.TimeDomainSpecAugment
   sample_rate: 16000
   speeds: [95, 100, 105]
 
 # Feature extraction
-compute_features: &id003 !new:speechbrain.lobes.features.Fbank
+compute_features: &id001 !new:speechbrain.lobes.features.Fbank
   sample_rate: 16000
-  n_mels: 24
+  n_fft: 400
+  n_mels: 80
 
 # Mean and std normalization of the input features
-mean_var_norm: &id007 !new:speechbrain.processing.features.InputNormalization
+mean_var_norm: &id006 !new:speechbrain.processing.features.InputNormalization
 
 # This optimizer will be constructed by the Brain class after all parameters
 # are moved to the correct device. Then it will be added to the checkpointer.
@@ -125,8 +118,16 @@ mean_var_norm: &id007 !new:speechbrain.processing.features.InputNormalization
   std_norm: false
 
 
-embedding_model: *id002
-classifier: &id006 !new:speechbrain.lobes.models.Xvector.Classifier
+embedding_model: &id004 !new:speechbrain.lobes.models.Xvector.Xvector
+  in_channels: 80
+  activation: !name:torch.nn.LeakyReLU
+  tdnn_blocks: 5
+  tdnn_channels: [512, 512, 512, 512, 1500]
+  tdnn_kernel_sizes: [5, 3, 3, 1, 1]
+  tdnn_dilations: [1, 2, 3, 1, 1]
+  lin_neurons: 512
+
+classifier: &id005 !new:speechbrain.lobes.models.Xvector.Classifier
   input_shape: [null, null, 512]
   activation: !name:torch.nn.LeakyReLU
   lin_blocks: 1
@@ -138,18 +139,18 @@ label_encoder: !new:speechbrain.dataio.encoder.CategoricalEncoder
 # The first object passed to the Brain class is this "Epoch Counter"
 # which is saved by the Checkpointer so that training can be resumed
 # if it gets interrupted at any point.
-epoch_counter: &id008 !new:speechbrain.utils.epoch_loop.EpochCounter
+epoch_counter: &id007 !new:speechbrain.utils.epoch_loop.EpochCounter
   limit: 35
 
 # Objects in "modules" dict will have their parameters moved to the correct
 # device, as well as having train()/eval() called on them by the Brain class.
 modules:
-  compute_features: *id003
-  env_corrupt: *id004
-  augmentation: *id005
-  embedding_model: *id002
-  classifier: *id006
-  mean_var_norm: *id007
+  compute_features: *id001
+  env_corrupt: *id002
+  augmentation: *id003
+  embedding_model: *id004
+  classifier: *id005
+  mean_var_norm: *id006
 opt_class: !name:torch.optim.Adam
   lr: 0.001
 
@@ -179,7 +180,7 @@ SGD: !name:torch.optim.SGD
 checkpointer: !new:speechbrain.utils.checkpoints.Checkpointer
   checkpoints_dir: ./results/gender_classifier/1230/save
   recoverables:
-    embedding_model: *id002
-    classifier: *id006
-    normalizer: *id007
-    counter: *id008
+    embedding_model: *id004
+    classifier: *id005
+    normalizer: *id006
+    counter: *id007
