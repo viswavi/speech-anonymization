@@ -114,7 +114,7 @@ class SexAnonymizationTraining(sb.core.Brain):
                 recon_enc_out, recon_prob, _, _, _, _, = enc_out
                 ids, predicted_words, target_words = predictions
                 
-                enc_out, predictions = self.asr_brain.get_predictions(orig_feats, wav_lens, tokens_bos, batch, do_ctc=True)
+                enc_out, predictions = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=True)
                 orig_enc_out, orig_prob, _, _, _, _, = enc_out
                 o_ids, o_predicted_words, o_target_words = predictions
                 
