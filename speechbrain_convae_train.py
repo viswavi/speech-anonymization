@@ -173,7 +173,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             else:
                 self.recon_loss.append([])
             self.sex_classification_acc = self.hparams.sex_classification_acc()
-            self.sexsex_classification_acc_extern = self.hparams.sex_classification_acc_extern()
+            self.sex_classification_acc_extern = self.hparams.sex_classification_acc_extern()
             self.utility_similarity_aggregator = self.hparams.utility_similarity_aggregator()
             if stage == sb.Stage.TEST:
                 self.wer_metric = self.hparams.error_rate_computer()
