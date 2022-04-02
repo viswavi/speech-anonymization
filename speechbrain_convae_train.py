@@ -468,10 +468,10 @@ if __name__ == "__main__":
         run_opts=run_opts,
         )
     sa_brain.asr_brain.tokenizer = hparams["tokenizer"]
-    sa_brain.asr_brain.tokenizer.Load("pretrained_models/asr-transformer-transformerlm-librispeech/tokenizer.ckpt")
-    hparams["asr_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/asr.ckpt"))
+    sa_brain.asr_brain.tokenizer.Load("PretrainedASR/tokenizer.ckpt")
+    hparams["asr_model"].load_state_dict(torch.load("PretrainedASR/asr.ckpt"))
     #hparams["normalize"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/normalizer.ckpt"))
-    hparams["lm_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/lm.ckpt"))
+    hparams["lm_model"].load_state_dict(torch.load("PretrainedASR/lm.ckpt"))
 
     print("done loading")
     # #Training
