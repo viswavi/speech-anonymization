@@ -28,8 +28,8 @@ class GradReverse(torch.autograd.Function):
 class SexClassifier(nn.Module):
     def __init__(self, num_classes):
         super(SexClassifier, self).__init__()
-        self.fc1 = nn.Linear(256, 128)
-        self.fc2 = nn.Linear(128, num_classes)
+        self.fc1 = nn.Linear(1024, 256)
+        self.fc2 = nn.Linear(256, num_classes)
 
     def forward(self, input):
         input = GradReverse.grad_reverse(input)
@@ -77,16 +77,27 @@ class ConvAutoencoder(nn.Module):
             GLU(),
             nn.Conv1d(in_channels=64, out_channels=128, kernel_size=5, stride=2, padding=2),
             nn.InstanceNorm1d(num_features=128, affine=True),
+            GLU(),
+            nn.Conv1d(in_channels=128, out_channels=256, kernel_size=5, stride=2, padding=2),
+            nn.InstanceNorm1d(num_features=256, affine=True),
+            GLU(),
+            nn.Conv1d(in_channels=256, out_channels=512, kernel_size=5, stride=2, padding=2),
+            nn.InstanceNorm1d(num_features=512, affine=True),
             GLU()
         )
 
         ## decoder layers ##
         self.decoder=nn.Sequential(
-            nn.Conv1d(in_channels=128, out_channels=128, kernel_size=5, stride=1, padding=2),
+            nn.Conv1d(in_channels=512, out_channels=512, kernel_size=5, stride=1, padding=2),
+            nn.ConvTranspose1d(in_channels=512, out_channels=256, kernel_size=5, stride=2, padding=2, output_padding=1),
+            nn.InstanceNorm1d(num_features=256, affine=True),
+            GLU(),
+            nn.ConvTranspose1d(in_channels=256, out_channels=128, kernel_size=5, stride=2, padding=2, output_padding=1),
+            nn.InstanceNorm1d(num_features=128, affine=True),
+            GLU(),
             nn.ConvTranspose1d(in_channels=128, out_channels=64, kernel_size=5, stride=2, padding=2, output_padding=1),
             nn.InstanceNorm1d(num_features=64, affine=True),
             GLU(),
-            nn.Conv1d(in_channels=64, out_channels=64, kernel_size=5, stride=1, padding=2),
             nn.ConvTranspose1d(in_channels=64, out_channels=32, kernel_size=5, stride=2, padding=2, output_padding=1),
             nn.InstanceNorm1d(num_features=32, affine=True),
             GLU(),
@@ -103,7 +114,9 @@ class ConvAutoencoder(nn.Module):
         #print(input.shape)
         input = input.reshape(input.shape[0], input.shape[1]*input.shape[2])
         input = input.unsqueeze(1)
+        #print(input.shape)
         input = self.encoder(input)
+        #print(input.shape)
 
         ## statistics pooling ##
         mean = torch.mean(input, 2)

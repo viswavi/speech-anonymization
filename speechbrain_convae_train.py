@@ -65,8 +65,6 @@ class SexAnonymizationTraining(sb.core.Brain):
         """Forward computations from the waveform batches to the output probabilities."""
         reconstructed_speech, sex_logits = predictions
 
-        if have_padded:
-            reconstructed_speech = reconstructed_speech[:, :, :-pad]
         batch = batch.to(sa_brain.device)
 
         sex_label = batch.gender
@@ -99,7 +97,6 @@ class SexAnonymizationTraining(sb.core.Brain):
             current_epoch = self.hparams.epoch_counter.current
             # compute the accuracy of the sex prediction
             self.sex_classification_acc.append(sex_logits.unsqueeze(1), sex_label.unsqueeze(1), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
-            #self.recon_loss[-1].append(recon_loss)
 
             # Evaluation: performing classification by externally trained sex classifier
             embeddings_extern = self.modules.embedding_model(feats, wav_lens)
@@ -123,7 +120,7 @@ class SexAnonymizationTraining(sb.core.Brain):
                 recon_enc_out, recon_prob, _, _, _, _, = enc_out
                 ids, predicted_words, target_words = predictions
                 
-                enc_out, predictions = self.asr_brain.get_predictions(orig_feats, wav_lens, tokens_bos, batch, do_ctc=True)
+                enc_out, predictions = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=True)
                 orig_enc_out, orig_prob, _, _, _, _, = enc_out
                 o_ids, o_predicted_words, o_target_words = predictions
                 
@@ -474,6 +471,7 @@ if __name__ == "__main__":
     hparams["lm_model"].load_state_dict(torch.load("PretrainedASR/lm.ckpt"))
 
     print("done loading")
+
     # #Training
     # sa_brain.fit(
     #     sa_brain.hparams.epoch_counter,
@@ -482,6 +480,7 @@ if __name__ == "__main__":
     #     train_loader_kwargs=hparams["train_dataloader_opts"],
     #     valid_loader_kwargs=hparams["valid_dataloader_opts"],
     # )
+
 
     # Testing
     for k in test_datasets.keys():  # keys are test_clean, test_other etc
@@ -502,3 +501,4 @@ if __name__ == "__main__":
     # plot_path = os.path.join(output_folder, "learning_curve.png")
     # visualization.draw_lines(recon_loss_averages, "Epoch", "Avg. Recon. Loss", "Learning Curve", plot_path)
     # print(f"Wrote reconstruction error learning curve to {plot_path}")
+
