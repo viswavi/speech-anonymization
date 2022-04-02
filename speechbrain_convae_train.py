@@ -85,12 +85,6 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech, feats)
 
-        print("recon speech shape")
-        print(reconstructed_speech.shape)
-        print("sex logits shape")
-        print(sex_logits.shape)
-        print("sex labbel shape")
-        print(sex_label.shape)
 
         sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
 
@@ -109,21 +103,11 @@ class SexAnonymizationTraining(sb.core.Brain):
             recon_speech_feats = reconstructed_speech.to(sa_brain.device)
             wav_lens = wav_lens.to(sa_brain.device)
 
-
-            print("sex label")
-            print(sex_label)
-
-            print("original logits")
-            print(sex_logits)
-
             sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats, wav_lens)
-            print("\noutput probs = ")
-            print(sex_logits_extern)
 
-            print("\n output probs (external on original feats)")
-            sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch_feats(feats, wav_lens)
-            print(sex_logits_extern_orig.shape)
-            print(sex_logits_extern_orig)
+            #sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch_feats(feats, wav_lens)
+            #print(sex_logits_extern_orig.shape)
+            #print(sex_logits_extern_orig)
 
             self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(0), sex_label.unsqueeze(0),
                                                torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))

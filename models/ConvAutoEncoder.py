@@ -236,7 +236,7 @@ class FullyConnectedAutoencoder(nn.Module):
 
         ## sex classifier ##
         sex_classifier_logits = self.sex_classifier(stat_pooling)
-        sex_classifier_logits = torch.rand((1,2)).to(torch.device("cuda"))
+        #sex_classifier_logits = torch.rand((1,2)).to(torch.device("cuda"))
         
         ## decode ##
         input = self.decoder(input)
