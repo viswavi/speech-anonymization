@@ -79,7 +79,7 @@ loss_reconstruction: !new:torch.nn.L1Loss
     reduction: mean
 loss_sex_classification: !new:torch.nn.NLLLoss
 loss_utility: !new:utils.cosine_similarity_loss.CosineSimilarityLoss
-loss_mutual_information: !new:utils.MILoss
+loss_mutual_information: !new:utils.mi_loss.MILoss
 
 # stages related parameters
 stage_one_epochs: 90
