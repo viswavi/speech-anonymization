@@ -83,7 +83,7 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech, feats)
         sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
-        mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch)
+        mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch, self.hparams.batch_size)
 
         loss = (
             self.hparams.recon_loss_weight * recon_loss
