@@ -26,9 +26,10 @@ class GroupSampler(object):
         return samples
 
     def create_groups(self):
-
+        print("creating mi groups")
+        print(self.groups)
         # Create dataframe
-        df = pd.DataFrame(self.groups.cpu(), columns=['groups'])
+        df = pd.DataFrame(self.groups, columns=['groups'])
         grouped = df.groupby('groups')
 
         # Get list with list of samples per group | Keys correspond to group labels
