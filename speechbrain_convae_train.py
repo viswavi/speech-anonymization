@@ -22,7 +22,6 @@ from speechbrain.utils.train_logger import TensorboardLogger
 from models.ConvAutoEncoder import ConvAutoencoder, FullyConnectedAutoencoder, SmallConvAutoencoder
 from models.SpeechBrain_ASR import ASR
 from gender_classifier_train import GenderBrain
-#from mutual_information.MILoss import *
 #import visualization
 
 logger = logging.getLogger(__name__)
