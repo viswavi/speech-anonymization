@@ -73,6 +73,18 @@ class FullyConnSexClassifier(nn.Module):
         logits = F.log_softmax(self.fc2(logits), 1)
         return logits
 
+class DummyFullyConnSexClassifier(nn.Module):
+    def __init__(self, num_classes):
+        super(DummyFullyConnSexClassifier, self).__init__()
+        self.fc1 = nn.Linear(1024, 512)
+        self.fc2 = nn.Linear(512, num_classes)
+
+    def forward(self, input):
+        input = GradReverse.grad_reverse(input)
+        logits = F.relu(self.fc1(input))
+        logits = F.log_softmax(self.fc2(logits), 1)
+        return logits
+
 class FullyConnectedAutoencoder(nn.Module):
     def __init__(self, mfcc_feature_dim, batch_size):
         super(FullyConnectedAutoencoder, self).__init__()
@@ -100,7 +112,7 @@ class FullyConnectedAutoencoder(nn.Module):
         )
 
         ## Sex classifier: num_classes = 2 ##
-        self.sex_classifier = SexClassifier(2)
+        self.sex_classifier = FullyConnSexClassifier(2)
 
     def forward(self, input):
         ## encode ##
@@ -108,13 +120,62 @@ class FullyConnectedAutoencoder(nn.Module):
         input = self.encoder(input)
 
         ## statistics pooling ##
-        #mean = torch.mean(input.reshape(self.batch_size, input.shape[2], input.shape[1]), 2)
-        #std = torch.std(input.reshape(self.batch_size, input.shape[2], input.shape[1]), 2)
-        #stat_pooling = torch.cat((mean, std), 1)
+        mean = torch.mean(input.reshape(input.shape[0], input.shape[2], input.shape[1]), 2)
+        std = torch.std(input.reshape(input.shape[0], input.shape[2], input.shape[1]), 2)
+        stat_pooling = torch.cat((mean, std), 1)
 
         ## sex classifier ##
-        # sex_classifier_logits = self.sex_classifier(stat_pooling)
-        sex_classifier_logits = torch.rand((1,2)).to(torch.device("cuda"))
+        sex_classifier_logits = self.sex_classifier(stat_pooling)
+        
+        ## decode ##
+        input = self.decoder(input)
+
+        ## return reconstructed speech feature for reconstruction loss, sex classification for cross entropy loss ##
+        return input, sex_classifier_logits
+
+
+class DummyFullyConnectedAutoencoder(nn.Module):
+    def __init__(self, mfcc_feature_dim, batch_size):
+        super(DummyFullyConnectedAutoencoder, self).__init__()
+        
+        ## model parameters ##
+        self.mfcc_feature_dim = mfcc_feature_dim
+        self.batch_size = batch_size
+
+        ## encoder layers ##
+        self.encoder=nn.Sequential(
+            nn.Linear(in_features=self.mfcc_feature_dim, out_features=60),
+            nn.ReLU(),
+            nn.Linear(in_features=60, out_features=40),
+            nn.ReLU(),
+            nn.Linear(in_features=40, out_features=20)
+        )
+
+        ## decoder layers ##
+        self.decoder=nn.Sequential(
+            nn.Linear(in_features=20, out_features=40),
+            nn.ReLU(),
+            nn.Linear(in_features=40, out_features=60),
+            nn.ReLU(),
+            nn.Linear(in_features=60, out_features=80)
+        )
+
+        ## Sex classifier: num_classes = 2 ##
+        self.sex_classifier = DummyFullyConnSexClassifier(2)
+
+    def forward(self, input):
+        ## encode ##
+        out = input
+        input = self.encoder(input)
+
+        ## statistics pooling ##
+        mean = torch.mean(input.reshape(input.shape[0], input.shape[2], input.shape[1]), 2)
+        std = torch.std(input.reshape(input.shape[0], input.shape[2], input.shape[1]), 2)
+        stat_pooling = torch.cat((mean, std), 1)
+
+        ## sex classifier ##
+        #sex_classifier_logits = self.sex_classifier(stat_pooling)
+        sex_classifier_logits = torch.rand([input.shape[0], 2], device="cuda")
         
         ## decode ##
         input = self.decoder(input)

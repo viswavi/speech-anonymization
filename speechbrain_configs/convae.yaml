@@ -59,13 +59,13 @@ ctc_weight: 0.3
 
 ## PARAMS FOR CONVAUTOENCODER ##
 convae_feature_dim: 80
-number_of_epochs: 100
+number_of_epochs: 1000
 batch_size: 10
-recon_loss_weight: 0.1
-sex_loss_weight: 0.9
+recon_loss_weight: 1.0
+sex_loss_weight: 0.0
 utility_loss_weight: 0.0
 mi_loss_weight: 0.0
-gradient_accumulation: 1
+gradient_accumulation: 2
 gradient_clipping: 5.0
 loss_reduction: 'batchmean'
 sorting: random
@@ -74,7 +74,7 @@ sex_classification_acc: !name:speechbrain.utils.Accuracy.AccuracyStats
 utility_similarity: 
 utility_similarity_aggregator: !name:utils.utility_similarity_aggregator.SimilarityMetricsStats
 
-loss_reconstruction: !new:torch.nn.L1Loss
+loss_reconstruction: !new:torch.nn.MSELoss
     reduction: mean
 loss_sex_classification: !new:torch.nn.NLLLoss
 loss_utility: !new:utils.cosine_similarity_loss.CosineSimilarityLoss

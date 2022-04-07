@@ -12,7 +12,7 @@ python speechbrain_convae_train.py \
 import os
 from queue import Full
 import sys
-from sympy import FU
+from sympy import FU, Ge
 import torch
 import logging
 from pathlib import Path
@@ -20,7 +20,8 @@ import speechbrain as sb
 from hyperpyyaml import load_hyperpyyaml
 from speechbrain.utils.distributed import run_on_main
 from speechbrain.utils.train_logger import TensorboardLogger
-from models.ConvAutoEncoder import ConvAutoencoder, FullyConnectedAutoencoder, SmallConvAutoencoder
+from models.ConvAutoEncoder import ConvAutoencoder, CycleGANGenerator
+from.models.FullyConnected import FullyConnectedAutoencoder, DummyFullyConnectedAutoencoder
 from models.SpeechBrain_ASR import ASR
 from gender_classifier_train import GenderBrain
 #from mutual_information.MILoss import *
@@ -55,6 +56,9 @@ class SexAnonymizationTraining(sb.core.Brain):
         current_epoch = self.hparams.epoch_counter.current
         feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
 
+        if feats.shape[1]%36 != 0:
+            feats = torch.nn.functional.pad(input=feats, pad=(0, 0, 0, 36-feats.shape[1]%36, 0, 0), mode='constant', value=0)
+
         if stage == sb.Stage.TRAIN:
             if hasattr(self.hparams, "augmentation"):
                 feats = self.hparams.augmentation(feats)
@@ -77,14 +81,18 @@ class SexAnonymizationTraining(sb.core.Brain):
         current_epoch = self.hparams.epoch_counter.current
         feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
 
+        if feats.shape[1]%36 != 0:
+            feats = torch.nn.functional.pad(input=feats, pad=(0, 0, 0, 36-feats.shape[1]%36, 0, 0), mode='constant', value=0)
+
         utility_loss = 0.0
         if self.hparams.utility_loss_weight > 0:
             orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=False)
-            recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1]), wav_lens, tokens_bos, batch, do_ctc=False)
+            recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=False)
             utility_loss = self.hparams.loss_utility(recon_enc_out, orig_enc_out)
-
-        recon_loss = self.hparams.loss_reconstruction(reconstructed_speech, feats)
+                
+        recon_loss = self.hparams.loss_reconstruction(reconstructed_speech.view(reconstructed_speech.shape[0], -1), feats.view(feats.shape[0], -1))
         sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
+        print(sex_loss)
         #mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch)
 
         loss = (
@@ -97,7 +105,7 @@ class SexAnonymizationTraining(sb.core.Brain):
         if stage != sb.Stage.TRAIN:
             current_epoch = self.hparams.epoch_counter.current
             # compute the accuracy of the sex prediction
-            self.sex_classification_acc.append(sex_logits.unsqueeze(1), sex_label.unsqueeze(1), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
+            self.sex_classification_acc.append(sex_logits.unsqueeze(0), sex_label.unsqueeze(0), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
 
             if stage == sb.Stage.VALID:
                 recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=False)
@@ -420,7 +428,8 @@ if __name__ == "__main__":
     train_data, valid_data, test_datasets, tokenizer = dataio_prepare(hparams)
 
     if hparams["model_type"] == "convae":
-        model = ConvAutoencoder(hparams["convae_feature_dim"])
+        #model = ConvAutoencoder()
+        model = CycleGANGenerator()
     else:
         model = FullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
 
@@ -462,13 +471,13 @@ if __name__ == "__main__":
     print("done loading")
     #Training
 
-    sa_brain.fit(
-        sa_brain.hparams.epoch_counter,
-        train_data,
-        valid_data,
-        train_loader_kwargs=hparams["train_dataloader_opts"],
-        valid_loader_kwargs=hparams["valid_dataloader_opts"],
-    )
+    # sa_brain.fit(
+    #     sa_brain.hparams.epoch_counter,
+    #     train_data,
+    #     valid_data,
+    #     train_loader_kwargs=hparams["train_dataloader_opts"],
+    #     valid_loader_kwargs=hparams["valid_dataloader_opts"],
+    # )
 
     # Testing
     for k in test_datasets.keys():  # keys are test_clean, test_other etc
