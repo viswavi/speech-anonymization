@@ -436,7 +436,7 @@ if __name__ == "__main__":
         hparams_eval = load_hyperpyyaml(fin)
 
     for mod in hparams_eval['modules']:
-        hparams['modules'][mod].to(run_opts['device'])
+        hparams_eval['modules'][mod].to(run_opts['device'])
     #tensorboard_logger = TensorboardLogger()
 
     # If distributed_launch=True then
