@@ -502,8 +502,8 @@ if __name__ == "__main__":
     hparams_eval["classifier"].load_state_dict(torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/classifier.ckpt"))
     hparams_eval["embedding_model"].load_state_dict(
         torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/embedding_model.ckpt"))
-    hparams_eval["label_encoder"].load_state_dict(
-        torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/label_encoder.ckpt"))
+    hparams_eval["normalizer"].load_state_dict(
+        torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/normalizer.ckpt"))
 
     print("done loading")
 
