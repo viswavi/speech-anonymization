@@ -107,15 +107,13 @@ class SexAnonymizationTraining(sb.core.Brain):
 
             print("original logits")
             print(sex_logits)
-            print(recon_speech_feats)
-            print(wav_lens)
+
             sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats, wav_lens)
-            sex_logits_extern = F.log_softmax(sex_logits_extern.to(sa_brain.device), 1)
             print("\noutput probs = ")
             print(sex_logits_extern)
 
-            print("\n output probs (external on original feats")
-            print(self.external_classifier.classify_batch_feats(feats, wav_lens)[0].to(sa_brain.device))
+            print("\n output probs (external on original feats)")
+            print(self.external_classifier.classify_batch_feats(feats, wav_lens)[0])
 
             self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(0), sex_label.unsqueeze(0),
                                                torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))
