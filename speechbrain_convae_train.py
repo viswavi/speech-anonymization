@@ -98,6 +98,11 @@ class SexAnonymizationTraining(sb.core.Brain):
 
             # Evaluation: performing classification by externally trained sex classifier
             recon_speech_feats = reconstructed_speech.to(sa_brain.device)
+            wav_lens = wav_lens.to(sa_brain.device)
+
+            print("original feat shape")
+            print(feats.shape)
+
             print(recon_speech_feats)
             print(recon_speech_feats.shape)
             sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats, wav_lens)
