@@ -94,19 +94,20 @@ class SexAnonymizationTraining(sb.core.Brain):
         if stage != sb.Stage.TRAIN:
             current_epoch = self.hparams.epoch_counter.current
             # compute the accuracy of the sex prediction
-            self.sex_classification_acc.append(sex_logits.unsqueeze(1), sex_label.unsqueeze(1), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
+            self.sex_classification_acc.append(sex_logits.unsqueeze(0), sex_label.unsqueeze(0), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
 
             # Evaluation: performing classification by externally trained sex classifier
-            # embeddings_extern = self.modules.embedding_model(feats, wav_lens)
-            # sex_logits_extern = self.modules.external_classifier(embeddings_extern)
-            output_probs, score, index, text_lab = self.external_classifier.classify_batch(wavs)
+            sex_logits_extern, score, index = self.external_classifier.classify_batch(wavs)
 
             print("output probs = ")
-            print(output_probs)
-            print("score = ")
-            print(score)
-            # self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(1), sex_label.unsqueeze(1),
-            #                                    torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
+            print(sex_logits_extern)
+            self.sex_classification_acc_extern.append(sex_logits_extern.squeeze(1).unsqueeze(0), sex_label.unsqueeze(0),
+                                               torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
+
+            print("internal classification ACC = ")
+            print(self.sex_classification_acc.summarize())
+            print("external classification ACC = ")
+            print(self.sex_classification_acc_extern.summarize())
 
             if self.hparams.model_type == "convae":
                 reconstructed_speech = reconstructed_speech.reshape(reconstructed_speech.shape[0], reconstructed_speech.shape[2], reconstructed_speech.shape[1])
