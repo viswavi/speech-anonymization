@@ -24,6 +24,7 @@ from models.SpeechBrain_ASR import ASR
 from gender_classifier_train import GenderBrain
 #import visualization
 from speechbrain.pretrained import EncoderClassifier
+import torch.nn.functional as F
 
 logger = logging.getLogger(__name__)
 
@@ -100,13 +101,14 @@ class SexAnonymizationTraining(sb.core.Brain):
             recon_speech_feats = reconstructed_speech.to(sa_brain.device)
             wav_lens = wav_lens.to(sa_brain.device)
 
-            print("original feat shape")
-            print(feats.shape)
 
-            print(recon_speech_feats)
-            print(recon_speech_feats.shape)
+            print("sex label")
+            print(sex_label)
+
+            print("original logits")
+            print(sex_logits)
             sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats, wav_lens)
-            sex_logits_extern = sex_logits_extern.to(sa_brain.device)
+            sex_logits_extern = F.log_softmax(sex_logits_extern.to(sa_brain.device), 1)
             print("output probs = ")
             print(sex_logits_extern)
             print(sex_logits_extern.shape)
