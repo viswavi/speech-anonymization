@@ -81,8 +81,6 @@ class GenderBrain(sb.Brain):
         embeddings = self.modules.embedding_model(feats, lens)
 
         predictions = self.modules.classifier(embeddings)
-        print("predictions: ")
-        print(predictions)
 
         return predictions
 
