@@ -101,6 +101,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             sex_logits_extern = sex_logits_extern.to(sa_brain.device)
             print("output probs = ")
             print(sex_logits_extern)
+            print(sex_logits_extern.shape)
             self.sex_classification_acc_extern.append(sex_logits_extern.squeeze(1).unsqueeze(0), sex_label.unsqueeze(0),
                                                torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))
 
