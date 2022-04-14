@@ -98,8 +98,8 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.sex_classification_acc.append(sex_logits.unsqueeze(0), sex_label.unsqueeze(0), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
 
             # Evaluation: performing classification by externally trained sex classifier
-            recon_speech_feats = reconstructed_speech.to(sa_brain.device)
-            wav_lens = wav_lens.to(sa_brain.device)
+            recon_speech_feats = reconstructed_speech.to(self.device)
+            wav_lens = wav_lens.to(self.device)
 
 
             print("sex label")
