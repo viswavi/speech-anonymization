@@ -84,6 +84,11 @@ class SexAnonymizationTraining(sb.core.Brain):
             utility_loss = self.hparams.loss_utility(recon_enc_out, orig_enc_out)
 
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech, feats)
+
+        print("compute obj")
+        print(sex_logits.shape)
+        print(sex_label.shape)
+
         sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
 
         loss = (
