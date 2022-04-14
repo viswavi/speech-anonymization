@@ -179,6 +179,9 @@ seq_lin: !new:speechbrain.nnet.linear.Linear
     input_size: !ref <d_model>
     n_neurons: !ref <output_neurons>
 
+modules:
+    normalize: !ref <normalize>
+
 
 model: !new:torch.nn.ModuleList
     -[]
