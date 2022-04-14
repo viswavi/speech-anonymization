@@ -164,7 +164,7 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def external_classifier(self):
         classifier = EncoderClassifier.from_hparams(
-            source=self.hparams,
+            source=self.modules,
             savedir=self.hparams.save_folder,
         )
 
