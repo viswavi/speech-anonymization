@@ -164,8 +164,8 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def external_classifier(self):
         classifier = EncoderClassifier.from_hparams(
-            source="./speechbrain_configs/evaluator_inference.yaml",
-            hparams_file="./speechbrain_configs/evaluator_inference.yaml",
+            source="/home/ec2-user/capstone/speech-anonymization/speechbrain_configs/",
+            hparams_file="evaluator_inference.yaml",
             savedir="/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/",
         )
 
