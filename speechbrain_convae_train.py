@@ -112,8 +112,8 @@ class SexAnonymizationTraining(sb.core.Brain):
             print("\noutput probs = ")
             print(sex_logits_extern)
 
-            print("\n output probs (external on original wav")
-            print(self.external_classifier.classify_batch(wavs)[0].to(sa_brain.device))
+            print("\n output probs (external on original feats")
+            print(self.external_classifier.classify_batch_feats(feats, wav_lens)[0].to(sa_brain.device))
 
             self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(0), sex_label.unsqueeze(0),
                                                torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))
@@ -203,7 +203,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.sex_classification_acc = self.hparams.sex_classification_acc()
             self.sex_classification_acc_extern = self.hparams.sex_classification_acc_extern()
             self.utility_similarity_aggregator = self.hparams.utility_similarity_aggregator()
-            self.external_classifier = self.external_classifier().to(self.device)
+            self.external_classifier = self.external_classifier()
 
 
             if stage == sb.Stage.TEST:
