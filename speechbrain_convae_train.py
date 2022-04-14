@@ -84,13 +84,11 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech, feats)
         sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
-        # mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch, self.hparams.batch_size)
 
         loss = (
             self.hparams.recon_loss_weight * recon_loss
             + self.hparams.sex_loss_weight * sex_loss
             + self.hparams.utility_loss_weight * utility_loss
-            # + self.hparams.mi_loss_weight * mi_loss
         )
 
         if stage != sb.Stage.TRAIN:
@@ -101,7 +99,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             # Evaluation: performing classification by externally trained sex classifier
             # embeddings_extern = self.modules.embedding_model(feats, wav_lens)
             # sex_logits_extern = self.modules.external_classifier(embeddings_extern)
-            sex_logits_extern = self.external_classifier.classify_batch(wavs)
+            sex_logits_extern = self.external_classifier.classify_batch(batch.sig)
 
             print("sex logits external = ")
             print(sex_logits_extern)
