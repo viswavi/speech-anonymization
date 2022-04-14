@@ -164,7 +164,7 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def external_classifier(self):
         classifier = EncoderClassifier.from_hparams(
-            source='/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/',
+            source='/home/ec2-user/capstone/speech-anonymization/results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0',
             savedir=self.hparams.save_folder,
         )
 
