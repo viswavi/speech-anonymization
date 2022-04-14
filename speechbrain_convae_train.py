@@ -97,7 +97,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.sex_classification_acc.append(sex_logits.unsqueeze(0), sex_label.unsqueeze(0), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
 
             # Evaluation: performing classification by externally trained sex classifier
-            sex_logits_extern, score, index = self.external_classifier.classify_batch(wavs)
+            sex_logits_extern, score, index = self.external_classifier.classify_batch(reconstructed_speech)
             sex_logits_extern = sex_logits_extern.to(sa_brain.device)
             print("output probs = ")
             print(sex_logits_extern)
