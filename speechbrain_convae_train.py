@@ -99,12 +99,14 @@ class SexAnonymizationTraining(sb.core.Brain):
             # Evaluation: performing classification by externally trained sex classifier
             # embeddings_extern = self.modules.embedding_model(feats, wav_lens)
             # sex_logits_extern = self.modules.external_classifier(embeddings_extern)
-            sex_logits_extern = self.external_classifier.classify_batch(batch.sig)
+            output_probs, score, index, text_lab = self.external_classifier.classify_batch(batch.sig)
 
-            print("sex logits external = ")
-            print(sex_logits_extern)
-            self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(1), sex_label.unsqueeze(1),
-                                               torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
+            print("output probs = ")
+            print(output_probs)
+            print("score = ")
+            print(score)
+            # self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(1), sex_label.unsqueeze(1),
+            #                                    torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
 
             if self.hparams.model_type == "convae":
                 reconstructed_speech = reconstructed_speech.reshape(reconstructed_speech.shape[0], reconstructed_speech.shape[2], reconstructed_speech.shape[1])
