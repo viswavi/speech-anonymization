@@ -426,7 +426,7 @@ if __name__ == "__main__":
         hparams = load_hyperpyyaml(fin, overrides)
 
     with open("./speechbrain_configs/evaluator_inference.yaml") as fin:
-        hparams_eval = load_hyperpyyaml(fin, overrides)
+        hparams_eval = load_hyperpyyaml(fin)
 
     #tensorboard_logger = TensorboardLogger()
 
