@@ -108,13 +108,13 @@ class FullyConnectedAutoencoder(nn.Module):
         input = self.encoder(input)
 
         ## statistics pooling ##
-        #mean = torch.mean(input.reshape(self.batch_size, input.shape[2], input.shape[1]), 2)
-        #std = torch.std(input.reshape(self.batch_size, input.shape[2], input.shape[1]), 2)
-        #stat_pooling = torch.cat((mean, std), 1)
+        mean = torch.mean(input.reshape(self.batch_size, input.shape[2], input.shape[1]), 2)
+        std = torch.std(input.reshape(self.batch_size, input.shape[2], input.shape[1]), 2)
+        stat_pooling = torch.cat((mean, std), 1)
 
         ## sex classifier ##
-        # sex_classifier_logits = self.sex_classifier(stat_pooling)
-        sex_classifier_logits = torch.rand((1,2)).to(torch.device("cuda"))
+        sex_classifier_logits = self.sex_classifier(stat_pooling)
+        # sex_classifier_logits = torch.rand((1,2)).to(torch.device("cuda"))
         
         ## decode ##
         input = self.decoder(input)
