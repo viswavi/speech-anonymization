@@ -99,7 +99,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             # Evaluation: performing classification by externally trained sex classifier
             # embeddings_extern = self.modules.embedding_model(feats, wav_lens)
             # sex_logits_extern = self.modules.external_classifier(embeddings_extern)
-            output_probs, score, index, text_lab = self.external_classifier.classify_batch(batch.sig)
+            output_probs, score, index, text_lab = self.external_classifier.classify_batch(wavs)
 
             print("output probs = ")
             print(output_probs)
