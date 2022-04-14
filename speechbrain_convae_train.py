@@ -23,6 +23,7 @@ from models.ConvAutoEncoder import ConvAutoencoder, FullyConnectedAutoencoder, S
 from models.SpeechBrain_ASR import ASR
 from gender_classifier_train import GenderBrain
 #import visualization
+from speechbrain.pretrained import EncoderClassifier
 
 logger = logging.getLogger(__name__)
 
@@ -98,8 +99,12 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.sex_classification_acc.append(sex_logits.unsqueeze(1), sex_label.unsqueeze(1), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
 
             # Evaluation: performing classification by externally trained sex classifier
-            embeddings_extern = self.modules.embedding_model(feats, wav_lens)
-            sex_logits_extern = self.modules.external_classifier(embeddings_extern)
+            # embeddings_extern = self.modules.embedding_model(feats, wav_lens)
+            # sex_logits_extern = self.modules.external_classifier(embeddings_extern)
+            sex_logits_extern = self.external_classifier.classify_batch(wavs)
+
+            print("sex logits external = ")
+            print(sex_logits_extern)
             self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(1), sex_label.unsqueeze(1),
                                                torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
 
@@ -157,6 +162,14 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         return loss.detach()
 
+    def external_classifier(self):
+        classifier = EncoderClassifier.from_hparams(
+            source=self.hparams.pretrained_path,
+            savedir=self.hparams.save_folder,
+        )
+
+        return classifier
+
     def evaluate_batch(self, batch, stage):
         """Computations needed for validation/test batches"""
         with torch.no_grad():
@@ -174,6 +187,9 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.sex_classification_acc = self.hparams.sex_classification_acc()
             self.sex_classification_acc_extern = self.hparams.sex_classification_acc_extern()
             self.utility_similarity_aggregator = self.hparams.utility_similarity_aggregator()
+            self.external_classifier = self.external_classifier()
+
+
             if stage == sb.Stage.TEST:
                 self.wer_metric = self.hparams.error_rate_computer()
 
