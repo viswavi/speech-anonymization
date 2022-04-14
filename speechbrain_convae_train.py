@@ -435,6 +435,7 @@ if __name__ == "__main__":
     with open("./speechbrain_configs/evaluator_inference.yaml") as fin:
         hparams_eval = load_hyperpyyaml(fin)
 
+    hparams_eval['modules'].device = run_opts['device']
     #tensorboard_logger = TensorboardLogger()
 
     # If distributed_launch=True then
