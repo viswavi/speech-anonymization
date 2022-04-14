@@ -174,7 +174,7 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def external_classifier(self):
         classifier = EncoderClassifier.from_hparams(
-            source="/home/ec2-user/capstone/speech-anonymization/speechbrain_configs/",
+            source="/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/",
             hparams_file="evaluator_inference.yaml",
             savedir="/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/",
         )
@@ -421,9 +421,12 @@ def dataio_prepare(hparams):
 
 if __name__ == "__main__":
     # CLI:
-    hparams_file, run_opts, overrides = sb.parse_arguments(sys.argv[1:])
+    hparams_file, run_opts, overrides, hparams_inference = sb.parse_arguments(sys.argv[1:])
     with open(hparams_file) as fin:
         hparams = load_hyperpyyaml(fin, overrides)
+
+    with open(hparams_inference) as fin:
+        hparams_eval = load_hyperpyyaml(fin, overrides)
 
     #tensorboard_logger = TensorboardLogger()
 
@@ -495,6 +498,12 @@ if __name__ == "__main__":
     hparams["asr_model"].load_state_dict(torch.load("PretrainedASR/asr.ckpt"))
     #hparams["normalize"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/normalizer.ckpt"))
     hparams["lm_model"].load_state_dict(torch.load("PretrainedASR/lm.ckpt"))
+
+    hparams_eval["classifier"].load_state_dict(torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/classifier.ckpt"))
+    hparams_eval["embedding_model"].load_state_dict(
+        torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/embedding_model.ckpt"))
+    hparams_eval["label_encoder"].load_state_dict(
+        torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/label_encoder.ckpt"))
 
     print("done loading")
 
