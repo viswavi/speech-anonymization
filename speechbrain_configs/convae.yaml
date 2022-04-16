@@ -26,22 +26,22 @@ model_type: convae
 # speechbrain HuggingFace repository. However, a local path pointing to a
 # directory containing the lm.ckpt and tokenizer.ckpt may also be specified
 # instead. E.g if you want to use your own LM / tokenizer.
-pretrained_lm_tokenizer_path: /home/ubuntu/speech-anonymization/pretrained_ASR
+pretrained_lm_tokenizer_path: /home/ubuntu/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech/
 
 # Data files
-data_folder: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech # e.g., /path/to/LibriSpeech
+data_folder: /home/ubuntu/LibriSpeech # e.g., /path/to/LibriSpeech
 # If RIRS_NOISES dir exists in /localscratch/xxx_corpus/RIRS_NOISES
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
 data_folder_rirs: !ref <data_folder>
-train_splits: ["train-clean"]
+train_splits: ["train"]
 dev_splits: ["dev-clean"]
 test_splits: ["test-clean"]
 skip_prep: False
 train_csv: !ref <data_folder>/train.csv
 valid_csv: !ref <data_folder>/dev-clean.csv
 test_csv: 
-    - !ref <data_folder>/test-clean.csv
+    - !ref <data_folder>/test-clean-100.csv
 ckpt_interval_minutes: 60 # save checkpoint every N min
 
 # Training parameters
@@ -59,13 +59,13 @@ ctc_weight: 0.3
 
 ## PARAMS FOR CONVAUTOENCODER ##
 convae_feature_dim: 80
-number_of_epochs: 1000
-batch_size: 10
-recon_loss_weight: 1.0
-sex_loss_weight: 0.0
+number_of_epochs: 15
+batch_size: 3
+recon_loss_weight: 0.1
+sex_loss_weight: 0.9
 utility_loss_weight: 0.0
 mi_loss_weight: 0.0
-gradient_accumulation: 2
+gradient_accumulation: 5
 gradient_clipping: 5.0
 loss_reduction: 'batchmean'
 sorting: random
@@ -329,7 +329,7 @@ external_classifier: !new:speechbrain.lobes.models.Xvector.Classifier
     out_neurons: !ref <n_classes>
 label_encoder: !new:speechbrain.dataio.encoder.CategoricalEncoder # external classifier
 
-pretrained_path: /home/ubuntu/speech-anonymization/results/gender_classifier/1230/save/trained_external_classifier_ckpt
+pretrained_path: /home/ubuntu/speech-anonymization/results/gender_classifier/1230/save/CKPT+2022-04-14+01-03-37+00
 
 
 # The pretrainer allows a mapping between pretrained files and instances that

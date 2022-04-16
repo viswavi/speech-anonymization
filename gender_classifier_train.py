@@ -342,6 +342,9 @@ if __name__ == "__main__":
     # TODO right place?
     # run_on_main(hparams["pretrainer"].collect_files)
     # hparams["pretrainer"].load_collected(device=(run_opts["device"]))
+#    hparams["embedding_model"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/embedding_model.ckpt"))
+ #   hparams["classifier"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/classifier.ckpt"))
+  #  hparams["normalizer"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/normalizer.ckpt"))
     hparams["embedding_model"].eval()
     hparams["embedding_model"].to(run_opts["device"])
 
