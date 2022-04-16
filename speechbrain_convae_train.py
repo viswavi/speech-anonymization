@@ -23,6 +23,8 @@ from models.ConvAutoEncoder import ConvAutoencoder, FullyConnectedAutoencoder, S
 from models.SpeechBrain_ASR import ASR
 from gender_classifier_train import GenderBrain
 #import visualization
+from speechbrain.pretrained import EncoderClassifier
+import torch.nn.functional as F
 
 logger = logging.getLogger(__name__)
 
@@ -82,26 +84,38 @@ class SexAnonymizationTraining(sb.core.Brain):
             utility_loss = self.hparams.loss_utility(recon_enc_out, orig_enc_out)
 
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech, feats)
+
+
         sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
-        mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch, self.hparams.batch_size)
 
         loss = (
             self.hparams.recon_loss_weight * recon_loss
             + self.hparams.sex_loss_weight * sex_loss
             + self.hparams.utility_loss_weight * utility_loss
-            + self.hparams.mi_loss_weight * mi_loss
         )
 
         if stage != sb.Stage.TRAIN:
             current_epoch = self.hparams.epoch_counter.current
             # compute the accuracy of the sex prediction
-            self.sex_classification_acc.append(sex_logits.unsqueeze(1), sex_label.unsqueeze(1), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
+            self.sex_classification_acc.append(sex_logits.unsqueeze(0), sex_label.unsqueeze(0), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
 
             # Evaluation: performing classification by externally trained sex classifier
-            embeddings_extern = self.modules.embedding_model(feats, wav_lens)
-            sex_logits_extern = self.modules.external_classifier(embeddings_extern)
-            self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(1), sex_label.unsqueeze(1),
-                                               torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
+            recon_speech_feats = reconstructed_speech.to(sa_brain.device)
+            wav_lens = wav_lens.to(sa_brain.device)
+
+            sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats, wav_lens)
+
+            #sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch_feats(feats, wav_lens)
+            #print(sex_logits_extern_orig.shape)
+            #print(sex_logits_extern_orig)
+
+            self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(0), sex_label.unsqueeze(0),
+                                               torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))
+
+            print("internal classification ACC = ")
+            print(self.sex_classification_acc.summarize())
+            print("external classification ACC = ")
+            print(self.sex_classification_acc_extern.summarize())
 
             if self.hparams.model_type == "convae":
                 reconstructed_speech = reconstructed_speech.reshape(reconstructed_speech.shape[0], reconstructed_speech.shape[2], reconstructed_speech.shape[1])
@@ -157,6 +171,15 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         return loss.detach()
 
+    def external_classifier(self):
+        classifier = EncoderClassifier.from_hparams(
+            source="/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/",
+            hparams_file="evaluator_inference.yaml",
+            savedir="/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/",
+        )
+
+        return classifier.to(sa_brain.device)
+
     def evaluate_batch(self, batch, stage):
         """Computations needed for validation/test batches"""
         with torch.no_grad():
@@ -174,6 +197,9 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.sex_classification_acc = self.hparams.sex_classification_acc()
             self.sex_classification_acc_extern = self.hparams.sex_classification_acc_extern()
             self.utility_similarity_aggregator = self.hparams.utility_similarity_aggregator()
+            self.external_classifier = self.external_classifier()
+
+
             if stage == sb.Stage.TEST:
                 self.wer_metric = self.hparams.error_rate_computer()
 
@@ -394,10 +420,15 @@ def dataio_prepare(hparams):
 
 if __name__ == "__main__":
     # CLI:
-    hparams_file, run_opts, overrides = sb.parse_arguments(sys.argv[1:])
+    hparams_file, run_opts, overrides  = sb.parse_arguments(sys.argv[1:])
     with open(hparams_file) as fin:
         hparams = load_hyperpyyaml(fin, overrides)
 
+    with open("./speechbrain_configs/evaluator_inference.yaml") as fin:
+        hparams_eval = load_hyperpyyaml(fin)
+
+    for mod in hparams_eval['modules']:
+        hparams_eval['modules'][mod].to(run_opts['device'])
     #tensorboard_logger = TensorboardLogger()
 
     # If distributed_launch=True then
@@ -469,16 +500,22 @@ if __name__ == "__main__":
     #hparams["normalize"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/normalizer.ckpt"))
     hparams["lm_model"].load_state_dict(torch.load("PretrainedASR/lm.ckpt"))
 
+    hparams_eval["classifier"].load_state_dict(torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/classifier.ckpt"))
+    hparams_eval["embedding_model"].load_state_dict(
+        torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/embedding_model.ckpt"))
+    # hparams_eval["normalizer"].load_state_dict(
+    #     torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/normalizer.ckpt"))
+
     print("done loading")
 
-    # #Training
-    sa_brain.fit(
-        sa_brain.hparams.epoch_counter,
-        train_data,
-        valid_data,
-        train_loader_kwargs=hparams["train_dataloader_opts"],
-        valid_loader_kwargs=hparams["valid_dataloader_opts"],
-    )
+    # # #Training
+    # sa_brain.fit(
+    #     sa_brain.hparams.epoch_counter,
+    #     train_data,
+    #     valid_data,
+    #     train_loader_kwargs=hparams["train_dataloader_opts"],
+    #     valid_loader_kwargs=hparams["valid_dataloader_opts"],
+    # )
 
 
     # Testing
