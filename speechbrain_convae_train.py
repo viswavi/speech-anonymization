@@ -24,7 +24,6 @@ from models.ConvAutoEncoder import ConvAutoencoder, CycleGANGenerator
 from.models.FullyConnected import FullyConnectedAutoencoder, DummyFullyConnectedAutoencoder
 from models.SpeechBrain_ASR import ASR
 from gender_classifier_train import GenderBrain
-#from mutual_information.MILoss import *
 #import visualization
 
 logger = logging.getLogger(__name__)
@@ -92,20 +91,29 @@ class SexAnonymizationTraining(sb.core.Brain):
                 
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech.view(reconstructed_speech.shape[0], -1), feats.view(feats.shape[0], -1))
         sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
-        print(sex_loss)
-        #mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch)
+        mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch, self.hparams.batch_size)
 
         loss = (
             self.hparams.recon_loss_weight * recon_loss
             + self.hparams.sex_loss_weight * sex_loss
             + self.hparams.utility_loss_weight * utility_loss
-            #+ self.hparams.mi_loss_weight * mi_loss
+            + self.hparams.mi_loss_weight * mi_loss
         )
 
         if stage != sb.Stage.TRAIN:
             current_epoch = self.hparams.epoch_counter.current
             # compute the accuracy of the sex prediction
             self.sex_classification_acc.append(sex_logits.unsqueeze(0), sex_label.unsqueeze(0), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
+
+            # Evaluation: performing classification by externally trained sex classifier
+            embeddings_extern = self.modules.embedding_model(feats, wav_lens)
+            sex_logits_extern = self.modules.external_classifier(embeddings_extern)
+            self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(1), sex_label.unsqueeze(1),
+                                               torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
+
+            if self.hparams.model_type == "convae":
+                reconstructed_speech = reconstructed_speech.reshape(reconstructed_speech.shape[0], reconstructed_speech.shape[2], reconstructed_speech.shape[1])
+
 
             if stage == sb.Stage.VALID:
                 recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=False)
@@ -172,6 +180,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             else:
                 self.recon_loss.append([])
             self.sex_classification_acc = self.hparams.sex_classification_acc()
+            self.sex_classification_acc_extern = self.hparams.sex_classification_acc_extern()
             self.utility_similarity_aggregator = self.hparams.utility_similarity_aggregator()
             if stage == sb.Stage.TEST:
                 self.wer_metric = self.hparams.error_rate_computer()
@@ -184,6 +193,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.train_stats = stage_stats
         else:
             stage_stats["ACC"] = self.sex_classification_acc.summarize()
+            stage_stats["ACC_external"] = self.sex_classification_acc_extern.summarize()
             stage_stats["Utility_Retention"] = self.utility_similarity_aggregator.summarize()
 
             if stage == sb.Stage.TEST:
@@ -463,13 +473,12 @@ if __name__ == "__main__":
         run_opts=run_opts,
         )
     sa_brain.asr_brain.tokenizer = hparams["tokenizer"]
-    sa_brain.asr_brain.tokenizer.Load("pretrained_models/asr-transformer-transformerlm-librispeech/tokenizer.ckpt")
-    hparams["asr_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/asr.ckpt"))
+    sa_brain.asr_brain.tokenizer.Load("PretrainedASR/tokenizer.ckpt")
+    hparams["asr_model"].load_state_dict(torch.load("PretrainedASR/asr.ckpt"))
     #hparams["normalize"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/normalizer.ckpt"))
-    hparams["lm_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/lm.ckpt"))
+    hparams["lm_model"].load_state_dict(torch.load("PretrainedASR/lm.ckpt"))
 
     print("done loading")
-    #Training
 
     # sa_brain.fit(
     #     sa_brain.hparams.epoch_counter,
@@ -478,6 +487,7 @@ if __name__ == "__main__":
     #     train_loader_kwargs=hparams["train_dataloader_opts"],
     #     valid_loader_kwargs=hparams["valid_dataloader_opts"],
     # )
+
 
     # Testing
     for k in test_datasets.keys():  # keys are test_clean, test_other etc
