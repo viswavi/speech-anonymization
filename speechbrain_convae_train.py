@@ -111,6 +111,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             recon_speech_feats = reconstructed_speech.to(sa_brain.device)
             wav_lens = wav_lens.to(sa_brain.device)
 
+            print(self.external_classifier)
             sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats, wav_lens)
 
             #sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch_feats(feats, wav_lens)
@@ -177,9 +178,9 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def external_classifier(self):
         classifier = EncoderClassifier.from_hparams(
-            source="/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/",
+            source="/home/ubuntu/speech-anonymization/speechbrain_configs/",
             hparams_file="evaluator_inference.yaml",
-            savedir="/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/",
+            savedir="/home/ubuntu/speech-anonymization/results/gender_classifier/1230/save/",
         )
 
         return classifier.to(sa_brain.device)
@@ -428,7 +429,7 @@ if __name__ == "__main__":
     with open(hparams_file) as fin:
         hparams = load_hyperpyyaml(fin, overrides)
 
-    with open("./speechbrain_configs/evaluator_inference.yaml") as fin:
+    with open("/home/ubuntu/speech-anonymization/speechbrain_configs/evaluator_inference.yaml") as fin:
         hparams_eval = load_hyperpyyaml(fin)
 
     for mod in hparams_eval['modules']:
@@ -468,7 +469,8 @@ if __name__ == "__main__":
         #model = ConvAutoencoder()
         model = CycleGANGenerator()
     else:
-        model = FullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
+        model = DummyFullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
+        #model = FullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
 
     # We download the pretrained LM from HuggingFace (or elsewhere depending on
     # the path given in the YAML file). The tokenizer is loaded at the same time.
