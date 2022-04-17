@@ -107,8 +107,7 @@ compute_features: !new:speechbrain.lobes.features.Fbank
 
 # Mean and std normalization of the input features
 mean_var_norm: !new:speechbrain.processing.features.InputNormalization
-    norm_type: sentence
-    std_norm: False
+    norm_type: global
 
 
 embedding_model: !new:speechbrain.lobes.models.Xvector.Xvector
