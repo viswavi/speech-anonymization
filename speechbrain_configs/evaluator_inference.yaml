@@ -30,7 +30,6 @@ emb_dim: 512 # dimensionality of the embeddings
 # Mean and std normalization of the input features
 mean_var_norm: !new:speechbrain.processing.features.InputNormalization
     norm_type: global
-    std_norm: False
 
 embedding_model: !new:speechbrain.lobes.models.Xvector.Xvector
     in_channels: !ref <n_mels>
