@@ -1,4 +1,4 @@
-# Generated 2022-03-31 from:
+# Generated 2022-04-17 from:
 # /home/ec2-user/capstone/speech-anonymization/speechbrain_configs/gender_classifier.yaml
 # yamllint disable
 # #################################
@@ -62,7 +62,6 @@ n_mels: 80
 pretrain_path: speechbrain/spkrec-xvect-voxceleb
 mean_var_norm_emb: !new:speechbrain.processing.features.InputNormalization
   norm_type: global
-  std_norm: false
 
 #pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
 #    collect_in: !ref <save_folder>
