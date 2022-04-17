@@ -59,7 +59,6 @@ n_mels: 80
 pretrain_path: speechbrain/spkrec-xvect-voxceleb
 mean_var_norm_emb: !new:speechbrain.processing.features.InputNormalization
     norm_type: global
-    std_norm: False
 
 #pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
 #    collect_in: !ref <save_folder>
