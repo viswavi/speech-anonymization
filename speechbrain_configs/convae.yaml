@@ -182,11 +182,6 @@ seq_lin: !new:speechbrain.nnet.linear.Linear
 modules:
     normalize: !ref <normalize>
 
-    # external classifier
-    compute_features: !ref <compute_features>
-    embedding_model: !ref <embedding_model>
-    external_classifier: !ref <external_classifier>
-    mean_var_norm: !ref <mean_var_norm>
 
 model: !new:torch.nn.ModuleList
     -[]
@@ -301,37 +296,6 @@ acc_computer: !name:speechbrain.utils.Accuracy.AccuracyStats
 
 
 
-# Model parameters (external classifier)
-n_classes: 2
-emb_dim: 512 # dimensionality of the embeddings
-
-
-# Mean and std normalization of the input features
-mean_var_norm: !new:speechbrain.processing.features.InputNormalization
-    norm_type: sentence
-    std_norm: False
-
-
-embedding_model: !new:speechbrain.lobes.models.Xvector.Xvector
-    in_channels: !ref <n_mels>
-    activation: !name:torch.nn.LeakyReLU
-    tdnn_blocks: 5
-    tdnn_channels: [512, 512, 512, 512, 1500]
-    tdnn_kernel_sizes: [5, 3, 3, 1, 1]
-    tdnn_dilations: [1, 2, 3, 1, 1]
-    lin_neurons: !ref <emb_dim>
-
-external_classifier: !new:speechbrain.lobes.models.Xvector.Classifier
-    input_shape: [null, null, !ref <emb_dim>]
-    activation: !name:torch.nn.LeakyReLU
-    lin_blocks: 1
-    lin_neurons: !ref <emb_dim>
-    out_neurons: !ref <n_classes>
-label_encoder: !new:speechbrain.dataio.encoder.CategoricalEncoder # external classifier
-
-pretrained_path: /home/ubuntu/speech-anonymization/results/gender_classifier/1230/save/CKPT+2022-04-14+01-03-37+00
-
-
 # The pretrainer allows a mapping between pretrained files and instances that
 # are declared in the yaml. E.g here, we will download the file lm.ckpt
 # and it will be loaded into "lm" which is pointing to the <lm_model> defined
@@ -342,17 +306,11 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         tokenizer: !ref <tokenizer>
         asr_model: !ref <model>
         normalize: !ref <normalize>
-        # external classifier
-        embedding_model: !ref <embedding_model>
-        external_classifier: !ref <external_classifier>
-        label_encoder: !ref <label_encoder>
+
     paths:
         asr_model: !ref <pretrained_lm_tokenizer_path>/asr.ckpt
         lm: !ref <pretrained_lm_tokenizer_path>/lm.ckpt
         tokenizer: !ref <pretrained_lm_tokenizer_path>/tokenizer.ckpt
         normalize: !ref <pretrained_lm_tokenizer_path>/normalizer.ckpt
-        # external classifier
-        embedding_model: !ref <pretrained_path>/embedding_model.ckpt
-        external_classifier: !ref <pretrained_path>/classifier.ckpt
-        label_encoder: !ref <pretrained_path>/label_encoder.txt
+
 
