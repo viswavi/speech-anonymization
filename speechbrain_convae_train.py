@@ -103,7 +103,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             recon_speech_feats = reconstructed_speech.to(sa_brain.device)
 
             print("sanity check to make sure external classifier works")
-            sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch(wavs.to(sa_brain.device),
+            sex_logits_extern_orig, score_orig, index_orig, _ = self.external_classifier.classify_batch(wavs.to(sa_brain.device),
                                                                                                            wav_lens.to(sa_brain.device))
 
 

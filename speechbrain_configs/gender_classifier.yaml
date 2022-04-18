@@ -60,7 +60,7 @@ pretrain_path: speechbrain/spkrec-xvect-voxceleb
 
 
 # Training Parameters
-number_of_epochs: 35
+number_of_epochs: 5
 batch_size: 32
 lr_start: 0.001
 lr_final: 0.0001
