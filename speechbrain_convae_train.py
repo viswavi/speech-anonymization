@@ -365,22 +365,16 @@ def dataio_prepare(hparams):
     )
     valid_data = valid_data.filtered_sorted(sort_key="duration")
 
-
-    test_data = sb.dataio.dataio.dataset.DynamicItemDataset.from_csv(
-            csv_path=hparams["test_csv"], replacements={"data_root": data_folder}
+    # test is separate
+    test_datasets = {}
+    for csv_file in hparams["test_csv"]:
+        name = Path(csv_file).stem
+        test_datasets[name] = sb.dataio.dataset.DynamicItemDataset.from_csv(
+            csv_path=csv_file, replacements={"data_root": data_folder}
         )
-
-    test_data = test_data.filtered_sorted(sort_key="duration")
-    # # test is separate
-    # test_datasets = {}
-    # for csv_file in hparams["test_csv"]:
-    #     name = Path(csv_file).stem
-    #     test_datasets[name] = sb.dataio.dataset.DynamicItemDataset.from_csv(
-    #         csv_path=csv_file, replacements={"data_root": data_folder}
-    #     )
-    #     test_datasets[name] = test_datasets[name].filtered_sorted(
-    #         sort_key="duration"
-    #     )
+        test_datasets[name] = test_datasets[name].filtered_sorted(
+            sort_key="duration"
+        )
 
     # converting to binary class labels for easy consumption
     sex_string_to_int = {'M':0, 'F':1}
@@ -388,15 +382,11 @@ def dataio_prepare(hparams):
         item[1]['gender'] = sex_string_to_int[item[1]['gender']]
     for item in valid_data.data.items():
         item[1]['gender'] = sex_string_to_int[item[1]['gender']]
+    for testset in test_datasets:
+        for item in test_datasets[testset].data.items():
+            item[1]['gender'] = sex_string_to_int[item[1]['gender']]
 
-    for item in test_data.data.item():
-        item[1]['gender'] = sex_string_to_int[item[1]['gender']]
-    # for testset in test_datasets:
-    #     for item in test_datasets[testset].data.items():
-    #         item[1]['gender'] = sex_string_to_int[item[1]['gender']]
-
-    # datasets = [train_data, valid_data] + [i for k, i in test_datasets.items()]
-    datasets = [train_data, valid_data, test_data]
+    datasets = [train_data, valid_data] + [i for k, i in test_datasets.items()]
 
     # We get the tokenizer as we need it to encode the labels when creating
     # mini-batches.
@@ -433,7 +423,7 @@ def dataio_prepare(hparams):
     sb.dataio.dataset.set_output_keys(
         datasets, ["id", "sig", "wrd", "tokens_bos", "tokens_eos", "tokens", "gender"],
     )
-    return train_data, valid_data, test_data, tokenizer
+    return train_data, valid_data, test_datasets, tokenizer
 
 
 if __name__ == "__main__":
@@ -471,7 +461,7 @@ if __name__ == "__main__":
     )
 
     # here we create the datasets objects as well as tokenization and encoding
-    train_data, valid_data, test_data, tokenizer = dataio_prepare(hparams)
+    train_data, valid_data, test_datasets, tokenizer = dataio_prepare(hparams)
 
     if hparams["model_type"] == "convae":
         model = ConvAutoencoder(hparams["convae_feature_dim"])
@@ -526,15 +516,15 @@ if __name__ == "__main__":
 
 
     # Testing
-    # for k in test_datasets.keys():  # keys are test_clean, test_other etc
-    sa_brain.hparams.wer_file = os.path.join(
-        hparams["output_folder"], "wer_{}.txt".format(k)
-    )
-    sa_brain.evaluate(
-        test_data,
-        max_key="Utility_Retention",
-        test_loader_kwargs=hparams["test_dataloader_opts"],
-    )
+    for k in test_datasets.keys():  # keys are test_clean, test_other etc
+        sa_brain.hparams.wer_file = os.path.join(
+            hparams["output_folder"], "wer_{}.txt".format(k)
+        )
+        sa_brain.evaluate(
+            test_datasets[k],
+            max_key="Utility_Retention",
+            test_loader_kwargs=hparams["test_dataloader_opts"],
+        )
 
     # recon_loss_averages = []
     # for epoch_losses in sa_brain.recon_loss:
