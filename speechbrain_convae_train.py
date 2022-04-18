@@ -200,7 +200,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.sex_classification_acc = self.hparams.sex_classification_acc()
             self.sex_classification_acc_extern = self.hparams.sex_classification_acc_extern()
             self.utility_similarity_aggregator = self.hparams.utility_similarity_aggregator()
-            self.external_classifier = self.external_classifier()
+            self.external_classifier = self.external_classifier
 
 
             if stage == sb.Stage.TEST:
