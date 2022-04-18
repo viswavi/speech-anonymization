@@ -174,9 +174,9 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         return loss.detach()
 
-    def external_classifier(self):
+    def load_external_classifier(self):
         classifier = EncoderClassifier.from_hparams(
-            source="/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/",
+            source="/home/ec2-user/capstone/speech-anonymization/speechbrain_configs/",
             hparams_file="evaluator_inference.yaml",
             savedir="/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/",
         )
@@ -192,7 +192,8 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def on_stage_start(self, stage, epoch):
         """Gets called at the beginning of each epoch"""
-        self.external_classifier = self.external_classifier()
+        self.external_classifier = self.load_external_classifier()
+
         if stage != sb.Stage.TRAIN:
             if not hasattr(self, "recon_loss"):
                 self.recon_loss = [[]]
