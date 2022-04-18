@@ -105,8 +105,8 @@ class SexAnonymizationTraining(sb.core.Brain):
 
             print("sanity check to make sure external classifier works")
 
-            sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch(wavs.to(self.device),
-                                                                                                           wav_lens.to(self.device))
+            sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch(wavs.to(sa_brain.device),
+                                                                                                           wav_lens.to(sa_brain.device))
 
 
             print("sex logits with external + original raw wav data")
@@ -136,7 +136,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             if stage == sb.Stage.VALID:
                 recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=False)
                 orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=False)
-        
+
                 cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
                 self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
 
@@ -144,11 +144,11 @@ class SexAnonymizationTraining(sb.core.Brain):
                 enc_out, predictions = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=True)
                 recon_enc_out, recon_prob, _, _, _, _, = enc_out
                 ids, predicted_words, target_words = predictions
-                
+
                 enc_out, predictions = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=True)
                 orig_enc_out, orig_prob, _, _, _, _, = enc_out
                 o_ids, o_predicted_words, o_target_words = predictions
-                
+
                 print(predicted_words)
                 print(target_words)
                 print(o_predicted_words)
