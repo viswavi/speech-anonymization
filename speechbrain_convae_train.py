@@ -102,13 +102,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             # Evaluation: performing classification by externally trained sex classifier
             recon_speech_feats = reconstructed_speech.to(sa_brain.device)
 
-
             print("sanity check to make sure external classifier works")
-
-            print("sa brain device: ")
-            print(sa_brain.device)
-            print(self.device)
-
             sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch(wavs.to(sa_brain.device),
                                                                                                            wav_lens.to(sa_brain.device))
 
@@ -116,21 +110,19 @@ class SexAnonymizationTraining(sb.core.Brain):
             print("sex logits with external + original raw wav data")
             print(sex_logits_extern_orig)
 
-            sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats)
+            # sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats)
 
-            #
-            #print(sex_logits_extern_orig.shape)
             print("sex logits internal: ")
             print(sex_logits)
             print("sex logits extern: ")
-            print(sex_logits_extern)
+            # print(sex_logits_extern)
 
-            self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(0), sex_label.unsqueeze(0),
-                                               torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))
+            self.sex_classification_acc_extern.append(sex_logits_extern_orig.unsqueeze(0), sex_label.unsqueeze(0),
+                                               torch.tensor(sex_label.shape[0], device=sex_logits_extern_orig.device).unsqueeze(0))
 
             print("internal classification ACC = ")
             print(self.sex_classification_acc.summarize())
-            print("external classification ACC = ")
+            print("external classification ACC on original wav input = ")
             print(self.sex_classification_acc_extern.summarize())
 
             if self.hparams.model_type == "convae":
@@ -440,11 +432,6 @@ if __name__ == "__main__":
     with open(hparams_file) as fin:
         hparams = load_hyperpyyaml(fin, overrides)
 
-    with open("./speechbrain_configs/evaluator_inference.yaml") as fin:
-        hparams_eval = load_hyperpyyaml(fin)
-
-    for mod in hparams_eval['modules']:
-        hparams_eval['modules'][mod].to(run_opts['device'])
     #tensorboard_logger = TensorboardLogger()
 
     # If distributed_launch=True then
@@ -515,12 +502,6 @@ if __name__ == "__main__":
     hparams["asr_model"].load_state_dict(torch.load("PretrainedASR/asr.ckpt"))
     #hparams["normalize"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/normalizer.ckpt"))
     hparams["lm_model"].load_state_dict(torch.load("PretrainedASR/lm.ckpt"))
-
-    hparams_eval["classifier"].load_state_dict(torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/classifier.ckpt"))
-    hparams_eval["embedding_model"].load_state_dict(
-        torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/embedding_model.ckpt"))
-    # hparams_eval["normalizer"].load_state_dict(
-    #     torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/normalizer.ckpt"))
 
     print("done loading")
 

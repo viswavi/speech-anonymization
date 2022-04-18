@@ -34,8 +34,6 @@ class SexClassifier(nn.Module):
         input = GradReverse.grad_reverse(input)
         logits = F.relu(self.fc1(input))
         logits = F.log_softmax(self.fc2(logits), 1)
-        print("here")
-        print(logits.shape)
         return logits
 
 # Gated Linear Units
