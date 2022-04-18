@@ -24,9 +24,9 @@ train_splits: ["train-clean"]
 dev_splits: ["dev-clean"]
 test_splits: ["test-clean"]
 skip_prep: False
-train_csv: !ref <data_folder>/train-clean.csv
-valid_csv: !ref <data_folder>/dev-clean.csv
-test_csv: !ref <data_folder>/test-clean.csv
+train_csv: !ref <data_folder>/single.csv
+valid_csv: !ref <data_folder>/single.csv
+test_csv: !ref <data_folder>/single.csv
 
 sorting: random
 
@@ -60,7 +60,7 @@ pretrain_path: speechbrain/spkrec-xvect-voxceleb
 
 # Training Parameters
 number_of_epochs: 1
-batch_size: 32
+batch_size: 1
 lr_start: 0.001
 lr_final: 0.0001
 n_classes: 2 # In this case, we have 2 classes as we are assuming a gender binary
