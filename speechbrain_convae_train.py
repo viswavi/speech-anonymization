@@ -105,8 +105,8 @@ class SexAnonymizationTraining(sb.core.Brain):
 
             print("sanity check to make sure external classifier works")
 
-            sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch(wavs,
-                                                                                                           wav_lens)
+            sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch(wavs.to(self.device),
+                                                                                                           wav_lens.to(self.device))
 
 
             print("sex logits with external + original raw wav data")
