@@ -57,6 +57,7 @@ n_fft: 400
 n_mels: 80
 
 pretrain_path: speechbrain/spkrec-xvect-voxceleb
+
 mean_var_norm_emb: !new:speechbrain.processing.features.InputNormalization
     norm_type: global
 

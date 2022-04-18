@@ -31,6 +31,9 @@ emb_dim: 512 # dimensionality of the embeddings
 mean_var_norm: !new:speechbrain.processing.features.InputNormalization
     norm_type: global
 
+mean_var_norm: !new:speechbrain.processing.features.InputNormalization
+    norm_type: global
+
 embedding_model: !new:speechbrain.lobes.models.Xvector.Xvector
     in_channels: !ref <n_mels>
     activation: !name:torch.nn.LeakyReLU

@@ -101,11 +101,20 @@ class SexAnonymizationTraining(sb.core.Brain):
 
             # Evaluation: performing classification by externally trained sex classifier
             recon_speech_feats = reconstructed_speech.to(sa_brain.device)
-            wav_lens = wav_lens.to(sa_brain.device)
 
-            sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats, wav_lens)
 
-            #sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch_feats(feats, wav_lens)
+            print("sanity check to make sure external classifier works")
+
+            sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch(wavs,
+                                                                                                           wav_lens)
+
+
+            print("sex logits with external + original raw wav data")
+            print(sex_logits_extern_orig)
+
+            sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats)
+
+            #
             #print(sex_logits_extern_orig.shape)
             print("sex logits internal: ")
             print(sex_logits)
@@ -511,14 +520,14 @@ if __name__ == "__main__":
 
     print("done loading")
 
-    # #Training
-    sa_brain.fit(
-        sa_brain.hparams.epoch_counter,
-        train_data,
-        valid_data,
-        train_loader_kwargs=hparams["train_dataloader_opts"],
-        valid_loader_kwargs=hparams["valid_dataloader_opts"],
-    )
+    # # #Training
+    # sa_brain.fit(
+    #     sa_brain.hparams.epoch_counter,
+    #     train_data,
+    #     valid_data,
+    #     train_loader_kwargs=hparams["train_dataloader_opts"],
+    #     valid_loader_kwargs=hparams["valid_dataloader_opts"],
+    # )
 
 
     # Testing
