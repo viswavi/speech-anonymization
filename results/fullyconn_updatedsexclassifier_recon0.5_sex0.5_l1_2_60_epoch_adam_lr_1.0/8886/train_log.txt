@@ -32,3 +32,4 @@ epoch: 30, lr: 1.08e-04, steps: 111305, optimizer: Adam - train loss: 5.34e-01 -
 Epoch loaded: 30 - test loss: 5.02e-01, test ACC: 0.00e+00, test Utility_Retention: 0.8573022484779358, test WER: 0.00e+00
 Epoch loaded: 30 - test loss: 4.80e-01, test ACC: 3.90e-01, test Utility_Retention: 0.7834582328796387, test WER: 11.00
 Epoch loaded: 30 - test loss: 5.05e-01, test ACC: 4.80e-01, test Utility_Retention: 0.7992722988128662, test WER: 5.22
+epoch: 31, lr: 1.05e-04, steps: 117013, optimizer: Adam - train loss: 6.70e-01 - valid loss: 7.30e-01, valid ACC: 5.04e-01, valid ACC_external: 4.92e-01, valid Utility_Retention: 0.7659311890602112

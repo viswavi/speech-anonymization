@@ -1,5 +1,5 @@
-# Generated 2022-03-24 from:
-# /home/ubuntu/speech-anonymization/speechbrain_configs/convae.yaml
+# Generated 2022-04-18 from:
+# /home/ec2-user/capstone/speech-anonymization/speechbrain_configs/convae.yaml
 # yamllint disable
 # ############################################################################
 # Model: E2E ASR with Transformer
@@ -13,13 +13,13 @@
 # Seed needs to be set at top of yaml, before objects with parameters are made
 seed: 8886
 __set_seed: !apply:torch.manual_seed [8886]
-folder: results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0/
-output_folder: results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0//8886
-wer_file: results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0//8886/wer.txt
-save_folder: results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0//8886/save
-train_log: results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0//8886/train_log.txt
+folder: results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0
+output_folder: results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0/8886
+wer_file: results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0/8886/wer.txt
+save_folder: results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0/8886/save
+train_log: results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0/8886/train_log.txt
 
-pretrained_folder: /home/ubuntu/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
+pretrained_folder: /home/ec2-user/capstone/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
 
 model_type: fcae
 
@@ -29,22 +29,22 @@ model_type: fcae
 # speechbrain HuggingFace repository. However, a local path pointing to a
 # directory containing the lm.ckpt and tokenizer.ckpt may also be specified
 # instead. E.g if you want to use your own LM / tokenizer.
-pretrained_lm_tokenizer_path: speechbrain/asr-transformer-transformerlm-librispeech
+pretrained_lm_tokenizer_path: /home/ec2-user/capstone/speech-anonymization/pretrained_ASR
 
 # Data files
-data_folder: /home/ubuntu/LibriSpeech # e.g., /path/to/LibriSpeech
+data_folder: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech # e.g., /path/to/LibriSpeech
 # If RIRS_NOISES dir exists in /localscratch/xxx_corpus/RIRS_NOISES
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
-data_folder_rirs: /home/ubuntu/LibriSpeech
-train_splits: [train]
-dev_splits: [dev-clean-100]
-test_splits: [dev-clean-100]
+data_folder_rirs: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech
+train_splits: [train-clean]
+dev_splits: [dev-clean]
+test_splits: [test-clean]
 skip_prep: false
-train_csv: /home/ubuntu/LibriSpeech/train.csv
-valid_csv: /home/ubuntu/LibriSpeech/dev-clean-100.csv
+train_csv: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/train.csv
+valid_csv: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/dev-clean.csv
 test_csv:
-- /home/ubuntu/LibriSpeech/dev-clean-100.csv
+- /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/test-clean.csv
 ckpt_interval_minutes: 60 # save checkpoint every N min
 
 # Training parameters
@@ -63,9 +63,9 @@ ctc_weight: 0.3
 ## PARAMS FOR CONVAUTOENCODER ##
 convae_feature_dim: 80
 number_of_epochs: 100
-batch_size: 1
-recon_loss_weight: 0.5
-sex_loss_weight: 0.5
+batch_size: 5
+recon_loss_weight: 0.1
+sex_loss_weight: 0.9
 utility_loss_weight: 0.0
 mi_loss_weight: 0.0
 gradient_accumulation: 1
@@ -74,6 +74,7 @@ loss_reduction: batchmean
 sorting: random
 
 sex_classification_acc: !name:speechbrain.utils.Accuracy.AccuracyStats
+sex_classification_acc_extern: !name:speechbrain.utils.Accuracy.AccuracyStats
 utility_similarity:
 utility_similarity_aggregator: !name:utils.utility_similarity_aggregator.SimilarityMetricsStats
 
@@ -81,7 +82,7 @@ loss_reconstruction: !new:torch.nn.L1Loss
   reduction: mean
 loss_sex_classification: !new:torch.nn.NLLLoss
 loss_utility: !new:utils.cosine_similarity_loss.CosineSimilarityLoss
-#loss_mutual_information: !new:mutual_information.MILoss
+loss_mutual_information: !new:utils.mi_loss.MILoss
 
 # stages related parameters
 stage_one_epochs: 90
@@ -95,14 +96,14 @@ n_mels: 80
 
 # Dataloader options
 train_dataloader_opts:
-  batch_size: 1
+  batch_size: 5
   shuffle: true
 
 valid_dataloader_opts:
-  batch_size: 1
+  batch_size: 5
 
 test_dataloader_opts:
-  batch_size: 1
+  batch_size: 5
 
 ####################### Model parameters ###########################
 # Transformer
@@ -200,7 +201,7 @@ asr_modules:
 asr_model: !new:torch.nn.ModuleList
 - [*id002, *id003, *id004, *id005]
 Adam: !name:torch.optim.Adam
-  lr: 0
+  lr: 0.001
   betas: (0.9, 0.98)
   eps: 0.000000001
 
@@ -255,7 +256,7 @@ noam_annealing: &id009 !new:speechbrain.nnet.schedulers.NoamScheduler
   model_size: 768
 
 checkpointer: !new:speechbrain.utils.checkpoints.Checkpointer
-  checkpoints_dir: results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0//8886/save
+  checkpoints_dir: results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0/8886/save
   recoverables:
     model: *id008
     noam_scheduler: *id009
@@ -288,10 +289,12 @@ compute_features: !new:speechbrain.lobes.features.Fbank
   n_mels: 80
 
 train_logger: !new:speechbrain.utils.train_logger.FileTrainLogger
-  save_file: results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0//8886/train_log.txt
+  save_file: results/fullyconn_updatedsexclassifier_recon0.5_sex0.5_l1_2_60_epoch_adam_lr_1.0/8886/train_log.txt
 
 error_rate_computer: !name:speechbrain.utils.metric_stats.ErrorRateStats
 acc_computer: !name:speechbrain.utils.Accuracy.AccuracyStats
+
+
 
 # The pretrainer allows a mapping between pretrained files and instances that
 # are declared in the yaml. E.g here, we will download the file lm.ckpt
@@ -304,8 +307,9 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
     asr_model: *id008
     normalize: *id006
   paths:
-    asr_model: speechbrain/asr-transformer-transformerlm-librispeech/asr.ckpt
-    lm: speechbrain/asr-transformer-transformerlm-librispeech/lm.ckpt
-    tokenizer: speechbrain/asr-transformer-transformerlm-librispeech/tokenizer.ckpt
-    normalize: speechbrain/asr-transformer-transformerlm-librispeech/normalizer.ckpt
+    asr_model: /home/ec2-user/capstone/speech-anonymization/pretrained_ASR/asr.ckpt
+    lm: /home/ec2-user/capstone/speech-anonymization/pretrained_ASR/lm.ckpt
+    tokenizer: /home/ec2-user/capstone/speech-anonymization/pretrained_ASR/tokenizer.ckpt
+    normalize: /home/ec2-user/capstone/speech-anonymization/pretrained_ASR/normalizer.ckpt
+
 

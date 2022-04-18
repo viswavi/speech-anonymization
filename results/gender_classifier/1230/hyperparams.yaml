@@ -113,8 +113,7 @@ mean_var_norm: &id006 !new:speechbrain.processing.features.InputNormalization
 
 # This optimizer will be constructed by the Brain class after all parameters
 # are moved to the correct device. Then it will be added to the checkpointer.
-  norm_type: sentence
-  std_norm: false
+  norm_type: global
 
 
 embedding_model: &id004 !new:speechbrain.lobes.models.Xvector.Xvector
