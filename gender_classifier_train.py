@@ -39,17 +39,19 @@ python gender_classifier_train.py \
     speechbrain_configs/gender_classifier.yaml \
     --device cpu
 """
-import os
 import sys
 import torch
+import os
 import speechbrain as sb
+from pathlib import Path
 from hyperpyyaml import load_hyperpyyaml
-# from mini_librispeech_prepare import prepare_mini_librispeech
-
-
+from speechbrain.utils.distributed import run_on_main
 sys.path.append("speechbrain/recipes/LibriSpeech")
-# 1.  # Dataset prep (parsing Librispeech)
 from librispeech_prepare import prepare_librispeech  # noqa
+
+
+
+# 1.  # Dataset prep (parsing Librispeech)
 
 
 # Brain class for speech enhancement training
@@ -77,6 +79,7 @@ class GenderBrain(sb.Brain):
         # Compute features, embeddings, and predictions
         feats, lens = self.prepare_features(batch.sig, stage)
         embeddings = self.modules.embedding_model(feats, lens)
+
         predictions = self.modules.classifier(embeddings)
 
         return predictions
@@ -149,7 +152,6 @@ class GenderBrain(sb.Brain):
         # Compute classification error at test time
         if stage != sb.Stage.TRAIN:
             self.error_metrics.append(batch.id, predictions, gender, lens)
-
         return loss
 
     def on_stage_start(self, stage, epoch=None):
@@ -200,8 +202,7 @@ class GenderBrain(sb.Brain):
 
         # At the end of validation...
         if stage == sb.Stage.VALID:
-
-            old_lr, new_lr = self.hparams.lr_annealing(epoch)
+            old_lr, new_lr = self.hparams.lr_annealing([self.optimizer], epoch, stage_loss)
             sb.nnet.schedulers.update_learning_rate(self.optimizer, new_lr)
 
             # The train_logger writes a summary to stdout and to the logfile.
@@ -221,39 +222,61 @@ class GenderBrain(sb.Brain):
                 test_stats=stats,
             )
 
-
-def dataio_prep(hparams):
+def dataio_prepare(hparams):
     """This function prepares the datasets to be used in the brain class.
-    It also defines the data processing pipeline through user-defined functions.
-    We expect `prepare_librispeech` to have been called before this,
-    so that the `train.json`, `valid.json`,  and `valid.json` manifest files
-    are available.
+    It also defines the data processing pipeline through user-defined functions."""
+    data_folder = hparams["data_folder"]
 
-    Arguments
-    ---------
-    hparams : dict
-        This dictionary is loaded from the `gender_classifier.yaml` file, and it includes
-        all the hyperparameters needed for dataset construction and loading.
+    train_data = sb.dataio.dataset.DynamicItemDataset.from_csv(
+        csv_path=hparams["train_csv"], replacements={"data_root": data_folder},
+    )
 
-    Returns
-    -------
-    datasets : dict
-        Contains two keys, "train" and "valid" that correspond
-        to the appropriate DynamicItemDataset object.
-    """
+    if hparams["sorting"] == "ascending":
+        # we sort training data to speed up training and get better results.
+        train_data = train_data.filtered_sorted(sort_key="duration")
+        # when sorting do not shuffle in dataloader ! otherwise is pointless
+        hparams["train_dataloader_opts"]["shuffle"] = False
 
-    # Initialization of the label encoder. The label encoder assigns to each
-    # of the observed label a unique index (e.g, 'M': 0, 'F': 1)
+    elif hparams["sorting"] == "descending":
+        train_data = train_data.filtered_sorted(
+            sort_key="duration", reverse=True
+        )
+        # when sorting do not shuffle in dataloader ! otherwise is pointless
+        hparams["train_dataloader_opts"]["shuffle"] = False
+
+    elif hparams["sorting"] == "random":
+        pass
+
+    else:
+        raise NotImplementedError(
+            "sorting must be random, ascending or descending"
+        )
+    valid_data = sb.dataio.dataset.DynamicItemDataset.from_csv(
+        csv_path=hparams["valid_csv"], replacements={"data_root": data_folder},
+    )
+    valid_data = valid_data.filtered_sorted(sort_key="duration")
+
+    # test is separate
+    test_datasets = {}
+    for csv_file in hparams["test_csv"]:
+        name = Path(csv_file).stem
+        test_datasets[name] = sb.dataio.dataset.DynamicItemDataset.from_csv(
+            csv_path=csv_file, replacements={"data_root": data_folder}
+        )
+        test_datasets[name] = test_datasets[name].filtered_sorted(
+            sort_key="duration"
+        )
+
     label_encoder = sb.dataio.encoder.CategoricalEncoder()
+    datasets = [train_data, valid_data] + [i for k, i in test_datasets.items()]
 
-    # Define audio pipeline
     @sb.utils.data_pipeline.takes("wav")
     @sb.utils.data_pipeline.provides("sig")
     def audio_pipeline(wav):
-        """Load the signal, and pass it and its length to the corruption class.
-        This is done on the CPU in the `collate_fn`."""
         sig = sb.dataio.dataio.read_audio(wav)
         return sig
+
+    sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
 
     # Define label pipeline:
     @sb.utils.data_pipeline.takes("gender")
@@ -263,32 +286,22 @@ def dataio_prep(hparams):
         gender_encoded = label_encoder.encode_label_torch(gender)
         yield gender_encoded
 
-    # Define datasets. We also connect the dataset with the data processing
-    # functions defined above.
-    datasets = {}
-    hparams["dataloader_options"]["shuffle"] = False
-    for dataset in ["train", "valid", "test"]:
-        datasets[dataset] = sb.dataio.dataset.DynamicItemDataset.from_json(
-            json_path=hparams[f"{dataset}_annotation"],
-            replacements={"data_root": hparams["data_folder"]},
-            dynamic_items=[audio_pipeline, label_pipeline],
-            output_keys=["id", "sig", "gender_encoded"],
-        )
+    sb.dataio.dataset.add_dynamic_item(datasets, label_pipeline)
 
-    # Load or compute the label encoder (with multi-GPU DDP support)
-    # Please, take a look into the lab_enc_file to see the label to index
-    # mapping.
+    sb.dataio.dataset.set_output_keys(
+        datasets, ["id", "sig", "gender_encoded"],
+    )
+
     lab_enc_file = os.path.join(hparams["save_folder"], "label_encoder.txt")
     label_encoder.load_or_create(
         path=lab_enc_file,
-        from_didatasets=[datasets["train"]],
+        from_didatasets=[train_data],
         output_key="gender",
     )
 
-    return datasets
+    return train_data, valid_data, test_datasets
 
 
-# Recipe begins!
 if __name__ == "__main__":
 
     # Reading command line arguments.
@@ -313,15 +326,26 @@ if __name__ == "__main__":
         prepare_librispeech,
         kwargs={
             "data_folder": hparams["data_folder"],
-            "save_json_train": hparams["train_annotation"],
-            "save_json_valid": hparams["valid_annotation"],
-            "save_json_test": hparams["test_annotation"],
-            "split_ratio": [80, 10, 10],
+            "tr_splits": hparams["train_splits"],
+            "dev_splits": hparams["dev_splits"],
+            "te_splits": hparams["test_splits"],
+            "save_folder": hparams["data_folder"],
+            "merge_lst": hparams["train_splits"],
+            "merge_name": hparams["train_csv"],
+            "skip_prep": hparams["skip_prep"],
         },
     )
 
     # Create dataset objects "train", "valid", and "test".
-    datasets = dataio_prep(hparams)
+    train_data, valid_data, test_datasets = dataio_prepare(hparams)
+
+    # TODO right place?
+    # run_on_main(hparams["pretrainer"].collect_files)
+    # hparams["pretrainer"].load_collected(device=(run_opts["device"]))
+    hparams["embedding_model"].eval()
+    hparams["embedding_model"].to(run_opts["device"])
+
+
 
     # Initialize the Brain object to prepare for mask training.
     gender_brain = GenderBrain(
@@ -338,15 +362,15 @@ if __name__ == "__main__":
     # stopped at any point, and will be resumed on next call.
     gender_brain.fit(
         epoch_counter=gender_brain.hparams.epoch_counter,
-        train_set=datasets["train"],
-        valid_set=datasets["valid"],
+        train_set=train_data,
+        valid_set=valid_data,
         train_loader_kwargs=hparams["dataloader_options"],
         valid_loader_kwargs=hparams["dataloader_options"],
     )
 
     # Load the best checkpoint for evaluation
     test_stats = gender_brain.evaluate(
-        test_set=datasets["test"],
+        test_set=test_datasets,
         min_key="error",
         test_loader_kwargs=hparams["dataloader_options"],
     )

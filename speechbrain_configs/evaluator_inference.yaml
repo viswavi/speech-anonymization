@@ -1,0 +1,72 @@
+# inference params for trained external sex classifier
+
+
+seed: 1230
+__set_seed: !apply:torch.manual_seed [!ref <seed>]
+folder: /home/ec2-user/capstone/speech-anonymization/results/
+output_folder: !ref <folder>/<seed>
+save_folder: !ref <output_folder>/save
+
+# Feature parameters - should keep consistent with ConVAE / or our main model
+sample_rate: 16000
+n_fft: 400
+n_mels: 80
+
+
+normalize: !new:speechbrain.processing.features.InputNormalization
+    norm_type: global
+    update_until_epoch: 4
+
+compute_features: !new:speechbrain.lobes.features.Fbank
+    sample_rate: !ref <sample_rate>
+    n_fft: !ref <n_fft>
+    n_mels: !ref <n_mels>
+
+
+# Model parameters (external classifier)
+n_classes: 2
+emb_dim: 512 # dimensionality of the embeddings
+
+# Mean and std normalization of the input features
+mean_var_norm: !new:speechbrain.processing.features.InputNormalization
+    norm_type: global
+
+embedding_model: !new:speechbrain.lobes.models.Xvector.Xvector
+    in_channels: !ref <n_mels>
+    activation: !name:torch.nn.LeakyReLU
+    tdnn_blocks: 5
+    tdnn_channels: [512, 512, 512, 512, 1500]
+    tdnn_kernel_sizes: [5, 3, 3, 1, 1]
+    tdnn_dilations: [1, 2, 3, 1, 1]
+    lin_neurons: !ref <emb_dim>
+
+classifier: !new:speechbrain.lobes.models.Xvector.Classifier
+    input_shape: [null, null, !ref <emb_dim>]
+    activation: !name:torch.nn.LeakyReLU
+    lin_blocks: 1
+    lin_neurons: !ref <emb_dim>
+    out_neurons: !ref <n_classes>
+
+label_encoder: !new:speechbrain.dataio.encoder.CategoricalEncoder
+
+
+modules:
+    normalize: !ref <normalize>
+    compute_features: !ref <compute_features>
+    embedding_model: !ref <embedding_model>
+    classifier: !ref <classifier>
+    mean_var_norm: !ref <mean_var_norm>
+
+pretrained_path: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/trained_external_classifier_ckpt
+
+
+pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
+    loadables:
+        embedding_model: !ref <embedding_model>
+        classifier: !ref <classifier>
+        label_encoder: !ref <label_encoder>
+    paths:
+        embedding_model: !ref <pretrained_path>/embedding_model.ckpt
+        classifier: !ref <pretrained_path>/classifier.ckpt
+        label_encoder: !ref <pretrained_path>/label_encoder.txt
+

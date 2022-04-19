@@ -10,13 +10,13 @@
 # Seed needs to be set at top of yaml, before objects with parameters are made
 seed: 8886
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
-folder: /home/ubuntu/speech-anonymization/results/
+folder: /home/ec2-user/capstone/speech-anonymization/results/
 output_folder: !ref <folder>/<seed>
 wer_file: !ref <output_folder>/wer.txt
 save_folder: !ref <output_folder>/save
 train_log: !ref <output_folder>/train_log.txt
 
-pretrained_folder: !ref /home/ubuntu/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
+pretrained_folder: !ref /home/ec2-user/capstone/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
 
 model_type: convae
 
@@ -26,22 +26,22 @@ model_type: convae
 # speechbrain HuggingFace repository. However, a local path pointing to a
 # directory containing the lm.ckpt and tokenizer.ckpt may also be specified
 # instead. E.g if you want to use your own LM / tokenizer.
-pretrained_lm_tokenizer_path: speechbrain/asr-transformer-transformerlm-librispeech
+pretrained_lm_tokenizer_path: /home/ec2-user/capstone/speech-anonymization/pretrained_ASR
 
 # Data files
-data_folder: /home/ubuntu/LibriSpeech # e.g., /path/to/LibriSpeech
+data_folder: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech # e.g., /path/to/LibriSpeech
 # If RIRS_NOISES dir exists in /localscratch/xxx_corpus/RIRS_NOISES
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
 data_folder_rirs: !ref <data_folder>
-train_splits: ["train"]
-dev_splits: ["dev-clean-100"]
+train_splits: ["train-clean"]
+dev_splits: ["dev-clean"]
 test_splits: ["test-clean"]
 skip_prep: False
 train_csv: !ref <data_folder>/train.csv
-valid_csv: !ref <data_folder>/dev-clean-100.csv
+valid_csv: !ref <data_folder>/dev-clean.csv
 test_csv: 
-    - !ref <data_folder>/test-clean-10.csv
+    - !ref <data_folder>/test-clean.csv
 ckpt_interval_minutes: 60 # save checkpoint every N min
 
 # Training parameters
@@ -59,10 +59,10 @@ ctc_weight: 0.3
 
 ## PARAMS FOR CONVAUTOENCODER ##
 convae_feature_dim: 80
-number_of_epochs: 30
-batch_size: 10
-recon_loss_weight: 1.0
-sex_loss_weight: 0.0
+number_of_epochs: 100
+batch_size: 5
+recon_loss_weight: 0.1
+sex_loss_weight: 0.9
 utility_loss_weight: 0.0
 mi_loss_weight: 0.0
 gradient_accumulation: 1
@@ -71,6 +71,7 @@ loss_reduction: 'batchmean'
 sorting: random
 
 sex_classification_acc: !name:speechbrain.utils.Accuracy.AccuracyStats
+sex_classification_acc_extern: !name:speechbrain.utils.Accuracy.AccuracyStats
 utility_similarity: 
 utility_similarity_aggregator: !name:utils.utility_similarity_aggregator.SimilarityMetricsStats
 
@@ -78,7 +79,7 @@ loss_reconstruction: !new:torch.nn.L1Loss
     reduction: mean
 loss_sex_classification: !new:torch.nn.NLLLoss
 loss_utility: !new:utils.cosine_similarity_loss.CosineSimilarityLoss
-#loss_mutual_information: !new:mutual_information.MILoss
+loss_mutual_information: !new:utils.mi_loss.MILoss
 
 # stages related parameters
 stage_one_epochs: 90
@@ -181,6 +182,7 @@ seq_lin: !new:speechbrain.nnet.linear.Linear
 modules:
     normalize: !ref <normalize>
 
+
 model: !new:torch.nn.ModuleList
     -[]
 
@@ -196,7 +198,7 @@ asr_model: !new:torch.nn.ModuleList
 
 # define two optimizers here for two-stage training
 Adam: !name:torch.optim.Adam
-    lr: 0
+    lr: 0.001
     betas: (0.9, 0.98)
     eps: 0.000000001
 
@@ -292,6 +294,8 @@ train_logger: !new:speechbrain.utils.train_logger.FileTrainLogger
 error_rate_computer: !name:speechbrain.utils.metric_stats.ErrorRateStats
 acc_computer: !name:speechbrain.utils.Accuracy.AccuracyStats
 
+
+
 # The pretrainer allows a mapping between pretrained files and instances that
 # are declared in the yaml. E.g here, we will download the file lm.ckpt
 # and it will be loaded into "lm" which is pointing to the <lm_model> defined
@@ -302,9 +306,11 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         tokenizer: !ref <tokenizer>
         asr_model: !ref <model>
         normalize: !ref <normalize>
+
     paths:
         asr_model: !ref <pretrained_lm_tokenizer_path>/asr.ckpt
         lm: !ref <pretrained_lm_tokenizer_path>/lm.ckpt
         tokenizer: !ref <pretrained_lm_tokenizer_path>/tokenizer.ckpt
         normalize: !ref <pretrained_lm_tokenizer_path>/normalizer.ckpt
+
 

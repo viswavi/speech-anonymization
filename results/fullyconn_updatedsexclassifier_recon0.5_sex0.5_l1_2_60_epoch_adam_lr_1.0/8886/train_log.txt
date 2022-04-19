@@ -1,0 +1,35 @@
+epoch: 1, lr: 2.14e-04, steps: 28539, optimizer: Adam - train loss: 6.39 - valid loss: 4.92, valid ACC: 6.80e-01, valid Utility_Retention: 0.6359210014343262
+Epoch loaded: 1 - test loss: 4.50e-01, test ACC: 1.00e+00, test Utility_Retention: 0.7599104046821594, test WER: 0.00e+00
+epoch: 2, lr: 2.04e-04, steps: 31393, optimizer: Adam - train loss: 5.55e-01 - valid loss: 5.06e-01, valid ACC: 5.30, valid Utility_Retention: 0.622138500213623
+epoch: 3, lr: 1.95e-04, steps: 34247, optimizer: Adam - train loss: 5.48e-01 - valid loss: 4.98e-01, valid ACC: 4.50, valid Utility_Retention: 0.6474686861038208
+epoch: 4, lr: 1.87e-04, steps: 37101, optimizer: Adam - train loss: 5.48e-01 - valid loss: 4.93e-01, valid ACC: 4.30, valid Utility_Retention: 0.6734537482261658
+epoch: 5, lr: 1.81e-04, steps: 39955, optimizer: Adam - train loss: 5.45e-01 - valid loss: 5.14e-01, valid ACC: 5.70, valid Utility_Retention: 0.6810780167579651
+epoch: 6, lr: 1.74e-04, steps: 42809, optimizer: Adam - train loss: 5.43e-01 - valid loss: 4.95e-01, valid ACC: 4.10, valid Utility_Retention: 0.6926693320274353
+epoch: 7, lr: 1.69e-04, steps: 45663, optimizer: Adam - train loss: 5.43e-01 - valid loss: 4.87e-01, valid ACC: 4.90, valid Utility_Retention: 0.6982129216194153
+epoch: 8, lr: 1.64e-04, steps: 48517, optimizer: Adam - train loss: 5.41e-01 - valid loss: 4.97e-01, valid ACC: 5.90, valid Utility_Retention: 0.7163439989089966
+epoch: 9, lr: 1.59e-04, steps: 51371, optimizer: Adam - train loss: 5.41e-01 - valid loss: 4.97e-01, valid ACC: 5.20, valid Utility_Retention: 0.7180153727531433
+epoch: 10, lr: 1.55e-04, steps: 54225, optimizer: Adam - train loss: 5.39e-01 - valid loss: 4.90e-01, valid ACC: 5.10, valid Utility_Retention: 0.7334116697311401
+epoch: 11, lr: 1.51e-04, steps: 57079, optimizer: Adam - train loss: 5.39e-01 - valid loss: 4.88e-01, valid ACC: 4.40, valid Utility_Retention: 0.737873375415802
+epoch: 12, lr: 1.47e-04, steps: 59933, optimizer: Adam - train loss: 5.39e-01 - valid loss: 4.80e-01, valid ACC: 4.70, valid Utility_Retention: 0.7517991662025452
+epoch: 13, lr: 1.44e-04, steps: 62787, optimizer: Adam - train loss: 5.38e-01 - valid loss: 4.83e-01, valid ACC: 4.60, valid Utility_Retention: 0.75186687707901
+epoch: 14, lr: 1.41e-04, steps: 65641, optimizer: Adam - train loss: 5.37e-01 - valid loss: 4.96e-01, valid ACC: 5.40, valid Utility_Retention: 0.757857620716095
+epoch: 15, lr: 1.38e-04, steps: 68495, optimizer: Adam - train loss: 5.38e-01 - valid loss: 5.05e-01, valid ACC: 5.70, valid Utility_Retention: 0.7522817254066467
+epoch: 16, lr: 1.35e-04, steps: 71349, optimizer: Adam - train loss: 5.38e-01 - valid loss: 4.86e-01, valid ACC: 5.20, valid Utility_Retention: 0.7679724097251892
+epoch: 17, lr: 1.32e-04, steps: 74203, optimizer: Adam - train loss: 5.38e-01 - valid loss: 5.08e-01, valid ACC: 5.90, valid Utility_Retention: 0.7751252055168152
+epoch: 18, lr: 1.30e-04, steps: 77057, optimizer: Adam - train loss: 5.37e-01 - valid loss: 4.81e-01, valid ACC: 5.20, valid Utility_Retention: 0.7737858295440674
+epoch: 19, lr: 1.28e-04, steps: 79911, optimizer: Adam - train loss: 5.38e-01 - valid loss: 4.98e-01, valid ACC: 5.90, valid Utility_Retention: 0.7789341807365417
+epoch: 20, lr: 1.25e-04, steps: 82765, optimizer: Adam - train loss: 5.35e-01 - valid loss: 4.93e-01, valid ACC: 5.60, valid Utility_Retention: 0.7846409678459167
+epoch: 21, lr: 1.23e-04, steps: 85619, optimizer: Adam - train loss: 5.36e-01 - valid loss: 4.75e-01, valid ACC: 4.20, valid Utility_Retention: 0.7847250699996948
+epoch: 22, lr: 1.21e-04, steps: 88473, optimizer: Adam - train loss: 5.35e-01 - valid loss: 4.75e-01, valid ACC: 5.50, valid Utility_Retention: 0.7941886782646179
+epoch: 23, lr: 1.19e-04, steps: 91327, optimizer: Adam - train loss: 5.35e-01 - valid loss: 4.79e-01, valid ACC: 4.80, valid Utility_Retention: 0.798259437084198
+epoch: 24, lr: 1.18e-04, steps: 94181, optimizer: Adam - train loss: 5.35e-01 - valid loss: 4.79e-01, valid ACC: 5.20, valid Utility_Retention: 0.7971898317337036
+epoch: 25, lr: 1.16e-04, steps: 97035, optimizer: Adam - train loss: 5.35e-01 - valid loss: 4.77e-01, valid ACC: 4.60, valid Utility_Retention: 0.8020527362823486
+epoch: 26, lr: 1.14e-04, steps: 99889, optimizer: Adam - train loss: 5.34e-01 - valid loss: 4.77e-01, valid ACC: 4.30, valid Utility_Retention: 0.8008826375007629
+epoch: 27, lr: 1.13e-04, steps: 102743, optimizer: Adam - train loss: 5.34e-01 - valid loss: 4.87e-01, valid ACC: 5.70, valid Utility_Retention: 0.8039071559906006
+epoch: 28, lr: 1.11e-04, steps: 105597, optimizer: Adam - train loss: 5.34e-01 - valid loss: 4.78e-01, valid ACC: 4.40, valid Utility_Retention: 0.8010129928588867
+epoch: 29, lr: 1.10e-04, steps: 108451, optimizer: Adam - train loss: 5.34e-01 - valid loss: 4.88e-01, valid ACC: 4.90, valid Utility_Retention: 0.8014498949050903
+epoch: 30, lr: 1.08e-04, steps: 111305, optimizer: Adam - train loss: 5.34e-01 - valid loss: 4.95e-01, valid ACC: 6.00, valid Utility_Retention: 0.8024225234985352
+Epoch loaded: 30 - test loss: 5.02e-01, test ACC: 0.00e+00, test Utility_Retention: 0.8573022484779358, test WER: 0.00e+00
+Epoch loaded: 30 - test loss: 4.80e-01, test ACC: 3.90e-01, test Utility_Retention: 0.7834582328796387, test WER: 11.00
+Epoch loaded: 30 - test loss: 5.05e-01, test ACC: 4.80e-01, test Utility_Retention: 0.7992722988128662, test WER: 5.22
+epoch: 31, lr: 1.05e-04, steps: 117013, optimizer: Adam - train loss: 6.70e-01 - valid loss: 7.30e-01, valid ACC: 5.04e-01, valid ACC_external: 4.92e-01, valid Utility_Retention: 0.7659311890602112
