@@ -184,6 +184,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             savedir="/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/",
         )
 
+        classifier.eval()
         return classifier.to(sa_brain.device)
 
     def evaluate_batch(self, batch, stage):
