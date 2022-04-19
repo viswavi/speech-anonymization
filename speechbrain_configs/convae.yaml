@@ -38,7 +38,7 @@ train_splits: ["train-clean"]
 dev_splits: ["dev-clean"]
 test_splits: ["test-clean"]
 skip_prep: False
-train_csv: !ref <data_folder>/train.csv
+train_csv: !ref <data_folder>/train-clean.csv
 valid_csv: !ref <data_folder>/dev-clean.csv
 test_csv: 
     - !ref <data_folder>/test-clean.csv
@@ -71,8 +71,7 @@ loss_reduction: 'batchmean'
 sorting: random
 
 sex_classification_acc: !name:speechbrain.utils.Accuracy.AccuracyStats
-sex_classification_acc_extern: !name:speechbrain.utils.Accuracy.AccuracyStats
-utility_similarity: 
+utility_similarity:
 utility_similarity_aggregator: !name:utils.utility_similarity_aggregator.SimilarityMetricsStats
 
 loss_reconstruction: !new:torch.nn.L1Loss

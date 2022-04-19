@@ -101,23 +101,27 @@ class SexAnonymizationTraining(sb.core.Brain):
 
             # Evaluation: performing classification by externally trained sex classifier
             recon_speech_feats = reconstructed_speech.to(sa_brain.device)
-            wav_lens = wav_lens.to(sa_brain.device)
 
-            sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats, wav_lens)
+            print("sanity check to make sure external classifier works")
+            sex_logits_extern_orig, score_orig, index_orig, _ = self.external_classifier.classify_batch(wavs.to(sa_brain.device),
+                                                                                                           wav_lens.to(sa_brain.device))
 
-            #sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch_feats(feats, wav_lens)
-            #print(sex_logits_extern_orig.shape)
+            print("sex logits with external + original raw wav data")
+            print(sex_logits_extern_orig)
+
+            #sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats)
+
             print("sex logits internal: ")
             print(sex_logits)
-            print("sex logits extern: ")
-            print(sex_logits_extern)
+ #           print("sex logits extern: ")
+#            print(sex_logits_extern)
 
-            self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(0), sex_label.unsqueeze(0),
-                                               torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))
+            self.sex_classification_acc_extern.append(sex_logits_extern_orig.unsqueeze(0), sex_label.unsqueeze(0),
+                                               torch.tensor(sex_label.shape[0], device=sex_logits_extern_orig.device).unsqueeze(0))
 
             print("internal classification ACC = ")
             print(self.sex_classification_acc.summarize())
-            print("external classification ACC = ")
+            print("external classification ACC on original wav input = ")
             print(self.sex_classification_acc_extern.summarize())
 
             if self.hparams.model_type == "convae":
@@ -127,7 +131,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             if stage == sb.Stage.VALID:
                 recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=False)
                 orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=False)
-        
+
                 cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
                 self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
 
@@ -135,11 +139,11 @@ class SexAnonymizationTraining(sb.core.Brain):
                 enc_out, predictions = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=True)
                 recon_enc_out, recon_prob, _, _, _, _, = enc_out
                 ids, predicted_words, target_words = predictions
-                
+
                 enc_out, predictions = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=True)
                 orig_enc_out, orig_prob, _, _, _, _, = enc_out
                 o_ids, o_predicted_words, o_target_words = predictions
-                
+
                 print(predicted_words)
                 print(target_words)
                 print(o_predicted_words)
@@ -174,7 +178,7 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         return loss.detach()
 
-    def external_classifier(self):
+    def load_external_classifier(self):
         classifier = EncoderClassifier.from_hparams(
             source="/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/",
             hparams_file="evaluator_inference.yaml",
@@ -192,6 +196,8 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def on_stage_start(self, stage, epoch):
         """Gets called at the beginning of each epoch"""
+        self.external_classifier = self.load_external_classifier()
+
         if stage != sb.Stage.TRAIN:
             if not hasattr(self, "recon_loss"):
                 self.recon_loss = [[]]
@@ -200,8 +206,6 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.sex_classification_acc = self.hparams.sex_classification_acc()
             self.sex_classification_acc_extern = self.hparams.sex_classification_acc_extern()
             self.utility_similarity_aggregator = self.hparams.utility_similarity_aggregator()
-            self.external_classifier = self.external_classifier()
-
 
             if stage == sb.Stage.TEST:
                 self.wer_metric = self.hparams.error_rate_computer()
@@ -427,11 +431,6 @@ if __name__ == "__main__":
     with open(hparams_file) as fin:
         hparams = load_hyperpyyaml(fin, overrides)
 
-    with open("./speechbrain_configs/evaluator_inference.yaml") as fin:
-        hparams_eval = load_hyperpyyaml(fin)
-
-    for mod in hparams_eval['modules']:
-        hparams_eval['modules'][mod].to(run_opts['device'])
     #tensorboard_logger = TensorboardLogger()
 
     # If distributed_launch=True then
@@ -503,22 +502,16 @@ if __name__ == "__main__":
     #hparams["normalize"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/normalizer.ckpt"))
     hparams["lm_model"].load_state_dict(torch.load("PretrainedASR/lm.ckpt"))
 
-    hparams_eval["classifier"].load_state_dict(torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/classifier.ckpt"))
-    hparams_eval["embedding_model"].load_state_dict(
-        torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/embedding_model.ckpt"))
-    # hparams_eval["normalizer"].load_state_dict(
-    #     torch.load("results/gender_classifier/1230/save/trained_external_classifier_ckpt/normalizer.ckpt"))
-
     print("done loading")
 
     # # #Training
-    sa_brain.fit(
-        sa_brain.hparams.epoch_counter,
-        train_data,
-        valid_data,
-        train_loader_kwargs=hparams["train_dataloader_opts"],
-        valid_loader_kwargs=hparams["valid_dataloader_opts"],
-    )
+    # sa_brain.fit(
+    #     sa_brain.hparams.epoch_counter,
+    #     train_data,
+    #     valid_data,
+    #     train_loader_kwargs=hparams["train_dataloader_opts"],
+    #     valid_loader_kwargs=hparams["valid_dataloader_opts"],
+    # )
 
 
     # Testing

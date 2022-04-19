@@ -257,18 +257,14 @@ def dataio_prepare(hparams):
     valid_data = valid_data.filtered_sorted(sort_key="duration")
 
     # test is separate
-    test_datasets = {}
-    for csv_file in hparams["test_csv"]:
-        name = Path(csv_file).stem
-        test_datasets[name] = sb.dataio.dataset.DynamicItemDataset.from_csv(
-            csv_path=csv_file, replacements={"data_root": data_folder}
-        )
-        test_datasets[name] = test_datasets[name].filtered_sorted(
-            sort_key="duration"
-        )
+
+    test_data = sb.dataio.dataset.DynamicItemDataset.from_csv(
+        csv_path=hparams["test_csv"], replacements={"data_root": data_folder},
+    )
+    test_data = test_data.filtered_sorted(sort_key="duration")
 
     label_encoder = sb.dataio.encoder.CategoricalEncoder()
-    datasets = [train_data, valid_data] + [i for k, i in test_datasets.items()]
+    datasets = [train_data, valid_data, test_data]
 
     @sb.utils.data_pipeline.takes("wav")
     @sb.utils.data_pipeline.provides("sig")
@@ -299,7 +295,7 @@ def dataio_prepare(hparams):
         output_key="gender",
     )
 
-    return train_data, valid_data, test_datasets
+    return train_data, valid_data, test_data
 
 
 if __name__ == "__main__":
@@ -337,7 +333,7 @@ if __name__ == "__main__":
     )
 
     # Create dataset objects "train", "valid", and "test".
-    train_data, valid_data, test_datasets = dataio_prepare(hparams)
+    train_data, valid_data, test_data = dataio_prepare(hparams)
 
     # TODO right place?
     # run_on_main(hparams["pretrainer"].collect_files)
@@ -370,7 +366,7 @@ if __name__ == "__main__":
 
     # Load the best checkpoint for evaluation
     test_stats = gender_brain.evaluate(
-        test_set=test_datasets,
+        test_set=test_data,
         min_key="error",
         test_loader_kwargs=hparams["dataloader_options"],
     )

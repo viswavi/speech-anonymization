@@ -25,7 +25,7 @@ compute_features: !new:speechbrain.lobes.features.Fbank
 
 # Model parameters (external classifier)
 n_classes: 2
-emb_dim: 512 # dimensionality of the embeddings
+emb_dim: 128 # dimensionality of the embeddings
 
 # Mean and std normalization of the input features
 mean_var_norm: !new:speechbrain.processing.features.InputNormalization
