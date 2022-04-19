@@ -111,20 +111,15 @@ class SexAnonymizationTraining(sb.core.Brain):
             recon_speech_feats = reconstructed_speech.to(sa_brain.device)
             wav_lens = wav_lens.to(sa_brain.device)
 
-            print(self.external_classifier)
-            sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats, wav_lens)
+            #sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats, wav_lens)
 
             #sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch_feats(feats, wav_lens)
             #print(sex_logits_extern_orig.shape)
             #print(sex_logits_extern_orig)
 
-            self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(0), sex_label.unsqueeze(0),
-                                               torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))
+            #self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(0), sex_label.unsqueeze(0),
+            #                                   torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))
 
-            print("internal classification ACC = ")
-            print(self.sex_classification_acc.summarize())
-            print("external classification ACC = ")
-            print(self.sex_classification_acc_extern.summarize())
 
             if stage == sb.Stage.VALID:
                 recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=False)
@@ -134,6 +129,15 @@ class SexAnonymizationTraining(sb.core.Brain):
                 self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
 
             else:
+                print("sex label = ")
+                print(sex_label)
+                # print("external sex logits = ")
+                # print(sex_logits_extern)
+                print("internal classification ACC = ")
+                print(self.sex_classification_acc.summarize())
+                # print("external classification ACC = ")
+                # print(self.sex_classification_acc_extern.summarize())
+
                 enc_out, predictions = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=True)
                 recon_enc_out, recon_prob, _, _, _, _, = enc_out
                 ids, predicted_words, target_words = predictions
@@ -202,7 +206,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.sex_classification_acc = self.hparams.sex_classification_acc()
             self.sex_classification_acc_extern = self.hparams.sex_classification_acc_extern()
             self.utility_similarity_aggregator = self.hparams.utility_similarity_aggregator()
-            self.external_classifier = self.external_classifier()
+            #self.external_classifier = self.external_classifier()
 
 
             if stage == sb.Stage.TEST:
@@ -520,13 +524,13 @@ if __name__ == "__main__":
 
     print("done loading")
 
-    # sa_brain.fit(
-    #    sa_brain.hparams.epoch_counter,
-    #    train_data,
-    #    valid_data,
-    #    train_loader_kwargs=hparams["train_dataloader_opts"],
-    #     valid_loader_kwargs=hparams["valid_dataloader_opts"],
-    # )
+    sa_brain.fit(
+       sa_brain.hparams.epoch_counter,
+       train_data,
+       valid_data,
+       train_loader_kwargs=hparams["train_dataloader_opts"],
+        valid_loader_kwargs=hparams["valid_dataloader_opts"],
+    )
 
 
     # Testing

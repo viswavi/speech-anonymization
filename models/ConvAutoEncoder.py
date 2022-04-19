@@ -31,6 +31,9 @@ class SexClassifier(nn.Module):
         self.fc1 = nn.Linear(40, 20)
         self.fc2 = nn.Linear(20, num_classes)
 
+        # self.fc1 = nn.Linear(256,128)
+        # self.fc2 = nn.Linear(128, num_classes)
+
     def forward(self, input):
         input = GradReverse.grad_reverse(input)
         logits = F.relu(self.fc1(input))
@@ -67,61 +70,29 @@ class ConvAutoencoder(nn.Module):
 
         ## encoder layers ##
         self.encoder=nn.Sequential(
-            # nn.Conv1d(in_channels=1, out_channels=32, kernel_size=15, stride=1, padding=7),
-            # GLU(),
-
-            # nn.Conv1d(in_channels=32, out_channels=64, kernel_size=5, stride=2, padding=2),
-            # nn.InstanceNorm1d(num_features=64, affine=True),
-            # GLU(),
-
-            # nn.Conv1d(in_channels=64, out_channels=128, kernel_size=5, stride=2, padding=2),
-            # nn.InstanceNorm1d(num_features=128, affine=True),
-            # GLU(),
-
-            # nn.Conv1d(in_channels=128, out_channels=256, kernel_size=5, stride=2, padding=2),
-            # nn.InstanceNorm1d(num_features=256, affine=True),
-            # GLU(),
-
-            # nn.Conv1d(in_channels=256, out_channels=512, kernel_size=5, stride=2, padding=2),
-            # nn.InstanceNorm1d(num_features=512, affine=True),
-            # GLU()
-            nn.Conv1d(in_channels=1, out_channels=128, kernel_size=15, stride=1, padding=7),
+            nn.Conv1d(in_channels=1, out_channels=32, kernel_size=15, stride=1, padding=7),
             GLU(),
-            nn.Conv1d(in_channels=128, out_channels=256, kernel_size=5, stride=2, padding=2),
-            nn.InstanceNorm1d(num_features=256, affine=True),
+
+            nn.Conv1d(in_channels=32, out_channels=64, kernel_size=5, stride=2, padding=2),
+            nn.InstanceNorm1d(num_features=64, affine=True),
             GLU(),
-            nn.Conv1d(in_channels=256, out_channels=512, kernel_size=5, stride=2, padding=2),
-            nn.InstanceNorm1d(num_features=512, affine=True),
+
+            nn.Conv1d(in_channels=64, out_channels=128, kernel_size=5, stride=2, padding=2),
+            nn.InstanceNorm1d(num_features=128, affine=True),
             GLU()
         )
 
         ## decoder layers ##
         self.decoder=nn.Sequential(
-            # nn.Conv1d(in_channels=512, out_channels=512, kernel_size=5, stride=1, padding=2),
-            # nn.ConvTranspose1d(in_channels=512, out_channels=256, kernel_size=5, stride=2, padding=2, output_padding=1),
-            # nn.InstanceNorm1d(num_features=256, affine=True),
-            # GLU(),
-            # nn.ConvTranspose1d(in_channels=256, out_channels=128, kernel_size=5, stride=2, padding=2, output_padding=1),
-            # nn.InstanceNorm1d(num_features=128, affine=True),
-            # GLU(),
-            # nn.ConvTranspose1d(in_channels=128, out_channels=64, kernel_size=5, stride=2, padding=2, output_padding=1),
-            # nn.InstanceNorm1d(num_features=64, affine=True),
-            # GLU(),
-            # nn.ConvTranspose1d(in_channels=64, out_channels=32, kernel_size=5, stride=2, padding=2, output_padding=1),
-            # nn.InstanceNorm1d(num_features=32, affine=True),
-            # GLU(),
-            # nn.Conv1d(in_channels=32, out_channels=1, kernel_size=15, stride=1, padding=7)
-            nn.Conv1d(in_channels=512, out_channels=1024, kernel_size=5, stride=1, padding=2),
-            PixelShuffle(2),
-            #nn.ConvTranspose1d(in_channels=1024, out_channels=512, kernel_size=5, stride=2, padding=2, output_padding=1),
-            nn.InstanceNorm1d(num_features=512, affine=True),
+            nn.Conv1d(in_channels=128, out_channels=128, kernel_size=5, stride=1, padding=2),
+            nn.ConvTranspose1d(in_channels=128, out_channels=64, kernel_size=5, stride=2, padding=2, output_padding=1),
+            nn.InstanceNorm1d(num_features=64, affine=True),
             GLU(),
-            nn.Conv1d(in_channels=512, out_channels=512, kernel_size=5, stride=1, padding=2),
-            PixelShuffle(2),
-            #nn.ConvTranspose1d(in_channels=512, out_channels=256, kernel_size=5, stride=2, padding=2, output_padding=1),
-            nn.InstanceNorm1d(num_features=256, affine=True),
+            nn.Conv1d(in_channels=64, out_channels=64, kernel_size=5, stride=1, padding=2),
+            nn.ConvTranspose1d(in_channels=64, out_channels=32, kernel_size=5, stride=2, padding=2, output_padding=1),
+            nn.InstanceNorm1d(num_features=32, affine=True),
             GLU(),
-            nn.Conv1d(in_channels=256, out_channels=1, kernel_size=15, stride=1, padding=7)
+            nn.Conv1d(in_channels=32, out_channels=1, kernel_size=15, stride=1, padding=7)
         )
 
         ## Sex classifier: num_classes = 2 ##
@@ -131,7 +102,7 @@ class ConvAutoencoder(nn.Module):
     def forward(self, input):
         ## encode ##
         out = input
-        #print(input.shape)
+        print(input.shape)
         input = input.reshape(input.shape[0], input.shape[1]*input.shape[2])
 
         # batch_size feats timesteps
@@ -140,6 +111,7 @@ class ConvAutoencoder(nn.Module):
         # -->
         # batch_size channel feats*timesteps
         input = input.unsqueeze(1)
+        print(input.shape)
         input = self.encoder(input)
         #print(input.shape)
 
@@ -154,6 +126,7 @@ class ConvAutoencoder(nn.Module):
         
         ## decode ##
         input = self.decoder(input)
+        print(input.shape)
         input = input.squeeze(1)
         input = input.reshape(input.shape[0], out.shape[1], out.shape[2])
         ## return reconstructed speech feature for reconstruction loss, sex classification for cross entropy loss ##
