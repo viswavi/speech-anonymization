@@ -24,10 +24,9 @@ train_splits: ["train-clean-100"]
 dev_splits: ["dev-clean-100"]
 test_splits: ["test-clean"]
 skip_prep: False
-train_csv: !ref <data_folder>/train.csv
+train_csv: !ref <data_folder>/train-clean.csv
 valid_csv: !ref <data_folder>/dev-clean.csv
-test_csv:
-  - !ref <data_folder>/test-clean.csv
+test_csv: !ref <data_folder>/test-clean.csv
 
 sorting: random
 
@@ -57,28 +56,15 @@ n_fft: 400
 n_mels: 80
 
 pretrain_path: speechbrain/spkrec-xvect-voxceleb
-mean_var_norm_emb: !new:speechbrain.processing.features.InputNormalization
-    norm_type: global
-    std_norm: False
-
-#pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
-#    collect_in: !ref <save_folder>
-#    loadables:
-#        embedding_model: !ref <embedding_model>
-#        mean_var_norm_emb: !ref <mean_var_norm_emb>
-#    paths:
-#        embedding_model: !ref <pretrain_path>/embedding_model.ckpt
-#        mean_var_norm_emb: !ref <pretrain_path>/mean_var_norm_emb.ckpt
-
 
 
 # Training Parameters
-number_of_epochs: 35
+number_of_epochs: 1
 batch_size: 32
 lr_start: 0.001
 lr_final: 0.0001
 n_classes: 2 # In this case, we have 2 classes as we are assuming a gender binary
-emb_dim: 512 # dimensionality of the embeddings
+emb_dim: 128 # dimensionality of the embeddings
 dataloader_options:
     batch_size: !ref <batch_size>
     shuffle: True
@@ -108,8 +94,7 @@ compute_features: !new:speechbrain.lobes.features.Fbank
 
 # Mean and std normalization of the input features
 mean_var_norm: !new:speechbrain.processing.features.InputNormalization
-    norm_type: sentence
-    std_norm: False
+    norm_type: global
 
 
 embedding_model: !new:speechbrain.lobes.models.Xvector.Xvector

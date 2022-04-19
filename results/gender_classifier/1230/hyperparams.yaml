@@ -1,4 +1,4 @@
-# Generated 2022-03-27 from:
+# Generated 2022-04-17 from:
 # /home/ec2-user/capstone/speech-anonymization/speechbrain_configs/gender_classifier.yaml
 # yamllint disable
 # #################################
@@ -62,7 +62,6 @@ n_mels: 24
 pretrain_path: speechbrain/spkrec-xvect-voxceleb
 mean_var_norm_emb: &id001 !new:speechbrain.processing.features.InputNormalization
   norm_type: global
-  std_norm: false
 
 pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
   collect_in: ./results/gender_classifier/1230/save
@@ -121,8 +120,7 @@ mean_var_norm: &id007 !new:speechbrain.processing.features.InputNormalization
 
 # This optimizer will be constructed by the Brain class after all parameters
 # are moved to the correct device. Then it will be added to the checkpointer.
-  norm_type: sentence
-  std_norm: false
+  norm_type: global
 
 
 embedding_model: *id002

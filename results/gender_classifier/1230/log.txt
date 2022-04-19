@@ -2430,3 +2430,858 @@ Traceback (most recent call last):
   File "/home/ec2-user/.local/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 297, in _conv_forward
     return F.conv1d(input, weight, bias, self.stride,
 KeyboardInterrupt
+<<<<<<< HEAD
+=======
+2022-03-31 04:27:58,682 - speechbrain.core - INFO - Beginning experiment!
+2022-03-31 04:27:58,682 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-03-31 04:27:58,993 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+attrs==21.4.0
+black==19.10b0
+brotlipy==0.7.0
+certifi==2020.12.5
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1613413863336/work
+cfgv==3.3.1
+chardet @ file:///home/conda/feedstock_root/build_artifacts/chardet_1610093492116/work
+click==8.0.4
+conda==4.10.1
+conda-package-handling @ file:///home/conda/feedstock_root/build_artifacts/conda-package-handling_1618231390031/work
+cryptography @ file:///home/conda/feedstock_root/build_artifacts/cryptography_1616851485986/work
+distlib==0.3.4
+entrypoints==0.3
+filelock==3.6.0
+flake8==3.7.9
+huggingface-hub==0.4.0
+HyperPyYAML==1.0.0
+identify==2.4.12
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1593328102638/work
+joblib==1.1.0
+mamba @ file:///home/conda/feedstock_root/build_artifacts/mamba_1620856587040/work
+mccabe==0.6.1
+more-itertools==8.12.0
+nodeenv==1.6.0
+numpy==1.22.3
+packaging==21.3
+pathspec==0.9.0
+platformdirs==2.5.1
+pluggy==0.13.1
+pre-commit==2.17.0
+py==1.11.0
+pycodestyle==2.5.0
+pycosat @ file:///home/conda/feedstock_root/build_artifacts/pycosat_1610094799048/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
+pyflakes==2.1.1
+pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1608055815057/work
+pyparsing==3.0.7
+PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1610291451001/work
+pytest==5.4.1
+PyYAML==6.0
+regex==2022.3.15
+requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1608156231189/work
+ruamel-yaml-conda @ file:///home/conda/feedstock_root/build_artifacts/ruamel_yaml_1611943432947/work
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scipy==1.8.0
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+-e git+https://github.com/viswavi/speechbrain.git@87a12d09307f5a681031a89ce8d6d9e9539118a0#egg=speechbrain&subdirectory=../../speechbrain
+toml==0.10.2
+torch==1.10.1
+torchaudio==0.10.1
+tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1621890532941/work
+typed-ast==1.5.2
+typing-extensions==4.1.1
+urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1615828766818/work
+virtualenv==20.13.4
+wcwidth==0.2.5
+yamllint==1.23.0
+
+
+2022-03-31 04:27:59,001 - speechbrain.utils.superpowers - DEBUG - 8477e3c
+
+
+2022-03-31 04:27:59,170 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-03-31 04:27:59,442 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-03-31 04:27:59,442 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-03-31 04:27:59,443 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-03-31 04:27:59,443 - speechbrain.utils.parameter_transfer - DEBUG - Collecting files (or symlinks) for pretraining in results/gender_classifier/1230/save.
+2022-03-31 04:27:59,443 - speechbrain.pretrained.fetching - INFO - Fetch embedding_model.ckpt: Using existing file/symlink in results/gender_classifier/1230/save/embedding_model.ckpt.
+2022-03-31 04:27:59,443 - speechbrain.pretrained.fetching - INFO - Fetch mean_var_norm_emb.ckpt: Using existing file/symlink in results/gender_classifier/1230/save/mean_var_norm_emb.ckpt.
+2022-03-31 04:27:59,443 - speechbrain.utils.parameter_transfer - INFO - Loading pretrained files for: embedding_model, mean_var_norm_emb
+2022-03-31 04:28:03,039 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/ec2-user/capstone/speech-anonymization/gender_classifier_train.py", line 345, in <module>
+    hparams["pretrainer"].load_collected(device=(run_opts["device"]))
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/utils/parameter_transfer.py", line 203, in load_collected
+    self._call_load_hooks(paramfiles, device)
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/utils/parameter_transfer.py", line 218, in _call_load_hooks
+    default_hook(obj, loadpath, device=device)
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/utils/checkpoints.py", line 142, in torch_parameter_transfer
+    incompatible_keys = obj.load_state_dict(
+  File "/home/ec2-user/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1482, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for Xvector:
+	size mismatch for blocks.0.conv.weight: copying a param with shape torch.Size([512, 24, 5]) from checkpoint, the shape in current model is torch.Size([512, 80, 5]).
+2022-03-31 04:28:53,140 - speechbrain.core - INFO - Beginning experiment!
+2022-03-31 04:28:53,140 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-03-31 04:28:53,451 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+attrs==21.4.0
+black==19.10b0
+brotlipy==0.7.0
+certifi==2020.12.5
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1613413863336/work
+cfgv==3.3.1
+chardet @ file:///home/conda/feedstock_root/build_artifacts/chardet_1610093492116/work
+click==8.0.4
+conda==4.10.1
+conda-package-handling @ file:///home/conda/feedstock_root/build_artifacts/conda-package-handling_1618231390031/work
+cryptography @ file:///home/conda/feedstock_root/build_artifacts/cryptography_1616851485986/work
+distlib==0.3.4
+entrypoints==0.3
+filelock==3.6.0
+flake8==3.7.9
+huggingface-hub==0.4.0
+HyperPyYAML==1.0.0
+identify==2.4.12
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1593328102638/work
+joblib==1.1.0
+mamba @ file:///home/conda/feedstock_root/build_artifacts/mamba_1620856587040/work
+mccabe==0.6.1
+more-itertools==8.12.0
+nodeenv==1.6.0
+numpy==1.22.3
+packaging==21.3
+pathspec==0.9.0
+platformdirs==2.5.1
+pluggy==0.13.1
+pre-commit==2.17.0
+py==1.11.0
+pycodestyle==2.5.0
+pycosat @ file:///home/conda/feedstock_root/build_artifacts/pycosat_1610094799048/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
+pyflakes==2.1.1
+pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1608055815057/work
+pyparsing==3.0.7
+PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1610291451001/work
+pytest==5.4.1
+PyYAML==6.0
+regex==2022.3.15
+requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1608156231189/work
+ruamel-yaml-conda @ file:///home/conda/feedstock_root/build_artifacts/ruamel_yaml_1611943432947/work
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scipy==1.8.0
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+-e git+https://github.com/viswavi/speechbrain.git@87a12d09307f5a681031a89ce8d6d9e9539118a0#egg=speechbrain&subdirectory=../../speechbrain
+toml==0.10.2
+torch==1.10.1
+torchaudio==0.10.1
+tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1621890532941/work
+typed-ast==1.5.2
+typing-extensions==4.1.1
+urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1615828766818/work
+virtualenv==20.13.4
+wcwidth==0.2.5
+yamllint==1.23.0
+
+
+2022-03-31 04:28:53,459 - speechbrain.utils.superpowers - DEBUG - 8477e3c
+
+
+2022-03-31 04:28:53,625 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-03-31 04:28:53,897 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-03-31 04:28:53,897 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-03-31 04:28:53,897 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-03-31 04:28:53,897 - speechbrain.utils.parameter_transfer - DEBUG - Collecting files (or symlinks) for pretraining in results/gender_classifier/1230/save.
+2022-03-31 04:28:53,898 - speechbrain.pretrained.fetching - INFO - Fetch embedding_model.ckpt: Delegating to Huggingface hub, source speechbrain/spkrec-xvect-voxceleb.
+2022-03-31 04:28:53,900 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2022-03-31 04:28:53,930 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /speechbrain/spkrec-xvect-voxceleb/resolve/main/embedding_model.ckpt HTTP/1.1" 302 0
+2022-03-31 04:28:53,932 - speechbrain.pretrained.fetching - INFO - Fetch mean_var_norm_emb.ckpt: Delegating to Huggingface hub, source speechbrain/spkrec-xvect-voxceleb.
+2022-03-31 04:28:53,933 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2022-03-31 04:28:53,954 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /speechbrain/spkrec-xvect-voxceleb/resolve/main/mean_var_norm_emb.ckpt HTTP/1.1" 302 0
+2022-03-31 04:28:53,955 - speechbrain.utils.parameter_transfer - INFO - Loading pretrained files for: embedding_model, mean_var_norm_emb
+2022-03-31 04:28:57,467 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/ec2-user/capstone/speech-anonymization/gender_classifier_train.py", line 345, in <module>
+    hparams["pretrainer"].load_collected(device=(run_opts["device"]))
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/utils/parameter_transfer.py", line 203, in load_collected
+    self._call_load_hooks(paramfiles, device)
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/utils/parameter_transfer.py", line 218, in _call_load_hooks
+    default_hook(obj, loadpath, device=device)
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/utils/checkpoints.py", line 142, in torch_parameter_transfer
+    incompatible_keys = obj.load_state_dict(
+  File "/home/ec2-user/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1482, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for Xvector:
+	size mismatch for blocks.0.conv.weight: copying a param with shape torch.Size([512, 24, 5]) from checkpoint, the shape in current model is torch.Size([512, 80, 5]).
+2022-03-31 04:30:55,746 - speechbrain.core - INFO - Beginning experiment!
+2022-03-31 04:30:55,746 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-03-31 04:30:56,053 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+attrs==21.4.0
+black==19.10b0
+brotlipy==0.7.0
+certifi==2020.12.5
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1613413863336/work
+cfgv==3.3.1
+chardet @ file:///home/conda/feedstock_root/build_artifacts/chardet_1610093492116/work
+click==8.0.4
+conda==4.10.1
+conda-package-handling @ file:///home/conda/feedstock_root/build_artifacts/conda-package-handling_1618231390031/work
+cryptography @ file:///home/conda/feedstock_root/build_artifacts/cryptography_1616851485986/work
+distlib==0.3.4
+entrypoints==0.3
+filelock==3.6.0
+flake8==3.7.9
+huggingface-hub==0.4.0
+HyperPyYAML==1.0.0
+identify==2.4.12
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1593328102638/work
+joblib==1.1.0
+mamba @ file:///home/conda/feedstock_root/build_artifacts/mamba_1620856587040/work
+mccabe==0.6.1
+more-itertools==8.12.0
+nodeenv==1.6.0
+numpy==1.22.3
+packaging==21.3
+pathspec==0.9.0
+platformdirs==2.5.1
+pluggy==0.13.1
+pre-commit==2.17.0
+py==1.11.0
+pycodestyle==2.5.0
+pycosat @ file:///home/conda/feedstock_root/build_artifacts/pycosat_1610094799048/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
+pyflakes==2.1.1
+pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1608055815057/work
+pyparsing==3.0.7
+PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1610291451001/work
+pytest==5.4.1
+PyYAML==6.0
+regex==2022.3.15
+requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1608156231189/work
+ruamel-yaml-conda @ file:///home/conda/feedstock_root/build_artifacts/ruamel_yaml_1611943432947/work
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scipy==1.8.0
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+-e git+https://github.com/viswavi/speechbrain.git@87a12d09307f5a681031a89ce8d6d9e9539118a0#egg=speechbrain&subdirectory=../../speechbrain
+toml==0.10.2
+torch==1.10.1
+torchaudio==0.10.1
+tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1621890532941/work
+typed-ast==1.5.2
+typing-extensions==4.1.1
+urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1615828766818/work
+virtualenv==20.13.4
+wcwidth==0.2.5
+yamllint==1.23.0
+
+
+2022-03-31 04:30:56,062 - speechbrain.utils.superpowers - DEBUG - 2b2a755
+
+
+2022-03-31 04:30:56,228 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-03-31 04:30:56,498 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-03-31 04:30:56,498 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-03-31 04:30:56,498 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-03-31 04:30:56,498 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/ec2-user/capstone/speech-anonymization/gender_classifier_train.py", line 344, in <module>
+    run_on_main(hparams["pretrainer"].collect_files)
+KeyError: 'pretrainer'
+2022-03-31 04:31:38,655 - speechbrain.core - INFO - Beginning experiment!
+2022-03-31 04:31:38,655 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-03-31 04:31:38,962 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+attrs==21.4.0
+black==19.10b0
+brotlipy==0.7.0
+certifi==2020.12.5
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1613413863336/work
+cfgv==3.3.1
+chardet @ file:///home/conda/feedstock_root/build_artifacts/chardet_1610093492116/work
+click==8.0.4
+conda==4.10.1
+conda-package-handling @ file:///home/conda/feedstock_root/build_artifacts/conda-package-handling_1618231390031/work
+cryptography @ file:///home/conda/feedstock_root/build_artifacts/cryptography_1616851485986/work
+distlib==0.3.4
+entrypoints==0.3
+filelock==3.6.0
+flake8==3.7.9
+huggingface-hub==0.4.0
+HyperPyYAML==1.0.0
+identify==2.4.12
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1593328102638/work
+joblib==1.1.0
+mamba @ file:///home/conda/feedstock_root/build_artifacts/mamba_1620856587040/work
+mccabe==0.6.1
+more-itertools==8.12.0
+nodeenv==1.6.0
+numpy==1.22.3
+packaging==21.3
+pathspec==0.9.0
+platformdirs==2.5.1
+pluggy==0.13.1
+pre-commit==2.17.0
+py==1.11.0
+pycodestyle==2.5.0
+pycosat @ file:///home/conda/feedstock_root/build_artifacts/pycosat_1610094799048/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
+pyflakes==2.1.1
+pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1608055815057/work
+pyparsing==3.0.7
+PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1610291451001/work
+pytest==5.4.1
+PyYAML==6.0
+regex==2022.3.15
+requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1608156231189/work
+ruamel-yaml-conda @ file:///home/conda/feedstock_root/build_artifacts/ruamel_yaml_1611943432947/work
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scipy==1.8.0
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+-e git+https://github.com/viswavi/speechbrain.git@87a12d09307f5a681031a89ce8d6d9e9539118a0#egg=speechbrain&subdirectory=../../speechbrain
+toml==0.10.2
+torch==1.10.1
+torchaudio==0.10.1
+tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1621890532941/work
+typed-ast==1.5.2
+typing-extensions==4.1.1
+urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1615828766818/work
+virtualenv==20.13.4
+wcwidth==0.2.5
+yamllint==1.23.0
+
+
+2022-03-31 04:31:38,971 - speechbrain.utils.superpowers - DEBUG - 586b99b
+
+
+2022-03-31 04:31:39,130 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-03-31 04:31:39,398 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-03-31 04:31:39,398 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-03-31 04:31:39,398 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-03-31 04:31:42,890 - speechbrain.core - INFO - Info: ckpt_interval_minutes arg from hparam file is used
+2022-03-31 04:31:42,892 - speechbrain.core - INFO - 4.6M trainable parameters in GenderBrain
+2022-03-31 04:31:42,893 - speechbrain.utils.checkpoints - INFO - Would load a checkpoint here, but none found yet.
+2022-03-31 04:31:42,893 - speechbrain.utils.epoch_loop - INFO - Going into epoch 1
+2022-03-31 04:46:44,185 - speechbrain.utils.checkpoints - DEBUG - Saved an intra-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-03-31+04-46-44+00
+2022-03-31 05:01:45,820 - speechbrain.utils.checkpoints - DEBUG - Saved an intra-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-03-31+05-01-45+00
+2022-03-31 05:01:45,830 - speechbrain.utils.checkpoints - DEBUG - Deleted checkpoint in results/gender_classifier/1230/save/CKPT+2022-03-31+04-46-44+00
+2022-03-31 05:12:42,428 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/ec2-user/capstone/speech-anonymization/gender_classifier_train.py", line 364, in <module>
+    gender_brain.fit(
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/core.py", line 1106, in fit
+    run_on_main(
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/utils/distributed.py", line 61, in run_on_main
+    func(*args, **kwargs)
+  File "/home/ec2-user/capstone/speech-anonymization/gender_classifier_train.py", line 205, in on_stage_end
+    old_lr, new_lr = self.hparams.lr_annealing(epoch)
+TypeError: __call__() missing 2 required positional arguments: 'current_epoch' and 'current_loss'
+2022-03-31 05:15:31,772 - speechbrain.core - INFO - Beginning experiment!
+2022-03-31 05:15:31,772 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-03-31 05:15:32,073 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+attrs==21.4.0
+black==19.10b0
+brotlipy==0.7.0
+certifi==2020.12.5
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1613413863336/work
+cfgv==3.3.1
+chardet @ file:///home/conda/feedstock_root/build_artifacts/chardet_1610093492116/work
+click==8.0.4
+conda==4.10.1
+conda-package-handling @ file:///home/conda/feedstock_root/build_artifacts/conda-package-handling_1618231390031/work
+cryptography @ file:///home/conda/feedstock_root/build_artifacts/cryptography_1616851485986/work
+distlib==0.3.4
+entrypoints==0.3
+filelock==3.6.0
+flake8==3.7.9
+huggingface-hub==0.4.0
+HyperPyYAML==1.0.0
+identify==2.4.12
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1593328102638/work
+joblib==1.1.0
+mamba @ file:///home/conda/feedstock_root/build_artifacts/mamba_1620856587040/work
+mccabe==0.6.1
+more-itertools==8.12.0
+nodeenv==1.6.0
+numpy==1.22.3
+packaging==21.3
+pathspec==0.9.0
+platformdirs==2.5.1
+pluggy==0.13.1
+pre-commit==2.17.0
+py==1.11.0
+pycodestyle==2.5.0
+pycosat @ file:///home/conda/feedstock_root/build_artifacts/pycosat_1610094799048/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
+pyflakes==2.1.1
+pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1608055815057/work
+pyparsing==3.0.7
+PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1610291451001/work
+pytest==5.4.1
+PyYAML==6.0
+regex==2022.3.15
+requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1608156231189/work
+ruamel-yaml-conda @ file:///home/conda/feedstock_root/build_artifacts/ruamel_yaml_1611943432947/work
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scipy==1.8.0
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+-e git+https://github.com/viswavi/speechbrain.git@87a12d09307f5a681031a89ce8d6d9e9539118a0#egg=speechbrain&subdirectory=../../speechbrain
+toml==0.10.2
+torch==1.10.1
+torchaudio==0.10.1
+tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1621890532941/work
+typed-ast==1.5.2
+typing-extensions==4.1.1
+urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1615828766818/work
+virtualenv==20.13.4
+wcwidth==0.2.5
+yamllint==1.23.0
+
+
+2022-03-31 05:15:32,082 - speechbrain.utils.superpowers - DEBUG - 0d69fa1
+
+
+2022-03-31 05:15:32,259 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-03-31 05:15:32,529 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-03-31 05:15:32,529 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-03-31 05:15:32,530 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-03-31 05:15:35,962 - speechbrain.core - INFO - Info: ckpt_interval_minutes arg from hparam file is used
+2022-03-31 05:15:35,964 - speechbrain.core - INFO - 4.6M trainable parameters in GenderBrain
+2022-03-31 05:15:35,967 - speechbrain.utils.checkpoints - INFO - Loading a checkpoint from results/gender_classifier/1230/save/CKPT+2022-03-31+05-01-45+00
+2022-03-31 05:15:36,030 - speechbrain.utils.epoch_loop - INFO - Going into epoch 1
+2022-03-31 05:26:22,805 - speechbrain.utils.train_logger - INFO - Epoch: 1, lr: 1.00e-03 - train loss: 1.09e-01 - valid loss: 1.96e-01, valid error: 3.66e-02
+2022-03-31 05:26:22,876 - speechbrain.utils.checkpoints - INFO - Saved an end-of-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00
+2022-03-31 05:26:22,887 - speechbrain.utils.checkpoints - INFO - Deleted checkpoint in results/gender_classifier/1230/save/CKPT+2022-03-31+05-01-45+00
+2022-03-31 05:26:22,887 - speechbrain.utils.epoch_loop - INFO - Going into epoch 2
+2022-03-31 05:26:41,907 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/ec2-user/capstone/speech-anonymization/gender_classifier_train.py", line 363, in <module>
+    gender_brain.fit(
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/core.py", line 1054, in fit
+    loss = self.fit_batch(batch)
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/core.py", line 874, in fit_batch
+    if self.check_gradients(loss):
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/core.py", line 897, in check_gradients
+    if not torch.isfinite(loss):
+KeyboardInterrupt
+2022-04-17 21:23:12,243 - speechbrain.core - INFO - Beginning experiment!
+2022-04-17 21:23:12,244 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-04-17 21:23:12,756 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+attrs==21.4.0
+black==19.10b0
+brotlipy==0.7.0
+certifi==2020.12.5
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1613413863336/work
+cfgv==3.3.1
+chardet @ file:///home/conda/feedstock_root/build_artifacts/chardet_1610093492116/work
+click==8.0.4
+conda==4.10.1
+conda-package-handling @ file:///home/conda/feedstock_root/build_artifacts/conda-package-handling_1618231390031/work
+cryptography @ file:///home/conda/feedstock_root/build_artifacts/cryptography_1616851485986/work
+distlib==0.3.4
+entrypoints==0.3
+filelock==3.6.0
+flake8==3.7.9
+huggingface-hub==0.4.0
+HyperPyYAML==1.0.0
+identify==2.4.12
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1593328102638/work
+joblib==1.1.0
+mamba @ file:///home/conda/feedstock_root/build_artifacts/mamba_1620856587040/work
+mccabe==0.6.1
+more-itertools==8.12.0
+nodeenv==1.6.0
+numpy==1.22.3
+packaging==21.3
+pandas==1.4.2
+pathspec==0.9.0
+platformdirs==2.5.1
+pluggy==0.13.1
+pre-commit==2.17.0
+py==1.11.0
+pycodestyle==2.5.0
+pycosat @ file:///home/conda/feedstock_root/build_artifacts/pycosat_1610094799048/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
+pyflakes==2.1.1
+pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1608055815057/work
+pyparsing==3.0.7
+PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1610291451001/work
+pytest==5.4.1
+python-dateutil==2.8.2
+pytz==2022.1
+PyYAML==6.0
+regex==2022.3.15
+requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1608156231189/work
+ruamel-yaml-conda @ file:///home/conda/feedstock_root/build_artifacts/ruamel_yaml_1611943432947/work
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scipy==1.8.0
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+-e git+https://github.com/viswavi/speechbrain.git@b27eebacac014e04c62f75c6fa7d3ea86328a0ab#egg=speechbrain&subdirectory=../../speechbrain
+toml==0.10.2
+torch==1.10.1
+torchaudio==0.10.1
+tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1621890532941/work
+typed-ast==1.5.2
+typing-extensions==4.1.1
+urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1615828766818/work
+virtualenv==20.13.4
+wcwidth==0.2.5
+yamllint==1.23.0
+
+
+2022-04-17 21:23:12,764 - speechbrain.utils.superpowers - DEBUG - c5e6064
+
+
+2022-04-17 21:23:13,027 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-04-17 21:23:13,354 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-04-17 21:23:13,355 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-04-17 21:23:13,355 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-04-17 21:23:19,758 - speechbrain.core - INFO - Info: ckpt_interval_minutes arg from hparam file is used
+2022-04-17 21:23:19,760 - speechbrain.core - INFO - 4.6M trainable parameters in GenderBrain
+2022-04-17 21:23:19,761 - speechbrain.utils.checkpoints - INFO - Would load a checkpoint here, but none found yet.
+2022-04-17 21:23:19,761 - speechbrain.utils.epoch_loop - INFO - Going into epoch 1
+2022-04-17 21:23:32,074 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/ec2-user/capstone/speech-anonymization/gender_classifier_train.py", line 363, in <module>
+    gender_brain.fit(
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/core.py", line 1054, in fit
+    loss = self.fit_batch(batch)
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/core.py", line 870, in fit_batch
+    outputs = self.compute_forward(batch, Stage.TRAIN)
+  File "/home/ec2-user/capstone/speech-anonymization/gender_classifier_train.py", line 81, in compute_forward
+    embeddings = self.modules.embedding_model(feats, lens)
+  File "/home/ec2-user/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/lobes/models/Xvector.py", line 102, in forward
+    x = layer(x, lengths=lens)
+  File "/home/ec2-user/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/nnet/pooling.py", line 281, in forward
+    actual_size = int(torch.round(lengths[snt_id] * x.shape[1]))
+KeyboardInterrupt
+2022-04-17 21:23:50,021 - speechbrain.core - INFO - Beginning experiment!
+2022-04-17 21:23:50,021 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-04-17 21:23:50,330 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+attrs==21.4.0
+black==19.10b0
+brotlipy==0.7.0
+certifi==2020.12.5
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1613413863336/work
+cfgv==3.3.1
+chardet @ file:///home/conda/feedstock_root/build_artifacts/chardet_1610093492116/work
+click==8.0.4
+conda==4.10.1
+conda-package-handling @ file:///home/conda/feedstock_root/build_artifacts/conda-package-handling_1618231390031/work
+cryptography @ file:///home/conda/feedstock_root/build_artifacts/cryptography_1616851485986/work
+distlib==0.3.4
+entrypoints==0.3
+filelock==3.6.0
+flake8==3.7.9
+huggingface-hub==0.4.0
+HyperPyYAML==1.0.0
+identify==2.4.12
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1593328102638/work
+joblib==1.1.0
+mamba @ file:///home/conda/feedstock_root/build_artifacts/mamba_1620856587040/work
+mccabe==0.6.1
+more-itertools==8.12.0
+nodeenv==1.6.0
+numpy==1.22.3
+packaging==21.3
+pandas==1.4.2
+pathspec==0.9.0
+platformdirs==2.5.1
+pluggy==0.13.1
+pre-commit==2.17.0
+py==1.11.0
+pycodestyle==2.5.0
+pycosat @ file:///home/conda/feedstock_root/build_artifacts/pycosat_1610094799048/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
+pyflakes==2.1.1
+pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1608055815057/work
+pyparsing==3.0.7
+PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1610291451001/work
+pytest==5.4.1
+python-dateutil==2.8.2
+pytz==2022.1
+PyYAML==6.0
+regex==2022.3.15
+requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1608156231189/work
+ruamel-yaml-conda @ file:///home/conda/feedstock_root/build_artifacts/ruamel_yaml_1611943432947/work
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scipy==1.8.0
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+-e git+https://github.com/viswavi/speechbrain.git@b27eebacac014e04c62f75c6fa7d3ea86328a0ab#egg=speechbrain&subdirectory=../../speechbrain
+toml==0.10.2
+torch==1.10.1
+torchaudio==0.10.1
+tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1621890532941/work
+typed-ast==1.5.2
+typing-extensions==4.1.1
+urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1615828766818/work
+virtualenv==20.13.4
+wcwidth==0.2.5
+yamllint==1.23.0
+
+
+2022-04-17 21:23:50,339 - speechbrain.utils.superpowers - DEBUG - c5e6064
+
+
+2022-04-17 21:23:50,514 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-04-17 21:23:50,834 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-04-17 21:23:50,834 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-04-17 21:23:50,834 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-04-17 21:23:54,301 - speechbrain.core - INFO - Info: ckpt_interval_minutes arg from hparam file is used
+2022-04-17 21:23:54,303 - speechbrain.core - INFO - 4.6M trainable parameters in GenderBrain
+2022-04-17 21:23:54,304 - speechbrain.utils.checkpoints - INFO - Would load a checkpoint here, but none found yet.
+2022-04-17 21:23:54,304 - speechbrain.utils.epoch_loop - INFO - Going into epoch 1
+2022-04-17 21:38:54,689 - speechbrain.utils.checkpoints - DEBUG - Saved an intra-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+21-38-54+00
+2022-04-17 21:53:56,084 - speechbrain.utils.checkpoints - DEBUG - Saved an intra-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+21-53-56+00
+2022-04-17 21:53:56,094 - speechbrain.utils.checkpoints - DEBUG - Deleted checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+21-38-54+00
+2022-04-17 22:04:30,439 - speechbrain.utils.train_logger - INFO - Epoch: 1, lr: 1.00e-03 - train loss: 1.10e-01 - valid loss: 3.14e-01, valid error: 5.55e-02
+2022-04-17 22:04:30,508 - speechbrain.utils.checkpoints - INFO - Saved an end-of-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+22-04-30+00
+2022-04-17 22:04:30,522 - speechbrain.utils.checkpoints - INFO - Deleted checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+21-53-56+00
+2022-04-17 22:04:30,523 - speechbrain.utils.epoch_loop - INFO - Going into epoch 2
+2022-04-17 22:19:31,226 - speechbrain.utils.checkpoints - DEBUG - Saved an intra-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+22-19-31+00
+2022-04-17 22:34:33,181 - speechbrain.utils.checkpoints - DEBUG - Saved an intra-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+22-34-33+00
+2022-04-17 22:34:33,202 - speechbrain.utils.checkpoints - DEBUG - Deleted checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+22-19-31+00
+2022-04-17 22:44:24,671 - speechbrain.utils.train_logger - INFO - Epoch: 2, lr: 1.00e-03 - train loss: 7.10e-02 - valid loss: 2.48e-01, valid error: 3.70e-02
+2022-04-17 22:44:24,742 - speechbrain.utils.checkpoints - INFO - Saved an end-of-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+22-44-24+00
+2022-04-17 22:44:24,770 - speechbrain.utils.checkpoints - INFO - Deleted checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+22-04-30+00
+2022-04-17 22:44:24,776 - speechbrain.utils.checkpoints - INFO - Deleted checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+22-34-33+00
+2022-04-17 22:44:24,777 - speechbrain.utils.epoch_loop - INFO - Going into epoch 3
+2022-04-17 22:59:22,826 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/ec2-user/capstone/speech-anonymization/gender_classifier_train.py", line 363, in <module>
+    gender_brain.fit(
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/core.py", line 1054, in fit
+    loss = self.fit_batch(batch)
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/core.py", line 874, in fit_batch
+    if self.check_gradients(loss):
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/core.py", line 897, in check_gradients
+    if not torch.isfinite(loss):
+KeyboardInterrupt
+2022-04-17 23:23:18,218 - speechbrain.core - INFO - Beginning experiment!
+2022-04-17 23:23:18,219 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-04-17 23:23:18,521 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+attrs==21.4.0
+black==19.10b0
+brotlipy==0.7.0
+certifi==2020.12.5
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1613413863336/work
+cfgv==3.3.1
+chardet @ file:///home/conda/feedstock_root/build_artifacts/chardet_1610093492116/work
+click==8.0.4
+conda==4.10.1
+conda-package-handling @ file:///home/conda/feedstock_root/build_artifacts/conda-package-handling_1618231390031/work
+cryptography @ file:///home/conda/feedstock_root/build_artifacts/cryptography_1616851485986/work
+distlib==0.3.4
+entrypoints==0.3
+filelock==3.6.0
+flake8==3.7.9
+huggingface-hub==0.4.0
+HyperPyYAML==1.0.0
+identify==2.4.12
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1593328102638/work
+joblib==1.1.0
+mamba @ file:///home/conda/feedstock_root/build_artifacts/mamba_1620856587040/work
+mccabe==0.6.1
+more-itertools==8.12.0
+nodeenv==1.6.0
+numpy==1.22.3
+packaging==21.3
+pandas==1.4.2
+pathspec==0.9.0
+platformdirs==2.5.1
+pluggy==0.13.1
+pre-commit==2.17.0
+py==1.11.0
+pycodestyle==2.5.0
+pycosat @ file:///home/conda/feedstock_root/build_artifacts/pycosat_1610094799048/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
+pyflakes==2.1.1
+pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1608055815057/work
+pyparsing==3.0.7
+PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1610291451001/work
+pytest==5.4.1
+python-dateutil==2.8.2
+pytz==2022.1
+PyYAML==6.0
+regex==2022.3.15
+requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1608156231189/work
+ruamel-yaml-conda @ file:///home/conda/feedstock_root/build_artifacts/ruamel_yaml_1611943432947/work
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scipy==1.8.0
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+-e git+https://github.com/viswavi/speechbrain.git@b27eebacac014e04c62f75c6fa7d3ea86328a0ab#egg=speechbrain&subdirectory=../../speechbrain
+toml==0.10.2
+torch==1.10.1
+torchaudio==0.10.1
+tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1621890532941/work
+typed-ast==1.5.2
+typing-extensions==4.1.1
+urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1615828766818/work
+virtualenv==20.13.4
+wcwidth==0.2.5
+yamllint==1.23.0
+
+
+2022-04-17 23:23:18,531 - speechbrain.utils.superpowers - DEBUG - 32df703
+
+
+2022-04-17 23:23:18,706 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-04-17 23:23:19,022 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-04-17 23:23:19,022 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-04-17 23:23:19,022 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-04-17 23:23:22,440 - speechbrain.core - INFO - Info: ckpt_interval_minutes arg from hparam file is used
+2022-04-17 23:23:22,442 - speechbrain.core - INFO - 4.6M trainable parameters in GenderBrain
+2022-04-17 23:23:22,443 - speechbrain.utils.checkpoints - INFO - Would load a checkpoint here, but none found yet.
+2022-04-17 23:23:22,443 - speechbrain.utils.epoch_loop - INFO - Going into epoch 1
+2022-04-17 23:23:32,631 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/ec2-user/capstone/speech-anonymization/gender_classifier_train.py", line 363, in <module>
+    gender_brain.fit(
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/core.py", line 1049, in fit
+    for batch in t:
+  File "/opt/conda/lib/python3.9/site-packages/tqdm/std.py", line 1178, in __iter__
+    for obj in iterable:
+  File "/home/ec2-user/.local/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 521, in __next__
+    data = self._next_data()
+  File "/home/ec2-user/.local/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 561, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/ec2-user/.local/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 49, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ec2-user/.local/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 49, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/dataio/dataset.py", line 165, in __getitem__
+    return self.pipeline.compute_outputs({"id": data_id, **data_point})
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/utils/data_pipeline.py", line 455, in compute_outputs
+    return self._compute(data, self._exec_order, self.output_mapping)
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/utils/data_pipeline.py", line 487, in _compute
+    values = item(*args)  # Call the DynamicItem to produce output
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/utils/data_pipeline.py", line 72, in __call__
+    return self.func(*args)
+  File "/home/ec2-user/capstone/speech-anonymization/gender_classifier_train.py", line 276, in audio_pipeline
+    sig = sb.dataio.dataio.read_audio(wav)
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/dataio/dataio.py", line 200, in read_audio
+    audio, _ = torchaudio.load(waveforms_obj)
+  File "/home/ec2-user/.local/lib/python3.9/site-packages/torchaudio/backend/sox_io_backend.py", line 152, in load
+    return torch.ops.torchaudio.sox_io_load_audio_file(
+KeyboardInterrupt
+2022-04-17 23:24:03,697 - speechbrain.core - INFO - Beginning experiment!
+2022-04-17 23:24:03,697 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-04-17 23:24:04,001 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+attrs==21.4.0
+black==19.10b0
+brotlipy==0.7.0
+certifi==2020.12.5
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1613413863336/work
+cfgv==3.3.1
+chardet @ file:///home/conda/feedstock_root/build_artifacts/chardet_1610093492116/work
+click==8.0.4
+conda==4.10.1
+conda-package-handling @ file:///home/conda/feedstock_root/build_artifacts/conda-package-handling_1618231390031/work
+cryptography @ file:///home/conda/feedstock_root/build_artifacts/cryptography_1616851485986/work
+distlib==0.3.4
+entrypoints==0.3
+filelock==3.6.0
+flake8==3.7.9
+huggingface-hub==0.4.0
+HyperPyYAML==1.0.0
+identify==2.4.12
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1593328102638/work
+joblib==1.1.0
+mamba @ file:///home/conda/feedstock_root/build_artifacts/mamba_1620856587040/work
+mccabe==0.6.1
+more-itertools==8.12.0
+nodeenv==1.6.0
+numpy==1.22.3
+packaging==21.3
+pandas==1.4.2
+pathspec==0.9.0
+platformdirs==2.5.1
+pluggy==0.13.1
+pre-commit==2.17.0
+py==1.11.0
+pycodestyle==2.5.0
+pycosat @ file:///home/conda/feedstock_root/build_artifacts/pycosat_1610094799048/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
+pyflakes==2.1.1
+pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1608055815057/work
+pyparsing==3.0.7
+PySocks @ file:///home/conda/feedstock_root/build_artifacts/pysocks_1610291451001/work
+pytest==5.4.1
+python-dateutil==2.8.2
+pytz==2022.1
+PyYAML==6.0
+regex==2022.3.15
+requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1608156231189/work
+ruamel-yaml-conda @ file:///home/conda/feedstock_root/build_artifacts/ruamel_yaml_1611943432947/work
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scipy==1.8.0
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+-e git+https://github.com/viswavi/speechbrain.git@b27eebacac014e04c62f75c6fa7d3ea86328a0ab#egg=speechbrain&subdirectory=../../speechbrain
+toml==0.10.2
+torch==1.10.1
+torchaudio==0.10.1
+tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1621890532941/work
+typed-ast==1.5.2
+typing-extensions==4.1.1
+urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1615828766818/work
+virtualenv==20.13.4
+wcwidth==0.2.5
+yamllint==1.23.0
+
+
+2022-04-17 23:24:04,011 - speechbrain.utils.superpowers - DEBUG - 32df703
+
+
+2022-04-17 23:24:04,183 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-04-17 23:24:04,499 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-04-17 23:24:04,499 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-04-17 23:24:04,499 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-04-17 23:24:07,915 - speechbrain.core - INFO - Info: ckpt_interval_minutes arg from hparam file is used
+2022-04-17 23:24:07,917 - speechbrain.core - INFO - 4.6M trainable parameters in GenderBrain
+2022-04-17 23:24:07,918 - speechbrain.utils.checkpoints - INFO - Would load a checkpoint here, but none found yet.
+2022-04-17 23:24:07,918 - speechbrain.utils.epoch_loop - INFO - Going into epoch 1
+2022-04-17 23:39:08,865 - speechbrain.utils.checkpoints - DEBUG - Saved an intra-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+23-39-08+00
+2022-04-17 23:54:09,136 - speechbrain.utils.checkpoints - DEBUG - Saved an intra-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+23-54-09+00
+2022-04-17 23:54:09,146 - speechbrain.utils.checkpoints - DEBUG - Deleted checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+23-39-08+00
+2022-04-18 00:04:54,772 - speechbrain.utils.train_logger - INFO - Epoch: 1, lr: 1.00e-03 - train loss: 1.32e-01 - valid loss: 1.47e-01, valid error: 3.85e-02
+2022-04-18 00:04:54,844 - speechbrain.utils.checkpoints - INFO - Saved an end-of-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-18+00-04-54+00
+2022-04-18 00:04:54,859 - speechbrain.utils.checkpoints - INFO - Deleted checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-17+23-54-09+00
+2022-04-18 00:04:54,859 - speechbrain.utils.epoch_loop - INFO - Going into epoch 2
+2022-04-18 00:19:56,884 - speechbrain.utils.checkpoints - DEBUG - Saved an intra-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-18+00-19-56+00
+2022-04-18 00:34:58,373 - speechbrain.utils.checkpoints - DEBUG - Saved an intra-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-18+00-34-58+00
+2022-04-18 00:34:58,395 - speechbrain.utils.checkpoints - DEBUG - Deleted checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-18+00-19-56+00
+2022-04-18 00:45:09,409 - speechbrain.utils.train_logger - INFO - Epoch: 2, lr: 1.00e-03 - train loss: 7.52e-02 - valid loss: 2.80e-01, valid error: 3.59e-02
+2022-04-18 00:45:09,479 - speechbrain.utils.checkpoints - INFO - Saved an end-of-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-18+00-45-09+00
+2022-04-18 00:45:09,511 - speechbrain.utils.checkpoints - INFO - Deleted checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-18+00-04-54+00
+2022-04-18 00:45:09,518 - speechbrain.utils.checkpoints - INFO - Deleted checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-18+00-34-58+00
+2022-04-18 00:45:09,518 - speechbrain.utils.epoch_loop - INFO - Going into epoch 3
+2022-04-18 01:00:10,155 - speechbrain.utils.checkpoints - DEBUG - Saved an intra-epoch checkpoint in results/gender_classifier/1230/save/CKPT+2022-04-18+01-00-10+00
+2022-04-18 01:06:40,504 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/ec2-user/capstone/speech-anonymization/gender_classifier_train.py", line 363, in <module>
+    gender_brain.fit(
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/core.py", line 1054, in fit
+    loss = self.fit_batch(batch)
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/core.py", line 874, in fit_batch
+    if self.check_gradients(loss):
+  File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/core.py", line 897, in check_gradients
+    if not torch.isfinite(loss):
+KeyboardInterrupt
+>>>>>>> main
