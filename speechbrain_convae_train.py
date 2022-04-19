@@ -102,17 +102,22 @@ class SexAnonymizationTraining(sb.core.Brain):
             # Evaluation: performing classification by externally trained sex classifier
             recon_speech_feats = reconstructed_speech.to(sa_brain.device)
 
-            #sex_logits_extern_orig, score_orig, index_orig, _ = self.external_classifier.classify_batch(wavs.to(sa_brain.device),
-                                                                                                          # wav_lens.to(sa_brain.device))
+            sex_logits_extern_orig, score_orig, index_orig, _ = self.external_classifier.classify_batch(wavs.to(sa_brain.device),
+                                                                                                          wav_lens.to(sa_brain.device))
 
+            self.sex_classification_acc_extern_orig.append(sex_logits_extern_orig.unsqueeze(0), sex_label.unsqueeze(0),
+                                                      torch.tensor(sex_label.shape[0],
+                                                                   device=sex_logits_extern_orig.device).unsqueeze(0))
 
             sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats)
 
             self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(0), sex_label.unsqueeze(0),
                                                torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))
     
-            print("internal classification ACC = ")
+            print("internal classification (w/ GRL) ACC = ")
             print(self.sex_classification_acc.summarize())
+            print("external classification ACC on original raw wav inputs = ")
+            print(self.sex_classification_acc_extern_orig.summarize())
             print("external classification ACC on reconstructed feats = ")
             print(self.sex_classification_acc_extern.summarize())
 
@@ -196,7 +201,8 @@ class SexAnonymizationTraining(sb.core.Brain):
             else:
                 self.recon_loss.append([])
             self.sex_classification_acc = self.hparams.sex_classification_acc()
-            self.sex_classification_acc_extern = self.hparams.sex_classification_acc_extern()
+            self.sex_classification_acc_extern = self.hparams.sex_classification_acc()
+            self.sex_classification_acc_extern_orig = self.hparams.sex_classification_acc()
             self.utility_similarity_aggregator = self.hparams.utility_similarity_aggregator()
 
             if stage == sb.Stage.TEST:
@@ -496,14 +502,14 @@ if __name__ == "__main__":
 
     print("done loading")
 
-    # # #Training
-    sa_brain.fit(
-        sa_brain.hparams.epoch_counter,
-        train_data,
-        valid_data,
-        train_loader_kwargs=hparams["train_dataloader_opts"],
-        valid_loader_kwargs=hparams["valid_dataloader_opts"],
-    )
+    # # # #Training
+    # sa_brain.fit(
+    #     sa_brain.hparams.epoch_counter,
+    #     train_data,
+    #     valid_data,
+    #     train_loader_kwargs=hparams["train_dataloader_opts"],
+    #     valid_loader_kwargs=hparams["valid_dataloader_opts"],
+    # )
 
 
     # Testing

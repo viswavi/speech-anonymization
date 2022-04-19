@@ -71,8 +71,7 @@ loss_reduction: 'batchmean'
 sorting: random
 
 sex_classification_acc: !name:speechbrain.utils.Accuracy.AccuracyStats
-sex_classification_acc_extern: !name:speechbrain.utils.Accuracy.AccuracyStats
-utility_similarity: 
+utility_similarity:
 utility_similarity_aggregator: !name:utils.utility_similarity_aggregator.SimilarityMetricsStats
 
 loss_reconstruction: !new:torch.nn.L1Loss
