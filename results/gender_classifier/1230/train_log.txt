@@ -36,3 +36,4 @@ Epoch: 1, lr: 1.00e-03 - train loss: 1.16e-01 - valid loss: 1.74e-01, valid erro
 Epoch loaded: 1 - test loss: 1.81e-01, test error: 7.52e-02
 Epoch: 1, lr: 1.00e-03 - train loss: 1.24e-01 - valid loss: 1.62e-01, valid error: 3.77e-02
 Epoch loaded: 1 - test loss: 1.20e-01, test error: 4.47e-02
+Epoch loaded: 1 - test loss: 1.20e-01, test error: 4.47e-02

@@ -51,7 +51,7 @@ error_stats: !name:speechbrain.utils.metric_stats.MetricStats
   metric: !name:speechbrain.nnet.losses.classification_error
     reduction: batch
 
-ckpt_interval_minutes: 15 # save checkpoint every N min
+ckpt_interval_minutes: 5 # save checkpoint every N min
 
 # Feature parameters
 sample_rate: 16000
@@ -62,7 +62,7 @@ pretrain_path: speechbrain/spkrec-xvect-voxceleb
 
 
 # Training Parameters
-number_of_epochs: 1
+number_of_epochs: 5
 batch_size: 32
 lr_start: 0.001
 lr_final: 0.0001
@@ -125,7 +125,7 @@ label_encoder: !new:speechbrain.dataio.encoder.CategoricalEncoder
 # which is saved by the Checkpointer so that training can be resumed
 # if it gets interrupted at any point.
 epoch_counter: &id007 !new:speechbrain.utils.epoch_loop.EpochCounter
-  limit: 1
+  limit: 5
 
 # Objects in "modules" dict will have their parameters moved to the correct
 # device, as well as having train()/eval() called on them by the Brain class.
