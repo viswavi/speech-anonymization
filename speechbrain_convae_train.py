@@ -102,14 +102,16 @@ class SexAnonymizationTraining(sb.core.Brain):
             # Evaluation: performing classification by externally trained sex classifier
             recon_speech_feats = reconstructed_speech.to(sa_brain.device)
 
-            sex_logits_extern_orig, score_orig, index_orig, _ = self.external_classifier.classify_batch(wavs.to(sa_brain.device),
+            with torch.no_grad():
+                sex_logits_extern_orig, score_orig, index_orig, _ = self.external_classifier.classify_batch(wavs.to(sa_brain.device),
                                                                                                           wav_lens.to(sa_brain.device))
 
             self.sex_classification_acc_extern_orig.append(sex_logits_extern_orig.unsqueeze(0), sex_label.unsqueeze(0),
                                                       torch.tensor(sex_label.shape[0],
                                                                    device=sex_logits_extern_orig.device).unsqueeze(0))
 
-            sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats)
+            with torch.no_grad():
+                sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats)
 
             self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(0), sex_label.unsqueeze(0),
                                                torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))
