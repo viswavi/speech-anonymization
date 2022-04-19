@@ -112,7 +112,7 @@ class SexAnonymizationTraining(sb.core.Brain):
 
             print("internal classification ACC = ")
             print(self.sex_classification_acc.summarize())
-            print("external classification ACC on original wav input = ")
+            print("external classification ACC on reconstructed feats = ")
             print(self.sex_classification_acc_extern.summarize())
 
             if self.hparams.model_type == "convae":
