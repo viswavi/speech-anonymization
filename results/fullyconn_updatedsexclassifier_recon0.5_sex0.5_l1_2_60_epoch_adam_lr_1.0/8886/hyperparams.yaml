@@ -1,4 +1,4 @@
-# Generated 2022-04-19 from:
+# Generated 2022-04-18 from:
 # /home/ec2-user/capstone/speech-anonymization/speechbrain_configs/convae.yaml
 # yamllint disable
 # ############################################################################
@@ -41,7 +41,7 @@ train_splits: [train-clean]
 dev_splits: [dev-clean]
 test_splits: [test-clean]
 skip_prep: false
-train_csv: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/train-clean.csv
+train_csv: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/train.csv
 valid_csv: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/dev-clean.csv
 test_csv:
 - /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/test-clean.csv

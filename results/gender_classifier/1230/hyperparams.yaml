@@ -1,4 +1,4 @@
-# Generated 2022-04-19 from:
+# Generated 2022-04-17 from:
 # /home/ec2-user/capstone/speech-anonymization/speechbrain_configs/gender_classifier.yaml
 # yamllint disable
 # #################################
@@ -27,9 +27,10 @@ train_splits: [train-clean]
 dev_splits: [dev-clean]
 test_splits: [test-clean]
 skip_prep: false
-train_csv: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/train-clean.csv
+train_csv: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/train.csv
 valid_csv: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/dev-clean.csv
-test_csv: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/test-clean.csv
+test_csv:
+- /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/test-clean.csv
 
 sorting: random
 
@@ -59,15 +60,27 @@ n_fft: 400
 n_mels: 80
 
 pretrain_path: speechbrain/spkrec-xvect-voxceleb
+mean_var_norm_emb: !new:speechbrain.processing.features.InputNormalization
+  norm_type: global
+
+#pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
+#    collect_in: !ref <save_folder>
+#    loadables:
+#        embedding_model: !ref <embedding_model>
+#        mean_var_norm_emb: !ref <mean_var_norm_emb>
+#    paths:
+#        embedding_model: !ref <pretrain_path>/embedding_model.ckpt
+#        mean_var_norm_emb: !ref <pretrain_path>/mean_var_norm_emb.ckpt
+
 
 
 # Training Parameters
-number_of_epochs: 1
+number_of_epochs: 35
 batch_size: 32
 lr_start: 0.001
 lr_final: 0.0001
 n_classes: 2 # In this case, we have 2 classes as we are assuming a gender binary
-emb_dim: 128 # dimensionality of the embeddings
+emb_dim: 512 # dimensionality of the embeddings
 dataloader_options:
   batch_size: 32
   shuffle: true
@@ -110,13 +123,13 @@ embedding_model: &id004 !new:speechbrain.lobes.models.Xvector.Xvector
   tdnn_channels: [512, 512, 512, 512, 1500]
   tdnn_kernel_sizes: [5, 3, 3, 1, 1]
   tdnn_dilations: [1, 2, 3, 1, 1]
-  lin_neurons: 128
+  lin_neurons: 512
 
 classifier: &id005 !new:speechbrain.lobes.models.Xvector.Classifier
-  input_shape: [null, null, 128]
+  input_shape: [null, null, 512]
   activation: !name:torch.nn.LeakyReLU
   lin_blocks: 1
-  lin_neurons: 128
+  lin_neurons: 512
   out_neurons: 2
 
 label_encoder: !new:speechbrain.dataio.encoder.CategoricalEncoder
@@ -125,7 +138,7 @@ label_encoder: !new:speechbrain.dataio.encoder.CategoricalEncoder
 # which is saved by the Checkpointer so that training can be resumed
 # if it gets interrupted at any point.
 epoch_counter: &id007 !new:speechbrain.utils.epoch_loop.EpochCounter
-  limit: 1
+  limit: 35
 
 # Objects in "modules" dict will have their parameters moved to the correct
 # device, as well as having train()/eval() called on them by the Brain class.
