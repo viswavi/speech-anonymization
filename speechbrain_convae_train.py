@@ -112,8 +112,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             
             print(sa_brain.device)
             with torch.no_grad():
-                sex_logits_extern_orig, score_orig, index_orig, _ = self.external_classifier.classify_batch(wavs.to(sa_brain.device),
-                                                                                                          wav_lens.to(sa_brain.device))
+                sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch_feats(feats)
 
             self.sex_classification_acc_extern_orig.append(sex_logits_extern_orig.unsqueeze(0), sex_label.unsqueeze(0),
                                                       torch.tensor(sex_label.shape[0],
@@ -145,8 +144,6 @@ class SexAnonymizationTraining(sb.core.Brain):
                 print(sex_label)
                 # print("external sex logits = ")
                 # print(sex_logits_extern)
-                print("internal classification ACC = ")
-                print(self.sex_classification_acc.summarize())
                 # print("external classification ACC = ")
                 # print(self.sex_classification_acc_extern.summarize())
 
@@ -482,8 +479,8 @@ if __name__ == "__main__":
         #model = ConvAutoencoder()
         model = CycleGANGenerator()
     else:
-        model = DummyFullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
-        #model = FullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
+        #model = DummyFullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
+        model = FullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
 
     # We download the pretrained LM from HuggingFace (or elsewhere depending on
     # the path given in the YAML file). The tokenizer is loaded at the same time.
@@ -527,13 +524,13 @@ if __name__ == "__main__":
 
     print("done loading")
 
-    # sa_brain.fit(
-    #    sa_brain.hparams.epoch_counter,
-    #    train_data,
-    #    valid_data,
-    #    train_loader_kwargs=hparams["train_dataloader_opts"],
-    #     valid_loader_kwargs=hparams["valid_dataloader_opts"],
-    # )
+    sa_brain.fit(
+       sa_brain.hparams.epoch_counter,
+       train_data,
+       valid_data,
+       train_loader_kwargs=hparams["train_dataloader_opts"],
+        valid_loader_kwargs=hparams["valid_dataloader_opts"],
+    )
 
 
     # Testing

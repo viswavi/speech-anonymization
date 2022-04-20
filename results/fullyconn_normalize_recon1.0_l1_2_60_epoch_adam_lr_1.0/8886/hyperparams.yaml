@@ -1,4 +1,4 @@
-# Generated 2022-03-23 from:
+# Generated 2022-04-20 from:
 # /home/ubuntu/speech-anonymization/speechbrain_configs/convae.yaml
 # yamllint disable
 # ############################################################################
@@ -13,15 +13,15 @@
 # Seed needs to be set at top of yaml, before objects with parameters are made
 seed: 8886
 __set_seed: !apply:torch.manual_seed [8886]
-folder: /home/ubuntu/speech-anonymization/results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0
-output_folder: /home/ubuntu/speech-anonymization/results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886
-wer_file: /home/ubuntu/speech-anonymization/results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/wer.txt
-save_folder: /home/ubuntu/speech-anonymization/results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/save
-train_log: /home/ubuntu/speech-anonymization/results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/train_log.txt
+folder: results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0/
+output_folder: results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0//8886
+wer_file: results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0//8886/wer.txt
+save_folder: results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0//8886/save
+train_log: results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0//8886/train_log.txt
 
 pretrained_folder: /home/ubuntu/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
 
-model_type: fully_connected
+model_type: fc
 
 # Language model (LM) pretraining
 # NB: To avoid mismatch, the speech recognizer must be trained with the same
@@ -29,7 +29,7 @@ model_type: fully_connected
 # speechbrain HuggingFace repository. However, a local path pointing to a
 # directory containing the lm.ckpt and tokenizer.ckpt may also be specified
 # instead. E.g if you want to use your own LM / tokenizer.
-pretrained_lm_tokenizer_path: speechbrain/asr-transformer-transformerlm-librispeech
+pretrained_lm_tokenizer_path: /home/ubuntu/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech/
 
 # Data files
 data_folder: /home/ubuntu/LibriSpeech # e.g., /path/to/LibriSpeech
@@ -37,14 +37,14 @@ data_folder: /home/ubuntu/LibriSpeech # e.g., /path/to/LibriSpeech
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
 data_folder_rirs: /home/ubuntu/LibriSpeech
-train_splits: [train-clean-100]
+train_splits: [train]
 dev_splits: [dev-clean]
 test_splits: [test-clean]
 skip_prep: false
-train_csv: /home/ubuntu/LibriSpeech/train-2.csv
+train_csv: /home/ubuntu/LibriSpeech/train.csv
 valid_csv: /home/ubuntu/LibriSpeech/dev-clean.csv
 test_csv:
-- /home/ubuntu/LibriSpeech/test-clean-10.csv
+- /home/ubuntu/LibriSpeech/test-clean-100.csv
 ckpt_interval_minutes: 60 # save checkpoint every N min
 
 # Training parameters
@@ -62,13 +62,13 @@ ctc_weight: 0.3
 
 ## PARAMS FOR CONVAUTOENCODER ##
 convae_feature_dim: 80
-number_of_epochs: 30
+number_of_epochs: 15
 batch_size: 1
 recon_loss_weight: 1.0
 sex_loss_weight: 0.0
 utility_loss_weight: 0.0
 mi_loss_weight: 0.0
-gradient_accumulation: 10
+gradient_accumulation: 5
 gradient_clipping: 5.0
 loss_reduction: batchmean
 sorting: random
@@ -77,11 +77,11 @@ sex_classification_acc: !name:speechbrain.utils.Accuracy.AccuracyStats
 utility_similarity:
 utility_similarity_aggregator: !name:utils.utility_similarity_aggregator.SimilarityMetricsStats
 
-loss_reconstruction: !new:torch.nn.L1Loss
+loss_reconstruction: !new:torch.nn.MSELoss
   reduction: mean
 loss_sex_classification: !new:torch.nn.NLLLoss
 loss_utility: !new:utils.cosine_similarity_loss.CosineSimilarityLoss
-#loss_mutual_information: !new:mutual_information.MILoss
+loss_mutual_information: !new:utils.mi_loss.MILoss
 
 # stages related parameters
 stage_one_epochs: 90
@@ -200,7 +200,7 @@ asr_modules:
 asr_model: !new:torch.nn.ModuleList
 - [*id002, *id003, *id004, *id005]
 Adam: !name:torch.optim.Adam
-  lr: 0
+  lr: 0.001
   betas: (0.9, 0.98)
   eps: 0.000000001
 
@@ -255,14 +255,14 @@ noam_annealing: &id009 !new:speechbrain.nnet.schedulers.NoamScheduler
   model_size: 768
 
 checkpointer: !new:speechbrain.utils.checkpoints.Checkpointer
-  checkpoints_dir: /home/ubuntu/speech-anonymization/results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/save
+  checkpoints_dir: results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0//8886/save
   recoverables:
     model: *id008
     noam_scheduler: *id009
     normalizer: *id006
     counter: &id010 !new:speechbrain.utils.epoch_loop.EpochCounter
 
-      limit: 30
+      limit: 15
 
 epoch_counter: *id010
 normalize: *id006
@@ -288,10 +288,12 @@ compute_features: !new:speechbrain.lobes.features.Fbank
   n_mels: 80
 
 train_logger: !new:speechbrain.utils.train_logger.FileTrainLogger
-  save_file: /home/ubuntu/speech-anonymization/results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/train_log.txt
+  save_file: results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0//8886/train_log.txt
 
 error_rate_computer: !name:speechbrain.utils.metric_stats.ErrorRateStats
 acc_computer: !name:speechbrain.utils.Accuracy.AccuracyStats
+
+
 
 # The pretrainer allows a mapping between pretrained files and instances that
 # are declared in the yaml. E.g here, we will download the file lm.ckpt
@@ -304,7 +306,9 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
     asr_model: *id008
     normalize: *id006
   paths:
-    asr_model: speechbrain/asr-transformer-transformerlm-librispeech/asr.ckpt
-    lm: speechbrain/asr-transformer-transformerlm-librispeech/lm.ckpt
-    tokenizer: speechbrain/asr-transformer-transformerlm-librispeech/tokenizer.ckpt
-    normalize: speechbrain/asr-transformer-transformerlm-librispeech/normalizer.ckpt
+    asr_model: /home/ubuntu/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech//asr.ckpt
+    lm: /home/ubuntu/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech//lm.ckpt
+    tokenizer: /home/ubuntu/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech//tokenizer.ckpt
+    normalize: /home/ubuntu/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech//normalizer.ckpt
+
+
