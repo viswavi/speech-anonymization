@@ -9,28 +9,22 @@ python speechbrain_convae_train.py \
 
 #!/usr/bin/env python3
 
-from hyperpyyaml import load_hyperpyyaml
-import librosa
-import logging
-import numpy as np
 import os
-from pathlib import Path
 from queue import Full
-from scipy.io.wavfile import write
+import sys
+import torch
+import logging
+from pathlib import Path
 import speechbrain as sb
-from speechbrain.dataio.dataloader import LoopedLoader
+from hyperpyyaml import load_hyperpyyaml
 from speechbrain.utils.distributed import run_on_main
 from speechbrain.utils.train_logger import TensorboardLogger
-from sympy import FU
-import sys
-from tqdm.contrib import tqdm
-import torch
-from torch.utils.data import DataLoader
-
-from models.ConvAutoEncoder import ConvAutoencoder, FullyConnectedAutoencoder
+from models.ConvAutoEncoder import ConvAutoencoder, FullyConnectedAutoencoder, SmallConvAutoencoder
 from models.SpeechBrain_ASR import ASR
-#from mutual_information.MILoss import *
+from gender_classifier_train import GenderBrain
 #import visualization
+from speechbrain.pretrained import EncoderClassifier
+import torch.nn.functional as F
 
 logger = logging.getLogger(__name__)
 
@@ -40,20 +34,113 @@ sys.path.append("speechbrain/recipes/LibriSpeech")
 # 1.  # Dataset prep (parsing Librispeech)
 from librispeech_prepare import prepare_librispeech  # noqa
 
-sys.path.append("espnet")
-from utils.convert_fbank_to_wav import griffin_lim, logmelspc_to_linearspc
 
+def dataio_prepare(hparams):
+    """This function prepares the datasets to be used in the brain class.
+    It also defines the data processing pipeline through user-defined functions."""
+    data_folder = hparams["data_folder"]
 
-def save_wav (wav, path):
-        wav *= 32767 / max (0.01, np.max(np.abs(wav)))
-        write (path, 16000, wav.astype(np.int16))
+    train_data = sb.dataio.dataset.DynamicItemDataset.from_csv(
+        csv_path=hparams["train_csv"], replacements={"data_root": data_folder},
+    )
+
+    if hparams["sorting"] == "ascending":
+        # we sort training data to speed up training and get better results.
+        train_data = train_data.filtered_sorted(sort_key="duration")
+        # when sorting do not shuffle in dataloader ! otherwise is pointless
+        hparams["train_dataloader_opts"]["shuffle"] = False
+
+    elif hparams["sorting"] == "descending":
+        train_data = train_data.filtered_sorted(
+            sort_key="duration", reverse=True
+        )
+        # when sorting do not shuffle in dataloader ! otherwise is pointless
+        hparams["train_dataloader_opts"]["shuffle"] = False
+
+    elif hparams["sorting"] == "random":
+        pass
+
+    else:
+        raise NotImplementedError(
+            "sorting must be random, ascending or descending"
+        )
+    valid_data = sb.dataio.dataset.DynamicItemDataset.from_csv(
+        csv_path=hparams["valid_csv"], replacements={"data_root": data_folder},
+    )
+    valid_data = valid_data.filtered_sorted(sort_key="duration")
+
+    # test is separate
+    test_datasets = {}
+    for csv_file in hparams["test_csv"]:
+        name = Path(csv_file).stem
+        test_datasets[name] = sb.dataio.dataset.DynamicItemDataset.from_csv(
+            csv_path=csv_file, replacements={"data_root": data_folder}
+        )
+        test_datasets[name] = test_datasets[name].filtered_sorted(
+            sort_key="duration"
+        )
+
+    # converting to binary class labels for easy consumption
+    sex_string_to_int = {'M':0, 'F':1}
+    for item in train_data.data.items():
+        item[1]['gender'] = sex_string_to_int[item[1]['gender']]
+    for item in valid_data.data.items():
+        item[1]['gender'] = sex_string_to_int[item[1]['gender']]
+    for testset in test_datasets:
+        for item in test_datasets[testset].data.items():
+            item[1]['gender'] = sex_string_to_int[item[1]['gender']]
+
+    datasets = [train_data, valid_data] + [i for k, i in test_datasets.items()]
+
+    # We get the tokenizer as we need it to encode the labels when creating
+    # mini-batches.
+    tokenizer = hparams["tokenizer"]
+
+    # 2. Define audio pipeline:
+    @sb.utils.data_pipeline.takes("wav")
+    @sb.utils.data_pipeline.provides("sig")
+    def audio_pipeline(wav):
+        sig = sb.dataio.dataio.read_audio(wav)
+        return sig
+
+    sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
+
+    # 3. Define text pipeline:
+    @sb.utils.data_pipeline.takes("wrd")
+    @sb.utils.data_pipeline.provides(
+        "wrd", "tokens_list", "tokens_bos", "tokens_eos", "tokens"
+    )
+    def text_pipeline(wrd):
+        yield wrd
+        tokens_list = tokenizer.encode_as_ids(wrd)
+        yield tokens_list
+        tokens_bos = torch.LongTensor([hparams["bos_index"]] + (tokens_list))
+        yield tokens_bos
+        tokens_eos = torch.LongTensor(tokens_list + [hparams["eos_index"]])
+        yield tokens_eos
+        tokens = torch.LongTensor(tokens_list)
+        yield tokens
+
+    sb.dataio.dataset.add_dynamic_item(datasets, text_pipeline)
+
+    # 4. Set output:
+    sb.dataio.dataset.set_output_keys(
+        datasets, ["id", "sig", "wrd", "tokens_bos", "tokens_eos", "tokens", "gender"],
+    )
+    return train_data, valid_data, test_datasets, tokenizer
+
 
 if __name__ == "__main__":
     # CLI:
-    hparams_file, run_opts, overrides = sb.parse_arguments(sys.argv[1:])
+    hparams_file, run_opts, overrides  = sb.parse_arguments(sys.argv[1:])
     with open(hparams_file) as fin:
         hparams = load_hyperpyyaml(fin, overrides)
 
+    with open("./speechbrain_configs/evaluator_inference.yaml") as fin:
+        hparams_eval = load_hyperpyyaml(fin)
+
+    for mod in hparams_eval['modules']:
+        hparams_eval['modules'][mod].to(run_opts['device'])
     #tensorboard_logger = TensorboardLogger()
 
     # If distributed_launch=True then
@@ -95,7 +182,8 @@ if __name__ == "__main__":
     #run_on_main(hparams["pretrainer"].collect_files)
     #hparams["pretrainer"].load_collected(device=run_opts["device"])
 
-    state_dict = torch.load("results/fc_vae_60_epochs_fixed_batched/8886/save/CKPT+2022-03-25+11-50-47+00/model.ckpt")
+    state_dict = torch.load("results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/save/CKPT+2022-03-23+20-59-04+00//model.ckpt")
+    breakpoint()
     for key in list(state_dict.keys()):
         if key.startswith("0."):
             key_fixed = key[2:]
@@ -168,7 +256,6 @@ if __name__ == "__main__":
                     audio_path = os.path.join(generated_audio_directory, utt_id + "_reconstructed.wav")
                     save_wav(recon_recov, audio_path)
                     print(f"Wrote audio file to {audio_path}")
-
 
                     orig_mspc = fbank_feats[batch_item_idx].cpu().detach().numpy().T
                     print("test")
