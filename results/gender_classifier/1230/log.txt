@@ -2430,6 +2430,8 @@ Traceback (most recent call last):
   File "/home/ec2-user/.local/lib/python3.9/site-packages/torch/nn/modules/conv.py", line 297, in _conv_forward
     return F.conv1d(input, weight, bias, self.stride,
 KeyboardInterrupt
+<<<<<<< HEAD
+=======
 2022-03-31 04:27:58,682 - speechbrain.core - INFO - Beginning experiment!
 2022-03-31 04:27:58,682 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
 2022-03-31 04:27:58,993 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
@@ -3282,3 +3284,4 @@ Traceback (most recent call last):
   File "/home/ec2-user/capstone/speech-anonymization/speechbrain/speechbrain/core.py", line 897, in check_gradients
     if not torch.isfinite(loss):
 KeyboardInterrupt
+>>>>>>> main

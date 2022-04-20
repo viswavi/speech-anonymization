@@ -2,7 +2,9 @@
 Running instructions:
 python speechbrain_convae_train.py \
     speechbrain_configs/convae.yaml \
-    --device cpu
+    --device cpu \
+    --model_type [convae / fcae] \
+    --folder <path_to_output_dir>
 """
 
 #!/usr/bin/env python3
@@ -10,7 +12,7 @@ python speechbrain_convae_train.py \
 import os
 from queue import Full
 import sys
-from sympy import FU
+from sympy import FU, Ge
 import torch
 import logging
 from pathlib import Path
@@ -18,10 +20,13 @@ import speechbrain as sb
 from hyperpyyaml import load_hyperpyyaml
 from speechbrain.utils.distributed import run_on_main
 from speechbrain.utils.train_logger import TensorboardLogger
-from models.ConvAutoEncoder import ConvAutoencoder, FullyConnectedAutoencoder
+from models.ConvAutoEncoder import ConvAutoencoder, CycleGANGenerator
+from models.FullyConnected import DummyFullyConnectedAutoencoder, FullyConnectedAutoencoder
 from models.SpeechBrain_ASR import ASR
-#from mutual_information.MILoss import *
+from gender_classifier_train import GenderBrain
 #import visualization
+from speechbrain.pretrained import EncoderClassifier
+import torch.nn.functional as F
 
 logger = logging.getLogger(__name__)
 
@@ -52,32 +57,20 @@ class SexAnonymizationTraining(sb.core.Brain):
         current_epoch = self.hparams.epoch_counter.current
         feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
 
-        # need to swap to [ BATCH_SIZE x MFCC_FEATURE_DIM x NUM_TIMESTAMPS ]
-        if self.hparams.model_type == "convae":
-            feats = feats.reshape(self.hparams.batch_size, feats.shape[2], feats.shape[1])
-
-        # AE model expects %4 sized dimension for proper reconstruction 
-        have_padded = False
-        pad = 0
-        if feats.shape[2]%4 != 0:
-            pad = 4-feats.shape[2]%4
-            feats = torch.nn.functional.pad(input=feats, pad=(0, 4-feats.shape[2]%4, 0, 0, 0, 0,), mode='constant', value=0)
-            have_padded = True
+        if feats.shape[1]%36 != 0:
+            feats = torch.nn.functional.pad(input=feats, pad=(0, 0, 0, 36-feats.shape[1]%36, 0, 0), mode='constant', value=0)
 
         if stage == sb.Stage.TRAIN:
             if hasattr(self.hparams, "augmentation"):
                 feats = self.hparams.augmentation(feats)
 
         # forward pass through the model
-        return self.modules.ConvAE(feats), (have_padded, pad)
+        return self.modules.ConvAE(feats)
 
     def compute_objectives(self, predictions, batch, stage):
         """Forward computations from the waveform batches to the output probabilities."""
-        reconstructed_speech, sex_logits = predictions[0]
-        have_padded, pad = predictions[1]
+        reconstructed_speech, sex_logits = predictions
 
-        if have_padded:
-            reconstructed_speech = reconstructed_speech[:, :, :-pad]
         batch = batch.to(sa_brain.device)
 
         sex_label = batch.gender
@@ -88,63 +81,90 @@ class SexAnonymizationTraining(sb.core.Brain):
         feats = self.hparams.compute_features(wavs)
         current_epoch = self.hparams.epoch_counter.current
         feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
-        orig_feats = feats
-        
 
-        # need to swap to [ BATCH_SIZE x MFCC_FEATURE_DIM x NUM_TIMESTAMPS ]
-        if self.hparams.model_type == "convae":
-            feats = feats.reshape(self.hparams.batch_size, feats.shape[2], feats.shape[1])
+        if feats.shape[1]%36 != 0:
+            feats = torch.nn.functional.pad(input=feats, pad=(0, 0, 0, 36-feats.shape[1]%36, 0, 0), mode='constant', value=0)
 
         utility_loss = 0.0
-        #if self.hparams.utility_loss_weight > 0:
-            #orig_enc_out, orig_prob = self.asr_brain.get_predictions(orig_feats, wav_lens, tokens_bos, batch, do_ctc=False)
-            #recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1]), wav_lens, tokens_bos, batch, do_ctc=False)
-            #utility_loss = self.hparams.loss_utility(recon_enc_out, orig_enc_out)
-
-        recon_loss = self.hparams.loss_reconstruction(reconstructed_speech, feats)
-        #print(self.hparams.loss_reconstruction(reconstructed_speech, reconstructed_speech))
+        if self.hparams.utility_loss_weight > 0:
+            orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=False)
+            recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=False)
+            utility_loss = self.hparams.loss_utility(recon_enc_out, orig_enc_out)
+                
+        recon_loss = self.hparams.loss_reconstruction(reconstructed_speech.view(reconstructed_speech.shape[0], -1), feats.view(feats.shape[0], -1))
         sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
-        #mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch)
+        #mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch, self.hparams.batch_size)
 
         loss = (
             self.hparams.recon_loss_weight * recon_loss
             + self.hparams.sex_loss_weight * sex_loss
-            #+ self.hparams.utility_loss_weight * utility_loss
+            + self.hparams.utility_loss_weight * utility_loss
             #+ self.hparams.mi_loss_weight * mi_loss
         )
 
         if stage != sb.Stage.TRAIN:
             current_epoch = self.hparams.epoch_counter.current
             # compute the accuracy of the sex prediction
-            self.sex_classification_acc.append(sex_logits.unsqueeze(1), sex_label.unsqueeze(1), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
-            #self.recon_loss[-1].append(recon_loss)
+            self.sex_classification_acc.append(sex_logits.unsqueeze(0), sex_label.unsqueeze(0), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
 
-            if self.hparams.model_type == "convae":
-                    reconstructed_speech = reconstructed_speech.reshape(self.hparams.batch_size, reconstructed_speech.shape[2], reconstructed_speech.shape[1])
+            # Evaluation: performing classification by externally trained sex classifier
+            recon_speech_feats = reconstructed_speech.to(sa_brain.device)
+            
+            print(sa_brain.device)
+            with torch.no_grad():
+                sex_logits_extern_orig, score_orig, index_orig, _ = self.external_classifier.classify_batch(wavs.to(sa_brain.device),
+                                                                                                          wav_lens.to(sa_brain.device))
+
+            self.sex_classification_acc_extern_orig.append(sex_logits_extern_orig.unsqueeze(0), sex_label.unsqueeze(0),
+                                                      torch.tensor(sex_label.shape[0],
+                                                                   device=sex_logits_extern_orig.device).unsqueeze(0))
+
+            with torch.no_grad():
+                sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats)
+
+            self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(0), sex_label.unsqueeze(0),
+                                               torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))
+    
+            print("internal classification (w/ GRL) ACC = ")
+            print(self.sex_classification_acc.summarize())
+            print("external classification ACC on original raw wav inputs = ")
+            print(self.sex_classification_acc_extern_orig.summarize())
+            print("external classification ACC on reconstructed feats = ")
+            print(self.sex_classification_acc_extern.summarize())
+
 
             if stage == sb.Stage.VALID:
                 recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=False)
-                orig_enc_out, orig_prob = self.asr_brain.get_predictions(orig_feats, wav_lens, tokens_bos, batch, do_ctc=False)
-        
+                orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=False)
+
                 cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
-                self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(self.hparams.batch_size, -1), orig_enc_out.view(self.hparams.batch_size, -1)))
+                self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
 
             else:
+                print("sex label = ")
+                print(sex_label)
+                # print("external sex logits = ")
+                # print(sex_logits_extern)
+                print("internal classification ACC = ")
+                print(self.sex_classification_acc.summarize())
+                # print("external classification ACC = ")
+                # print(self.sex_classification_acc_extern.summarize())
+
                 enc_out, predictions = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=True)
                 recon_enc_out, recon_prob, _, _, _, _, = enc_out
                 ids, predicted_words, target_words = predictions
-                
-                enc_out, predictions = self.asr_brain.get_predictions(orig_feats, wav_lens, tokens_bos, batch, do_ctc=True)
+
+                enc_out, predictions = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=True)
                 orig_enc_out, orig_prob, _, _, _, _, = enc_out
                 o_ids, o_predicted_words, o_target_words = predictions
-                
+
                 print(predicted_words)
                 print(target_words)
                 print(o_predicted_words)
                 self.wer_metric.append(ids, predicted_words, target_words)
 
                 cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
-                self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(self.hparams.batch_size, -1), orig_enc_out.view(self.hparams.batch_size, -1)))
+                self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
 
         return loss
 
@@ -172,6 +192,16 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         return loss.detach()
 
+    def load_external_classifier(self):
+        classifier = EncoderClassifier.from_hparams(
+            source="/home/ubuntu/speech-anonymization/speechbrain_configs/",
+            hparams_file="evaluator_inference.yaml",
+            savedir="/home/ubuntu/speech-anonymization/results/gender_classifier/1230/save/",
+        )
+
+        classifier.eval()
+        return classifier.to(sa_brain.device)
+
     def evaluate_batch(self, batch, stage):
         """Computations needed for validation/test batches"""
         with torch.no_grad():
@@ -181,13 +211,18 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def on_stage_start(self, stage, epoch):
         """Gets called at the beginning of each epoch"""
+        self.external_classifier = self.load_external_classifier()
+
         if stage != sb.Stage.TRAIN:
             if not hasattr(self, "recon_loss"):
                 self.recon_loss = [[]]
             else:
                 self.recon_loss.append([])
             self.sex_classification_acc = self.hparams.sex_classification_acc()
+            self.sex_classification_acc_extern = self.hparams.sex_classification_acc()
+            self.sex_classification_acc_extern_orig = self.hparams.sex_classification_acc()
             self.utility_similarity_aggregator = self.hparams.utility_similarity_aggregator()
+
             if stage == sb.Stage.TEST:
                 self.wer_metric = self.hparams.error_rate_computer()
 
@@ -199,6 +234,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.train_stats = stage_stats
         else:
             stage_stats["ACC"] = self.sex_classification_acc.summarize()
+            #stage_stats["ACC_external"] = self.sex_classification_acc_extern.summarize()
             stage_stats["Utility_Retention"] = self.utility_similarity_aggregator.summarize()
 
             if stage == sb.Stage.TEST:
@@ -407,7 +443,7 @@ def dataio_prepare(hparams):
 
 if __name__ == "__main__":
     # CLI:
-    hparams_file, run_opts, overrides = sb.parse_arguments(sys.argv[1:])
+    hparams_file, run_opts, overrides  = sb.parse_arguments(sys.argv[1:])
     with open(hparams_file) as fin:
         hparams = load_hyperpyyaml(fin, overrides)
 
@@ -443,9 +479,11 @@ if __name__ == "__main__":
     train_data, valid_data, test_datasets, tokenizer = dataio_prepare(hparams)
 
     if hparams["model_type"] == "convae":
-        model = ConvAutoencoder(hparams["convae_feature_dim"])
+        #model = ConvAutoencoder()
+        model = CycleGANGenerator()
     else:
-        model = FullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
+        model = DummyFullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
+        #model = FullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
 
     # We download the pretrained LM from HuggingFace (or elsewhere depending on
     # the path given in the YAML file). The tokenizer is loaded at the same time.
@@ -482,15 +520,21 @@ if __name__ == "__main__":
     #hparams["normalize"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/normalizer.ckpt"))
     hparams["lm_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/lm.ckpt"))
 
+    #hparams["embedding_model"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-04-14+01-03-37+00/embedding_model.ckpt"))
+    #hparams["external_classifier"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-04-14+01-03-37+00/classifier.ckpt"))
+    #hparams["normalize"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-04-14+01-03-37+00/normalizer.ckpt"))
+    
+
     print("done loading")
-    # Training
+
     # sa_brain.fit(
-    #     sa_brain.hparams.epoch_counter,
-    #     train_data,
-    #     valid_data,
-    #     train_loader_kwargs=hparams["train_dataloader_opts"],
+    #    sa_brain.hparams.epoch_counter,
+    #    train_data,
+    #    valid_data,
+    #    train_loader_kwargs=hparams["train_dataloader_opts"],
     #     valid_loader_kwargs=hparams["valid_dataloader_opts"],
     # )
+
 
     # Testing
     for k in test_datasets.keys():  # keys are test_clean, test_other etc
@@ -511,3 +555,4 @@ if __name__ == "__main__":
     # plot_path = os.path.join(output_folder, "learning_curve.png")
     # visualization.draw_lines(recon_loss_averages, "Epoch", "Avg. Recon. Loss", "Learning Curve", plot_path)
     # print(f"Wrote reconstruction error learning curve to {plot_path}")
+

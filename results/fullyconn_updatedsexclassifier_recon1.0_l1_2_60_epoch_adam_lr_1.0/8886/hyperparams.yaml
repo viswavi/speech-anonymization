@@ -1,5 +1,5 @@
-# Generated 2022-03-31 from:
-# /home/ec2-user/capstone/speech-anonymization/speechbrain_configs/convae.yaml
+# Generated 2022-03-23 from:
+# /home/ubuntu/speech-anonymization/speechbrain_configs/convae.yaml
 # yamllint disable
 # ############################################################################
 # Model: E2E ASR with Transformer
@@ -13,14 +13,13 @@
 # Seed needs to be set at top of yaml, before objects with parameters are made
 seed: 8886
 __set_seed: !apply:torch.manual_seed [8886]
-folder: results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0
-output_folder: results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886
-wer_file: results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/wer.txt
-save_folder: results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/save
-train_log: results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/train_log.txt
+folder: /home/ubuntu/speech-anonymization/results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0
+output_folder: /home/ubuntu/speech-anonymization/results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886
+wer_file: /home/ubuntu/speech-anonymization/results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/wer.txt
+save_folder: /home/ubuntu/speech-anonymization/results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/save
+train_log: /home/ubuntu/speech-anonymization/results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/train_log.txt
 
-pretrained_folder: /home/ec2-user/capstone/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
-
+pretrained_folder: /home/ubuntu/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
 
 model_type: fcae
 
@@ -33,19 +32,19 @@ model_type: fcae
 pretrained_lm_tokenizer_path: speechbrain/asr-transformer-transformerlm-librispeech
 
 # Data files
-data_folder: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech # e.g., /path/to/LibriSpeech
+data_folder: /home/ubuntu/LibriSpeech # e.g., /path/to/LibriSpeech
 # If RIRS_NOISES dir exists in /localscratch/xxx_corpus/RIRS_NOISES
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
-data_folder_rirs: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech
-train_splits: [train-clean]
+data_folder_rirs: /home/ubuntu/LibriSpeech
+train_splits: [train-2]
 dev_splits: [dev-clean]
 test_splits: [test-clean]
 skip_prep: false
-train_csv: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/train.csv
-valid_csv: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/dev-clean.csv
+train_csv: /home/ubuntu/LibriSpeech/train-2.csv
+valid_csv: /home/ubuntu/LibriSpeech/dev-clean.csv
 test_csv:
-- /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech/test-clean.csv
+- /home/ubuntu/LibriSpeech/test-clean-10.csv
 ckpt_interval_minutes: 60 # save checkpoint every N min
 
 # Training parameters
@@ -63,8 +62,8 @@ ctc_weight: 0.3
 
 ## PARAMS FOR CONVAUTOENCODER ##
 convae_feature_dim: 80
-number_of_epochs: 30
-batch_size: 10
+number_of_epochs: 2
+batch_size: 1
 recon_loss_weight: 1.0
 sex_loss_weight: 0.0
 utility_loss_weight: 0.0
@@ -75,7 +74,6 @@ loss_reduction: batchmean
 sorting: random
 
 sex_classification_acc: !name:speechbrain.utils.Accuracy.AccuracyStats
-sex_classification_acc_extern: !name:speechbrain.utils.Accuracy.AccuracyStats
 utility_similarity:
 utility_similarity_aggregator: !name:utils.utility_similarity_aggregator.SimilarityMetricsStats
 
@@ -97,14 +95,14 @@ n_mels: 80
 
 # Dataloader options
 train_dataloader_opts:
-  batch_size: 10
+  batch_size: 1
   shuffle: true
 
 valid_dataloader_opts:
-  batch_size: 10
+  batch_size: 1
 
 test_dataloader_opts:
-  batch_size: 10
+  batch_size: 1
 
 ####################### Model parameters ###########################
 # Transformer
@@ -175,7 +173,7 @@ lm_model: &id007 !new:speechbrain.lobes.models.transformer.TransformerLM.Transfo
   activation: !name:torch.nn.GELU
   normalize_before: false
 
-tokenizer: &id015 !new:sentencepiece.SentencePieceProcessor
+tokenizer: &id011 !new:sentencepiece.SentencePieceProcessor
 
 ctc_lin: &id005 !new:speechbrain.nnet.linear.Linear
   input_size: 768
@@ -187,35 +185,9 @@ seq_lin: &id004 !new:speechbrain.nnet.linear.Linear
 
 modules:
   normalize: &id006 !new:speechbrain.processing.features.InputNormalization
-        # external classifier
+
     norm_type: global
     update_until_epoch: 4
-
-  compute_features: &id011 !new:speechbrain.lobes.features.Fbank
-    sample_rate: 16000
-    n_fft: 400
-    n_mels: 80
-
-  embedding_model: &id013 !new:speechbrain.lobes.models.Xvector.Xvector
-    in_channels: 80
-    activation: !name:torch.nn.LeakyReLU
-    tdnn_blocks: 5
-    tdnn_channels: [512, 512, 512, 512, 1500]
-    tdnn_kernel_sizes: [5, 3, 3, 1, 1]
-    tdnn_dilations: [1, 2, 3, 1, 1]
-    lin_neurons: 512
-
-  classifier: &id014 !new:speechbrain.lobes.models.Xvector.Classifier
-    input_shape: [null, null, 512]
-    activation: !name:torch.nn.LeakyReLU
-    lin_blocks: 1
-    lin_neurons: 512
-    out_neurons: 2
-  mean_var_norm: &id012 !new:speechbrain.processing.features.InputNormalization
-
-    norm_type: sentence
-    std_norm: false
-
 
 model: &id008 !new:torch.nn.ModuleList -[]
 
@@ -228,7 +200,7 @@ asr_modules:
 asr_model: !new:torch.nn.ModuleList
 - [*id002, *id003, *id004, *id005]
 Adam: !name:torch.optim.Adam
-  lr: 0.001
+  lr: 0
   betas: (0.9, 0.98)
   eps: 0.000000001
 
@@ -283,14 +255,14 @@ noam_annealing: &id009 !new:speechbrain.nnet.schedulers.NoamScheduler
   model_size: 768
 
 checkpointer: !new:speechbrain.utils.checkpoints.Checkpointer
-  checkpoints_dir: results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/save
+  checkpoints_dir: /home/ubuntu/speech-anonymization/results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/save
   recoverables:
     model: *id008
     noam_scheduler: *id009
     normalizer: *id006
     counter: &id010 !new:speechbrain.utils.epoch_loop.EpochCounter
 
-      limit: 30
+      limit: 2
 
 epoch_counter: *id010
 normalize: *id006
@@ -310,28 +282,16 @@ speed_perturb: !new:speechbrain.processing.speech_augmentation.SpeedPerturb
   orig_freq: 16000
   speeds: [95, 100, 105]
 
-compute_features: *id011
+compute_features: !new:speechbrain.lobes.features.Fbank
+  sample_rate: 16000
+  n_fft: 400
+  n_mels: 80
+
 train_logger: !new:speechbrain.utils.train_logger.FileTrainLogger
-  save_file: results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/train_log.txt
+  save_file: /home/ubuntu/speech-anonymization/results/fullyconn_updatedsexclassifier_recon1.0_l1_2_60_epoch_adam_lr_1.0/8886/train_log.txt
 
 error_rate_computer: !name:speechbrain.utils.metric_stats.ErrorRateStats
 acc_computer: !name:speechbrain.utils.Accuracy.AccuracyStats
-
-
-
-# Model parameters (external classifier)
-n_classes: 2
-emb_dim: 512 # dimensionality of the embeddings
-
-
-# Mean and std normalization of the input features
-mean_var_norm: *id012
-embedding_model: *id013
-external_classifier: *id014
-label_encoder: &id016 !new:speechbrain.dataio.encoder.CategoricalEncoder
-                                                                  # external classifier
-
-pretrained_path: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00
 
 # The pretrainer allows a mapping between pretrained files and instances that
 # are declared in the yaml. E.g here, we will download the file lm.ckpt
@@ -340,19 +300,12 @@ pretrained_path: /home/ec2-user/capstone/speech-anonymization/results/gender_cla
 pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
   loadables:
     lm: *id007
-    tokenizer: *id015
+    tokenizer: *id011
     asr_model: *id008
     normalize: *id006
-    embedding_model: *id013
-    external_classifier: *id014
-    label_encoder: *id016
   paths:
     asr_model: speechbrain/asr-transformer-transformerlm-librispeech/asr.ckpt
     lm: speechbrain/asr-transformer-transformerlm-librispeech/lm.ckpt
     tokenizer: speechbrain/asr-transformer-transformerlm-librispeech/tokenizer.ckpt
     normalize: speechbrain/asr-transformer-transformerlm-librispeech/normalizer.ckpt
-        # external classifier
-    embedding_model: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/embedding_model.ckpt
-    external_classifier: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/classifier.ckpt
-    label_encoder: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/label_encoder.txt
 

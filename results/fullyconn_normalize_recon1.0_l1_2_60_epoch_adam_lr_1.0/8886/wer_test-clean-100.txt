@@ -1,0 +1,511 @@
+%WER 7.49 [ 142 / 1896, 17 ins, 11 del, 114 sub ]
+%SER 59.00 [ 59 / 100 ]
+Scored 100 sentences, 0 not present in hyp.
+================================================================================
+ALIGNMENTS
+
+Format:
+<utterance-id>, WER DETAILS
+<eps> ; reference  ; on ; the ; first ;  line
+  I   ;     S      ; =  ;  =  ;   S   ;   D  
+ and  ; hypothesis ; on ; the ; third ; <eps>
+================================================================================
+4446-2273-0026, %WER 0.00 [ 0 / 8, 0 ins, 0 del, 0 sub ]
+HAVE ; I ; TOLD ; YOU ; ABOUT ; MY ; NEW ; PLAY
+ =   ; = ;  =   ;  =  ;   =   ; =  ;  =  ;  =  
+HAVE ; I ; TOLD ; YOU ; ABOUT ; MY ; NEW ; PLAY
+================================================================================
+121-127105-0014, %WER 0.00 [ 0 / 3, 0 ins, 0 del, 0 sub ]
+YOU ; ARE ; ACUTE
+ =  ;  =  ;   =  
+YOU ; ARE ; ACUTE
+================================================================================
+121-127105-0009, %WER 0.00 [ 0 / 7, 0 ins, 0 del, 0 sub ]
+SHE ; HAS ; BEEN ; DEAD ; THESE ; TWENTY ; YEARS
+ =  ;  =  ;  =   ;  =   ;   =   ;   =    ;   =  
+SHE ; HAS ; BEEN ; DEAD ; THESE ; TWENTY ; YEARS
+================================================================================
+4446-2271-0022, %WER 42.86 [ 3 / 7, 0 ins, 1 del, 2 sub ]
+I'M ; GLAD ; SHE'S ; HELD ; HER ;   OWN    ; SINCE
+ =  ;  =   ;   =   ;  S   ;  =  ;    S     ;   D  
+I'M ; GLAD ; SHE'S ; GOT  ; HER ; NONSENSE ; <eps>
+================================================================================
+2094-142345-0055, %WER 0.00 [ 0 / 10, 0 ins, 0 del, 0 sub ]
+BUT ; YOU ; KNOW ; MORE ; ABOUT ; THAT ; THAN ; I ; DO ; SIR
+ =  ;  =  ;  =   ;  =   ;   =   ;  =   ;  =   ; = ; =  ;  = 
+BUT ; YOU ; KNOW ; MORE ; ABOUT ; THAT ; THAN ; I ; DO ; SIR
+================================================================================
+8455-210777-0007, %WER 25.00 [ 1 / 4, 0 ins, 0 del, 1 sub ]
+QUITE ; SATISFIED ; SAID ; EVA 
+  =   ;     =     ;  =   ;  S  
+QUITE ; SATISFIED ; SAID ; NINA
+================================================================================
+4446-2273-0017, %WER 14.29 [ 1 / 7, 0 ins, 0 del, 1 sub ]
+HOW ; JOLLY ; IT ; WAS ; BEING ; YOUNG ; HILDA 
+ =  ;   =   ; =  ;  =  ;   =   ;   =   ;   S   
+HOW ; JOLLY ; IT ; WAS ; BEING ; YOUNG ; CALDER
+================================================================================
+4970-29095-0000, %WER 16.67 [ 1 / 6, 0 ins, 0 del, 1 sub ]
+SHE ; WAS ; TIRED ; OF ; OTHER  ; THINGS
+ =  ;  =  ;   =   ; =  ;   S    ;   =   
+SHE ; WAS ; TIRED ; OF ; OTHERS ; THINGS
+================================================================================
+1580-141084-0044, %WER 0.00 [ 0 / 5, 0 ins, 0 del, 0 sub ]
+GLOVES ; SAID ; THE ; YOUNG ; MAN
+  =    ;  =   ;  =  ;   =   ;  = 
+GLOVES ; SAID ; THE ; YOUNG ; MAN
+================================================================================
+2830-3980-0021, %WER 10.00 [ 1 / 10, 0 ins, 0 del, 1 sub ]
+AND ; GOD ; THE ; FATHER ; WHO ; RAISED ; HIM ; FROM ; THE ; DEAD
+ =  ;  =  ;  =  ;   =    ;  S  ;   =    ;  =  ;  =   ;  =  ;  =  
+AND ; GOD ; THE ; FATHER ; HAD ; RAISED ; HIM ; FROM ; THE ; DEAD
+================================================================================
+3729-6852-0025, %WER 50.00 [ 3 / 6, 1 ins, 0 del, 2 sub ]
+IS ; THERE ; NOT ;  A  ; MERIDIAN ; <eps> ; EVERYWHERE
+=  ;   =   ;  =  ;  S  ;    S     ;   I   ;     =     
+IS ; THERE ; NOT ; I'M ; ALREADY  ;   IN  ; EVERYWHERE
+================================================================================
+237-134500-0023, %WER 8.33 [ 1 / 12, 0 ins, 0 del, 1 sub ]
+IT ; WOULD ; SERVE ; YOU ; ALL ; RIGHT ; IF ; SHE ; WALKED ; OFF ; WITH ; CARL
+=  ;   =   ;   =   ;  =  ;  =  ;   =   ; =  ;  =  ;   =    ;  =  ;  =   ;  S  
+IT ; WOULD ; SERVE ; YOU ; ALL ; RIGHT ; IF ; SHE ; WALKED ; OFF ; WITH ; KARL
+================================================================================
+908-157963-0003, %WER 28.57 [ 2 / 7, 0 ins, 0 del, 2 sub ]
+WHY ; FADE ; THESE ; CHILDREN ; OF ; THE ; SPRING
+ S  ;  S   ;   =   ;    =     ; =  ;  =  ;   =   
+ I  ; FEED ; THESE ; CHILDREN ; OF ; THE ; SPRING
+================================================================================
+8555-292519-0011, %WER 0.00 [ 0 / 6, 0 ins, 0 del, 0 sub ]
+HE ; HAD ; GOT ; INTO ; HER ; COURTYARD
+=  ;  =  ;  =  ;  =   ;  =  ;     =    
+HE ; HAD ; GOT ; INTO ; HER ; COURTYARD
+================================================================================
+4992-23283-0002, %WER 14.29 [ 1 / 7, 0 ins, 0 del, 1 sub ]
+SAID ; MISSUS ;  HORTON ; A ; FEW ; MINUTES ; AFTER
+ =   ;   =    ;    S    ; = ;  =  ;    =    ;   =  
+SAID ; MISSUS ; WHARTON ; A ; FEW ; MINUTES ; AFTER
+================================================================================
+1995-1837-0013, %WER 25.00 [ 2 / 8, 1 ins, 0 del, 1 sub ]
+THEN ; HE ; LOOKED ; DOWN ; <eps> ; THE ; LAGOON ; WAS ; DRY
+ =   ; =  ;   =    ;  =   ;   I   ;  =  ;   S    ;  =  ;  = 
+THEN ; HE ; LOOKED ; DOWN ;  AND  ; THE ; GROUND ; WAS ; DRY
+================================================================================
+4446-2273-0033, %WER 11.11 [ 1 / 9, 0 ins, 0 del, 1 sub ]
+FOR ; A ; LONG ; TIME ; NEITHER ; HILDA ; NOR ; BARTLEY  ; SPOKE
+ =  ; = ;  =   ;  =   ;    =    ;   =   ;  =  ;    S     ;   =  
+FOR ; A ; LONG ; TIME ; NEITHER ; HILDA ; NOR ; BERKELEY ; SPOKE
+================================================================================
+5142-36377-0000, %WER 7.69 [ 1 / 13, 0 ins, 0 del, 1 sub ]
+IT ; WAS ; ONE ; OF ; THE ; MASTERLY ; AND ; CHARMING ; STORIES ; OF ; DUMAS ; THE ; ELDER
+S  ;  =  ;  =  ; =  ;  =  ;    =     ;  =  ;    =     ;    =    ; =  ;   =   ;  =  ;   =  
+HE ; WAS ; ONE ; OF ; THE ; MASTERLY ; AND ; CHARMING ; STORIES ; OF ; DUMAS ; THE ; ELDER
+================================================================================
+61-70970-0014, %WER 0.00 [ 0 / 11, 0 ins, 0 del, 0 sub ]
+PRESENTLY ; HE ; CROSSED ; THE ; FLOOR ; OF ; HIS ; ROOM ; WITH ; DECIDED ; STEP
+    =     ; =  ;    =    ;  =  ;   =   ; =  ;  =  ;  =   ;  =   ;    =    ;  =  
+PRESENTLY ; HE ; CROSSED ; THE ; FLOOR ; OF ; HIS ; ROOM ; WITH ; DECIDED ; STEP
+================================================================================
+2094-142345-0025, %WER 11.11 [ 1 / 9, 0 ins, 0 del, 1 sub ]
+COLD ; IS ; IT ; MY ; DARLING ; BLESS ; YOUR ; SWEET ; FACE
+ S   ; =  ; =  ; =  ;    =    ;   =   ;  =   ;   =   ;  =  
+ OH  ; IS ; IT ; MY ; DARLING ; BLESS ; YOUR ; SWEET ; FACE
+================================================================================
+61-70968-0001, %WER 0.00 [ 0 / 10, 0 ins, 0 del, 0 sub ]
+GIVE ; NOT ; SO ; EARNEST ; A ; MIND ; TO ; THESE ; MUMMERIES ; CHILD
+ =   ;  =  ; =  ;    =    ; = ;  =   ; =  ;   =   ;     =     ;   =  
+GIVE ; NOT ; SO ; EARNEST ; A ; MIND ; TO ; THESE ; MUMMERIES ; CHILD
+================================================================================
+7176-88083-0017, %WER 0.00 [ 0 / 15, 0 ins, 0 del, 0 sub ]
+BUT ; AT ; THIS ; POINT ; IN ; THE ; RAPIDS ; IT ; WAS ; IMPOSSIBLE ; FOR ; HIM ; TO ; STAY ; DOWN
+ =  ; =  ;  =   ;   =   ; =  ;  =  ;   =    ; =  ;  =  ;     =      ;  =  ;  =  ; =  ;  =   ;  =  
+BUT ; AT ; THIS ; POINT ; IN ; THE ; RAPIDS ; IT ; WAS ; IMPOSSIBLE ; FOR ; HIM ; TO ; STAY ; DOWN
+================================================================================
+2830-3980-0017, %WER 6.25 [ 1 / 16, 0 ins, 0 del, 1 sub ]
+WHEN ; I ; WAS ; A ; YOUNG ; MAN ; I ; THOUGHT ; PAUL ; WAS ; MAKING ; TOO ; MUCH ; OF ; HIS ; CALL
+ =   ; = ;  =  ; = ;   =   ;  =  ; = ;    =    ;  S   ;  =  ;   =    ;  =  ;  =   ; =  ;  =  ;  =  
+WHEN ; I ; WAS ; A ; YOUNG ; MAN ; I ; THOUGHT ; PAPA ; WAS ; MAKING ; TOO ; MUCH ; OF ; HIS ; CALL
+================================================================================
+5142-33396-0028, %WER 7.69 [ 1 / 13, 0 ins, 0 del, 1 sub ]
+ON ; A ; BENCH ; IN ; A ; FAR ; CORNER ;  WERE ; A ; DOZEN ; PEOPLE ; HUDDLED ; TOGETHER
+=  ; = ;   =   ; =  ; = ;  =  ;   =    ;   S   ; = ;   =   ;   =    ;    =    ;    =    
+ON ; A ; BENCH ; IN ; A ; FAR ; CORNER ; WHERE ; A ; DOZEN ; PEOPLE ; HUDDLED ; TOGETHER
+================================================================================
+237-126133-0025, %WER 0.00 [ 0 / 12, 0 ins, 0 del, 0 sub ]
+AT ; LAST ; HE ; CAME ; OUT ; OF ; THEM ; AND ; WIPED ; HIS ; FACE ; VIGOROUSLY
+=  ;  =   ; =  ;  =   ;  =  ; =  ;  =   ;  =  ;   =   ;  =  ;  =   ;     =     
+AT ; LAST ; HE ; CAME ; OUT ; OF ; THEM ; AND ; WIPED ; HIS ; FACE ; VIGOROUSLY
+================================================================================
+4446-2275-0023, %WER 0.00 [ 0 / 9, 0 ins, 0 del, 0 sub ]
+ALEXANDER ; GROANED ; I ; MEANT ; TO ; BUT ; SOMEHOW ; I ; COULDN'T
+    =     ;    =    ; = ;   =   ; =  ;  =  ;    =    ; = ;    =    
+ALEXANDER ; GROANED ; I ; MEANT ; TO ; BUT ; SOMEHOW ; I ; COULDN'T
+================================================================================
+672-122797-0010, %WER 71.43 [ 5 / 7, 1 ins, 0 del, 4 sub ]
+REJOICE ;  IN  ; THY ; GROWTH ; <eps>  ; SAID ; THE ; SUNBEAMS
+   S    ;  S   ;  S  ;   S    ;   I    ;  =   ;  =  ;    =    
+   MY   ; JOYS ; AND ;   MY   ; WARMTH ; SAID ; THE ; SUNBEAMS
+================================================================================
+61-70970-0003, %WER 18.18 [ 2 / 11, 0 ins, 1 del, 1 sub ]
+IF ; FOR ;  A   ;  WHIM ; YOU ; BEGGAR ; YOURSELF ; I ; CANNOT ; STAY ; YOU
+=  ;  =  ;  S   ;   D   ;  =  ;   =    ;    =     ; = ;   =    ;  =   ;  = 
+IF ; FOR ; WHEN ; <eps> ; YOU ; BEGGAR ; YOURSELF ; I ; CANNOT ; STAY ; YOU
+================================================================================
+7176-92135-0003, %WER 7.69 [ 1 / 13, 0 ins, 0 del, 1 sub ]
+YOUR ; PLAY ; MUST ; BE ; NOT ; MERELY ; A ; GOOD ; PLAY ; BUT ; A ; SUCCESSFUL ; ONE
+ S   ;  =   ;  =   ; =  ;  =  ;   =    ; = ;  =   ;  =   ;  =  ; = ;     =      ;  = 
+THE  ; PLAY ; MUST ; BE ; NOT ; MERELY ; A ; GOOD ; PLAY ; BUT ; A ; SUCCESSFUL ; ONE
+================================================================================
+672-122797-0032, %WER 9.09 [ 1 / 11, 0 ins, 0 del, 1 sub ]
+CRIED ; THE ; YOUNG ; LADIES ; AND ; THEY ; QUICKLY ; PUT ; OUT ; THE ; FIRE
+  S   ;  =  ;   =   ;   =    ;  =  ;  =   ;    =    ;  =  ;  =  ;  =  ;  =  
+ I'M  ; THE ; YOUNG ; LADIES ; AND ; THEY ; QUICKLY ; PUT ; OUT ; THE ; FIRE
+================================================================================
+1284-1181-0007, %WER 0.00 [ 0 / 12, 0 ins, 0 del, 0 sub ]
+SHE ; POURED ; INTO ; THE ; DISH ; A ; QUANTITY ; FROM ; EACH ; OF ; THESE ; BOTTLES
+ =  ;   =    ;  =   ;  =  ;  =   ; = ;    =     ;  =   ;  =   ; =  ;   =   ;    =   
+SHE ; POURED ; INTO ; THE ; DISH ; A ; QUANTITY ; FROM ; EACH ; OF ; THESE ; BOTTLES
+================================================================================
+6829-68769-0022, %WER 14.29 [ 2 / 14, 0 ins, 1 del, 1 sub ]
+  WE  ;  HAVE ; HEARD ; SOMETHING ; OF ; YOUR ; STORY ; SAID ; KENNETH ; AND ; ARE ; INTERESTED ; IN ; IT
+  S   ;   D   ;   =   ;     =     ; =  ;  =   ;   =   ;  =   ;    =    ;  =  ;  =  ;     =      ; =  ; = 
+WE'VE ; <eps> ; HEARD ; SOMETHING ; OF ; YOUR ; STORY ; SAID ; KENNETH ; AND ; ARE ; INTERESTED ; IN ; IT
+================================================================================
+5683-32866-0006, %WER 25.00 [ 3 / 12, 0 ins, 0 del, 3 sub ]
+YES ; SO ; THEY ; SAID ; BUT ;  THAT  ; WOULD ; I ; THINK ; HAVE ; BEEN ; WORSE
+ =  ; =  ;  =   ;  =   ;  =  ;   S    ;   S   ; = ;   =   ;  S   ;  =   ;   =  
+YES ; SO ; THEY ; SAID ; BUT ; THAT'S ;  WHAT ; I ; THINK ; I'VE ; BEEN ; WORSE
+================================================================================
+5142-36377-0010, %WER 43.75 [ 7 / 16, 1 ins, 2 del, 4 sub ]
+ HE  ;   IS  ; NOT ; WELL ;  HE  ; HAS ; COME ;  OVER ; THE ; OCEAN ; FOR ; REST ; AND ; <eps> ; CHANGE ; OF ; SCENE
+ S   ;   D   ;  =  ;  =   ;  S   ;  S  ;  S   ;   D   ;  =  ;   =   ;  =  ;  =   ;  =  ;   I   ;   =    ; =  ;   =  
+HE'S ; <eps> ; NOT ; WELL ; HE'S ; OUT ;  OF  ; <eps> ; THE ; OCEAN ; FOR ; REST ; AND ;   A   ; CHANGE ; OF ; SCENE
+================================================================================
+61-70970-0013, %WER 0.00 [ 0 / 15, 0 ins, 0 del, 0 sub ]
+THERE ; WAS ; NO ; CHANCE ; TO ; ALTER ; HIS ; SLEEPING ; ROOM ; TO ; ONE ; NEARER ; TO ; GAMEWELL'S ; CHAMBER
+  =   ;  =  ; =  ;   =    ; =  ;   =   ;  =  ;    =     ;  =   ; =  ;  =  ;   =    ; =  ;     =      ;    =   
+THERE ; WAS ; NO ; CHANCE ; TO ; ALTER ; HIS ; SLEEPING ; ROOM ; TO ; ONE ; NEARER ; TO ; GAMEWELL'S ; CHAMBER
+================================================================================
+1089-134686-0010, %WER 7.14 [ 1 / 14, 0 ins, 0 del, 1 sub ]
+WELL ; NOW ; ENNIS  ; I ; DECLARE ; YOU ; HAVE ; A ; HEAD ; AND ; SO ; HAS ; MY ; STICK
+ =   ;  =  ;   S    ; = ;    =    ;  =  ;  =   ; = ;  =   ;  =  ; =  ;  =  ; =  ;   =  
+WELL ; NOW ; ERNEST ; I ; DECLARE ; YOU ; HAVE ; A ; HEAD ; AND ; SO ; HAS ; MY ; STICK
+================================================================================
+4507-16021-0046, %WER 9.09 [ 1 / 11, 0 ins, 0 del, 1 sub ]
+EACH ; DAY ; HAS ; ITS ; OWN ; GREAT ; GRIEF ;  OR ; ITS ; LITTLE ; CARE
+ =   ;  =  ;  =  ;  =  ;  =  ;   =   ;   =   ;  S  ;  =  ;   =    ;  =  
+EACH ; DAY ; HAS ; ITS ; OWN ; GREAT ; GRIEF ; FOR ; ITS ; LITTLE ; CARE
+================================================================================
+1995-1826-0002, %WER 0.00 [ 0 / 12, 0 ins, 0 del, 0 sub ]
+JOHN ; TAYLOR ; WHO ; HAD ; SUPPORTED ; HER ; THROUGH ; COLLEGE ; WAS ; INTERESTED ; IN ; COTTON
+ =   ;   =    ;  =  ;  =  ;     =     ;  =  ;    =    ;    =    ;  =  ;     =      ; =  ;   =   
+JOHN ; TAYLOR ; WHO ; HAD ; SUPPORTED ; HER ; THROUGH ; COLLEGE ; WAS ; INTERESTED ; IN ; COTTON
+================================================================================
+3570-5695-0010, %WER 0.00 [ 0 / 14, 0 ins, 0 del, 0 sub ]
+THE ; MODERN ; ORGANIZATION ; OF ; INDUSTRY ; WORKS ; IN ; THE ; SAME ; DIRECTION ; ALSO ; BY ; ANOTHER ; LINE
+ =  ;   =    ;      =       ; =  ;    =     ;   =   ; =  ;  =  ;  =   ;     =     ;  =   ; =  ;    =    ;  =  
+THE ; MODERN ; ORGANIZATION ; OF ; INDUSTRY ; WORKS ; IN ; THE ; SAME ; DIRECTION ; ALSO ; BY ; ANOTHER ; LINE
+================================================================================
+4992-23283-0008, %WER 0.00 [ 0 / 14, 0 ins, 0 del, 0 sub ]
+HE ; SEEMED ; TO ; WAIT ; FOR ; HER ; REPLY ; BUT ; AS ; SHE ; MADE ; NONE ; HE ; PROCEEDED
+=  ;   =    ; =  ;  =   ;  =  ;  =  ;   =   ;  =  ; =  ;  =  ;  =   ;  =   ; =  ;     =    
+HE ; SEEMED ; TO ; WAIT ; FOR ; HER ; REPLY ; BUT ; AS ; SHE ; MADE ; NONE ; HE ; PROCEEDED
+================================================================================
+7176-88083-0012, %WER 0.00 [ 0 / 14, 0 ins, 0 del, 0 sub ]
+THE ; HAWK ; ALIGHTED ; ON ; THE ; DEAD ; BRANCH ; AND ; SAT ; UPRIGHT ; MOTIONLESS ; AS ; IF ; SURPRISED
+ =  ;  =   ;    =     ; =  ;  =  ;  =   ;   =    ;  =  ;  =  ;    =    ;     =      ; =  ; =  ;     =    
+THE ; HAWK ; ALIGHTED ; ON ; THE ; DEAD ; BRANCH ; AND ; SAT ; UPRIGHT ; MOTIONLESS ; AS ; IF ; SURPRISED
+================================================================================
+260-123288-0001, %WER 8.33 [ 1 / 12, 0 ins, 0 del, 1 sub ]
+THE ; WEATHER ; IF ; WE ; MAY ; USE ; THAT ; TERM ; WILL ; CHANGE ; BEFORE ; LONG
+ =  ;    =    ; =  ; =  ;  =  ;  =  ;  S   ;  =   ;  =   ;   =    ;   =    ;  =  
+THE ; WEATHER ; IF ; WE ; MAY ; USE ; THE  ; TERM ; WILL ; CHANGE ; BEFORE ; LONG
+================================================================================
+61-70970-0027, %WER 0.00 [ 0 / 13, 0 ins, 0 del, 0 sub ]
+ROBIN ; CAREFULLY ; DESCENDED ; THE ; LADDER ; AND ; FOUND ; HIMSELF ; SOON ; UPON ; FIRM ; ROCKY ; GROUND
+  =   ;     =     ;     =     ;  =  ;   =    ;  =  ;   =   ;    =    ;  =   ;  =   ;  =   ;   =   ;   =   
+ROBIN ; CAREFULLY ; DESCENDED ; THE ; LADDER ; AND ; FOUND ; HIMSELF ; SOON ; UPON ; FIRM ; ROCKY ; GROUND
+================================================================================
+908-157963-0016, %WER 33.33 [ 4 / 12, 1 ins, 0 del, 3 sub ]
+ I   ;  PASS  ; AWAY ; YET ; I ; COMPLAIN ; <eps> ; AND ; NO ; ONE ; HEARS ; MY ; VOICE
+ S   ;   S    ;  =   ;  =  ; = ;    S     ;   I   ;  =  ; =  ;  =  ;   =   ; =  ;   =  
+I'VE ; PASSED ; AWAY ; YET ; I ;  CAN'T   ;  PLAY ; AND ; NO ; ONE ; HEARS ; MY ; VOICE
+================================================================================
+7127-75947-0029, %WER 0.00 [ 0 / 10, 0 ins, 0 del, 0 sub ]
+THE ; YOUNG ; GIRLS ; HAD ; INDEED ; MADE ; THEMSELVES ; SMALL ; INDEED ; INVISIBLE
+ =  ;   =   ;   =   ;  =  ;   =    ;  =   ;     =      ;   =   ;   =    ;     =    
+THE ; YOUNG ; GIRLS ; HAD ; INDEED ; MADE ; THEMSELVES ; SMALL ; INDEED ; INVISIBLE
+================================================================================
+4507-16021-0037, %WER 10.00 [ 1 / 10, 0 ins, 0 del, 1 sub ]
+THERE ; IT ; CLOTHES ; ITSELF ; IN ; WORD ; MASKS ; IN ; METAPHOR ; RAGS
+  =   ; =  ;    S    ;   =    ; =  ;  =   ;   =   ; =  ;    =     ;  =  
+THERE ; IT ;  CLOTHS ; ITSELF ; IN ; WORD ; MASKS ; IN ; METAPHOR ; RAGS
+================================================================================
+121-127105-0011, %WER 10.00 [ 2 / 20, 1 ins, 0 del, 1 sub ]
+SHE ; WAS ; THE ; MOST ; AGREEABLE ; WOMAN ; I'VE ; <eps> ; EVER ; KNOWN ; IN ; HER ; POSITION ; SHE ; WOULD ; HAVE ; BEEN ; WORTHY ; OF ; ANY ; WHATEVER
+ =  ;  =  ;  =  ;  =   ;     =     ;   =   ;  S   ;   I   ;  =   ;   =   ; =  ;  =  ;    =     ;  =  ;   =   ;  =   ;  =   ;   =    ; =  ;  =  ;    =    
+SHE ; WAS ; THE ; MOST ; AGREEABLE ; WOMAN ;  I   ;  HAVE ; EVER ; KNOWN ; IN ; HER ; POSITION ; SHE ; WOULD ; HAVE ; BEEN ; WORTHY ; OF ; ANY ; WHATEVER
+================================================================================
+260-123286-0023, %WER 0.00 [ 0 / 19, 0 ins, 0 del, 0 sub ]
+THE ; RAFT ; WAS ; HEAVED ; UP ; ON ; A ; WATERY ; MOUNTAIN ; AND ; PITCHED ; DOWN ; AGAIN ; AT ; A ; DISTANCE ; OF ; TWENTY ; FATHOMS
+ =  ;  =   ;  =  ;   =    ; =  ; =  ; = ;   =    ;    =     ;  =  ;    =    ;  =   ;   =   ; =  ; = ;    =     ; =  ;   =    ;    =   
+THE ; RAFT ; WAS ; HEAVED ; UP ; ON ; A ; WATERY ; MOUNTAIN ; AND ; PITCHED ; DOWN ; AGAIN ; AT ; A ; DISTANCE ; OF ; TWENTY ; FATHOMS
+================================================================================
+7021-79740-0006, %WER 13.33 [ 2 / 15, 1 ins, 0 del, 1 sub ]
+I ; EXPECT ; YOU ; HAVE ; BEEN ; A ; VERY ; GOOD ; GIRL ; ANDELLA ; <eps> ; SINCE ; YOU ; WERE ; HERE ; LAST
+= ;   =    ;  =  ;  =   ;  =   ; = ;  =   ;  =   ;  =   ;    S    ;   I   ;   =   ;  =  ;  =   ;  =   ;  =  
+I ; EXPECT ; YOU ; HAVE ; BEEN ; A ; VERY ; GOOD ; GIRL ;   AND   ;  ELLA ; SINCE ; YOU ; WERE ; HERE ; LAST
+================================================================================
+7127-75947-0003, %WER 0.00 [ 0 / 15, 0 ins, 0 del, 0 sub ]
+YES ; THE ; CHARACTER ; WHICH ; YOUR ; ROYAL ; HIGHNESS ; ASSUMED ; IS ; IN ; PERFECT ; HARMONY ; WITH ; YOUR ; OWN
+ =  ;  =  ;     =     ;   =   ;  =   ;   =   ;    =     ;    =    ; =  ; =  ;    =    ;    =    ;  =   ;  =   ;  = 
+YES ; THE ; CHARACTER ; WHICH ; YOUR ; ROYAL ; HIGHNESS ; ASSUMED ; IS ; IN ; PERFECT ; HARMONY ; WITH ; YOUR ; OWN
+================================================================================
+2961-961-0020, %WER 0.00 [ 0 / 17, 0 ins, 0 del, 0 sub ]
+THIS ; IS ; THE ; EXPLANATION ; OF ; THE ; SHALLOWS ; WHICH ; ARE ; FOUND ; IN ; THAT ; PART ; OF ; THE ; ATLANTIC ; OCEAN
+ =   ; =  ;  =  ;      =      ; =  ;  =  ;    =     ;   =   ;  =  ;   =   ; =  ;  =   ;  =   ; =  ;  =  ;    =     ;   =  
+THIS ; IS ; THE ; EXPLANATION ; OF ; THE ; SHALLOWS ; WHICH ; ARE ; FOUND ; IN ; THAT ; PART ; OF ; THE ; ATLANTIC ; OCEAN
+================================================================================
+1580-141083-0002, %WER 0.00 [ 0 / 18, 0 ins, 0 del, 0 sub ]
+MY ; FRIEND'S ; TEMPER ; HAD ; NOT ; IMPROVED ; SINCE ; HE ; HAD ; BEEN ; DEPRIVED ; OF ; THE ; CONGENIAL ; SURROUNDINGS ; OF ; BAKER ; STREET
+=  ;    =     ;   =    ;  =  ;  =  ;    =     ;   =   ; =  ;  =  ;  =   ;    =     ; =  ;  =  ;     =     ;      =       ; =  ;   =   ;   =   
+MY ; FRIEND'S ; TEMPER ; HAD ; NOT ; IMPROVED ; SINCE ; HE ; HAD ; BEEN ; DEPRIVED ; OF ; THE ; CONGENIAL ; SURROUNDINGS ; OF ; BAKER ; STREET
+================================================================================
+1995-1826-0017, %WER 0.00 [ 0 / 19, 0 ins, 0 del, 0 sub ]
+THERE ; MIGHT ; BE ; A ; BIT ; OF ; POETRY ; HERE ; AND ; THERE ; BUT ; MOST ; OF ; THIS ; PLACE ; WAS ; SUCH ; DESPERATE ; PROSE
+  =   ;   =   ; =  ; = ;  =  ; =  ;   =    ;  =   ;  =  ;   =   ;  =  ;  =   ; =  ;  =   ;   =   ;  =  ;  =   ;     =     ;   =  
+THERE ; MIGHT ; BE ; A ; BIT ; OF ; POETRY ; HERE ; AND ; THERE ; BUT ; MOST ; OF ; THIS ; PLACE ; WAS ; SUCH ; DESPERATE ; PROSE
+================================================================================
+5105-28240-0019, %WER 0.00 [ 0 / 18, 0 ins, 0 del, 0 sub ]
+MY ; YACHT ; IS ; AT ; YOUR ; SERVICE ; SIR ; EVEN ; SHOULD ; YOU ; REQUIRE ; TO ; MAKE ; A ; TOUR ; ROUND ; THE ; WORLD
+=  ;   =   ; =  ; =  ;  =   ;    =    ;  =  ;  =   ;   =    ;  =  ;    =    ; =  ;  =   ; = ;  =   ;   =   ;  =  ;   =  
+MY ; YACHT ; IS ; AT ; YOUR ; SERVICE ; SIR ; EVEN ; SHOULD ; YOU ; REQUIRE ; TO ; MAKE ; A ; TOUR ; ROUND ; THE ; WORLD
+================================================================================
+672-122797-0007, %WER 7.14 [ 1 / 14, 0 ins, 0 del, 1 sub ]
+IN ; AUTUMN ; THE ; WOOD ; CUTTERS ; ALWAYS ; CAME ; AND ; FELLED ; SOME ; OF ; THE ; LARGEST ; TREES
+=  ;   =    ;  =  ;  =   ;    =    ;   =    ;  =   ;  =  ;   S    ;  =   ; =  ;  =  ;    =    ;   =  
+IN ; AUTUMN ; THE ; WOOD ; CUTTERS ; ALWAYS ; CAME ; AND ;  FELL  ; SOME ; OF ; THE ; LARGEST ; TREES
+================================================================================
+4970-29095-0032, %WER 38.89 [ 7 / 18, 2 ins, 0 del, 5 sub ]
+ BUT  ; PHILIP ; IS ; HONEST ; <eps> ; AND ; HE ; HAS ; TALENT ; ENOUGH ; IF ; HE ; WILL ; STOP ; SCRIBBLING ; TO ; MAKE ; HIS ; WAY ; <eps>
+  S   ;   S    ; S  ;   S    ;   I   ;  =  ; =  ;  =  ;   S    ;   =    ; =  ; =  ;  =   ;  =   ;     =      ; =  ;  =   ;  =  ;  =  ;   I  
+LET'S ;  FILL  ; UP ;  HIS   ;  EYES ; AND ; HE ; HAS ;  TIME  ; ENOUGH ; IF ; HE ; WILL ; STOP ; SCRIBBLING ; TO ; MAKE ; HIS ; WAY ;   IN 
+================================================================================
+8463-287645-0013, %WER 0.00 [ 0 / 18, 0 ins, 0 del, 0 sub ]
+AS ; TO ; HIS ; AGE ; AND ; ALSO ; THE ; NAME ; OF ; HIS ; MASTER ; JACOB'S ; STATEMENT ; VARIED ; SOMEWHAT ; FROM ; THE ; ADVERTISEMENT
+=  ; =  ;  =  ;  =  ;  =  ;  =   ;  =  ;  =   ; =  ;  =  ;   =    ;    =    ;     =     ;   =    ;    =     ;  =   ;  =  ;       =      
+AS ; TO ; HIS ; AGE ; AND ; ALSO ; THE ; NAME ; OF ; HIS ; MASTER ; JACOB'S ; STATEMENT ; VARIED ; SOMEWHAT ; FROM ; THE ; ADVERTISEMENT
+================================================================================
+1089-134686-0008, %WER 6.67 [ 1 / 15, 0 ins, 0 del, 1 sub ]
+THE ; CHAOS ; IN ; WHICH ; HIS ; ARDOUR ; EXTINGUISHED ; ITSELF ; WAS ; A ; COLD ; INDIFFERENT ; KNOWLEDGE ; OF ; HIMSELF
+ =  ;   =   ; =  ;   =   ;  =  ;   S    ;      =       ;   =    ;  =  ; = ;  =   ;      =      ;     =     ; =  ;    =   
+THE ; CHAOS ; IN ; WHICH ; HIS ; ARDOR  ; EXTINGUISHED ; ITSELF ; WAS ; A ; COLD ; INDIFFERENT ; KNOWLEDGE ; OF ; HIMSELF
+================================================================================
+5683-32879-0007, %WER 0.00 [ 0 / 14, 0 ins, 0 del, 0 sub ]
+RACHEL'S ; PALE ; AND ; SHARPENED ; FEATURES ; AND ; DILATED ; EYE ; STRUCK ; HER ; WITH ; A ; PAINFUL ; SURPRISE
+   =     ;  =   ;  =  ;     =     ;    =     ;  =  ;    =    ;  =  ;   =    ;  =  ;  =   ; = ;    =    ;    =    
+RACHEL'S ; PALE ; AND ; SHARPENED ; FEATURES ; AND ; DILATED ; EYE ; STRUCK ; HER ; WITH ; A ; PAINFUL ; SURPRISE
+================================================================================
+1580-141083-0012, %WER 0.00 [ 0 / 27, 0 ins, 0 del, 0 sub ]
+NOT ; ONLY ; THIS ; BUT ; ON ; THE ; TABLE ; I ; FOUND ; A ; SMALL ; BALL ; OF ; BLACK ; DOUGH ; OR ; CLAY ; WITH ; SPECKS ; OF ; SOMETHING ; WHICH ; LOOKS ; LIKE ; SAWDUST ; IN ; IT
+ =  ;  =   ;  =   ;  =  ; =  ;  =  ;   =   ; = ;   =   ; = ;   =   ;  =   ; =  ;   =   ;   =   ; =  ;  =   ;  =   ;   =    ; =  ;     =     ;   =   ;   =   ;  =   ;    =    ; =  ; = 
+NOT ; ONLY ; THIS ; BUT ; ON ; THE ; TABLE ; I ; FOUND ; A ; SMALL ; BALL ; OF ; BLACK ; DOUGH ; OR ; CLAY ; WITH ; SPECKS ; OF ; SOMETHING ; WHICH ; LOOKS ; LIKE ; SAWDUST ; IN ; IT
+================================================================================
+8555-284447-0023, %WER 41.67 [ 10 / 24, 1 ins, 1 del, 8 sub ]
+<eps> ; I ; COULDN'T ; SHIVER ; MUCH ;  BEIN ; BOUND ; SO ; TIGHT ; BUT ;  WHEN ;  I'M  ; LOOSE ;    I     ;  MEAN ; TO ; HAVE ; JUS  ; ONE ; GOOD ; SHIVER ; TO ; RELIEVE ; MY ; FEELIN'S
+  I   ; = ;    S     ;   =    ;  =   ;   S   ;   =   ; =  ;   =   ;  =  ;   S   ;   S   ;   S   ;    S     ;   D   ; =  ;  =   ;  S   ;  =  ;  =   ;   =    ; =  ;    =    ; =  ;    S    
+ BUT  ; I ;  DIDN'T  ; SHIVER ; MUCH ; BEING ; BOUND ; SO ; TIGHT ; BUT ; THERE ; AIN'T ;  ANY  ; SOUNDING ; <eps> ; TO ; HAVE ; JUST ; ONE ; GOOD ; SHIVER ; TO ; RELIEVE ; MY ; FEELINGS
+================================================================================
+8455-210777-0013, %WER 0.00 [ 0 / 23, 0 ins, 0 del, 0 sub ]
+JACK ; HAD ; BEEN ; STANDING ; IN ; THE ; FAR ; CORNER ; OF ; THE ; ROOM ; TALKING ; TO ; EVA ; AND ; WAS ; NOW ; REDUCED ; TO ; SILENCE ; BY ; HIS ; PRAISES
+ =   ;  =  ;  =   ;    =     ; =  ;  =  ;  =  ;   =    ; =  ;  =  ;  =   ;    =    ; =  ;  =  ;  =  ;  =  ;  =  ;    =    ; =  ;    =    ; =  ;  =  ;    =   
+JACK ; HAD ; BEEN ; STANDING ; IN ; THE ; FAR ; CORNER ; OF ; THE ; ROOM ; TALKING ; TO ; EVA ; AND ; WAS ; NOW ; REDUCED ; TO ; SILENCE ; BY ; HIS ; PRAISES
+================================================================================
+8230-279154-0006, %WER 10.00 [ 2 / 20, 0 ins, 0 del, 2 sub ]
+THE ; BEHAVIOURIST ; WHO ; ATTEMPTS ; TO ; MAKE ; PSYCHOLOGY ; A ; RECORD ; OF ; BEHAVIOUR ; HAS ; TO ; TRUST ; HIS ; MEMORY ; IN ; MAKING ; THE ; RECORD
+ =  ;      S       ;  =  ;    =     ; =  ;  =   ;     =      ; = ;   =    ; =  ;     S     ;  =  ; =  ;   =   ;  =  ;   =    ; =  ;   =    ;  =  ;   =   
+THE ; BEHAVIORIST  ; WHO ; ATTEMPTS ; TO ; MAKE ; PSYCHOLOGY ; A ; RECORD ; OF ;  BEHAVIOR ; HAS ; TO ; TRUST ; HIS ; MEMORY ; IN ; MAKING ; THE ; RECORD
+================================================================================
+672-122797-0061, %WER 20.00 [ 3 / 15, 0 ins, 0 del, 3 sub ]
+DON'T ; YOU ; KNOW ; ONE ; ABOUT ; BACON ; AND ; TALLOW ; CANDLES ; CAN'T ; YOU ; TELL ; ANY ;  LARDER  ; STORIES
+  =   ;  =  ;  =   ;  =  ;   =   ;   =   ;  =  ;   =    ;    S    ;   =   ;  =  ;  =   ;  =  ;    S     ;    S   
+DON'T ; YOU ; KNOW ; ONE ; ABOUT ; BACON ; AND ; TALLOW ; KENNELS ; CAN'T ; YOU ; TELL ; ANY ; LARDER'S ;  NOISE 
+================================================================================
+7729-102255-0036, %WER 0.00 [ 0 / 21, 0 ins, 0 del, 0 sub ]
+HE ; PLANTED ; A ; COMPANY ; BEFORE ; THE ; HOTEL ; AND ; DEMANDED ; A ; SURRENDER ; OF ; THE ; ARMS ; BELONGING ; TO ; THE ; FREE ; STATE ; MILITARY ; COMPANIES
+=  ;    =    ; = ;    =    ;   =    ;  =  ;   =   ;  =  ;    =     ; = ;     =     ; =  ;  =  ;  =   ;     =     ; =  ;  =  ;  =   ;   =   ;    =     ;     =    
+HE ; PLANTED ; A ; COMPANY ; BEFORE ; THE ; HOTEL ; AND ; DEMANDED ; A ; SURRENDER ; OF ; THE ; ARMS ; BELONGING ; TO ; THE ; FREE ; STATE ; MILITARY ; COMPANIES
+================================================================================
+2961-960-0016, %WER 22.22 [ 4 / 18, 0 ins, 0 del, 4 sub ]
+BUT ; PLATO ; HAS ; NOT ; THE ; SAME ; MASTERY ; OVER ; HIS ; INSTRUMENT ; WHICH ; HE ; EXHIBITS ; IN ; THE ; PHAEDRUS ; OR ; SYMPOSIUM
+ =  ;   =   ;  =  ;  =  ;  =  ;  =   ;    =    ;  =   ;  =  ;     S      ;   =   ; =  ;    =     ; =  ;  =  ;    S     ; S  ;     S    
+BUT ; PLATO ; HAS ; NOT ; THE ; SAME ; MASTERY ; OVER ; HIS ; COUNTRYMEN ; WHICH ; HE ; EXHIBITS ; IN ; THE ; FEATURES ; OF ; SEBASTIAN
+================================================================================
+8463-294828-0031, %WER 7.69 [ 2 / 26, 1 ins, 0 del, 1 sub ]
+ONE ; OF ; THE ; SAILORS ; LED ; ME ; TO ; THE ; AFTERDECK ; <eps> ; WHERE ; I ; STOOD ; IN ; THE ; PRESENCE ; OF ; A ; SMART ; LOOKING ; OFFICER ; WHO ; EXTENDED ; HIS ; HAND ; TO ; ME
+ =  ; =  ;  =  ;    =    ;  =  ; =  ; =  ;  =  ;     S     ;   I   ;   =   ; = ;   =   ; =  ;  =  ;    =     ; =  ; = ;   =   ;    =    ;    =    ;  =  ;    =     ;  =  ;  =   ; =  ; = 
+ONE ; OF ; THE ; SAILORS ; LED ; ME ; TO ; THE ;   AFTER   ;  DECK ; WHERE ; I ; STOOD ; IN ; THE ; PRESENCE ; OF ; A ; SMART ; LOOKING ; OFFICER ; WHO ; EXTENDED ; HIS ; HAND ; TO ; ME
+================================================================================
+8455-210777-0004, %WER 4.17 [ 1 / 24, 0 ins, 0 del, 1 sub ]
+I ; HAVE ; COME ; TO ; YOUR ; SHORES ; MISTER ; PRESIDENT ; WITH ; THE ; PURPOSE ; OF ; SEEING ; HOW ; THINGS ; ARE ; PROGRESSING ; IN ; THIS ; DISTANT ; QUARTER ; OF ; THE ; WORLD
+= ;  =   ;  =   ; =  ;  =   ;   =    ;   =    ;     =     ;  =   ;  =  ;    =    ; =  ;   =    ;  =  ;   =    ;  =  ;      =      ; =  ;  =   ;    =    ;    S    ; =  ;  =  ;   =  
+I ; HAVE ; COME ; TO ; YOUR ; SHORES ; MISTER ; PRESIDENT ; WITH ; THE ; PURPOSE ; OF ; SEEING ; HOW ; THINGS ; ARE ; PROGRESSING ; IN ; THIS ; DISTANT ;  CORNER ; OF ; THE ; WORLD
+================================================================================
+1284-1180-0000, %WER 0.00 [ 0 / 24, 0 ins, 0 del, 0 sub ]
+HE ; WORE ; BLUE ; SILK ; STOCKINGS ; BLUE ; KNEE ; PANTS ; WITH ; GOLD ; BUCKLES ; A ; BLUE ; RUFFLED ; WAIST ; AND ; A ; JACKET ; OF ; BRIGHT ; BLUE ; BRAIDED ; WITH ; GOLD
+=  ;  =   ;  =   ;  =   ;     =     ;  =   ;  =   ;   =   ;  =   ;  =   ;    =    ; = ;  =   ;    =    ;   =   ;  =  ; = ;   =    ; =  ;   =    ;  =   ;    =    ;  =   ;  =  
+HE ; WORE ; BLUE ; SILK ; STOCKINGS ; BLUE ; KNEE ; PANTS ; WITH ; GOLD ; BUCKLES ; A ; BLUE ; RUFFLED ; WAIST ; AND ; A ; JACKET ; OF ; BRIGHT ; BLUE ; BRAIDED ; WITH ; GOLD
+================================================================================
+1995-1837-0012, %WER 0.00 [ 0 / 24, 0 ins, 0 del, 0 sub ]
+HE ; SPLASHED ; AND ; STAMPED ; ALONG ; FARTHER ; AND ; FARTHER ; ONWARD ; UNTIL ; HE ; NEARED ; THE ; RAMPART ; OF ; THE ; CLEARING ; AND ; PUT ; FOOT ; UPON ; THE ; TREE ; BRIDGE
+=  ;    =     ;  =  ;    =    ;   =   ;    =    ;  =  ;    =    ;   =    ;   =   ; =  ;   =    ;  =  ;    =    ; =  ;  =  ;    =     ;  =  ;  =  ;  =   ;  =   ;  =  ;  =   ;   =   
+HE ; SPLASHED ; AND ; STAMPED ; ALONG ; FARTHER ; AND ; FARTHER ; ONWARD ; UNTIL ; HE ; NEARED ; THE ; RAMPART ; OF ; THE ; CLEARING ; AND ; PUT ; FOOT ; UPON ; THE ; TREE ; BRIDGE
+================================================================================
+5639-40744-0012, %WER 3.85 [ 1 / 26, 0 ins, 0 del, 1 sub ]
+SHE ; SUCCEEDED ; IN ; OPENING ; THE ; WINDOW ; AND ; THE ; MOONLIGHT ; SHONE ; IN ; SO ; BRIGHTLY ; THAT ; SHE ; COULD ; DISTINGUISH ; THE ; COLOUR ; OF ; SOME ; DAMASK ; HANGINGS ; IN ; THE ; ROOM
+ =  ;     =     ; =  ;    =    ;  =  ;   =    ;  =  ;  =  ;     =     ;   =   ; =  ; =  ;    =     ;  =   ;  =  ;   =   ;      =      ;  =  ;   =    ; =  ;  =   ;   =    ;    S     ; =  ;  =  ;  =  
+SHE ; SUCCEEDED ; IN ; OPENING ; THE ; WINDOW ; AND ; THE ; MOONLIGHT ; SHONE ; IN ; SO ; BRIGHTLY ; THAT ; SHE ; COULD ; DISTINGUISH ; THE ; COLOUR ; OF ; SOME ; DAMASK ; HANGING  ; IN ; THE ; ROOM
+================================================================================
+7127-75947-0033, %WER 15.00 [ 3 / 20, 0 ins, 2 del, 1 sub ]
+HOW ; IS ; IT ; LA ; VALLIERE ; SAID ; MADEMOISELLE ;   DE   ; TONNAY ; CHARENTE ; THAT ; THE ; VICOMTE ; DE ; BRAGELONNE ; SPOKE ; OF ; YOU ; AS ; LOUISE
+ =  ; =  ; =  ; =  ;    =     ;  =   ;      =       ;   S    ;   D    ;    D     ;  =   ;  =  ;    =    ; =  ;     =      ;   =   ; =  ;  =  ; =  ;   =   
+HOW ; IS ; IT ; LA ; VALLIERE ; SAID ; MADEMOISELLE ; DEACON ; <eps>  ;  <eps>   ; THAT ; THE ; VICOMTE ; DE ; BRAGELONNE ; SPOKE ; OF ; YOU ; AS ; LOUISE
+================================================================================
+1188-133604-0001, %WER 5.56 [ 1 / 18, 0 ins, 0 del, 1 sub ]
+THEY ; UNITE ; EVERY ; QUALITY ; AND ; SOMETIMES ; YOU ; WILL ; FIND ; ME ; REFERRING ; TO ; THEM ; AS ; COLORISTS ; SOMETIMES ; AS ; CHIAROSCURISTS
+ =   ;   =   ;   =   ;    =    ;  =  ;     =     ;  =  ;  =   ;  =   ; =  ;     =     ; =  ;  =   ; =  ;     =     ;     =     ; =  ;       S       
+THEY ; UNITE ; EVERY ; QUALITY ; AND ; SOMETIMES ; YOU ; WILL ; FIND ; ME ; REFERRING ; TO ; THEM ; AS ; COLORISTS ; SOMETIMES ; AS ;    CURISTS    
+================================================================================
+7021-79740-0002, %WER 9.52 [ 2 / 21, 0 ins, 0 del, 2 sub ]
+NOW ; DELIA  ; CONTRIVED ; TO ; OBTAIN ; A ; GREAT ; INFLUENCE ; AND ; ASCENDENCY ; OVER ; THE ; MINDS ; OF ; THE ; CHILDREN ; BY ; MEANS ; OF ; THESE ; DOLLS
+ =  ;   S    ;     =     ; =  ;   =    ; = ;   =   ;     =     ;  =  ;     =      ;  =   ;  =  ;   =   ; =  ;  =  ;    =     ; =  ;   =   ; =  ;   =   ;   S  
+NOW ; ELLIOT ; CONTRIVED ; TO ; OBTAIN ; A ; GREAT ; INFLUENCE ; AND ; ASCENDENCY ; OVER ; THE ; MINDS ; OF ; THE ; CHILDREN ; BY ; MEANS ; OF ; THESE ;  DOGS
+================================================================================
+8555-284447-0000, %WER 14.81 [ 4 / 27, 0 ins, 1 del, 3 sub ]
+THEN ; HE ; RUSHED ;    DOWN    ; STAIRS ; INTO ; THE ; COURTYARD ; SHOUTING ; LOUDLY ; FOR ; HIS ; SOLDIERS ; AND ; THREATENING ; TO ; PATCH ; EVERYBODY ; IN ; HIS ; DOMINIONS ; IF ; THE ; SAILORMAN ; WAS ; NOT ; RECAPTURED
+ =   ; =  ;   =    ;     S      ;   D    ;  =   ;  =  ;     =     ;    =     ;   =    ;  =  ;  =  ;    =     ;  =  ;      =      ; =  ;   S   ;     =     ; =  ;  =  ;     =     ; =  ;  =  ;     S     ;  =  ;  =  ;     =     
+THEN ; HE ; RUSHED ; DOWNSTAIRS ; <eps>  ; INTO ; THE ; COURTYARD ; SHOUTING ; LOUDLY ; FOR ; HIS ; SOLDIERS ; AND ; THREATENING ; TO ; CATCH ; EVERYBODY ; IN ; HIS ; DOMINIONS ; IF ; THE ;  CYLINDER ; WAS ; NOT ; RECAPTURED
+================================================================================
+1089-134686-0005, %WER 0.00 [ 0 / 22, 0 ins, 0 del, 0 sub ]
+THE ; MUSIC ; CAME ; NEARER ; AND ; HE ; RECALLED ; THE ; WORDS ; THE ; WORDS ; OF ; SHELLEY'S ; FRAGMENT ; UPON ; THE ; MOON ; WANDERING ; COMPANIONLESS ; PALE ; FOR ; WEARINESS
+ =  ;   =   ;  =   ;   =    ;  =  ; =  ;    =     ;  =  ;   =   ;  =  ;   =   ; =  ;     =     ;    =     ;  =   ;  =  ;  =   ;     =     ;       =       ;  =   ;  =  ;     =    
+THE ; MUSIC ; CAME ; NEARER ; AND ; HE ; RECALLED ; THE ; WORDS ; THE ; WORDS ; OF ; SHELLEY'S ; FRAGMENT ; UPON ; THE ; MOON ; WANDERING ; COMPANIONLESS ; PALE ; FOR ; WEARINESS
+================================================================================
+2961-960-0020, %WER 0.00 [ 0 / 21, 0 ins, 0 del, 0 sub ]
+AND ; HENCE ; WE ; FIND ; THE ; SAME ; SORT ; OF ; CLUMSINESS ; IN ; THE ; TIMAEUS ; OF ; PLATO ; WHICH ; CHARACTERIZES ; THE ; PHILOSOPHICAL ; POEM ; OF ; LUCRETIUS
+ =  ;   =   ; =  ;  =   ;  =  ;  =   ;  =   ; =  ;     =      ; =  ;  =  ;    =    ; =  ;   =   ;   =   ;       =       ;  =  ;       =       ;  =   ; =  ;     =    
+AND ; HENCE ; WE ; FIND ; THE ; SAME ; SORT ; OF ; CLUMSINESS ; IN ; THE ; TIMAEUS ; OF ; PLATO ; WHICH ; CHARACTERIZES ; THE ; PHILOSOPHICAL ; POEM ; OF ; LUCRETIUS
+================================================================================
+237-134493-0016, %WER 13.33 [ 4 / 30, 1 ins, 0 del, 3 sub ]
+ON ; EITHER ; SIDE ; OF ; THE ; ROAD ; FOR ; A ; MILE ; BEFORE ; YOU ; REACHED ; THE ; FOOT ; OF ; THE ; HILL ; STOOD ; TALL ; OSAGE ; ORANGE ; HEDGES ;  <eps>  ; THEIR ; GLOSSY ; GREEN ; MARKING ; OFF ; THE ; YELLOW ; FIELDS
+=  ;   =    ;  =   ; =  ;  =  ;  =   ;  =  ; = ;  =   ;   =    ;  =  ;    =    ;  =  ;  =   ; =  ;  =  ;  =   ;   =   ;  =   ;   S   ;   S    ;   S    ;    I    ;   =   ;   =    ;   =   ;    =    ;  =  ;  =  ;   =    ;   =   
+ON ; EITHER ; SIDE ; OF ; THE ; ROAD ; FOR ; A ; MILE ; BEFORE ; YOU ; REACHED ; THE ; FOOT ; OF ; THE ; HILL ; STOOD ; TALL ;   OF  ;  SAGE  ;   OR   ; INCHEDS ; THEIR ; GLOSSY ; GREEN ; MARKING ; OFF ; THE ; YELLOW ; FIELDS
+================================================================================
+1320-122612-0010, %WER 3.57 [ 1 / 28, 0 ins, 0 del, 1 sub ]
+SEE ; SAID ; UNCAS ; POINTING ; NORTH ; AND ; SOUTH ; AT ; THE ; EVIDENT ; MARKS ; OF ; THE ; BROAD ; TRAIL ; ON ; EITHER ; SIDE ; OF ; HIM ; THE ; DARK ; HAIR ; HAS ; GONE ;  TOWARD ; THE ; FOREST
+ =  ;  =   ;   =   ;    =     ;   =   ;  =  ;   =   ; =  ;  =  ;    =    ;   =   ; =  ;  =  ;   =   ;   =   ; =  ;   =    ;  =   ; =  ;  =  ;  =  ;  =   ;  =   ;  =  ;  =   ;    S    ;  =  ;   =   
+SEE ; SAID ; UNCAS ; POINTING ; NORTH ; AND ; SOUTH ; AT ; THE ; EVIDENT ; MARKS ; OF ; THE ; BROAD ; TRAIL ; ON ; EITHER ; SIDE ; OF ; HIM ; THE ; DARK ; HAIR ; HAS ; GONE ; TOWARDS ; THE ; FOREST
+================================================================================
+1320-122612-0012, %WER 0.00 [ 0 / 30, 0 ins, 0 del, 0 sub ]
+EXTINGUISHED ; BRANDS ; WERE ; LYING ; AROUND ; A ; SPRING ; THE ; OFFALS ; OF ; A ; DEER ; WERE ; SCATTERED ; ABOUT ; THE ; PLACE ; AND ; THE ; TREES ; BORE ; EVIDENT ; MARKS ; OF ; HAVING ; BEEN ; BROWSED ; BY ; THE ; HORSES
+     =       ;   =    ;  =   ;   =   ;   =    ; = ;   =    ;  =  ;   =    ; =  ; = ;  =   ;  =   ;     =     ;   =   ;  =  ;   =   ;  =  ;  =  ;   =   ;  =   ;    =    ;   =   ; =  ;   =    ;  =   ;    =    ; =  ;  =  ;   =   
+EXTINGUISHED ; BRANDS ; WERE ; LYING ; AROUND ; A ; SPRING ; THE ; OFFALS ; OF ; A ; DEER ; WERE ; SCATTERED ; ABOUT ; THE ; PLACE ; AND ; THE ; TREES ; BORE ; EVIDENT ; MARKS ; OF ; HAVING ; BEEN ; BROWSED ; BY ; THE ; HORSES
+================================================================================
+1284-1180-0008, %WER 2.70 [ 1 / 37, 0 ins, 0 del, 1 sub ]
+ALL ; THE ; MORNING ; THEY ; TRUDGED ; UP ; THE ; MOUNTAIN ; PATH ; AND ; AT ; NOON ; UNC ; AND ; OJO ; SAT ; ON ;  A  ; FALLEN ; TREE ; TRUNK ; AND ; ATE ; THE ; LAST ; OF ; THE ; BREAD ; WHICH ; THE ; OLD ; MUNCHKIN ; HAD ; PLACED ; IN ; HIS ; POCKET
+ =  ;  =  ;    =    ;  =   ;    =    ; =  ;  =  ;    =     ;  =   ;  =  ; =  ;  =   ;  =  ;  =  ;  =  ;  =  ; =  ;  S  ;   =    ;  =   ;   =   ;  =  ;  =  ;  =  ;  =   ; =  ;  =  ;   =   ;   =   ;  =  ;  =  ;    =     ;  =  ;   =    ; =  ;  =  ;   =   
+ALL ; THE ; MORNING ; THEY ; TRUDGED ; UP ; THE ; MOUNTAIN ; PATH ; AND ; AT ; NOON ; UNC ; AND ; OJO ; SAT ; ON ; THE ; FALLEN ; TREE ; TRUNK ; AND ; ATE ; THE ; LAST ; OF ; THE ; BREAD ; WHICH ; THE ; OLD ; MUNCHKIN ; HAD ; PLACED ; IN ; HIS ; POCKET
+================================================================================
+672-122797-0025, %WER 6.25 [ 2 / 32, 0 ins, 1 del, 1 sub ]
+THE ; TREE ; ONLY ; CAME ; TO ; HIMSELF ; WHEN ; HE ; WAS ; UNLOADED ; IN ; A ;   COURT   ;  YARD ; WITH ; THE ; OTHER ; TREES ; AND ; HEARD ; A ; MAN ; SAY ; THAT ; ONE ; IS ; SPLENDID ; WE ; DON'T ; WANT ; THE ; OTHERS
+ =  ;  =   ;  =   ;  =   ; =  ;    =    ;  =   ; =  ;  =  ;    =     ; =  ; = ;     S     ;   D   ;  =   ;  =  ;   =   ;   =   ;  =  ;   =   ; = ;  =  ;  =  ;  =   ;  =  ; =  ;    =     ; =  ;   =   ;  =   ;  =  ;   =   
+THE ; TREE ; ONLY ; CAME ; TO ; HIMSELF ; WHEN ; HE ; WAS ; UNLOADED ; IN ; A ; COURTYARD ; <eps> ; WITH ; THE ; OTHER ; TREES ; AND ; HEARD ; A ; MAN ; SAY ; THAT ; ONE ; IS ; SPLENDID ; WE ; DON'T ; WANT ; THE ; OTHERS
+================================================================================
+1320-122617-0013, %WER 3.23 [ 1 / 31, 0 ins, 0 del, 1 sub ]
+DELIVERED ; IN ; A ; STRONG ; TONE ; OF ; ASSENT ; ANNOUNCED ; THE ; GRATIFICATION ; THE ; SAVAGE ; WOULD ; RECEIVE ; IN ; WITNESSING ; SUCH ; AN ; EXHIBITION ; OF ; WEAKNESS ;  IN ; AN ; ENEMY ; SO ; LONG ; HATED ; AND ; SO ; MUCH ; FEARED
+    =     ; =  ; = ;   =    ;  =   ; =  ;   =    ;     =     ;  =  ;       =       ;  =  ;   =    ;   =   ;    =    ; =  ;     =      ;  =   ; =  ;     =      ; =  ;    =     ;  S  ; =  ;   =   ; =  ;  =   ;   =   ;  =  ; =  ;  =   ;   =   
+DELIVERED ; IN ; A ; STRONG ; TONE ; OF ; ASSENT ; ANNOUNCED ; THE ; GRATIFICATION ; THE ; SAVAGE ; WOULD ; RECEIVE ; IN ; WITNESSING ; SUCH ; AN ; EXHIBITION ; OF ; WEAKNESS ; AND ; AN ; ENEMY ; SO ; LONG ; HATED ; AND ; SO ; MUCH ; FEARED
+================================================================================
+237-134500-0012, %WER 6.45 [ 2 / 31, 0 ins, 0 del, 2 sub ]
+IN ; A ; FEW ; MOMENTS ; HE ; HEARD ; THE ; CHERRIES ; DROPPING ; SMARTLY ; INTO ; THE ; PAIL ; AND ; HE ; BEGAN ; TO ; SWING ; HIS ; SCYTHE ; WITH ; THAT ; LONG ; EVEN ; STROKE ; THAT ; FEW ; AMERICAN ; BOYS ; EVER ;  LEARN 
+=  ; = ;  =  ;    =    ; =  ;   =   ;  =  ;    =     ;    =     ;    =    ;  =   ;  =  ;  =   ;  =  ; =  ;   =   ; =  ;   =   ;  =  ;   S    ;  =   ;  =   ;  =   ;  =   ;   =    ;  =   ;  =  ;    =     ;  =   ;  =   ;    S   
+IN ; A ; FEW ; MOMENTS ; HE ; HEARD ; THE ; CHERRIES ; DROPPING ; SMARTLY ; INTO ; THE ; PAIL ; AND ; HE ; BEGAN ; TO ; SWING ; HIS ;  SIDE  ; WITH ; THAT ; LONG ; EVEN ; STROKE ; THAT ; FEW ; AMERICAN ; BOYS ; EVER ; LEARNED
+================================================================================
+8463-294825-0006, %WER 12.00 [ 3 / 25, 0 ins, 0 del, 3 sub ]
+HIS ; SPECIFICATIONS ; FOR ; AN ; OPEN ; SEA ; SUBMARINE ; AND ; A ; SELF ; CONTAINED  ; DIVING ; SUIT ; WERE ; DECADES ; BEFORE ; THEIR ; TIME ; YET ; MODERN ; TECHNOLOGY ; BEARS ; THEM ; OUT ; TRIUMPHANTLY
+ S  ;       =        ;  =  ; =  ;  =   ;  =  ;     =     ;  =  ; = ;  =   ;     S      ;   =    ;  =   ;  S   ;    =    ;   =    ;   =   ;  =   ;  =  ;   =    ;     =      ;   =   ;  =   ;  =  ;      =      
+THE ; SPECIFICATIONS ; FOR ; AN ; OPEN ; SEA ; SUBMARINE ; AND ; A ; SELF ; CONTAINING ; DIVING ; SUIT ; ARE  ; DECADES ; BEFORE ; THEIR ; TIME ; YET ; MODERN ; TECHNOLOGY ; BEARS ; THEM ; OUT ; TRIUMPHANTLY
+================================================================================
+7729-102255-0018, %WER 0.00 [ 0 / 28, 0 ins, 0 del, 0 sub ]
+LITTLE ; BY ; LITTLE ; HOWEVER ; THE ; LATTER ; BECAME ; HEMMED ; AND ; BOUND ; IN ; THE ; MESHES ; OF ; THE ; VARIOUS ; DEVICES ; AND ; PROCEEDINGS ; WHICH ; THE ; TERRITORIAL ; OFFICIALS ; EVOLVED ; FROM ; THE ; BOGUS ; LAWS
+  =    ; =  ;   =    ;    =    ;  =  ;   =    ;   =    ;   =    ;  =  ;   =   ; =  ;  =  ;   =    ; =  ;  =  ;    =    ;    =    ;  =  ;      =      ;   =   ;  =  ;      =      ;     =     ;    =    ;  =   ;  =  ;   =   ;  =  
+LITTLE ; BY ; LITTLE ; HOWEVER ; THE ; LATTER ; BECAME ; HEMMED ; AND ; BOUND ; IN ; THE ; MESHES ; OF ; THE ; VARIOUS ; DEVICES ; AND ; PROCEEDINGS ; WHICH ; THE ; TERRITORIAL ; OFFICIALS ; EVOLVED ; FROM ; THE ; BOGUS ; LAWS
+================================================================================
+5105-28233-0005, %WER 0.00 [ 0 / 37, 0 ins, 0 del, 0 sub ]
+SOMETIMES ; HE ; WOULD ; WANDER ; ON ; FOOT ; UPON ; THE ; SANDY ; SHORE ; AND ; SOMETIMES ; HE ; WOULD ; ENJOY ; A ; RIDE ; ALONG ; THE ; SUMMIT ; OF ; THE ; CLIFF ; ALTOGETHER ; BEING ; IN ; NO ; HURRY ; AT ; ALL ; TO ; BRING ; HIS ; TASK ; TO ; AN ; END
+    =     ; =  ;   =   ;   =    ; =  ;  =   ;  =   ;  =  ;   =   ;   =   ;  =  ;     =     ; =  ;   =   ;   =   ; = ;  =   ;   =   ;  =  ;   =    ; =  ;  =  ;   =   ;     =      ;   =   ; =  ; =  ;   =   ; =  ;  =  ; =  ;   =   ;  =  ;  =   ; =  ; =  ;  = 
+SOMETIMES ; HE ; WOULD ; WANDER ; ON ; FOOT ; UPON ; THE ; SANDY ; SHORE ; AND ; SOMETIMES ; HE ; WOULD ; ENJOY ; A ; RIDE ; ALONG ; THE ; SUMMIT ; OF ; THE ; CLIFF ; ALTOGETHER ; BEING ; IN ; NO ; HURRY ; AT ; ALL ; TO ; BRING ; HIS ; TASK ; TO ; AN ; END
+================================================================================
+1089-134691-0002, %WER 5.71 [ 2 / 35, 0 ins, 0 del, 2 sub ]
+HE ; SET ; OFF ; ABRUPTLY ; FOR ; THE ; BULL ; WALKING ; RAPIDLY ; LEST ; HIS ; FATHER'S ; SHRILL ; WHISTLE ; MIGHT ; CALL ; HIM ; BACK ; AND ; IN ; A ; FEW ; MOMENTS ; HE ; HAD ; ROUNDED ; THE ; CURVE ; AT ; THE ; POLICE ; BARRACK ; AND ; WAS ; SAFE
+=  ;  =  ;  =  ;    =     ;  =  ;  =  ;  S   ;    =    ;    =    ;  =   ;  =  ;    =     ;   =    ;    =    ;   =   ;  =   ;  =  ;  =   ;  =  ; =  ; = ;  =  ;    =    ; =  ;  =  ;    =    ;  =  ;   =   ; S  ;  =  ;   =    ;    =    ;  =  ;  =  ;  =  
+HE ; SET ; OFF ; ABRUPTLY ; FOR ; THE ; BOW  ; WALKING ; RAPIDLY ; LEST ; HIS ; FATHER'S ; SHRILL ; WHISTLE ; MIGHT ; CALL ; HIM ; BACK ; AND ; IN ; A ; FEW ; MOMENTS ; HE ; HAD ; ROUNDED ; THE ; CURVE ; OF ; THE ; POLICE ; BARRACK ; AND ; WAS ; SAFE
+================================================================================
+5142-36377-0025, %WER 20.00 [ 9 / 45, 2 ins, 1 del, 6 sub ]
+SILAS ; SLUNK ; AWAY ; WITHOUT ; A ; WORD ; OF ; PROTEST ; AMBROSE  ; STOOD ; HIS ; GROUND ; EVIDENTLY ; BENT ; ON ; MAKING ; HIS ; PEACE ; WITH ; NAOMI ; <eps> ; <eps> ; BEFORE ; HE ; LEFT ;  HER  ; SEEING ; THAT ; I ; WAS ; IN ; THE ; WAY ;  I  ; WALKED ; ASIDE ; TOWARD ;  A  ; GLASS ; DOOR ; AT ; THE ; LOWER ; END ; OF ; THE ; ROOM
+  =   ;   =   ;  =   ;    =    ; = ;  =   ; =  ;    =    ;    S     ;   =   ;  =  ;   =    ;     =     ;  =   ; =  ;   =    ;  =  ;   =   ;  S   ;   S   ;   I   ;   I   ;   =    ; =  ;  =   ;   D   ;   =    ;  =   ; = ;  =  ; =  ;  =  ;  =  ;  S  ;   S    ;   =   ;   =    ;  S  ;   =   ;  =   ; =  ;  =  ;   =   ;  =  ; =  ;  =  ;  =  
+SILAS ; SLUNK ; AWAY ; WITHOUT ; A ; WORD ; OF ; PROTEST ; AMBROSCH ; STOOD ; HIS ; GROUND ; EVIDENTLY ; BENT ; ON ; MAKING ; HIS ; PEACE ; THE  ;  MAN  ;   ON  ;   ME  ; BEFORE ; HE ; LEFT ; <eps> ; SEEING ; THAT ; I ; WAS ; IN ; THE ; WAY ; AND ; LEAPED ; ASIDE ; TOWARD ; THE ; GLASS ; DOOR ; AT ; THE ; LOWER ; END ; OF ; THE ; ROOM
+================================================================================
+4507-16021-0023, %WER 37.50 [ 6 / 16, 2 ins, 0 del, 4 sub ]
+THE ; SUGAR ; MANUFACTURER ; WHO ; SAYS ; LOAF ; CLARIFIED ; LUMPS ; BASTARD ; COMMON ; BURNT  ; THIS ; <eps> ; HONEST ; MANUFACTURER ; TALKS ; <eps> ; SLANG
+ =  ;   =   ;      =       ;  =  ;  =   ;  S   ;     =     ;   =   ;    =    ;   =    ;   S    ;  S   ;   I   ;   =    ;      =       ;   S   ;   I   ;   =  
+THE ; SUGAR ; MANUFACTURER ; WHO ; SAYS ; LOVE ; CLARIFIED ; LUMPS ; BASTARD ; COMMON ; AREN'T ; THE  ;  BEST ; HONEST ; MANUFACTURER ;   OF  ;  PLOT ; SLANG
+================================================================================
+2961-960-0019, %WER 6.90 [ 2 / 29, 0 ins, 0 del, 2 sub ]
+HE ; COULD ; WRITE ; IN ; ONE ; STYLE ; BUT ; NOT ; IN ; ANOTHER ; AND ; THE ; GREEK ; LANGUAGE ; HAD ; NOT ; AS ; YET ; BEEN ; FASHIONED ; BY ; ANY ; POET ; OR ; PHILOSOPHER ; TO ; DESCRIBE ; PHYSICAL ; PHENOMENA
+=  ;   =   ;   S   ; =  ;  =  ;   =   ;  =  ;  =  ; =  ;    =    ;  =  ;  =  ;   S   ;    =     ;  =  ;  =  ; =  ;  =  ;  =   ;     =     ; =  ;  =  ;  =   ; =  ;      =      ; =  ;    =     ;    =     ;     =    
+HE ; COULD ;  RUN  ; IN ; ONE ; STYLE ; BUT ; NOT ; IN ; ANOTHER ; AND ; THE ; GREEN ; LANGUAGE ; HAD ; NOT ; AS ; YET ; BEEN ; FASHIONED ; BY ; ANY ; POET ; OR ; PHILOSOPHER ; TO ; DESCRIBE ; PHYSICAL ; PHENOMENA
+================================================================================
+7729-102255-0041, %WER 6.45 [ 2 / 31, 0 ins, 0 del, 2 sub ]
+THE ; WHOLE ; PROCEEDING ; WAS ; SO ; CHILDISH ; THE ; MISERABLE ;   PLOT  ; SO ; TRANSPARENT ; THE ; OUTRAGE ; SO ; GROSS ; AS ; TO ; BRING ; DISGUST ; TO ; THE ; BETTER ; CLASS ; OF ; BORDER ; RUFFIANS ; WHO ; WERE ; WITNESSES ; AND ; ACCESSORIES
+ =  ;   =   ;     =      ;  =  ; =  ;    =     ;  =  ;     =     ;    S    ; =  ;      =      ;  =  ;    =    ; =  ;   =   ; =  ; =  ;   =   ;    =    ; =  ;  =  ;   =    ;   =   ; =  ;   S    ;    =     ;  =  ;  =   ;     =     ;  =  ;      =     
+THE ; WHOLE ; PROCEEDING ; WAS ; SO ; CHILDISH ; THE ; MISERABLE ; THOUGHT ; SO ; TRANSPARENT ; THE ; OUTRAGE ; SO ; GROSS ; AS ; TO ; BRING ; DISGUST ; TO ; THE ; BETTER ; CLASS ; OF ;  POOR  ; RUFFIANS ; WHO ; WERE ; WITNESSES ; AND ; ACCESSORIES
+================================================================================
+1221-135766-0000, %WER 0.00 [ 0 / 37, 0 ins, 0 del, 0 sub ]
+HOW ; STRANGE ; IT ; SEEMED ; TO ; THE ; SAD ; WOMAN ; AS ; SHE ; WATCHED ; THE ; GROWTH ; AND ; THE ; BEAUTY ; THAT ; BECAME ; EVERY ; DAY ; MORE ; BRILLIANT ; AND ; THE ; INTELLIGENCE ; THAT ; THREW ; ITS ; QUIVERING ; SUNSHINE ; OVER ; THE ; TINY ; FEATURES ; OF ; THIS ; CHILD
+ =  ;    =    ; =  ;   =    ; =  ;  =  ;  =  ;   =   ; =  ;  =  ;    =    ;  =  ;   =    ;  =  ;  =  ;   =    ;  =   ;   =    ;   =   ;  =  ;  =   ;     =     ;  =  ;  =  ;      =       ;  =   ;   =   ;  =  ;     =     ;    =     ;  =   ;  =  ;  =   ;    =     ; =  ;  =   ;   =  
+HOW ; STRANGE ; IT ; SEEMED ; TO ; THE ; SAD ; WOMAN ; AS ; SHE ; WATCHED ; THE ; GROWTH ; AND ; THE ; BEAUTY ; THAT ; BECAME ; EVERY ; DAY ; MORE ; BRILLIANT ; AND ; THE ; INTELLIGENCE ; THAT ; THREW ; ITS ; QUIVERING ; SUNSHINE ; OVER ; THE ; TINY ; FEATURES ; OF ; THIS ; CHILD
+================================================================================
+1089-134686-0019, %WER 7.69 [ 3 / 39, 0 ins, 0 del, 3 sub ]
+THE ; SENTENCE ; OF ; SAINT ; JAMES ; WHICH ; SAYS ; THAT ; HE ; WHO ; OFFENDS ; AGAINST ; ONE ; COMMANDMENT ; BECOMES ; GUILTY ; OF ; ALL ; HAD ; SEEMED ; TO ; HIM ; FIRST ; A ; SWOLLEN ; PHRASE ; UNTIL ; HE ; HAD ; BEGUN ; TO ; GROPE ; IN ; THE ; DARKNESS ; OF ; HIS ; OWN ; STATE
+ =  ;    =     ; =  ;   =   ;   =   ;   =   ;  =   ;  =   ; =  ;  =  ;    =    ;    =    ;  =  ;      =      ;    =    ;   =    ; =  ;  =  ;  =  ;   =    ; =  ;  =  ;   =   ; = ;    S    ;   S    ;   =   ; =  ;  =  ;   =   ; =  ;   S   ; =  ;  =  ;    =     ; =  ;  =  ;  =  ;   =  
+THE ; SENTENCE ; OF ; SAINT ; JAMES ; WHICH ; SAYS ; THAT ; HE ; WHO ; OFFENDS ; AGAINST ; ONE ; COMMANDMENT ; BECOMES ; GUILTY ; OF ; ALL ; HAD ; SEEMED ; TO ; HIM ; FIRST ; A ;  SMALL  ; PRAISE ; UNTIL ; HE ; HAD ; BEGUN ; TO ;  NOTE ; IN ; THE ; DARKNESS ; OF ; HIS ; OWN ; STATE
+================================================================================
+1188-133604-0007, %WER 9.30 [ 4 / 43, 1 ins, 0 del, 3 sub ]
+THE ; BROWN ; GROUND ; BENEATH ; IS ; LEFT ; FOR ; THE ; MOST ; PART ; ONE ; TOUCH ; OF ; BLACK ; IS ; PUT ; FOR ; THE ; HOLLOW ; TWO ; DELICATE ; LINES ; OF ; DARK ; GRAY ; DEFINE ; <eps> ; THE ; OUTER ; CURVE ; AND ; ONE ; LITTLE ; QUIVERING ; TOUCH ; OF ; WHITE ; DRAWS ; THE ; INNER ; EDGE ; OF ; THE ; MANDIBLE
+ =  ;   =   ;   =    ;    =    ; =  ;  =   ;  =  ;  =  ;  =   ;  =   ;  =  ;   =   ; =  ;   =   ; =  ;  =  ;  =  ;  =  ;   =    ;  =  ;    =     ;   =   ; =  ;  =   ;  S   ;   S    ;   I   ;  =  ;   =   ;   =   ;  =  ;  =  ;   =    ;     =     ;   S   ; =  ;   =   ;   =   ;  =  ;   =   ;  =   ; =  ;  =  ;    =    
+THE ; BROWN ; GROUND ; BENEATH ; IS ; LEFT ; FOR ; THE ; MOST ; PART ; ONE ; TOUCH ; OF ; BLACK ; IS ; PUT ; FOR ; THE ; HOLLOW ; TWO ; DELICATE ; LINES ; OF ; DARK ; GREY ;   TO   ;  FIND ; THE ; OUTER ; CURVE ; AND ; ONE ; LITTLE ; QUIVERING ; PATCH ; OF ; WHITE ; DRAWS ; THE ; INNER ; EDGE ; OF ; THE ; MANDIBLE
+================================================================================
+5105-28233-0009, %WER 0.00 [ 0 / 39, 0 ins, 0 del, 0 sub ]
+THE ; BOND ; OF ; UNION ; THUS ; EFFECTED ; COULD ; NEVER ; BE ; SEVERED ; AND ; ALTHOUGH ; BEN ; ZOOF'S ; ACHIEVEMENTS ; HAD ; FAIRLY ; EARNED ; HIM ; THE ; RIGHT ; OF ; RETIREMENT ; HE ; FIRMLY ; DECLINED ; ALL ; HONORS ; OR ; ANY ; PENSION ; THAT ; MIGHT ; PART ; HIM ; FROM ; HIS ; SUPERIOR ; OFFICER
+ =  ;  =   ; =  ;   =   ;  =   ;    =     ;   =   ;   =   ; =  ;    =    ;  =  ;    =     ;  =  ;   =    ;      =       ;  =  ;   =    ;   =    ;  =  ;  =  ;   =   ; =  ;     =      ; =  ;   =    ;    =     ;  =  ;   =    ; =  ;  =  ;    =    ;  =   ;   =   ;  =   ;  =  ;  =   ;  =  ;    =     ;    =   
+THE ; BOND ; OF ; UNION ; THUS ; EFFECTED ; COULD ; NEVER ; BE ; SEVERED ; AND ; ALTHOUGH ; BEN ; ZOOF'S ; ACHIEVEMENTS ; HAD ; FAIRLY ; EARNED ; HIM ; THE ; RIGHT ; OF ; RETIREMENT ; HE ; FIRMLY ; DECLINED ; ALL ; HONORS ; OR ; ANY ; PENSION ; THAT ; MIGHT ; PART ; HIM ; FROM ; HIS ; SUPERIOR ; OFFICER
+================================================================================
+5683-32866-0010, %WER 6.98 [ 3 / 43, 0 ins, 0 del, 3 sub ]
+WELL ; YOU ; KNOW ; RADIE ; WOMEN ; LIKE ; WICKED ; FELLOWS ; IT ; IS ; CONTRAST ; I ; SUPPOSE ; BUT ; THEY ; DO ; AND ; I'M ; SURE ; FROM ; WHAT ; BRACTON ; HAS ; SAID ; TO ; ME ; I ; KNOW ; HIM ; INTIMATELY ; THAT ; DORCAS ; LIKES ; HIM ; AND ; I ; CAN'T ; CONCEIVE ; WHY ; THEY ; ARE ; NOT ; MARRIED
+ S   ;  =  ;  =   ;   S   ;   =   ;  =   ;   =    ;    =    ; =  ; =  ;    =     ; = ;    =    ;  =  ;  =   ; =  ;  =  ;  =  ;  =   ;  =   ;  =   ;    S    ;  =  ;  =   ; =  ; =  ; = ;  =   ;  =  ;     =      ;  =   ;   =    ;   =   ;  =  ;  =  ; = ;   =   ;    =     ;  =  ;  =   ;  =  ;  =  ;    =   
+WHY  ; YOU ; KNOW ;  LADY ; WOMEN ; LIKE ; WICKED ; FELLOWS ; IT ; IS ; CONTRAST ; I ; SUPPOSE ; BUT ; THEY ; DO ; AND ; I'M ; SURE ; FROM ; WHAT ; BRAGTON ; HAS ; SAID ; TO ; ME ; I ; KNOW ; HIM ; INTIMATELY ; THAT ; DORCAS ; LIKES ; HIM ; AND ; I ; CAN'T ; CONCEIVE ; WHY ; THEY ; ARE ; NOT ; MARRIED
+================================================================================
+1221-135767-0002, %WER 0.00 [ 0 / 40, 0 ins, 0 del, 0 sub ]
+AT ; THAT ; EPOCH ; OF ; PRISTINE ; SIMPLICITY ; HOWEVER ; MATTERS ; OF ; EVEN ; SLIGHTER ; PUBLIC ; INTEREST ; AND ; OF ; FAR ; LESS ; INTRINSIC ; WEIGHT ; THAN ; THE ; WELFARE ; OF ; HESTER ; AND ; HER ; CHILD ; WERE ; STRANGELY ; MIXED ; UP ; WITH ; THE ; DELIBERATIONS ; OF ; LEGISLATORS ; AND ; ACTS ; OF ; STATE
+=  ;  =   ;   =   ; =  ;    =     ;     =      ;    =    ;    =    ; =  ;  =   ;    =     ;   =    ;    =     ;  =  ; =  ;  =  ;  =   ;     =     ;   =    ;  =   ;  =  ;    =    ; =  ;   =    ;  =  ;  =  ;   =   ;  =   ;     =     ;   =   ; =  ;  =   ;  =  ;       =       ; =  ;      =      ;  =  ;  =   ; =  ;   =  
+AT ; THAT ; EPOCH ; OF ; PRISTINE ; SIMPLICITY ; HOWEVER ; MATTERS ; OF ; EVEN ; SLIGHTER ; PUBLIC ; INTEREST ; AND ; OF ; FAR ; LESS ; INTRINSIC ; WEIGHT ; THAN ; THE ; WELFARE ; OF ; HESTER ; AND ; HER ; CHILD ; WERE ; STRANGELY ; MIXED ; UP ; WITH ; THE ; DELIBERATIONS ; OF ; LEGISLATORS ; AND ; ACTS ; OF ; STATE
+================================================================================
+1221-135766-0005, %WER 0.00 [ 0 / 45, 0 ins, 0 del, 0 sub ]
+HESTER ; COULD ; ONLY ; ACCOUNT ; FOR ; THE ; CHILD'S ; CHARACTER ; AND ; EVEN ; THEN ; MOST ; VAGUELY ; AND ; IMPERFECTLY ; BY ; RECALLING ; WHAT ; SHE ; HERSELF ; HAD ; BEEN ; DURING ; THAT ; MOMENTOUS ; PERIOD ; WHILE ; PEARL ; WAS ; IMBIBING ; HER ; SOUL ; FROM ; THE ; SPIRITUAL ; WORLD ; AND ; HER ; BODILY ; FRAME ; FROM ; ITS ; MATERIAL ; OF ; EARTH
+  =    ;   =   ;  =   ;    =    ;  =  ;  =  ;    =    ;     =     ;  =  ;  =   ;  =   ;  =   ;    =    ;  =  ;      =      ; =  ;     =     ;  =   ;  =  ;    =    ;  =  ;  =   ;   =    ;  =   ;     =     ;   =    ;   =   ;   =   ;  =  ;    =     ;  =  ;  =   ;  =   ;  =  ;     =     ;   =   ;  =  ;  =  ;   =    ;   =   ;  =   ;  =  ;    =     ; =  ;   =  
+HESTER ; COULD ; ONLY ; ACCOUNT ; FOR ; THE ; CHILD'S ; CHARACTER ; AND ; EVEN ; THEN ; MOST ; VAGUELY ; AND ; IMPERFECTLY ; BY ; RECALLING ; WHAT ; SHE ; HERSELF ; HAD ; BEEN ; DURING ; THAT ; MOMENTOUS ; PERIOD ; WHILE ; PEARL ; WAS ; IMBIBING ; HER ; SOUL ; FROM ; THE ; SPIRITUAL ; WORLD ; AND ; HER ; BODILY ; FRAME ; FROM ; ITS ; MATERIAL ; OF ; EARTH
+================================================================================
+6930-81414-0001, %WER 2.13 [ 1 / 47, 0 ins, 0 del, 1 sub ]
+I ; HEARD ; A ; NOISE ; BEHIND ; I ; TURNED ; AND ; SAW ; KAFFAR ; HIS ; BLACK ; EYES ; SHINING ; WHILE ; IN ; HIS ; HAND ; HE ; HELD ; A ; GLEAMING ; KNIFE ; HE ; LIFTED ; IT ; ABOVE ; HIS ; HEAD ; AS ; IF ; TO ; STRIKE ; BUT ; I ; HAD ; THE ; STRENGTH ; OF ; TEN ; MEN ; AND ; I ; HURLED ; HIM ; FROM ; ME
+= ;   =   ; = ;   =   ;   =    ; = ;   =    ;  =  ;  =  ;   S    ;  =  ;   =   ;  =   ;    =    ;   =   ; =  ;  =  ;  =   ; =  ;  =   ; = ;    =     ;   =   ; =  ;   =    ; =  ;   =   ;  =  ;  =   ; =  ; =  ; =  ;   =    ;  =  ; = ;  =  ;  =  ;    =     ; =  ;  =  ;  =  ;  =  ; = ;   =    ;  =  ;  =   ; = 
+I ; HEARD ; A ; NOISE ; BEHIND ; I ; TURNED ; AND ; SAW ; KAFFIR ; HIS ; BLACK ; EYES ; SHINING ; WHILE ; IN ; HIS ; HAND ; HE ; HELD ; A ; GLEAMING ; KNIFE ; HE ; LIFTED ; IT ; ABOVE ; HIS ; HEAD ; AS ; IF ; TO ; STRIKE ; BUT ; I ; HAD ; THE ; STRENGTH ; OF ; TEN ; MEN ; AND ; I ; HURLED ; HIM ; FROM ; ME

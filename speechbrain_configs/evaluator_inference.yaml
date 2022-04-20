@@ -3,7 +3,7 @@
 
 seed: 1230
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
-folder: /home/ec2-user/capstone/speech-anonymization/results/
+folder: ./results/
 output_folder: !ref <folder>/<seed>
 save_folder: !ref <output_folder>/save
 
@@ -57,7 +57,7 @@ modules:
     classifier: !ref <classifier>
     mean_var_norm: !ref <mean_var_norm>
 
-pretrained_path: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/trained_external_classifier_ckpt
+pretrained_path: /home/ubuntu/speech-anonymization/results/gender_classifier/1230/save/trained_external_classifier_ckpt
 
 
 pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
