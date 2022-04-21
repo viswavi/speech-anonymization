@@ -1,1 +1,1 @@
-/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/custom.py
+/home/ec2-user/speech-anonymization/speechbrain_configs/custom.py

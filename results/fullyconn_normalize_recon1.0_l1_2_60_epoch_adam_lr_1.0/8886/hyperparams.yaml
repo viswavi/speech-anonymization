@@ -1,5 +1,10 @@
+<<<<<<< Updated upstream
 # Generated 2022-04-20 from:
 # /home/ubuntu/speech-anonymization/speechbrain_configs/convae.yaml
+=======
+# Generated 2022-04-21 from:
+# /home/ec2-user/speech-anonymization/speechbrain_configs/convae.yaml
+>>>>>>> Stashed changes
 # yamllint disable
 # ############################################################################
 # Model: E2E ASR with Transformer
@@ -19,7 +24,7 @@ wer_file: results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0//8886/w
 save_folder: results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0//8886/save
 train_log: results/fullyconn_normalize_recon1.0_l1_2_60_epoch_adam_lr_1.0//8886/train_log.txt
 
-pretrained_folder: /home/ubuntu/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
+pretrained_folder: /home/ec2-user/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
 
 model_type: fc
 
@@ -29,13 +34,18 @@ model_type: fc
 # speechbrain HuggingFace repository. However, a local path pointing to a
 # directory containing the lm.ckpt and tokenizer.ckpt may also be specified
 # instead. E.g if you want to use your own LM / tokenizer.
+<<<<<<< Updated upstream
 pretrained_lm_tokenizer_path: /home/ubuntu/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech/
+=======
+pretrained_lm_tokenizer_path: /home/ec2-user/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech
+>>>>>>> Stashed changes
 
 # Data files
-data_folder: /home/ubuntu/LibriSpeech # e.g., /path/to/LibriSpeech
+data_folder: /home/ec2-user/LibriSpeech # e.g., /path/to/LibriSpeech
 # If RIRS_NOISES dir exists in /localscratch/xxx_corpus/RIRS_NOISES
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
+<<<<<<< Updated upstream
 data_folder_rirs: /home/ubuntu/LibriSpeech
 train_splits: [train]
 dev_splits: [dev-clean]
@@ -45,6 +55,17 @@ train_csv: /home/ubuntu/LibriSpeech/train.csv
 valid_csv: /home/ubuntu/LibriSpeech/dev-clean.csv
 test_csv:
 - /home/ubuntu/LibriSpeech/test-clean-100.csv
+=======
+data_folder_rirs: /home/ec2-user/LibriSpeech
+train_splits: [train-clean-100]
+dev_splits: [dev-clean]
+test_splits: [test-clean]
+skip_prep: false
+train_csv: /home/ec2-user/LibriSpeech/train-clean-100.csv
+valid_csv: /home/ec2-user/LibriSpeech/dev-clean.csv
+test_csv:
+- /home/ec2-user/LibriSpeech/test-clean.csv
+>>>>>>> Stashed changes
 ckpt_interval_minutes: 60 # save checkpoint every N min
 
 # Training parameters
@@ -62,6 +83,7 @@ ctc_weight: 0.3
 
 ## PARAMS FOR CONVAUTOENCODER ##
 convae_feature_dim: 80
+<<<<<<< Updated upstream
 number_of_epochs: 15
 batch_size: 1
 recon_loss_weight: 1.0
@@ -69,11 +91,21 @@ sex_loss_weight: 0.0
 utility_loss_weight: 0.0
 mi_loss_weight: 0.0
 gradient_accumulation: 5
+=======
+number_of_epochs: 100
+batch_size: 5
+recon_loss_weight: 0.1
+sex_loss_weight: 0.9
+utility_loss_weight: 0.0
+mi_loss_weight: 0.0
+gradient_accumulation: 1
+>>>>>>> Stashed changes
 gradient_clipping: 5.0
 loss_reduction: batchmean
 sorting: random
 
 sex_classification_acc: !name:speechbrain.utils.Accuracy.AccuracyStats
+sex_classification_acc_extern: !name:speechbrain.utils.Accuracy.AccuracyStats
 utility_similarity:
 utility_similarity_aggregator: !name:utils.utility_similarity_aggregator.SimilarityMetricsStats
 
@@ -95,14 +127,14 @@ n_mels: 80
 
 # Dataloader options
 train_dataloader_opts:
-  batch_size: 1
+  batch_size: 5
   shuffle: true
 
 valid_dataloader_opts:
-  batch_size: 1
+  batch_size: 5
 
 test_dataloader_opts:
-  batch_size: 1
+  batch_size: 5
 
 ####################### Model parameters ###########################
 # Transformer
@@ -262,7 +294,11 @@ checkpointer: !new:speechbrain.utils.checkpoints.Checkpointer
     normalizer: *id006
     counter: &id010 !new:speechbrain.utils.epoch_loop.EpochCounter
 
+<<<<<<< Updated upstream
       limit: 15
+=======
+      limit: 100
+>>>>>>> Stashed changes
 
 epoch_counter: *id010
 normalize: *id006
@@ -306,9 +342,16 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
     asr_model: *id008
     normalize: *id006
   paths:
+<<<<<<< Updated upstream
     asr_model: /home/ubuntu/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech//asr.ckpt
     lm: /home/ubuntu/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech//lm.ckpt
     tokenizer: /home/ubuntu/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech//tokenizer.ckpt
     normalize: /home/ubuntu/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech//normalizer.ckpt
+=======
+    asr_model: /home/ec2-user/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech/asr.ckpt
+    lm: /home/ec2-user/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech/lm.ckpt
+    tokenizer: /home/ec2-user/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech/tokenizer.ckpt
+    normalize: /home/ec2-user/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech/normalizer.ckpt
+>>>>>>> Stashed changes
 
 

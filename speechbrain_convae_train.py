@@ -112,14 +112,14 @@ class SexAnonymizationTraining(sb.core.Brain):
             
             print(sa_brain.device)
             with torch.no_grad():
-                sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch_feats(feats)
+                sex_logits_extern_orig, score_orig, index_orig = self.external_classifier_model.classify_batch_feats(feats)
 
             self.sex_classification_acc_extern_orig.append(sex_logits_extern_orig.unsqueeze(0), sex_label.unsqueeze(0),
                                                       torch.tensor(sex_label.shape[0],
                                                                    device=sex_logits_extern_orig.device).unsqueeze(0))
 
             with torch.no_grad():
-                sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats)
+                sex_logits_extern, score, index = self.external_classifier_model.classify_batch_feats(recon_speech_feats)
 
             self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(0), sex_label.unsqueeze(0),
                                                torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))
@@ -191,11 +191,10 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def load_external_classifier(self):
         classifier = EncoderClassifier.from_hparams(
-            source="/home/ubuntu/speech-anonymization/speechbrain_configs/",
+            source="/home/ec2-user/speech-anonymization/speechbrain_configs/",
             hparams_file="evaluator_inference.yaml",
-            savedir="/home/ubuntu/speech-anonymization/results/gender_classifier/1230/save/",
+            savedir="/home/ec2-user/speech-anonymization/results/gender_classifier/1230/save/",
         )
-
         classifier.eval()
         return classifier.to(sa_brain.device)
 
@@ -219,6 +218,8 @@ class SexAnonymizationTraining(sb.core.Brain):
             self.sex_classification_acc_extern = self.hparams.sex_classification_acc()
             self.sex_classification_acc_extern_orig = self.hparams.sex_classification_acc()
             self.utility_similarity_aggregator = self.hparams.utility_similarity_aggregator()
+            self.external_classifier_model = self.external_classifier()
+
 
             if stage == sb.Stage.TEST:
                 self.wer_metric = self.hparams.error_rate_computer()
