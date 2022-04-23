@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
+from speechbrain.nnet.pooling import StatisticsPooling
 
 # [ BATCH_SIZE x NUM_TIMESTAMPS x MFCC_FEATURE_DIM ]
 # need to swap to
@@ -64,13 +65,42 @@ class PixelShuffle(nn.Module):
 class FullyConnSexClassifier(nn.Module):
     def __init__(self, num_classes):
         super(FullyConnSexClassifier, self).__init__()
-        self.fc1 = nn.Linear(40, 20)
-        self.fc2 = nn.Linear(20, num_classes)
+        self.initial = nn.Sequential(
+            nn.Linear(20, 40),
+            nn.ReLU(),
+            nn.Linear(40, 40),
+            nn.ReLU()
+        )
+        
+        self.norm = nn.BatchNorm1d(20)
+
+        self.classify = nn.Sequential(
+            nn.Linear(80, 40),
+            nn.BatchNorm1d(40),
+            nn.ReLU(),
+            nn.Linear(40, 40),
+            nn.ReLU(),
+            nn.Linear(40, 20),
+            nn.BatchNorm1d(20),
+            nn.Linear(20, num_classes)
+        )
+
+        self.stats_pooling = StatisticsPooling()
 
     def forward(self, input):
         input = GradReverse.grad_reverse(input)
-        logits = F.relu(self.fc1(input))
-        logits = F.log_softmax(self.fc2(logits), 1)
+        
+        input = input.reshape(input.shape[0], input.shape[2], input.shape[1])
+        input = self.norm(input)
+        input = input.reshape(input.shape[0], input.shape[2], input.shape[1])
+        logits = self.initial(input)
+
+        ## statistics pooling ##
+        stat_pooling = self.stats_pooling(logits)
+        stat_pooling = stat_pooling.squeeze(1)
+
+        logits = self.classify(stat_pooling)
+        logits = F.log_softmax(logits, 1)
         return logits
 
 class DummyFullyConnSexClassifier(nn.Module):
@@ -119,13 +149,8 @@ class FullyConnectedAutoencoder(nn.Module):
         out = input
         input = self.encoder(input)
 
-        ## statistics pooling ##
-        mean = torch.mean(input.reshape(input.shape[0], input.shape[2], input.shape[1]), 2)
-        std = torch.std(input.reshape(input.shape[0], input.shape[2], input.shape[1]), 2)
-        stat_pooling = torch.cat((mean, std), 1)
-
         ## sex classifier ##
-        sex_classifier_logits = self.sex_classifier(stat_pooling)
+        sex_classifier_logits = self.sex_classifier(input)
         
         ## decode ##
         input = self.decoder(input)

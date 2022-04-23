@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
+from speechbrain.nnet.pooling import StatisticsPooling
 
 # [ BATCH_SIZE x NUM_TIMESTAMPS x MFCC_FEATURE_DIM ]
 # need to swap to
@@ -37,7 +38,8 @@ class SexClassifier(nn.Module):
     def forward(self, input):
         input = GradReverse.grad_reverse(input)
         logits = F.relu(self.fc1(input))
-        logits = F.log_softmax(self.fc2(logits), 1)
+        logits = F.relu(self.fc2(logits))
+        logits = F.log_softmax(logits, 1)
         return logits
 
 # Gated Linear Units
@@ -102,7 +104,6 @@ class ConvAutoencoder(nn.Module):
     def forward(self, input):
         ## encode ##
         out = input
-        print(input.shape)
         input = input.reshape(input.shape[0], input.shape[1]*input.shape[2])
 
         # batch_size feats timesteps
@@ -111,7 +112,6 @@ class ConvAutoencoder(nn.Module):
         # -->
         # batch_size channel feats*timesteps
         input = input.unsqueeze(1)
-        print(input.shape)
         input = self.encoder(input)
         #print(input.shape)
 
@@ -126,7 +126,6 @@ class ConvAutoencoder(nn.Module):
         
         ## decode ##
         input = self.decoder(input)
-        print(input.shape)
         input = input.squeeze(1)
         input = input.reshape(input.shape[0], out.shape[1], out.shape[2])
         ## return reconstructed speech feature for reconstruction loss, sex classification for cross entropy loss ##
@@ -226,6 +225,7 @@ class CycleGANGenerator(nn.Module):
 
         ## Sex classifier: num_classes = 2 ##
         self.sex_classifier = SexClassifier(2)
+        self.stats_pooling = StatisticsPooling()
 
         # 2D Conv Layer 
         self.conv1 = nn.Conv2d(in_channels=1,  # TODO 1 ?
@@ -348,6 +348,7 @@ class CycleGANGenerator(nn.Module):
                                        GLU())
         return self.convLayer
 
+
     def forward(self, input):
         # GLU
         input = input.view(input.shape[0], input.shape[2], input.shape[1])
@@ -361,16 +362,21 @@ class CycleGANGenerator(nn.Module):
         downsample1 = self.downSample1(conv1)
         #print("Generator forward downsample1: ", downsample1.shape)
         downsample2 = self.downSample2(downsample1)
-        
-        temp = downsample2.view(downsample2.shape[0], downsample2.shape[2], downsample2.shape[1], downsample2.shape[3])
-        sex_classifier_input = temp.view(temp.shape[0], temp.shape[1], temp.shape[2]*temp.shape[3])
 
-        mean = torch.mean(sex_classifier_input, 2)
-        std = torch.std(sex_classifier_input, 2)
-        stat_pooling = torch.cat((mean, std), 1)
+        temp = downsample2.view(downsample2.shape[0], downsample2.shape[1], downsample2.shape[3], downsample2.shape[2])
+        sex_classifier_input = temp.view(temp.shape[0], temp.shape[1]*temp.shape[2], temp.shape[3])
+    
+        # mean = torch.mean(sex_classifier_input, 2)
+        # std = torch.std(sex_classifier_input, 2)
+        # stat_pooling = torch.cat((mean, std), 1)
+
+        stat_pooling = self.stats_pooling(sex_classifier_input)
+        stat_pooling = stat_pooling.squeeze(1)
+
         sex_classifier_logits = self.sex_classifier(stat_pooling)
 
         #sex_classification_input = downsample2.view(downsample2.shape[0], )
+        #sex_classifier_logits = torch.rand((input.shape[0],2)).to(torch.device("cuda"))
 
         # 2D -> 1D
         # reshape
