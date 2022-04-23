@@ -35,11 +35,11 @@ sys.path.append("speechbrain/recipes/LibriSpeech")
 # 1.  # Dataset prep (parsing Librispeech)
 from librispeech_prepare import prepare_librispeech  # noqa
 
-
 # Define training procedure
 class SexAnonymizationTraining(sb.core.Brain):
     def compute_forward(self, batch, stage):
         """Forward computations from the waveform batches to the output probabilities."""
+
         batch = batch.to(self.device)
         wavs, wav_lens = batch.sig
         tokens_bos, _ = batch.tokens_bos
@@ -64,7 +64,6 @@ class SexAnonymizationTraining(sb.core.Brain):
             if hasattr(self.hparams, "augmentation"):
                 feats = self.hparams.augmentation(feats)
 
-        # forward pass through the model
         return self.modules.ConvAE(feats)
 
     def compute_objectives(self, predictions, batch, stage):
@@ -85,6 +84,12 @@ class SexAnonymizationTraining(sb.core.Brain):
         if feats.shape[1]%36 != 0:
             feats = torch.nn.functional.pad(input=feats, pad=(0, 0, 0, 36-feats.shape[1]%36, 0, 0), mode='constant', value=0)
 
+        sex_loss = 0.0
+        # if self.hparams.sex_loss_weight > 0:
+        #     with torch.no_grad():
+        #         sex_logits_extern_rec, score_rec, index_rec = self.external_classifier.classify_batch_feats(reconstructed_speech)
+        #         sex_loss = self.hparams.loss_sex_classification(sex_logits_extern_rec, torch.tensor(sex_label))
+
         utility_loss = 0.0
         if self.hparams.utility_loss_weight > 0:
             orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=False)
@@ -92,13 +97,15 @@ class SexAnonymizationTraining(sb.core.Brain):
             utility_loss = self.hparams.loss_utility(recon_enc_out, orig_enc_out)
                 
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech.view(reconstructed_speech.shape[0], -1), feats.view(feats.shape[0], -1))
+
         sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
         #mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch, self.hparams.batch_size)
+
 
         loss = (
             self.hparams.recon_loss_weight * recon_loss
             + self.hparams.sex_loss_weight * sex_loss
-            + self.hparams.utility_loss_weight * utility_loss
+            #+ self.hparams.utility_loss_weight * utility_loss
             #+ self.hparams.mi_loss_weight * mi_loss
         )
 
@@ -110,7 +117,6 @@ class SexAnonymizationTraining(sb.core.Brain):
             # Evaluation: performing classification by externally trained sex classifier
             recon_speech_feats = reconstructed_speech.to(sa_brain.device)
             
-            print(sa_brain.device)
             with torch.no_grad():
                 sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch_feats(feats)
 
@@ -140,8 +146,8 @@ class SexAnonymizationTraining(sb.core.Brain):
                 self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
 
             else:
-                print("sex label = ")
-                print(sex_label)
+                # print("sex label = ")
+                # print(sex_label)
                 # print("external sex logits = ")
                 # print(sex_logits_extern)
                 # print("external classification ACC = ")
@@ -170,6 +176,29 @@ class SexAnonymizationTraining(sb.core.Brain):
         # check if we need to switch optimizer
         # if so change the optimizer from Adam to SGD
         # self.check_and_reset_optimizer()
+        # if self.hparams.epoch_counter.current < 5:
+        #     self.hparams.recon_loss_weight = 1.0
+        #     self.hparams.sex_loss_weight = 0.0
+
+        #     for name, param in self.modules.ConvAE.named_parameters():
+        #         param.requires_grad = True
+
+        if self.step%7==0:
+            print("Jointly train sex + recon............")
+            self.hparams.recon_loss_weight = 0.1
+            self.hparams.sex_loss_weight = 0.9
+
+            for name, param in self.modules.ConvAE.named_parameters():
+                param.requires_grad = True
+
+        else:
+            print("Train only sex classifier............")
+            self.hparams.recon_loss_weight = 0.0
+            self.hparams.sex_loss_weight = 1.0
+
+            for name, param in self.modules.ConvAE.named_parameters():
+                if "sex_classifier" not in name:
+                    param.requires_grad = True
 
         predictions = self.compute_forward(batch, sb.Stage.TRAIN)
         loss = self.compute_objectives(predictions, batch, sb.Stage.TRAIN)
@@ -225,13 +254,15 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def on_stage_end(self, stage, stage_loss, epoch):
         """Gets called at the end of a epoch."""
+        global _prev_sex_classifier_acc
         # Compute/store important stats
         stage_stats = {"loss": stage_loss}
         if stage == sb.Stage.TRAIN:
             self.train_stats = stage_stats
         else:
             stage_stats["ACC"] = self.sex_classification_acc.summarize()
-            #stage_stats["ACC_external"] = self.sex_classification_acc_extern.summarize()
+            _prev_sex_classifier_acc = self.sex_classification_acc.summarize()
+            stage_stats["ACC_external"] = self.sex_classification_acc_extern.summarize()
             stage_stats["Utility_Retention"] = self.utility_similarity_aggregator.summarize()
 
             if stage == sb.Stage.TEST:
@@ -517,10 +548,10 @@ if __name__ == "__main__":
     #hparams["normalize"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/normalizer.ckpt"))
     hparams["lm_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/lm.ckpt"))
 
-    #hparams["embedding_model"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-04-14+01-03-37+00/embedding_model.ckpt"))
-    #hparams["external_classifier"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-04-14+01-03-37+00/classifier.ckpt"))
-    #hparams["normalize"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-04-14+01-03-37+00/normalizer.ckpt"))
     
+    # for name, param in sa_brain.modules['ConvAE'].named_parameters():
+    #     if 'sex_classifier' not in name:
+    #         param.requires_grad = False
 
     print("done loading")
 
