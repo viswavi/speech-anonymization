@@ -175,6 +175,9 @@ model: !new:torch.nn.ModuleList
     -[]
 
 
+lr_adam: 1.0
+d_model: 768
+
 noam_annealing: !new:speechbrain.nnet.schedulers.NoamScheduler
     lr_initial: !ref <lr_adam>
     n_warmup_steps: 25000
