@@ -1,42 +1,13 @@
 #!/usr/bin/env python3
-"""Recipe for training a speaker-id system. The template can use used as a
-basic example for any signal classification task such as language_id,
-emotion recognition, command classification, etc. The proposed task classifies
-28 speakers using Mini Librispeech. This task is very easy. In a real
-scenario, you need to use datasets with a larger number of speakers such as
-the voxceleb one (see recipes/VoxCeleb). Speechbrain has already some built-in
-models for signal classifications (see the ECAPA one in
-speechbrain.lobes.models.ECAPA_TDNN.py or the xvector in
-speechbrain/lobes/models/Xvector.py)
-
-To run this recipe, do the following:
-> python train.py gender_classifier.yaml
-
-To read the code, first scroll to the bottom to see the "main" code.
-This gives a high-level overview of what is going on, while the
-Brain class definition provides the details of what happens
-for each batch during training.
-
-The first time you run it, this script should automatically download
-and prepare the Mini Librispeech dataset for computation. Noise and
-reverberation are automatically added to each sample from OpenRIR.
-
-Authors
- * Mirco Ravanelli 2021
-"""
-
 
 """
 Daniel's comment:
- 
- in this modified script, we do the following
-1. adapting the training script to our gender classification task 
-2. training with Librispeech instead of Mini Librispeech
 
+retraining the external sex classifier with reconstructed features (mel filter banks)
 To run:
 
-python gender_classifier_train.py \
-    speechbrain_configs/gender_classifier.yaml \
+python gender_classifier_train_recon.py \
+    speechbrain_configs/gender_classifier_recon.yaml \
     --device cuda
 """
 import sys
@@ -46,9 +17,10 @@ import speechbrain as sb
 from pathlib import Path
 from hyperpyyaml import load_hyperpyyaml
 from speechbrain.utils.distributed import run_on_main
+
 sys.path.append("speechbrain/recipes/LibriSpeech")
 from librispeech_prepare import prepare_librispeech  # noqa
-
+from models.ConvAutoEncoder import CycleGANGenerator # hard-coded, best model so far
 
 
 # 1.  # Dataset prep (parsing Librispeech)
@@ -79,7 +51,6 @@ class GenderBrain(sb.Brain):
         # Compute features, embeddings, and predictions
         feats, lens = self.prepare_features(batch.sig, stage)
         embeddings = self.modules.embedding_model(feats, lens)
-
         predictions = self.modules.classifier(embeddings)
 
         return predictions
@@ -113,7 +84,12 @@ class GenderBrain(sb.Brain):
         feats = self.modules.compute_features(wavs)
         feats = self.modules.mean_var_norm(feats, lens)
 
-        return feats, lens
+        # run inference with our trained CycleGAN to reconstruct features, which are then used
+        # to (re) train the gender classifier
+        recon_feats, sex_logits = self.modules.recon_model(feats)
+
+        # return feats, lens
+        return recon_feats, lens
 
     def compute_objectives(self, predictions, batch, stage):
         """Computes the loss given the predicted and targeted outputs.
@@ -222,6 +198,7 @@ class GenderBrain(sb.Brain):
                 test_stats=stats,
             )
 
+
 def dataio_prepare(hparams):
     """This function prepares the datasets to be used in the brain class.
     It also defines the data processing pipeline through user-defined functions."""
@@ -299,7 +276,6 @@ def dataio_prepare(hparams):
 
 
 if __name__ == "__main__":
-
     # Reading command line arguments.
     hparams_file, run_opts, overrides = sb.parse_arguments(sys.argv[1:])
 
@@ -335,18 +311,11 @@ if __name__ == "__main__":
     # Create dataset objects "train", "valid", and "test".
     train_data, valid_data, test_data = dataio_prepare(hparams)
 
-    # TODO right place?
-    # run_on_main(hparams["pretrainer"].collect_files)
-    # hparams["pretrainer"].load_collected(device=(run_opts["device"]))
-#    hparams["embedding_model"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/embedding_model.ckpt"))
- #   hparams["classifier"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/classifier.ckpt"))
-  #  hparams["normalizer"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/normalizer.ckpt"))
     hparams["embedding_model"].eval()
     hparams["embedding_model"].to(run_opts["device"])
 
 
-
-    # Initialize the Brain object to prepare for mask training.
+    # Initialize the Brain object to prepare for training.
     gender_brain = GenderBrain(
         modules=hparams["modules"],
         opt_class=hparams["opt_class"],
@@ -354,6 +323,15 @@ if __name__ == "__main__":
         run_opts=run_opts,
         checkpointer=hparams["checkpointer"],
     )
+
+    # initialize CycleGAN model from checkpoint
+    recon_model = CycleGANGenerator()
+    recon_model = recon_model.to(gender_brain.device)
+    recon_model.eval()
+    gender_brain.modules["recon_model"] = recon_model
+
+    hparams["pretrainer"].collect_files()
+    hparams["pretrainer"].load_collected(device=run_opts["device"])
 
     # The `fit()` method iterates the training loop, calling the methods
     # necessary to update the parameters of the model. Since all objects
