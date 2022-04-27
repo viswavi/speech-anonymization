@@ -18,10 +18,10 @@ __set_seed: !!python/object/apply:torch.manual_seed [!ref <seed>]
 # 4- Set data_folder with the local path.
 # Reading data from the local disk of the compute node (e.g. $SLURM_TMPDIR with SLURM-based clusters) is very important.
 # It allows you to read the data much faster without slowing down the shared filesystem.
-data_folder: /home/ubuntu/LibriSpeech
+data_folder: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech
 data_folder_rirs: !ref <data_folder>
-train_splits: ["train-clean-100"]
-dev_splits: ["dev-clean-100"]
+train_splits: ["train-clean"]
+dev_splits: ["dev-clean"]
 test_splits: ["test-clean"]
 skip_prep: False
 train_csv: !ref <data_folder>/train-clean.csv
