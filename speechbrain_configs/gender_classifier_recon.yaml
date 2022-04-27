@@ -180,9 +180,16 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         classifier: !ref <classifier>
         label_encoder: !ref <label_encoder>
         model: !ref <model>
+        noam_scheduler: !ref <noam_annealing>
+        normalizer: !ref <normalize>
+        counter: !ref <epoch_counter>
     paths:
         embedding_model: !ref <trained_classifier_path>/embedding_model.ckpt
         classifier: !ref <trained_classifier_path>/classifier.ckpt
         label_encoder: !ref <trained_classifier_path>/label_encoder.txt
         model: !ref <trained_recon_model_path>/model.ckpt
+        noam_scheduler: !ref <trained_recon_model_path>/noam_scheduler.ckpt
+        normalizer: !ref <trained_recon_model_path>/normalizer.ckpt
+        counter: !ref <trained_recon_model_path>/counter.ckpt
+
 
