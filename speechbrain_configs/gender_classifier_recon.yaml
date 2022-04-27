@@ -176,13 +176,8 @@ model: !new:torch.nn.ModuleList
 convae_feature_dim: 80
 
 
-lr_adam: 1.0
-d_model: 768
 
-noam_annealing: !new:speechbrain.nnet.schedulers.NoamScheduler
-    lr_initial: !ref <lr_adam>
-    n_warmup_steps: 25000
-    model_size: !ref <d_model>
+
 
 normalize: !new:speechbrain.processing.features.InputNormalization
     norm_type: global
@@ -194,7 +189,6 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         classifier: !ref <classifier>
         label_encoder: !ref <label_encoder>
         model: !ref <model>
-        noam_scheduler: !ref <noam_annealing>
         normalizer: !ref <normalize>
         counter: !ref <epoch_counter>
     paths:
@@ -202,7 +196,6 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         classifier: !ref <trained_classifier_path>/classifier.ckpt
         label_encoder: !ref <trained_classifier_path>/label_encoder.txt
         model: !ref <trained_recon_model_path>/model.ckpt
-        noam_scheduler: !ref <trained_recon_model_path>/noam_scheduler.ckpt
         normalizer: !ref <trained_recon_model_path>/normalizer.ckpt
         counter: !ref <trained_recon_model_path>/counter.ckpt
 
