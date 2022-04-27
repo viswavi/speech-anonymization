@@ -180,10 +180,6 @@ noam_annealing: !new:speechbrain.nnet.schedulers.NoamScheduler
     n_warmup_steps: 25000
     model_size: !ref <d_model>
 
-epoch_counter: !new:speechbrain.utils.epoch_loop.EpochCounter
-    limit: !ref <number_of_epochs>
-
-
 normalize: !new:speechbrain.processing.features.InputNormalization
     norm_type: global
     update_until_epoch: 4
