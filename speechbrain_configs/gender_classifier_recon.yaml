@@ -167,7 +167,9 @@ checkpointer: !new:speechbrain.utils.checkpoints.Checkpointer
         normalizer: !ref <mean_var_norm>
         counter: !ref <epoch_counter>
 
-pretrained_classifier_path: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/trained_external_classifier_ckpt
+trained_classifier_path: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/trained_external_classifier_ckpt
+trained_recon_model_path: /home/ec2-user/capstone/speech-anonymization/results/recon_best_model_ckpt
+
 
 pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
     loadables:
@@ -176,7 +178,8 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         label_encoder: !ref <label_encoder>
         recon_model: !ref
     paths:
-        embedding_model: !ref <pretrained_classifier_path>/embedding_model.ckpt
-        classifier: !ref <pretrained_classifier_path>/classifier.ckpt
-        label_encoder: !ref <pretrained_classifier_path>/label_encoder.txt
-        recon_model: !ref
+        embedding_model: !ref <trained_classifier_path>/embedding_model.ckpt
+        classifier: !ref <trained_classifier_path>/classifier.ckpt
+        label_encoder: !ref <trained_classifier_path>/label_encoder.txt
+        recon_model: !ref <trained_recon_model_path>/model.ckpt
+
