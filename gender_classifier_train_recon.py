@@ -86,7 +86,8 @@ class GenderBrain(sb.Brain):
 
         # run inference with our trained CycleGAN to reconstruct features, which are then used
         # to (re) train the gender classifier
-        recon_feats, sex_logits = self.modules.recon_model(feats)
+        with torch.no_grad():
+            recon_feats, sex_logits = self.modules.model(feats)
 
         # return feats, lens
         return recon_feats, lens
@@ -328,9 +329,9 @@ if __name__ == "__main__":
     recon_model = CycleGANGenerator()
     recon_model = recon_model.to(gender_brain.device)
     recon_model.eval()
-    gender_brain.modules["recon_model"] = recon_model
+    gender_brain.modules["model"] = recon_model
 
-    hparams["recon_model"].append(gender_brain.modules["recon_model"])
+    hparams["model"].append(gender_brain.modules["model"])
 
     hparams["pretrainer"].collect_files()
     hparams["pretrainer"].load_collected(device=run_opts["device"])
