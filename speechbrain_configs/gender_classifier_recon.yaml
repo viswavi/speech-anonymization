@@ -173,6 +173,7 @@ trained_recon_model_path: /home/ec2-user/capstone/speech-anonymization/results/r
 
 model: !new:torch.nn.ModuleList
     -[]
+convae_feature_dim: 80
 
 
 lr_adam: 1.0

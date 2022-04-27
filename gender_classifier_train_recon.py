@@ -20,7 +20,7 @@ from speechbrain.utils.distributed import run_on_main
 
 sys.path.append("speechbrain/recipes/LibriSpeech")
 from librispeech_prepare import prepare_librispeech  # noqa
-from models.ConvAutoEncoder import CycleGANGenerator # hard-coded, best model so far
+from models.ConvAutoEncoder import FullyConnectedAutoencoder # hard-coded, best model so far
 
 
 # 1.  # Dataset prep (parsing Librispeech)
@@ -326,7 +326,7 @@ if __name__ == "__main__":
     )
 
     # initialize CycleGAN model from checkpoint
-    recon_model = CycleGANGenerator()
+    recon_model = FullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
     recon_model = recon_model.to(gender_brain.device)
     recon_model.eval()
     gender_brain.modules["model"] = recon_model
