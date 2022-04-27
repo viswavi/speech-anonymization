@@ -330,6 +330,8 @@ if __name__ == "__main__":
     recon_model.eval()
     gender_brain.modules["recon_model"] = recon_model
 
+    hparams["recon_model"].append(gender_brain.modules["recon_model"])
+
     hparams["pretrainer"].collect_files()
     hparams["pretrainer"].load_collected(device=run_opts["device"])
 

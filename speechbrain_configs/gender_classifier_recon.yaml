@@ -171,12 +171,15 @@ trained_classifier_path: /home/ec2-user/capstone/speech-anonymization/results/ge
 trained_recon_model_path: /home/ec2-user/capstone/speech-anonymization/results/recon_best_model_ckpt
 
 
+recon_model: !new:torch.nn.ModuleList
+    -[]
+
 pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
     loadables:
         embedding_model: !ref <embedding_model>
         classifier: !ref <classifier>
         label_encoder: !ref <label_encoder>
-        recon_model: !ref
+        recon_model: !ref <recon_model>
     paths:
         embedding_model: !ref <trained_classifier_path>/embedding_model.ckpt
         classifier: !ref <trained_classifier_path>/classifier.ckpt
