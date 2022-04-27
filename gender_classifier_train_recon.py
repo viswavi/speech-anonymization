@@ -20,7 +20,7 @@ from speechbrain.utils.distributed import run_on_main
 
 sys.path.append("speechbrain/recipes/LibriSpeech")
 from librispeech_prepare import prepare_librispeech  # noqa
-from models.ConvAutoEncoder import FullyConnectedAutoencoder # hard-coded, best model so far
+from models.FullyConnected import FullyConnectedAutoencoder # hard-coded, best model so far
 
 
 # 1.  # Dataset prep (parsing Librispeech)
