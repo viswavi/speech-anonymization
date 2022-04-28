@@ -30,7 +30,7 @@ test_csv: !ref <data_folder>/test-clean.csv
 
 sorting: random
 
-output_folder: !ref ./results/gender_classifier/<seed>
+output_folder: !ref ./results/gender_classifier_recon
 save_folder: !ref <output_folder>/save
 train_log: !ref <output_folder>/train_log.txt
 
