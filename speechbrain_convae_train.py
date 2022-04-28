@@ -27,6 +27,9 @@ from gender_classifier_train import GenderBrain
 #import visualization
 from speechbrain.pretrained import EncoderClassifier
 import torch.nn.functional as F
+import numpy as np
+import soundfile as sf
+import pyworld as pw
 
 logger = logging.getLogger(__name__)
 
@@ -41,21 +44,28 @@ class SexAnonymizationTraining(sb.core.Brain):
     def compute_forward(self, batch, stage):
         """Forward computations from the waveform batches to the output probabilities."""
         batch = batch.to(self.device)
-        wavs, wav_lens = batch.sig
+
+        batch_data = batch.sig
+        f0s = torch.stack([row[0] for row in batch_data], dim=0)
+        feats_orig = torch.stack([row[1] for row in batch_data], dim=0)
+        aps = torch.stack([row[2] for row in batch_data], dim=0)
+        wav_lens = torch.tensor([row[3].item() for row in batch_data])
+
         tokens_bos, _ = batch.tokens_bos
 
         # Add augmentation if specified
+        '''
         if stage == sb.Stage.TRAIN:
             if hasattr(self.modules, "env_corrupt"):
                 wavs_noise = self.modules.env_corrupt(wavs, wav_lens)
                 wavs = torch.cat([wavs, wavs_noise], dim=0)
                 wav_lens = torch.cat([wav_lens, wav_lens])
                 tokens_bos = torch.cat([tokens_bos, tokens_bos], dim=0)
+        '''
 
         # compute features
-        feats = self.hparams.compute_features(wavs)
         current_epoch = self.hparams.epoch_counter.current
-        feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
+        feats = self.modules.normalize(feats_orig, wav_lens, epoch=current_epoch)
 
         if feats.shape[1]%36 != 0:
             feats = torch.nn.functional.pad(input=feats, pad=(0, 0, 0, 36-feats.shape[1]%36, 0, 0), mode='constant', value=0)
@@ -65,6 +75,7 @@ class SexAnonymizationTraining(sb.core.Brain):
                 feats = self.hparams.augmentation(feats)
 
         # forward pass through the model
+        breakpoint()
         return self.modules.ConvAE(feats)
 
     def compute_objectives(self, predictions, batch, stage):
@@ -191,9 +202,9 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def load_external_classifier(self):
         classifier = EncoderClassifier.from_hparams(
-            source="/home/ubuntu/speech-anonymization/speechbrain_configs/",
+            source="/Users/vijay/Documents/code/speech-anonymization/speechbrain_configs/",
             hparams_file="evaluator_inference.yaml",
-            savedir="/home/ubuntu/speech-anonymization/results/gender_classifier/1230/save/",
+            savedir="/Users/vijay/Documents/code/speech-anonymization/results/gender_classifier/1230/save/CKPT+2022-04-19+09-12-03+00",
         )
 
         classifier.eval()
@@ -343,11 +354,7 @@ class SexAnonymizationTraining(sb.core.Brain):
         self.hparams.model.eval()
 
 
-def dataio_prepare(hparams):
-    """This function prepares the datasets to be used in the brain class.
-    It also defines the data processing pipeline through user-defined functions."""
-    data_folder = hparams["data_folder"]
-
+def generate_datasets(hparams, data_folder):
     train_data = sb.dataio.dataset.DynamicItemDataset.from_csv(
         csv_path=hparams["train_csv"], replacements={"data_root": data_folder},
     )
@@ -397,7 +404,27 @@ def dataio_prepare(hparams):
     for testset in test_datasets:
         for item in test_datasets[testset].data.items():
             item[1]['gender'] = sex_string_to_int[item[1]['gender']]
+    return train_data, valid_data, test_datasets
 
+def dataio_prepare(hparams):
+    """This function prepares the datasets to be used in the brain class.
+    It also defines the data processing pipeline through user-defined functions."""
+    data_folder = hparams["data_folder"]
+
+    train_data, valid_data, test_datasets = generate_datasets(hparams, data_folder)
+    datasets = [train_data, valid_data] + [i for k, i in test_datasets.items()]
+    MAX_PAD_LEN = 0
+    import time
+    start = time.perf_counter()
+    for dataset in datasets:
+        for data_dict in dataset.data.values():
+            wav_data, sr = sf.read(data_dict["wav"])
+            MAX_PAD_LEN = max(len(wav_data), MAX_PAD_LEN)
+    print(f"Elapsed time to iterate through datasets: {time.perf_counter() - start}")
+    hparams["MAX_PAD_LEN"] = MAX_PAD_LEN
+
+
+    train_data, valid_data, test_datasets = generate_datasets(hparams, data_folder)
     datasets = [train_data, valid_data] + [i for k, i in test_datasets.items()]
 
     # We get the tokenizer as we need it to encode the labels when creating
@@ -408,8 +435,16 @@ def dataio_prepare(hparams):
     @sb.utils.data_pipeline.takes("wav")
     @sb.utils.data_pipeline.provides("sig")
     def audio_pipeline(wav):
-        sig = sb.dataio.dataio.read_audio(wav)
-        return sig
+        MAX_PAD_LEN = hparams["MAX_PAD_LEN"]
+        wav_data, sr = sf.read(wav)
+        wav_len = np.float16(len(wav_data) / MAX_PAD_LEN)
+        wav_data_padded = np.pad(wav_data,
+                                 (0, MAX_PAD_LEN - len(wav_data)),
+                                 mode="constant",
+                                 constant_values=0)
+        f0, sp, ap  = pw.wav2world(wav_data_padded, sr)
+        mel_spec = pw.code_spectral_envelope(sp, hparams["sample_rate"], hparams["n_mels"])
+        return [f0, mel_spec, ap, wav_len]
 
     sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
 
@@ -481,6 +516,7 @@ if __name__ == "__main__":
     else:
         #model = DummyFullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
         model = FullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
+        model = model.double()
 
     # We download the pretrained LM from HuggingFace (or elsewhere depending on
     # the path given in the YAML file). The tokenizer is loaded at the same time.
@@ -513,9 +549,9 @@ if __name__ == "__main__":
         )
     sa_brain.asr_brain.tokenizer = hparams["tokenizer"]
     sa_brain.asr_brain.tokenizer.Load("pretrained_models/asr-transformer-transformerlm-librispeech/tokenizer.ckpt")
-    hparams["asr_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/asr.ckpt"))
+    hparams["asr_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/asr.ckpt", map_location=torch.device('cpu')))
     #hparams["normalize"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/normalizer.ckpt"))
-    hparams["lm_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/lm.ckpt"))
+    hparams["lm_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/lm.ckpt", map_location=torch.device('cpu')))
 
     #hparams["embedding_model"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-04-14+01-03-37+00/embedding_model.ckpt"))
     #hparams["external_classifier"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-04-14+01-03-37+00/classifier.ckpt"))
