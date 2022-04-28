@@ -145,10 +145,18 @@ opt_class: !name:torch.optim.Adam
 #    epoch_count: !ref <number_of_epochs>
 
 
-lr_annealing: !new:speechbrain.nnet.schedulers.ReduceLROnPlateau
-    factor: 0.5
-    patience: 2
-    dont_halve_until_epoch: 2
+#lr_annealing: !new:speechbrain.nnet.schedulers.ReduceLROnPlateau
+#    factor: 0.5
+#    patience: 2
+#    dont_halve_until_epoch: 2
+
+lr_adam: 1.0
+d_model: 768
+
+noam_annealing: !new:speechbrain.nnet.schedulers.NoamScheduler
+    lr_initial: !ref <lr_adam>
+    n_warmup_steps: 25000
+    model_size: !ref <d_model>
 
 lr_sgd: 0.000025
 SGD: !name:torch.optim.SGD
@@ -191,6 +199,7 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         model: !ref <model>
         normalizer: !ref <normalize>
         counter: !ref <epoch_counter>
+        noam_scheduler: !ref <noam_annealing>
     paths:
         embedding_model: !ref <trained_classifier_path>/embedding_model.ckpt
         classifier: !ref <trained_classifier_path>/classifier.ckpt
@@ -198,5 +207,6 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         model: !ref <trained_recon_model_path>/model.ckpt
         normalizer: !ref <trained_recon_model_path>/normalizer.ckpt
         counter: !ref <trained_recon_model_path>/counter.ckpt
+        noam_scheduler: !ref <trained_recon_model_path>/noam_scheduler.ckpt
 
 
