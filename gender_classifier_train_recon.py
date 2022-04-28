@@ -319,7 +319,8 @@ if __name__ == "__main__":
     # Initialize the Brain object to prepare for training.
     gender_brain = GenderBrain(
         modules=hparams["modules"],
-        opt_class=hparams["opt_class"],
+        # opt_class=hparams["opt_class"],
+        opt_class=hparams["Adam"],
         hparams=hparams,
         run_opts=run_opts,
         checkpointer=hparams["checkpointer"],

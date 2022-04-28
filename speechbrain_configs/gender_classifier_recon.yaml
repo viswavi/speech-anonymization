@@ -136,33 +136,6 @@ modules:
 opt_class: !name:torch.optim.Adam
     lr: !ref <lr_start>
 
-# This function manages learning rate annealing over the epochs.
-# We here use the simple lr annealing method that linearly decreases
-# the lr from the initial value to the final one.
-#lr_annealing: !new:speechbrain.nnet.schedulers.LinearScheduler
-#    initial_value: !ref <lr_start>
-#    final_value: !ref <lr_final>
-#    epoch_count: !ref <number_of_epochs>
-
-
-#lr_annealing: !new:speechbrain.nnet.schedulers.ReduceLROnPlateau
-#    factor: 0.5
-#    patience: 2
-#    dont_halve_until_epoch: 2
-
-lr_adam: 1.0
-d_model: 768
-
-noam_annealing: !new:speechbrain.nnet.schedulers.NoamScheduler
-    lr_initial: !ref <lr_adam>
-    n_warmup_steps: 25000
-    model_size: !ref <d_model>
-
-lr_sgd: 0.000025
-SGD: !name:torch.optim.SGD
-    lr: !ref <lr_sgd>
-    momentum: 0.99
-    nesterov: True
 
 # This object is used for saving the state of training both so that it
 # can be resumed if it gets interrupted, and also so that the best checkpoint
@@ -183,8 +156,10 @@ model: !new:torch.nn.ModuleList
     -[]
 convae_feature_dim: 80
 
-
-
+Adam: !name:torch.optim.Adam
+    lr: 0.001
+    betas: (0.9, 0.98)
+    eps: 0.000000001
 
 
 normalize: !new:speechbrain.processing.features.InputNormalization
@@ -199,7 +174,6 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         model: !ref <model>
         normalizer: !ref <normalize>
         counter: !ref <epoch_counter>
-        noam_scheduler: !ref <noam_annealing>
     paths:
         embedding_model: !ref <trained_classifier_path>/embedding_model.ckpt
         classifier: !ref <trained_classifier_path>/classifier.ckpt
@@ -207,6 +181,5 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         model: !ref <trained_recon_model_path>/model.ckpt
         normalizer: !ref <trained_recon_model_path>/normalizer.ckpt
         counter: !ref <trained_recon_model_path>/counter.ckpt
-        noam_scheduler: !ref <trained_recon_model_path>/noam_scheduler.ckpt
 
 
