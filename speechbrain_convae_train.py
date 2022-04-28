@@ -202,9 +202,9 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def load_external_classifier(self):
         classifier = EncoderClassifier.from_hparams(
-            source="/Users/vijay/Documents/code/speech-anonymization/speechbrain_configs/",
+            source="/home/ec2-user/speech-anonymization/speechbrain_configs/",
             hparams_file="evaluator_inference.yaml",
-            savedir="/Users/vijay/Documents/code/speech-anonymization/results/gender_classifier/1230/save/CKPT+2022-04-19+09-12-03+00",
+            savedir="/home/ec2-user/speech-anonymization/results/gender_classifier/1230/save/CKPT+2022-04-19+09-12-03+00",
         )
 
         classifier.eval()
@@ -549,9 +549,9 @@ if __name__ == "__main__":
         )
     sa_brain.asr_brain.tokenizer = hparams["tokenizer"]
     sa_brain.asr_brain.tokenizer.Load("pretrained_models/asr-transformer-transformerlm-librispeech/tokenizer.ckpt")
-    hparams["asr_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/asr.ckpt", map_location=torch.device('cpu')))
+    hparams["asr_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/asr.ckpt"))
     #hparams["normalize"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/normalizer.ckpt"))
-    hparams["lm_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/lm.ckpt", map_location=torch.device('cpu')))
+    hparams["lm_model"].load_state_dict(torch.load("pretrained_models/asr-transformer-transformerlm-librispeech/lm.ckpt"))
 
     #hparams["embedding_model"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-04-14+01-03-37+00/embedding_model.ckpt"))
     #hparams["external_classifier"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-04-14+01-03-37+00/classifier.ckpt"))
