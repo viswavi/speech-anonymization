@@ -34,14 +34,14 @@ data_folder: /home/ec2-user/LibriSpeech # e.g., /path/to/LibriSpeech
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
 data_folder_rirs: !ref <data_folder>
-train_splits: ["train-clean-1"]
-dev_splits: ["dev-clean-1"]
-test_splits: ["test-clean-1"]
+train_splits: ["train-clean-100"]
+dev_splits: ["dev-clean"]
+test_splits: ["test-clean"]
 skip_prep: False
-train_csv: !ref <data_folder>/train-clean-1.csv
-valid_csv: !ref <data_folder>/dev-clean-1.csv
+train_csv: !ref <data_folder>/train-clean-100.csv
+valid_csv: !ref <data_folder>/dev-clean.csv
 test_csv: 
-    - !ref <data_folder>/test-clean-1.csv
+    - !ref <data_folder>/test-clean.csv
 ckpt_interval_minutes: 60 # save checkpoint every N min
 
 # Training parameters
