@@ -10,13 +10,13 @@
 # Seed needs to be set at top of yaml, before objects with parameters are made
 seed: 8886
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
-folder: /home/ubuntu/speech-anonymization/results/
+folder: /home/ec2-user/speech-anonymization/results_vocoder_mfcc/
 output_folder: !ref <folder>/<seed>
 wer_file: !ref <output_folder>/wer.txt
 save_folder: !ref <output_folder>/save
 train_log: !ref <output_folder>/train_log.txt
 
-pretrained_folder: !ref /home/ubuntu/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
+pretrained_folder: !ref /home/ec2-user/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
 
 model_type: convae
 
@@ -26,22 +26,22 @@ model_type: convae
 # speechbrain HuggingFace repository. However, a local path pointing to a
 # directory containing the lm.ckpt and tokenizer.ckpt may also be specified
 # instead. E.g if you want to use your own LM / tokenizer.
-pretrained_lm_tokenizer_path: /home/ubuntu/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech/
+pretrained_lm_tokenizer_path: /home/ec2-user/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech/
 
 # Data files
-data_folder: /home/ubuntu/LibriSpeech # e.g., /path/to/LibriSpeech
+data_folder: /home/ec2-user/LibriSpeech # e.g., /path/to/LibriSpeech
 # If RIRS_NOISES dir exists in /localscratch/xxx_corpus/RIRS_NOISES
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
 data_folder_rirs: !ref <data_folder>
-train_splits: ["train"]
-dev_splits: ["dev-clean"]
-test_splits: ["test-clean"]
+train_splits: ["train-clean-1"]
+dev_splits: ["dev-clean-1"]
+test_splits: ["test-clean-1"]
 skip_prep: False
-train_csv: !ref <data_folder>/train.csv
-valid_csv: !ref <data_folder>/dev-clean.csv
+train_csv: !ref <data_folder>/train-clean-1.csv
+valid_csv: !ref <data_folder>/dev-clean-1.csv
 test_csv: 
-    - !ref <data_folder>/test-clean-100.csv
+    - !ref <data_folder>/test-clean-1.csv
 ckpt_interval_minutes: 60 # save checkpoint every N min
 
 # Training parameters
@@ -60,7 +60,7 @@ ctc_weight: 0.3
 ## PARAMS FOR CONVAUTOENCODER ##
 convae_feature_dim: 80
 number_of_epochs: 15
-batch_size: 5
+batch_size: 1
 recon_loss_weight: 1.0
 sex_loss_weight: 0.0
 utility_loss_weight: 0.0

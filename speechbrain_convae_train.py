@@ -47,9 +47,9 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         batch_data = batch.sig
         f0s = torch.stack([row[0] for row in batch_data], dim=0)
-        feats_orig = torch.stack([row[1] for row in batch_data], dim=0)
+        feats_orig = torch.stack([row[1] for row in batch_data], dim=0).to(self.device)
         aps = torch.stack([row[2] for row in batch_data], dim=0)
-        wav_lens = torch.tensor([row[3].item() for row in batch_data])
+        wav_lens = torch.tensor([row[3].item() for row in batch_data]).to(self.device)
 
         tokens_bos, _ = batch.tokens_bos
 
@@ -75,23 +75,26 @@ class SexAnonymizationTraining(sb.core.Brain):
                 feats = self.hparams.augmentation(feats)
 
         # forward pass through the model
-        breakpoint()
         return self.modules.ConvAE(feats)
 
     def compute_objectives(self, predictions, batch, stage):
         """Forward computations from the waveform batches to the output probabilities."""
         reconstructed_speech, sex_logits = predictions
-
         batch = batch.to(sa_brain.device)
 
         sex_label = batch.gender
-        wavs, wav_lens = batch.sig
+    
+        batch_data = batch.sig
+        f0s = torch.stack([row[0] for row in batch_data], dim=0)
+        feats_orig = torch.stack([row[1] for row in batch_data], dim=0).to(self.device)
+        aps = torch.stack([row[2] for row in batch_data], dim=0)
+        wav_lens = torch.tensor([row[3].item() for row in batch_data]).to(self.device)
+
         tokens_bos, _ = batch.tokens_bos
 
         # compute features
-        feats = self.hparams.compute_features(wavs)
         current_epoch = self.hparams.epoch_counter.current
-        feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
+        feats = self.modules.normalize(feats_orig, wav_lens, epoch=current_epoch)
 
         if feats.shape[1]%36 != 0:
             feats = torch.nn.functional.pad(input=feats, pad=(0, 0, 0, 36-feats.shape[1]%36, 0, 0), mode='constant', value=0)
@@ -103,7 +106,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             utility_loss = self.hparams.loss_utility(recon_enc_out, orig_enc_out)
                 
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech.view(reconstructed_speech.shape[0], -1), feats.view(feats.shape[0], -1))
-        sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
+        sex_loss = self.hparams.loss_sex_classification(sex_logits, sex_label.detach())
         #mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch, self.hparams.batch_size)
 
         loss = (
@@ -516,7 +519,7 @@ if __name__ == "__main__":
     else:
         #model = DummyFullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
         model = FullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
-        model = model.double()
+    model = model.double()
 
     # We download the pretrained LM from HuggingFace (or elsewhere depending on
     # the path given in the YAML file). The tokenizer is loaded at the same time.
