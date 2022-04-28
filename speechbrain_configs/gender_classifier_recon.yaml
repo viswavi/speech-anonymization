@@ -57,6 +57,11 @@ n_mels: 80
 
 #pretrain_path: speechbrain/spkrec-xvect-voxceleb
 
+lr_annealing: !new:speechbrain.nnet.schedulers.ReduceLROnPlateau
+    factor: 0.5
+    patience: 2
+    dont_halve_until_epoch: 2
+
 
 # Training Parameters
 number_of_epochs: 10
