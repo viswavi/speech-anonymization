@@ -244,7 +244,7 @@ def dataio_prepare(hparams):
     @sb.utils.data_pipeline.takes("wav")
     @sb.utils.data_pipeline.provides("sig")
     def audio_pipeline(wav):
-        pitch_adjusted_directory = "/home/ec2-user/LibriSpeech_pitch_adjusted"
+        pitch_adjusted_directory = "/home/ec2-user/capstone/speech-anonymization/LibriSpeech_pitch_adjusted"
         basename = os.path.basename(wav)
         pitch_adjusted_file = os.path.join(pitch_adjusted_directory, basename)
 
