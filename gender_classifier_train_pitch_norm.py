@@ -260,7 +260,7 @@ def dataio_prepare(hparams):
 
         # sig = sb.dataio.dataio.read_audio(pitch_adjusted_file)
 
-        sig = sb.dataio.dataio.read_audio(rec)
+        sig = torch.from_numpy(rec)
         return sig
 
     sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
