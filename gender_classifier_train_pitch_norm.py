@@ -256,9 +256,11 @@ def dataio_prepare(hparams):
         voiced = np.maximum(0, (voiced - np.mean(voiced)) + 500)
         f0[voiced_idx] = voiced
         rec = pw.synthesize(f0, sp, ap, sr)
-        sf.write(pitch_adjusted_file, rec, sr)
+        # sf.write(pitch_adjusted_file, rec, sr)
 
-        sig = sb.dataio.dataio.read_audio(pitch_adjusted_file)
+        # sig = sb.dataio.dataio.read_audio(pitch_adjusted_file)
+
+        sig = sb.dataio.dataio.read_audio(rec)
         return sig
 
     sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
