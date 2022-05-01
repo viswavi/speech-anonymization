@@ -332,30 +332,30 @@ if __name__ == "__main__":
     hparams["embedding_model"].eval()
     hparams["embedding_model"].to(run_opts["device"])
 
-    # Initialize the Brain object to prepare for mask training.
-    gender_brain = GenderBrain(
-        modules=hparams["modules"],
-        opt_class=hparams["opt_class"],
-        hparams=hparams,
-        run_opts=run_opts,
-        checkpointer=hparams["checkpointer"],
-    )
-
-    # The `fit()` method iterates the training loop, calling the methods
-    # necessary to update the parameters of the model. Since all objects
-    # with changing state are managed by the Checkpointer, training can be
-    # stopped at any point, and will be resumed on next call.
-    gender_brain.fit(
-        epoch_counter=gender_brain.hparams.epoch_counter,
-        train_set=train_data,
-        valid_set=valid_data,
-        train_loader_kwargs=hparams["dataloader_options"],
-        valid_loader_kwargs=hparams["dataloader_options"],
-    )
-
-    # Load the best checkpoint for evaluation
-    test_stats = gender_brain.evaluate(
-        test_set=test_data,
-        min_key="error",
-        test_loader_kwargs=hparams["dataloader_options"],
-    )
+    # # Initialize the Brain object to prepare for mask training.
+    # gender_brain = GenderBrain(
+    #     modules=hparams["modules"],
+    #     opt_class=hparams["opt_class"],
+    #     hparams=hparams,
+    #     run_opts=run_opts,
+    #     checkpointer=hparams["checkpointer"],
+    # )
+    #
+    # # The `fit()` method iterates the training loop, calling the methods
+    # # necessary to update the parameters of the model. Since all objects
+    # # with changing state are managed by the Checkpointer, training can be
+    # # stopped at any point, and will be resumed on next call.
+    # gender_brain.fit(
+    #     epoch_counter=gender_brain.hparams.epoch_counter,
+    #     train_set=train_data,
+    #     valid_set=valid_data,
+    #     train_loader_kwargs=hparams["dataloader_options"],
+    #     valid_loader_kwargs=hparams["dataloader_options"],
+    # )
+    #
+    # # Load the best checkpoint for evaluation
+    # test_stats = gender_brain.evaluate(
+    #     test_set=test_data,
+    #     min_key="error",
+    #     test_loader_kwargs=hparams["dataloader_options"],
+    # )
