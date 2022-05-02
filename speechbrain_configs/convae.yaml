@@ -61,8 +61,8 @@ ctc_weight: 0.3
 convae_feature_dim: 80
 number_of_epochs: 500
 batch_size: 10
-recon_loss_weight: 0.1
-sex_loss_weight: 0.9
+recon_loss_weight: 1.0
+sex_loss_weight: 0.0
 utility_loss_weight: 0.0
 mi_loss_weight: 0.0
 gradient_accumulation: 1
@@ -77,7 +77,8 @@ utility_similarity_aggregator: !name:utils.utility_similarity_aggregator.Similar
 loss_reconstruction: !new:torch.nn.MSELoss
     reduction: mean
 loss_sex_classification: !new:torch.nn.NLLLoss
-loss_utility: !new:utils.cosine_similarity_loss.CosineSimilarityLoss
+loss_utility: !new:torch.nn.MSELoss
+    reduction: mean
 loss_mutual_information: !new:utils.mi_loss.MILoss
 
 # stages related parameters
