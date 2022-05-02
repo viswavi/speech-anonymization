@@ -11,6 +11,8 @@ class SimilarityMetricsStats(MetricStats):
     def clear(self):
         self.scores = []
         self.summary = {}
+        self.value = 0
+        self.denom = 0
 
     def append(self, scores):
         """Appends scores and labels to internal lists.
@@ -25,6 +27,11 @@ class SimilarityMetricsStats(MetricStats):
 
         """
         self.scores.extend(scores.detach())
+        self.value += torch.sum(scores.detach())
+        self.denom += scores.shape[0]
+
+    def peak(self):
+        return self.value/(1.0*self.denom)
 
     def summarize(
         self
