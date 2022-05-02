@@ -10,7 +10,7 @@
 # Seed needs to be set at top of yaml, before objects with parameters are made
 seed: 8886
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
-folder: /home/ec2-user/speech-anonymization/results_vocoder_mfcc/
+folder: /home/ec2-user/speech-anonymization/results_vocoder_convae_mfcc/
 output_folder: !ref <folder>/<seed>
 wer_file: !ref <output_folder>/wer.txt
 save_folder: !ref <output_folder>/save

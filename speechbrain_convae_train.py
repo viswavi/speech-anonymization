@@ -10,6 +10,7 @@ python speechbrain_convae_train.py \
 #!/usr/bin/env python3
 
 import os
+import pickle
 from queue import Full
 import sys
 from sympy import FU, Ge
@@ -438,15 +439,26 @@ def dataio_prepare(hparams):
     @sb.utils.data_pipeline.takes("wav")
     @sb.utils.data_pipeline.provides("sig")
     def audio_pipeline(wav):
-        MAX_PAD_LEN = hparams["MAX_PAD_LEN"]
-        wav_data, sr = sf.read(wav)
-        wav_len = np.float16(len(wav_data) / MAX_PAD_LEN)
-        wav_data_padded = np.pad(wav_data,
-                                 (0, MAX_PAD_LEN - len(wav_data)),
-                                 mode="constant",
-                                 constant_values=0)
-        f0, sp, ap  = pw.wav2world(wav_data_padded, sr)
-        mel_spec = pw.code_spectral_envelope(sp, hparams["sample_rate"], hparams["n_mels"])
+        OVERWRITE=False 
+        DATA_CACHE_FOLDER = "data_cache"
+        wav_basename = os.path.basename(wav).split('.flac')[0]
+        data_cache_abs_path = os.path.join(hparams["output_folder"], DATA_CACHE_FOLDER)
+        os.makedirs(data_cache_abs_path, exist_ok=True)
+        mel_spec_feature_file = os.path.join(data_cache_abs_path, wav_basename + ".pkl")
+        if os.path.exists(mel_spec_feature_file):
+            [f0, mel_spec, ap, wav_len] = pickle.load(open(mel_spec_feature_file, 'rb'))
+        else:
+            MAX_PAD_LEN = hparams["MAX_PAD_LEN"]
+            wav_data, sr = sf.read(wav)
+            wav_len = np.float16(len(wav_data) / MAX_PAD_LEN)
+            wav_data_padded = np.pad(wav_data,
+                                    (0, MAX_PAD_LEN - len(wav_data)),
+                                    mode="constant",
+                                    constant_values=0)
+            f0, sp, ap  = pw.wav2world(wav_data_padded, sr)
+            mel_spec = pw.code_spectral_envelope(sp, hparams["sample_rate"], hparams["n_mels"])
+            audio_features = [f0, mel_spec, ap, wav_len]
+            pickle.dump(audio_features, open(mel_spec_feature_file, 'wb'))
         return [f0, mel_spec, ap, wav_len]
 
     sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
@@ -515,7 +527,7 @@ if __name__ == "__main__":
 
     if hparams["model_type"] == "convae":
         #model = ConvAutoencoder()
-        model = CycleGANGenerator()
+        model = ConvAutoencoder()
     else:
         #model = DummyFullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
         model = FullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
