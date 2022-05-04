@@ -94,10 +94,13 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         utility_loss = 0.0
 
-        if self.hparams.utility_loss_weight > 0:
-            orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=False)
-            recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=False)
-            utility_loss = self.hparams.loss_utility(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1))
+        if stage == sb.Stage.TRAIN:
+            if self.hparams.utility_loss_weight > 0:
+                orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, eval=False, do_ctc=False)
+                recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, eval=False, do_ctc=False)
+                #print(recon_enc_out.grad)
+                #utility_loss = self.hparams.loss_utility(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1))
+                utility_loss = self.hparams.loss_utility(recon_prob, orig_prob)
                 
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech.view(reconstructed_speech.shape[0], -1), feats.view(feats.shape[0], -1))
 
@@ -105,7 +108,7 @@ class SexAnonymizationTraining(sb.core.Brain):
         #mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch, self.hparams.batch_size)
 
         if self.hparams.model_type == "endtoend":
-            if self.hparams.recon_loss_weight == 0.0:
+            if self.hparams.recon_loss_weight == 0.0 and self.hparams.utility_loss_weight == 0.0:
                 loss = self.hparams.sex_loss_weight * sex_loss
             else:
                 loss = (
@@ -151,20 +154,20 @@ class SexAnonymizationTraining(sb.core.Brain):
             print(self.sex_classification_acc_extern.summarize())
 
             if stage == sb.Stage.VALID:
-                recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=False)
-                orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=False)
+                recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, eval=True, do_ctc=False)
+                orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, eval=True, do_ctc=False)
 
                 cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
                 self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
 
                 print("utility retention ASR = ")
-                print(self.utility_similarity_aggregator.peak())
+                print(self.utility_similarity_aggregator.peek())
             else:
-                enc_out, predictions = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=True)
+                enc_out, predictions = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, eval=True, do_ctc=True)
                 recon_enc_out, recon_prob, _, _, _, _, = enc_out
                 ids, predicted_words, target_words = predictions
 
-                enc_out, predictions = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=True)
+                enc_out, predictions = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, eval=True, do_ctc=True)
                 orig_enc_out, orig_prob, _, _, _, _, = enc_out
                 o_ids, o_predicted_words, o_target_words = predictions
 
@@ -177,7 +180,7 @@ class SexAnonymizationTraining(sb.core.Brain):
                 self.wer_metric.append(ids, predicted_words, target_words)
 
                 print("utility retention ASR = ")
-                print(self.utility_similarity_aggregator.peak())
+                print(self.utility_similarity_aggregator.peek())
 
                 print("WER summary = ")
                 print(self.wer_metric.summarize("error_rate"))
@@ -200,14 +203,18 @@ class SexAnonymizationTraining(sb.core.Brain):
         #             param.requires_grad = False
 
         # else:
-        if self.step%200==0:
+
+        if True:
             #print("Jointly train sex + utility............")
-            self.hparams.recon_loss_weight = 0.4
-            self.hparams.sex_loss_weight = 0.6
-            self.hparams.utility_loss_weight = 0.0
+            self.hparams.recon_loss_weight = 0.0
+            self.hparams.sex_loss_weight = 0.9
+            self.hparams.utility_loss_weight = 0.1
 
             for name, param in self.modules.ConvAE.named_parameters():
-                param.requires_grad = True
+                if "sex_classifier" in name:
+                    param.requires_grad = False
+                else:
+                    param.requires_grad = True
 
         else:
             #print("Train only sex classifier............")
@@ -227,6 +234,10 @@ class SexAnonymizationTraining(sb.core.Brain):
         # normalize the loss by gradient_accumulation step
         (loss / self.hparams.gradient_accumulation).backward()
 
+        # for name, param in self.modules.ConvAE.named_parameters():
+        #     if "sex_classifier" not in name:
+        #         print(param.grad)
+
         if self.step % self.hparams.gradient_accumulation == 0:
             # gradient clipping & early stop if loss is not fini
             self.check_gradients(loss)
@@ -236,6 +247,8 @@ class SexAnonymizationTraining(sb.core.Brain):
 
             # anneal lr every update
             self.hparams.noam_annealing(self.optimizer)
+
+        
 
         return loss.detach()
 
@@ -574,13 +587,13 @@ if __name__ == "__main__":
 
     print("done loading")
 
-    sa_brain.fit(
-       sa_brain.hparams.epoch_counter,
-       train_data,
-       valid_data,
-       train_loader_kwargs=hparams["train_dataloader_opts"],
-        valid_loader_kwargs=hparams["valid_dataloader_opts"],
-    )
+    # sa_brain.fit(
+    #    sa_brain.hparams.epoch_counter,
+    #    train_data,
+    #    valid_data,
+    #    train_loader_kwargs=hparams["train_dataloader_opts"],
+    #     valid_loader_kwargs=hparams["valid_dataloader_opts"],
+    # )
 
 
     # Testing

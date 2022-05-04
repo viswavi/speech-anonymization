@@ -72,9 +72,15 @@ class ASR(sb.core.Brain):
             
         return loss
 
-    def evaluate_batch(self, feats, wav_lens, tokens_bos, batch, stage, do_ctc=True):
+    def evaluate_batch(self, feats, wav_lens, tokens_bos, batch, stage, eval=False, do_ctc=True):
         """Computations needed for validation/test batches"""
-        with torch.no_grad():
+        if eval:
+            with torch.no_grad():
+                predictions = self.compute_forward(feats, wav_lens, tokens_bos, batch, stage=stage, do_ctc=do_ctc)
+                if do_ctc:
+                    return predictions, self.compute_objectives(predictions, batch, stage=sb.Stage.TEST)
+                return predictions
+        else:
             predictions = self.compute_forward(feats, wav_lens, tokens_bos, batch, stage=stage, do_ctc=do_ctc)
             if do_ctc:
                 return predictions, self.compute_objectives(predictions, batch, stage=sb.Stage.TEST)
@@ -92,9 +98,9 @@ class ASR(sb.core.Brain):
         super().on_evaluate_start()
         self.hparams.asr_model.eval()
 
-    def get_predictions(self, feats, wav_lens, tokens_bos, batch, do_ctc=False):
+    def get_predictions(self, feats, wav_lens, tokens_bos, batch, eval=False, do_ctc=False):
         self.on_evaluate_start()
-        return self.evaluate_batch(feats, wav_lens, tokens_bos, batch, sb.Stage.TEST, do_ctc)
+        return self.evaluate_batch(feats, wav_lens, tokens_bos, batch, sb.Stage.TEST, eval, do_ctc)
 
 
 if __name__ == "__main__":

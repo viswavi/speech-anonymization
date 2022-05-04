@@ -61,11 +61,11 @@ ctc_weight: 0.3
 convae_feature_dim: 80
 number_of_epochs: 500
 batch_size: 10
-recon_loss_weight: 1.0
+recon_loss_weight: 0.0
 sex_loss_weight: 0.0
-utility_loss_weight: 0.0
+utility_loss_weight: 1.0
 mi_loss_weight: 0.0
-gradient_accumulation: 1
+gradient_accumulation: 3
 gradient_clipping: 5.0
 loss_reduction: 'batchmean'
 sorting: random
