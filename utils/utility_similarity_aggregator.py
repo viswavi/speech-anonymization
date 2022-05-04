@@ -30,7 +30,7 @@ class SimilarityMetricsStats(MetricStats):
         self.value += torch.sum(scores.detach())
         self.denom += scores.shape[0]
 
-    def peak(self):
+    def peek(self):
         return self.value/(1.0*self.denom)
 
     def summarize(
