@@ -1,41 +1,13 @@
 #!/usr/bin/env python3
-"""Recipe for training a speaker-id system. The template can use used as a
-basic example for any signal classification task such as language_id,
-emotion recognition, command classification, etc. The proposed task classifies
-28 speakers using Mini Librispeech. This task is very easy. In a real
-scenario, you need to use datasets with a larger number of speakers such as
-the voxceleb one (see recipes/VoxCeleb). Speechbrain has already some built-in
-models for signal classifications (see the ECAPA one in
-speechbrain.lobes.models.ECAPA_TDNN.py or the xvector in
-speechbrain/lobes/models/Xvector.py)
-
-To run this recipe, do the following:
-> python train.py gender_classifier.yaml
-
-To read the code, first scroll to the bottom to see the "main" code.
-This gives a high-level overview of what is going on, while the
-Brain class definition provides the details of what happens
-for each batch during training.
-
-The first time you run it, this script should automatically download
-and prepare the Mini Librispeech dataset for computation. Noise and
-reverberation are automatically added to each sample from OpenRIR.
-
-Authors
- * Mirco Ravanelli 2021
-"""
-
 
 """
 Daniel's comment:
- 
- in this modified script, we do the following
-1. adapting the training script to our gender classification task 
-2. training with Librispeech instead of Mini Librispeech
+
+identical to gender_classifier_train.py, except that we apply pitch normalization here
 
 To run:
 
-python gender_classifier_train.py \
+python gender_classifier_train_pitch_norm.py \
     speechbrain_configs/gender_classifier.yaml \
     --device cuda
 """
@@ -46,12 +18,14 @@ import speechbrain as sb
 from pathlib import Path
 from hyperpyyaml import load_hyperpyyaml
 from speechbrain.utils.distributed import run_on_main
+
 sys.path.append("speechbrain/recipes/LibriSpeech")
 from librispeech_prepare import prepare_librispeech  # noqa
 
 
-
-# 1.  # Dataset prep (parsing Librispeech)
+import pyworld as pw
+import numpy as np
+import soundfile as sf
 
 
 # Brain class for speech enhancement training
@@ -222,6 +196,7 @@ class GenderBrain(sb.Brain):
                 test_stats=stats,
             )
 
+
 def dataio_prepare(hparams):
     """This function prepares the datasets to be used in the brain class.
     It also defines the data processing pipeline through user-defined functions."""
@@ -269,7 +244,23 @@ def dataio_prepare(hparams):
     @sb.utils.data_pipeline.takes("wav")
     @sb.utils.data_pipeline.provides("sig")
     def audio_pipeline(wav):
-        sig = sb.dataio.dataio.read_audio(wav)
+        pitch_adjusted_directory = "/home/ec2-user/capstone/speech-anonymization/LibriSpeech_pitch_adjusted"
+        basename = os.path.basename(wav)
+        pitch_adjusted_file = os.path.join(pitch_adjusted_directory, basename)
+
+        # Pitch-normalize audio file and write to disk
+        wav_data, sr = sf.read(wav)
+        f0, sp, ap = pw.wav2world(wav_data, sr)
+        voiced_idx = np.where(f0 != 0)
+        voiced = f0[voiced_idx]
+        voiced = np.maximum(0, (voiced - np.mean(voiced)) + 500)
+        f0[voiced_idx] = voiced
+        rec = pw.synthesize(f0, sp, ap, sr)
+        # sf.write(pitch_adjusted_file, rec, sr)
+
+        # sig = sb.dataio.dataio.read_audio(pitch_adjusted_file)
+
+        sig = torch.from_numpy(rec).float()
         return sig
 
     sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
@@ -299,7 +290,6 @@ def dataio_prepare(hparams):
 
 
 if __name__ == "__main__":
-
     # Reading command line arguments.
     hparams_file, run_opts, overrides = sb.parse_arguments(sys.argv[1:])
 
@@ -338,13 +328,11 @@ if __name__ == "__main__":
     # TODO right place?
     # run_on_main(hparams["pretrainer"].collect_files)
     # hparams["pretrainer"].load_collected(device=(run_opts["device"]))
-#    hparams["embedding_model"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/embedding_model.ckpt"))
- #   hparams["classifier"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/classifier.ckpt"))
-  #  hparams["normalizer"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/normalizer.ckpt"))
+    #    hparams["embedding_model"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/embedding_model.ckpt"))
+    #   hparams["classifier"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/classifier.ckpt"))
+    #  hparams["normalizer"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/normalizer.ckpt"))
     hparams["embedding_model"].eval()
     hparams["embedding_model"].to(run_opts["device"])
-
-
 
     # Initialize the Brain object to prepare for mask training.
     gender_brain = GenderBrain(
