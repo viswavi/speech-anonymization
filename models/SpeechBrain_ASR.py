@@ -37,7 +37,7 @@ class ASR(sb.core.Brain):
         p_seq = self.hparams.log_softmax(pred)
 
         # Compute outputs
-        hyps, _ = self.hparams.test_search(enc_out.detach(), wav_lens)
+        hyps, _ = self.hparams.test_search(enc_out.detach(), torch.tensor([1.0], device=wav_lens.device))
 
         predicted_words = [
                 self.tokenizer.decode_ids(utt_seq).split(" ") for utt_seq in hyps

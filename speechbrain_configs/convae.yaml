@@ -10,7 +10,7 @@
 # Seed needs to be set at top of yaml, before objects with parameters are made
 seed: 8886
 __set_seed: !apply:torch.manual_seed [!ref <seed>]
-folder: /home/ec2-user/speech-anonymization/results_vocoder_convae_mfcc/
+folder: /home/ec2-user/speech-anonymization/results_vocoder_fcae_mfcc/
 output_folder: !ref <folder>/<seed>
 wer_file: !ref <output_folder>/wer.txt
 save_folder: !ref <output_folder>/save
@@ -18,7 +18,7 @@ train_log: !ref <output_folder>/train_log.txt
 
 pretrained_folder: !ref /home/ec2-user/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
 
-model_type: convae
+model_type: fcae
 
 # Language model (LM) pretraining
 # NB: To avoid mismatch, the speech recognizer must be trained with the same
@@ -88,7 +88,7 @@ lr_sgd: 0.000025
 # Feature parameters
 sample_rate: 16000
 n_fft: 400
-n_mels: 80
+n_mels: 34
 
 # Dataloader options
 train_dataloader_opts:

@@ -47,10 +47,8 @@ class SexAnonymizationTraining(sb.core.Brain):
         batch = batch.to(self.device)
 
         batch_data = batch.sig
-        f0s = torch.stack([row[0] for row in batch_data], dim=0)
-        feats_orig = torch.stack([row[1] for row in batch_data], dim=0).to(self.device)
-        aps = torch.stack([row[2] for row in batch_data], dim=0)
-        wav_lens = torch.tensor([row[3].item() for row in batch_data]).to(self.device)
+        feats_orig = torch.stack([row[0] for row in batch_data], dim=0).to(self.device)
+        wav_lens = torch.tensor([row[1].item() for row in batch_data]).to(self.device)
 
         tokens_bos, _ = batch.tokens_bos
 
@@ -76,6 +74,7 @@ class SexAnonymizationTraining(sb.core.Brain):
                 feats = self.hparams.augmentation(feats)
 
         # forward pass through the model
+        # return self.modules.ConvAE(feats)
         return self.modules.ConvAE(feats)
 
     def compute_objectives(self, predictions, batch, stage):
@@ -86,10 +85,8 @@ class SexAnonymizationTraining(sb.core.Brain):
         sex_label = batch.gender
     
         batch_data = batch.sig
-        f0s = torch.stack([row[0] for row in batch_data], dim=0)
-        feats_orig = torch.stack([row[1] for row in batch_data], dim=0).to(self.device)
-        aps = torch.stack([row[2] for row in batch_data], dim=0)
-        wav_lens = torch.tensor([row[3].item() for row in batch_data]).to(self.device)
+        feats_orig = torch.stack([row[0] for row in batch_data], dim=0).to(self.device)
+        wav_lens = torch.tensor([row[1].item() for row in batch_data]).to(self.device)
 
         tokens_bos, _ = batch.tokens_bos
 
@@ -157,10 +154,6 @@ class SexAnonymizationTraining(sb.core.Brain):
             else:
                 print("sex label = ")
                 print(sex_label)
-                # print("external sex logits = ")
-                # print(sex_logits_extern)
-                # print("external classification ACC = ")
-                # print(self.sex_classification_acc_extern.summarize())
 
                 enc_out, predictions = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=True)
                 recon_enc_out, recon_prob, _, _, _, _, = enc_out
@@ -445,8 +438,8 @@ def dataio_prepare(hparams):
         data_cache_abs_path = os.path.join(hparams["output_folder"], DATA_CACHE_FOLDER)
         os.makedirs(data_cache_abs_path, exist_ok=True)
         mel_spec_feature_file = os.path.join(data_cache_abs_path, wav_basename + ".pkl")
-        if os.path.exists(mel_spec_feature_file):
-            [f0, mel_spec, ap, wav_len] = pickle.load(open(mel_spec_feature_file, 'rb'))
+        if os.path.exists(mel_spec_feature_file) and not OVERWRITE:
+            [mfcc, wav_len] = pickle.load(open(mel_spec_feature_file, 'rb'))
         else:
             MAX_PAD_LEN = hparams["MAX_PAD_LEN"]
             wav_data, sr = sf.read(wav)
@@ -455,11 +448,12 @@ def dataio_prepare(hparams):
                                     (0, MAX_PAD_LEN - len(wav_data)),
                                     mode="constant",
                                     constant_values=0)
-            f0, sp, ap  = pw.wav2world(wav_data_padded, sr)
-            mel_spec = pw.code_spectral_envelope(sp, hparams["sample_rate"], hparams["n_mels"])
-            audio_features = [f0, mel_spec, ap, wav_len]
+            f0, sp, ap  = pw.wav2world(wav_data_padded, sr, frame_period=10, fft_size=hparams["n_fft"])
+            hparams["MAX_FRAME_LEN"] = sp.shape[1]
+            mfcc = pw.code_spectral_envelope(sp, hparams["sample_rate"], hparams["n_mels"])
+            audio_features = [mfcc.astype('float32',casting='same_kind'), wav_len]
             pickle.dump(audio_features, open(mel_spec_feature_file, 'wb'))
-        return [f0, mel_spec, ap, wav_len]
+        return [mfcc, wav_len]
 
     sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
 
@@ -531,7 +525,6 @@ if __name__ == "__main__":
     else:
         #model = DummyFullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
         model = FullyConnectedAutoencoder(hparams["convae_feature_dim"], hparams["batch_size"])
-    model = model.double()
 
     # We download the pretrained LM from HuggingFace (or elsewhere depending on
     # the path given in the YAML file). The tokenizer is loaded at the same time.
@@ -574,7 +567,6 @@ if __name__ == "__main__":
     
 
     print("done loading")
-
     sa_brain.fit(
        sa_brain.hparams.epoch_counter,
        train_data,
