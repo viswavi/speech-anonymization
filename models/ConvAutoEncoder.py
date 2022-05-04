@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
+from speechbrain.nnet.pooling import StatisticsPooling
+from speechbrain.pretrained import EncoderClassifier
 
 # [ BATCH_SIZE x NUM_TIMESTAMPS x MFCC_FEATURE_DIM ]
 # need to swap to
@@ -25,19 +27,86 @@ class GradReverse(torch.autograd.Function):
     def grad_reverse(input):
         return GradReverse.apply(input)
 
-class SexClassifier(nn.Module):
+class TDNNSexClassifier(nn.Module):
     def __init__(self, num_classes):
-        super(SexClassifier, self).__init__()
-        self.fc1 = nn.Linear(40, 20)
-        self.fc2 = nn.Linear(20, num_classes)
+        super(TDNNSexClassifier, self).__init__()
+        self.tdnn = nn.Sequential(
+            nn.Conv1d(in_channels=128, out_channels=128, kernel_size=5, dilation=1),
+            nn.ReLU(),
+            nn.BatchNorm1d(128),
+            nn.Conv1d(in_channels=128, out_channels=128, kernel_size=3, dilation=2),
+            nn.ReLU(),
+            nn.BatchNorm1d(128),
+            nn.Conv1d(in_channels=128, out_channels=128, kernel_size=3, dilation=3),
+            nn.ReLU(),
+            nn.BatchNorm1d(128),
+        )
+        self.norm = nn.BatchNorm1d(128)
+        self.stats_pooling = StatisticsPooling()
 
-        # self.fc1 = nn.Linear(256,128)
-        # self.fc2 = nn.Linear(128, num_classes)
+        self.classify = nn.Sequential(
+            nn.Linear(256, 128),
+            nn.ReLU(),
+            nn.BatchNorm1d(128),
+            nn.Linear(128, 64),
+            nn.ReLU(),
+            nn.BatchNorm1d(64),
+            nn.Linear(64, 2)
+        )
 
     def forward(self, input):
         input = GradReverse.grad_reverse(input)
-        logits = F.relu(self.fc1(input))
-        logits = F.log_softmax(self.fc2(logits), 1)
+        input = self.norm(input)
+        input = self.tdnn(input)
+        input = input.reshape(input.shape[0], input.shape[2], input.shape[1])
+
+        ## statistics pooling ##
+        stat_pooling = self.stats_pooling(input)
+        stat_pooling = stat_pooling.squeeze(1)
+
+        logits = self.classify(stat_pooling)
+        logits = F.log_softmax(logits, 1)
+        return logits
+
+
+class SexClassifier(nn.Module):
+    def __init__(self, num_classes):
+        super(SexClassifier, self).__init__()
+        self.initial = nn.Sequential(
+            nn.Linear(128, 256),
+            nn.ReLU(),
+            nn.Linear(256, 256),
+            nn.ReLU()
+        )
+        
+        self.norm = nn.BatchNorm1d(128)
+
+        self.classify = nn.Sequential(
+            nn.Linear(512, 256),
+            nn.BatchNorm1d(256),
+            nn.ReLU(),
+            nn.Linear(256, 128),
+            nn.ReLU(),
+            nn.Linear(128, 32),
+            nn.BatchNorm1d(32),
+            nn.ReLU(),
+            nn.Linear(32, num_classes)
+        )
+
+        self.stats_pooling = StatisticsPooling()
+
+    def forward(self, input):
+        input = GradReverse.grad_reverse(input)
+        input = self.norm(input)
+        input = input.reshape(input.shape[0], input.shape[2], input.shape[1])
+        logits = self.initial(input)
+
+        ## statistics pooling ##
+        stat_pooling = self.stats_pooling(logits)
+        stat_pooling = stat_pooling.squeeze(1)
+
+        logits = self.classify(stat_pooling)
+        logits = F.log_softmax(logits, 1)
         return logits
 
 # Gated Linear Units
@@ -76,19 +145,26 @@ class ConvAutoencoder(nn.Module):
             nn.Conv1d(in_channels=32, out_channels=64, kernel_size=5, stride=2, padding=2),
             nn.InstanceNorm1d(num_features=64, affine=True),
             GLU(),
-
+            nn.Conv1d(in_channels=64, out_channels=64, kernel_size=5, stride=1, padding=2),
+            nn.InstanceNorm1d(num_features=64, affine=True),
+            GLU(),
             nn.Conv1d(in_channels=64, out_channels=128, kernel_size=5, stride=2, padding=2),
             nn.InstanceNorm1d(num_features=128, affine=True),
-            GLU()
+            GLU(),
+            nn.Conv1d(in_channels=128, out_channels=128, kernel_size=5, stride=1, padding=2),
+            nn.InstanceNorm1d(num_features=128, affine=True),
+            GLU(),
         )
 
         ## decoder layers ##
         self.decoder=nn.Sequential(
             nn.Conv1d(in_channels=128, out_channels=128, kernel_size=5, stride=1, padding=2),
+            #PixelShuffle(upscale_factor=2),
             nn.ConvTranspose1d(in_channels=128, out_channels=64, kernel_size=5, stride=2, padding=2, output_padding=1),
             nn.InstanceNorm1d(num_features=64, affine=True),
             GLU(),
             nn.Conv1d(in_channels=64, out_channels=64, kernel_size=5, stride=1, padding=2),
+            #PixelShuffle(upscale_factor=2),
             nn.ConvTranspose1d(in_channels=64, out_channels=32, kernel_size=5, stride=2, padding=2, output_padding=1),
             nn.InstanceNorm1d(num_features=32, affine=True),
             GLU(),
@@ -96,13 +172,12 @@ class ConvAutoencoder(nn.Module):
         )
 
         ## Sex classifier: num_classes = 2 ##
-        self.sex_classifier = SexClassifier(2)
+        self.sex_classifier = TDNNSexClassifier(2)
 
 
     def forward(self, input):
         ## encode ##
         out = input
-        print(input.shape)
         input = input.reshape(input.shape[0], input.shape[1]*input.shape[2])
 
         # batch_size feats timesteps
@@ -111,22 +186,14 @@ class ConvAutoencoder(nn.Module):
         # -->
         # batch_size channel feats*timesteps
         input = input.unsqueeze(1)
-        print(input.shape)
         input = self.encoder(input)
-        #print(input.shape)
-
-        ## statistics pooling ##
-        mean = torch.mean(input, 2)
-        std = torch.std(input, 2)
-        stat_pooling = torch.cat((mean, std), 1)
 
         ## sex classifier ##
-        sex_classifier_logits = self.sex_classifier(stat_pooling)
+        sex_classifier_logits = self.sex_classifier(input)
         #sex_classifier_logits = torch.rand((out.shape[0],2)).to(torch.device("cuda"))
-        
+
         ## decode ##
         input = self.decoder(input)
-        print(input.shape)
         input = input.squeeze(1)
         input = input.reshape(input.shape[0], out.shape[1], out.shape[2])
         ## return reconstructed speech feature for reconstruction loss, sex classification for cross entropy loss ##
@@ -226,6 +293,7 @@ class CycleGANGenerator(nn.Module):
 
         ## Sex classifier: num_classes = 2 ##
         self.sex_classifier = SexClassifier(2)
+        self.stats_pooling = StatisticsPooling()
 
         # 2D Conv Layer 
         self.conv1 = nn.Conv2d(in_channels=1,  # TODO 1 ?
@@ -348,6 +416,7 @@ class CycleGANGenerator(nn.Module):
                                        GLU())
         return self.convLayer
 
+
     def forward(self, input):
         # GLU
         input = input.view(input.shape[0], input.shape[2], input.shape[1])
@@ -361,16 +430,21 @@ class CycleGANGenerator(nn.Module):
         downsample1 = self.downSample1(conv1)
         #print("Generator forward downsample1: ", downsample1.shape)
         downsample2 = self.downSample2(downsample1)
-        
-        temp = downsample2.view(downsample2.shape[0], downsample2.shape[2], downsample2.shape[1], downsample2.shape[3])
-        sex_classifier_input = temp.view(temp.shape[0], temp.shape[1], temp.shape[2]*temp.shape[3])
 
-        mean = torch.mean(sex_classifier_input, 2)
-        std = torch.std(sex_classifier_input, 2)
-        stat_pooling = torch.cat((mean, std), 1)
+        temp = downsample2.view(downsample2.shape[0], downsample2.shape[1], downsample2.shape[3], downsample2.shape[2])
+        sex_classifier_input = temp.view(temp.shape[0], temp.shape[1]*temp.shape[2], temp.shape[3])
+    
+        # mean = torch.mean(sex_classifier_input, 2)
+        # std = torch.std(sex_classifier_input, 2)
+        # stat_pooling = torch.cat((mean, std), 1)
+
+        stat_pooling = self.stats_pooling(sex_classifier_input)
+        stat_pooling = stat_pooling.squeeze(1)
+
         sex_classifier_logits = self.sex_classifier(stat_pooling)
 
         #sex_classification_input = downsample2.view(downsample2.shape[0], )
+        #sex_classifier_logits = torch.rand((input.shape[0],2)).to(torch.device("cuda"))
 
         # 2D -> 1D
         # reshape
