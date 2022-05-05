@@ -7,7 +7,7 @@ from torchsummary import summary
 
 
 
-model_fcae = FullyConnectedAutoencoder.to('cpu')
+model_fcae = FullyConnectedAutoencoder().to('cpu')
 model_convae = ConvAutoencoder().to('cpu')
 
 
