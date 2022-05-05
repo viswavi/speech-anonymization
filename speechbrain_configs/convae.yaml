@@ -26,7 +26,7 @@ model_type: convae
 # speechbrain HuggingFace repository. However, a local path pointing to a
 # directory containing the lm.ckpt and tokenizer.ckpt may also be specified
 # instead. E.g if you want to use your own LM / tokenizer.
-pretrained_lm_tokenizer_path: /home/ec2-user/capstone/speech-anonymization/pretrained_ASR
+pretrained_lm_tokenizer_path: /home/ec2-user/capstone/speech-anonymization/pretrainedASR
 
 # Data files
 data_folder: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech # e.g., /path/to/LibriSpeech
