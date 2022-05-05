@@ -55,7 +55,7 @@ class ConvReconstruction(nn.Module):
 
         ## Sex classifier: num_classes = 2 ##
         self.sex_classifier = EncoderClassifier.from_hparams(
-            source="/home/ec2-user/capstone/speech-anonymization/speechbrain_configs/",
+            source="/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/",
             hparams_file="evaluator_inference.yaml",
             savedir="/home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/",
         )
