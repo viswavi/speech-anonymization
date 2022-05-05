@@ -152,7 +152,7 @@ checkpointer: !new:speechbrain.utils.checkpoints.Checkpointer
         counter: !ref <epoch_counter>
 
 #trained_classifier_path: /home/ec2-user/capstone/speech-anonymization/results/gender_classifier/1230/save/trained_external_classifier_ckpt
-trained_recon_model_path: /home/ec2-user/capstone/speech-anonymization/results/recon_best_model_ckpt
+trained_recon_model_path: /home/ec2-user/capstone/speech-anonymization/results/from1_5_endtoend_resume_with_asr
 
 
 model: !new:torch.nn.ModuleList

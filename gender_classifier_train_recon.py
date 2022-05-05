@@ -84,10 +84,16 @@ class GenderBrain(sb.Brain):
         feats = self.modules.compute_features(wavs)
         feats = self.modules.mean_var_norm(feats, lens)
 
+
+
         # run inference with our trained CycleGAN to reconstruct features, which are then used
         # to (re) train the gender classifier
-        with torch.no_grad():
-            recon_feats, sex_logits = self.modules.model(feats)
+        with torch.autograd.profiler.profile(use_cuda=False) as prof:
+            with torch.no_grad():
+                recon_feats, sex_logits = self.modules.model(feats)
+        print(prof)
+
+
 
         # return feats, lens
         return recon_feats, lens
