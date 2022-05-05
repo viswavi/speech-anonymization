@@ -2,10 +2,11 @@ from models.ConvAutoEncoder import ConvAutoencoder, CycleGANGenerator
 from models.FullyConnected import DummyFullyConnectedAutoencoder, FullyConnectedAutoencoder
 from models.EndToEnd import ConvReconstruction
 
+import torch
 from torchsummary import summary
 
 
-model_convae = ConvAutoencoder()
+model_convae = ConvAutoencoder().to('cpu')
 
 param_size = 0
 for param in model_convae.parameters():
@@ -18,7 +19,7 @@ size_all_mb = (param_size + buffer_size) / 1024**2
 print('model: Convolutional AutoEncoder size: {:.3f}MB'.format(size_all_mb))
 
 
-summary(model_convae, (1, 80, 10))
+summary(model_convae,  torch.from_numpy((1, 80*10)).float().to(model_convae.device))
 
 model_e2e = ConvReconstruction()
 
@@ -32,4 +33,4 @@ for buffer in model_e2e.buffers():
 size_all_mb = (param_size + buffer_size) / 1024**2
 print('model: Gated Conv AutoEncoder size: {:.3f}MB'.format(size_all_mb))
 
-summary(model_e2e, (1, 80, 10))
+summary(model_e2e,  torch.from_numpy((1, 80*10)).float().to(model_e2e.device))
