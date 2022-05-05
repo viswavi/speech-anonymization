@@ -2,7 +2,7 @@ from models.ConvAutoEncoder import ConvAutoencoder, CycleGANGenerator
 from models.FullyConnected import DummyFullyConnectedAutoencoder, FullyConnectedAutoencoder
 from models.EndToEnd import ConvReconstruction
 
-
+from torchsummary import summary
 
 
 model_convae = ConvAutoencoder()
@@ -17,6 +17,8 @@ for buffer in model_convae.buffers():
 size_all_mb = (param_size + buffer_size) / 1024**2
 print('model: Convolutional AutoEncoder size: {:.3f}MB'.format(size_all_mb))
 
+
+summary(model_convae, (1, 10, 80))
 
 model_e2e = ConvReconstruction()
 
