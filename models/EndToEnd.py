@@ -54,11 +54,11 @@ class ConvReconstruction(nn.Module):
         )
 
         ## Sex classifier: num_classes = 2 ##
-        self.sex_classifier = EncoderClassifier.from_hparams(
-            source="/home/ec2-user/capstone/speech-anonymization/speechbrain_configs/",
-            hparams_file="evaluator_inference.yaml",
-            savedir="/home/ec2-user/capstone/speech-anonymization/speechbrain_configs/",
-        )
+        # self.sex_classifier = EncoderClassifier.from_hparams(
+        #     source="/home/ec2-user/capstone/speech-anonymization/speechbrain_configs/",
+        #     hparams_file="evaluator_inference.yaml",
+        #     savedir="/home/ec2-user/capstone/speech-anonymization/speechbrain_configs/",
+        # )
 
 
     def forward(self, input):
@@ -80,10 +80,10 @@ class ConvReconstruction(nn.Module):
         input = input.reshape(input.shape[0], out.shape[1], out.shape[2])
 
         ## sex classifier ##
-        sex_classifier_logits, score, index = self.sex_classifier(input)
+        # sex_classifier_logits, score, index = self.sex_classifier(input)
         #sex_classifier_logits = torch.rand((out.shape[0],2)).to(torch.device("cuda"))
 
         ## return reconstructed speech feature for reconstruction loss, sex classification for cross entropy loss ##
-        return input, sex_classifier_logits
-
+        # return input, sex_classifier_logits
+        return input
 
