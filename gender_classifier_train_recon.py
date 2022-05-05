@@ -66,29 +66,29 @@ class GenderBrain(sb.Brain):
             The current stage of training.
         """
         wavs, lens = wavs
-
+        with torch.autograd.profiler.profile(use_cuda=False) as prof:
         # Add augmentation if specified. In this version of augmentation, we
         # concatenate the original and the augment batches in a single bigger
         # batch. This is more memory-demanding, but helps to improve the
         # performance. Change it if you run OOM.
-        if stage == sb.Stage.TRAIN:
-            if hasattr(self.modules, "env_corrupt"):
-                wavs_noise = self.modules.env_corrupt(wavs, lens)
-                wavs = torch.cat([wavs, wavs_noise], dim=0)
-                lens = torch.cat([lens, lens])
+            if stage == sb.Stage.TRAIN:
+                if hasattr(self.modules, "env_corrupt"):
+                    wavs_noise = self.modules.env_corrupt(wavs, lens)
+                    wavs = torch.cat([wavs, wavs_noise], dim=0)
+                    lens = torch.cat([lens, lens])
 
-            if hasattr(self.hparams, "augmentation"):
-                wavs = self.hparams.augmentation(wavs, lens)
+                if hasattr(self.hparams, "augmentation"):
+                    wavs = self.hparams.augmentation(wavs, lens)
 
-        # Feature extraction and normalization
-        feats = self.modules.compute_features(wavs)
-        feats = self.modules.mean_var_norm(feats, lens)
+            # Feature extraction and normalization
+            feats = self.modules.compute_features(wavs)
+            feats = self.modules.mean_var_norm(feats, lens)
 
 
 
         # run inference with our trained CycleGAN to reconstruct features, which are then used
         # to (re) train the gender classifier
-        with torch.autograd.profiler.profile(use_cuda=False) as prof:
+
             with torch.no_grad():
                 recon_feats, sex_logits = self.modules.model(feats)
         print(prof)
