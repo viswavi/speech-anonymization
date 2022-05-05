@@ -12,7 +12,7 @@ model_convae = ConvAutoencoder().to('cpu')
 
 
 
-summary(model_fcae, (1, 80*10), device='cpu')
+summary(model_fcae, (1, 80, 10), device='cpu')
 
 
 summary(model_convae,  (1, 80*10), device='cpu')
