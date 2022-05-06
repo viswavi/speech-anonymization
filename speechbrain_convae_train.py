@@ -69,11 +69,12 @@ class SexAnonymizationTraining(sb.core.Brain):
             if hasattr(self.hparams, "augmentation"):
                 feats = self.hparams.augmentation(feats)
 
-        return self.modules.ConvAE(feats)
+        # return self.modules.ConvAE(feats)
 
+        return feats
     def compute_objectives(self, predictions, batch, stage):
         """Forward computations from the waveform batches to the output probabilities."""
-        reconstructed_speech, sex_logits = predictions
+        # reconstructed_speech, sex_logits = predictions
 
         batch = batch.to(sa_brain.device)
 
@@ -86,8 +87,8 @@ class SexAnonymizationTraining(sb.core.Brain):
         current_epoch = self.hparams.epoch_counter.current
         feats = self.modules.normalize(feats, wav_lens, epoch=current_epoch)
 
-        if self.hparams.model_type != "fcae" and feats.shape[1]%36 != 0:
-            feats = torch.nn.functional.pad(input=feats, pad=(0, 0, 0, 36-feats.shape[1]%36, 0, 0), mode='constant', value=0)
+        # if self.hparams.model_type != "fcae" and feats.shape[1]%36 != 0:
+        #     feats = torch.nn.functional.pad(input=feats, pad=(0, 0, 0, 36-feats.shape[1]%36, 0, 0), mode='constant', value=0)
 
         sex_loss = 0.0
         # if self.hparams.sex_loss_weight > 0:
@@ -97,17 +98,17 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         utility_loss = 0.0
 
-        if stage == sb.Stage.TRAIN:
-            if self.hparams.utility_loss_weight > 0:
-                orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, eval=False, do_ctc=False)
-                recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, eval=False, do_ctc=False)
-                #print(recon_enc_out.grad)
-                #utility_loss = self.hparams.loss_utility(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1))
-                utility_loss = self.hparams.loss_utility(recon_prob, orig_prob)
+        # if stage == sb.Stage.TRAIN:
+        #     if self.hparams.utility_loss_weight > 0:
+        #         orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, eval=False, do_ctc=False)
+        #         recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, eval=False, do_ctc=False)
+        #         #print(recon_enc_out.grad)
+        #         #utility_loss = self.hparams.loss_utility(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1))
+        #         utility_loss = self.hparams.loss_utility(recon_prob, orig_prob)
                 
-        recon_loss = self.hparams.loss_reconstruction(reconstructed_speech.view(reconstructed_speech.shape[0], -1), feats.view(feats.shape[0], -1))
+        # recon_loss = self.hparams.loss_reconstruction(reconstructed_speech.view(reconstructed_speech.shape[0], -1), feats.view(feats.shape[0], -1))
 
-        sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
+        # sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
         #mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch, self.hparams.batch_size)
 
         if self.hparams.model_type == "endtoend":
@@ -122,7 +123,7 @@ class SexAnonymizationTraining(sb.core.Brain):
                 )
         else:
             loss = (
-                self.hparams.recon_loss_weight * recon_loss
+                self.hparams.recon_loss_weight * 0
                 + self.hparams.sex_loss_weight * sex_loss
                 + self.hparams.utility_loss_weight * utility_loss
                 #+ self.hparams.mi_loss_weight * mi_loss
@@ -131,10 +132,10 @@ class SexAnonymizationTraining(sb.core.Brain):
         if stage != sb.Stage.TRAIN:
             current_epoch = self.hparams.epoch_counter.current
             # compute the accuracy of the sex prediction
-            self.sex_classification_acc.append(sex_logits.unsqueeze(0), sex_label.unsqueeze(0), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
+            # self.sex_classification_acc.append(sex_logits.unsqueeze(0), sex_label.unsqueeze(0), torch.tensor(sex_label.shape[0], device=sex_logits.device).unsqueeze(0))
 
             # Evaluation: performing classification by externally trained sex classifier
-            recon_speech_feats = reconstructed_speech.to(sa_brain.device)
+            # recon_speech_feats = reconstructed_speech.to(sa_brain.device)
             
             # with torch.no_grad():
                 # sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch_feats(feats)
@@ -157,14 +158,14 @@ class SexAnonymizationTraining(sb.core.Brain):
             # print(self.sex_classification_acc_extern.summarize())
 
             if stage == sb.Stage.VALID:
-                recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, eval=True, do_ctc=False)
+                # recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, eval=True, do_ctc=False)
                 orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, eval=True, do_ctc=False)
 
-                cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
-                self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
-
-                print("utility retention ASR = ")
-                print(self.utility_similarity_aggregator.peek())
+                # cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
+                # self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
+                print("do nothing in validation")
+                # print("utility retention ASR = ")
+                # print(self.utility_similarity_aggregator.peek())
             else:
                 # enc_out, predictions = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, eval=True, do_ctc=True)
                 # recon_enc_out, recon_prob, _, _, _, _, = enc_out
@@ -174,8 +175,8 @@ class SexAnonymizationTraining(sb.core.Brain):
                 orig_enc_out, orig_prob, _, _, _, _, = enc_out
                 o_ids, o_predicted_words, o_target_words = predictions
 
-                cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
-                self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
+                # cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
+                # self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
 
                 # print(predicted_words)
                 # print(target_words)
