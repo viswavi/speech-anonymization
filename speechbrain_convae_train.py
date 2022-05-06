@@ -116,7 +116,7 @@ class SexAnonymizationTraining(sb.core.Brain):
                 loss = self.hparams.sex_loss_weight * sex_loss
             else:
                 loss = (
-                    self.hparams.recon_loss_weight * 0
+
                     - self.hparams.sex_loss_weight * sex_loss
                     + self.hparams.utility_loss_weight * utility_loss
                     #+ self.hparams.mi_loss_weight * mi_loss
@@ -276,7 +276,7 @@ class SexAnonymizationTraining(sb.core.Brain):
         with torch.no_grad():
             predictions = self.compute_forward(batch, stage=stage)
             loss = self.compute_objectives(predictions, batch, stage=stage)
-        return loss.detach()
+        return loss
 
     def on_stage_start(self, stage, epoch):
         """Gets called at the beginning of each epoch"""
