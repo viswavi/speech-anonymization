@@ -311,6 +311,6 @@ pretrainer: !new:speechbrain.utils.parameter_transfer.Pretrainer
         asr_model: !ref <pretrained_lm_tokenizer_path>/asr.ckpt
         lm: !ref <pretrained_lm_tokenizer_path>/lm.ckpt
         tokenizer: !ref <pretrained_lm_tokenizer_path>/tokenizer.ckpt
-        normalize: !ref <pretrained_lm_tokenizer_path>/normalizer.ckpt
+        normalize: !ref <pretrained_lm_tokenizer_path>/normalize.ckpt
 
 
