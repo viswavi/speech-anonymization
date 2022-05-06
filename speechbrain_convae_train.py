@@ -105,10 +105,12 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         utility_loss = 0.0
 
+        '''
         if self.hparams.utility_loss_weight > 0:
             orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=False)
             recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=False)
             utility_loss = self.hparams.loss_utility(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1))
+        '''
                 
         recon_loss = self.hparams.loss_reconstruction(reconstructed_speech.view(reconstructed_speech.shape[0], -1), feats.view(feats.shape[0], -1))
         sex_loss = self.hparams.loss_sex_classification(sex_logits, sex_label.detach())
@@ -160,6 +162,7 @@ class SexAnonymizationTraining(sb.core.Brain):
             print("external classification ACC on reconstructed feats = ")
             print(self.sex_classification_acc_extern.summarize())
 
+            '''
             if stage == sb.Stage.VALID:
                 recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, do_ctc=False)
                 orig_enc_out, orig_prob = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, do_ctc=False)
@@ -194,6 +197,7 @@ class SexAnonymizationTraining(sb.core.Brain):
 
                 print("WER summary = ")
                 print(self.wer_metric.summarize("error_rate"))
+            '''
 
         return loss
 
