@@ -296,7 +296,7 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def on_stage_end(self, stage, stage_loss, epoch):
         """Gets called at the end of a epoch."""
-        # global _prev_sex_classifier_acc
+        global _prev_sex_classifier_acc
         # Compute/store important stats
         stage_stats = {"loss": stage_loss}
         if stage == sb.Stage.TRAIN:
@@ -304,7 +304,7 @@ class SexAnonymizationTraining(sb.core.Brain):
         else:
             stage_stats["ACC"] = self.sex_classification_acc.summarize()
             _prev_sex_classifier_acc = self.sex_classification_acc.summarize()
-            # stage_stats["ACC_external"] = self.sex_classification_acc_extern.summarize()
+            stage_stats["ACC_external"] = self.sex_classification_acc_extern.summarize()
             stage_stats["Utility_Retention"] = self.utility_similarity_aggregator.summarize()
 
             if stage == sb.Stage.TEST:
