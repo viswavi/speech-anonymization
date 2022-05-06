@@ -605,7 +605,7 @@ if __name__ == "__main__":
     sa_brain.asr_brain.tokenizer = hparams["tokenizer"]
     sa_brain.asr_brain.tokenizer.Load("PretrainedASR/tokenizer.ckpt")
     hparams["asr_model"].load_state_dict(torch.load("PretrainedASR/asr.ckpt"))
-    hparams["normalize"].load_state_dict(torch.load("PretrainedASR/normalize.ckpt"))
+    # hparams["normalize"].load_state_dict(torch.load("PretrainedASR/normalize.ckpt"))
     hparams["lm_model"].load_state_dict(torch.load("PretrainedASR/lm.ckpt"))
 
     print("done loading")
