@@ -60,10 +60,11 @@ ctc_weight: 0.3
 ## PARAMS FOR CONVAUTOENCODER ##
 convae_feature_dim: 80
 number_of_epochs: 500
-batch_size: 10
-recon_loss_weight: 0.0
+batch_size: 3
+recon_loss_weight: 1.0
 sex_loss_weight: 0.0
-utility_loss_weight: 1.0
+utility_loss_weight: 0.0
+confusion_loss_weight: 0.0
 mi_loss_weight: 0.0
 gradient_accumulation: 3
 gradient_clipping: 5.0
@@ -78,6 +79,8 @@ loss_reconstruction: !new:torch.nn.MSELoss
     reduction: mean
 loss_sex_classification: !new:torch.nn.NLLLoss
 loss_utility: !new:torch.nn.MSELoss
+    reduction: mean
+loss_confusion: !new:torch.nn.MSELoss
     reduction: mean
 loss_mutual_information: !new:utils.mi_loss.MILoss
 
