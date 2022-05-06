@@ -116,7 +116,7 @@ class SexAnonymizationTraining(sb.core.Brain):
                 loss = self.hparams.sex_loss_weight * sex_loss
             else:
                 loss = (
-                    self.hparams.recon_loss_weight * recon_loss
+                    self.hparams.recon_loss_weight * 0
                     - self.hparams.sex_loss_weight * sex_loss
                     + self.hparams.utility_loss_weight * utility_loss
                     #+ self.hparams.mi_loss_weight * mi_loss
