@@ -110,24 +110,24 @@ class SexAnonymizationTraining(sb.core.Brain):
 
         # sex_loss = self.hparams.loss_sex_classification(sex_logits, torch.tensor(sex_label))
         #mi_loss = self.hparams.loss_mutual_information(reconstructed_speech, sex_logits, batch, self.hparams.batch_size)
-
-        if self.hparams.model_type == "endtoend":
-            if self.hparams.recon_loss_weight == 0.0 and self.hparams.utility_loss_weight == 0.0:
-                loss = self.hparams.sex_loss_weight * sex_loss
-            else:
-                loss = (
-
-                    - self.hparams.sex_loss_weight * sex_loss
-                    + self.hparams.utility_loss_weight * utility_loss
-                    #+ self.hparams.mi_loss_weight * mi_loss
-                )
-        else:
-            loss = (
-                self.hparams.recon_loss_weight * 0
-                + self.hparams.sex_loss_weight * sex_loss
-                + self.hparams.utility_loss_weight * utility_loss
-                #+ self.hparams.mi_loss_weight * mi_loss
-            )
+        #
+        # if self.hparams.model_type == "endtoend":
+        #     if self.hparams.recon_loss_weight == 0.0 and self.hparams.utility_loss_weight == 0.0:
+        #         loss = self.hparams.sex_loss_weight * sex_loss
+        #     else:
+        #         loss = (
+        #             self.hparams.recon_loss_weight * 0
+        #             - self.hparams.sex_loss_weight * sex_loss
+        #             + self.hparams.utility_loss_weight * utility_loss
+        #             #+ self.hparams.mi_loss_weight * mi_loss
+        #         )
+        # else:
+        loss = (
+            self.hparams.recon_loss_weight * 0
+            + self.hparams.sex_loss_weight * sex_loss
+            + self.hparams.utility_loss_weight * utility_loss
+            #+ self.hparams.mi_loss_weight * mi_loss
+        )
 
         if stage != sb.Stage.TRAIN:
             current_epoch = self.hparams.epoch_counter.current
@@ -175,7 +175,7 @@ class SexAnonymizationTraining(sb.core.Brain):
                 orig_enc_out, orig_prob, _, _, _, _, = enc_out
                 o_ids, o_predicted_words, o_target_words = predictions
 
-                # cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
+                cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
                 # self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
 
                 # print(predicted_words)
@@ -276,7 +276,7 @@ class SexAnonymizationTraining(sb.core.Brain):
         with torch.no_grad():
             predictions = self.compute_forward(batch, stage=stage)
             loss = self.compute_objectives(predictions, batch, stage=stage)
-        return loss
+        return loss.detach()
 
     def on_stage_start(self, stage, epoch):
         """Gets called at the beginning of each epoch"""
