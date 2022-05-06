@@ -19,7 +19,7 @@ wer_file: results/1_5_endtoend//8886/wer.txt
 save_folder: results/1_5_endtoend//8886/save
 train_log: results/1_5_endtoend//8886/train_log.txt
 
-pretrained_folder: /home/ubuntu/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
+pretrained_folder: /home/ec2-user/capstone/speech-anonymization/model_checkpoints/initial_baseline_30_epochs/
 
 model_type: endtoend
 
@@ -29,14 +29,14 @@ model_type: endtoend
 # speechbrain HuggingFace repository. However, a local path pointing to a
 # directory containing the lm.ckpt and tokenizer.ckpt may also be specified
 # instead. E.g if you want to use your own LM / tokenizer.
-pretrained_lm_tokenizer_path: /home/ubuntu/speech-anonymization/pretrained_models/asr-transformer-transformerlm-librispeech/
+pretrained_lm_tokenizer_path: /home/ec2-user/capstone/speech-anonymization/PretrainedASR/
 
 # Data files
-data_folder: /home/ubuntu/LibriSpeech # e.g., /path/to/LibriSpeech
+data_folder: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech # e.g., /path/to/LibriSpeech
 # If RIRS_NOISES dir exists in /localscratch/xxx_corpus/RIRS_NOISES
 # then data_folder_rirs should be /localscratch/xxx_corpus
 # otherwise the dataset will automatically be downloaded
-data_folder_rirs: /home/ubuntu/LibriSpeech
+data_folder_rirs: /home/ec2-user/capstone/speech-anonymization/data/LibriSpeech
 train_splits: [train]
 dev_splits: [dev-clean]
 test_splits: [test-clean]
