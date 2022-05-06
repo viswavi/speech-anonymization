@@ -136,25 +136,25 @@ class SexAnonymizationTraining(sb.core.Brain):
             # Evaluation: performing classification by externally trained sex classifier
             recon_speech_feats = reconstructed_speech.to(sa_brain.device)
             
-            with torch.no_grad():
-                sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch_feats(feats)
+            # with torch.no_grad():
+                # sex_logits_extern_orig, score_orig, index_orig = self.external_classifier.classify_batch_feats(feats)
 
-            self.sex_classification_acc_extern_orig.append(sex_logits_extern_orig.unsqueeze(0), sex_label.unsqueeze(0),
-                                                      torch.tensor(sex_label.shape[0],
-                                                                   device=sex_logits_extern_orig.device).unsqueeze(0))
+            # self.sex_classification_acc_extern_orig.append(sex_logits_extern_orig.unsqueeze(0), sex_label.unsqueeze(0),
+            #                                           torch.tensor(sex_label.shape[0],
+            #                                                        device=sex_logits_extern_orig.device).unsqueeze(0))
 
-            with torch.no_grad():
-                sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats)
-
-            self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(0), sex_label.unsqueeze(0),
-                                               torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))
-    
-            print("internal classification (w/ GRL) ACC = ")
-            print(self.sex_classification_acc.summarize())
-            print("external classification ACC on original raw wav inputs = ")
-            print(self.sex_classification_acc_extern_orig.summarize())
-            print("external classification ACC on reconstructed feats = ")
-            print(self.sex_classification_acc_extern.summarize())
+            # with torch.no_grad():
+            #     sex_logits_extern, score, index = self.external_classifier.classify_batch_feats(recon_speech_feats)
+            #
+            # self.sex_classification_acc_extern.append(sex_logits_extern.unsqueeze(0), sex_label.unsqueeze(0),
+            #                                    torch.tensor(sex_label.shape[0], device=sex_logits_extern.device).unsqueeze(0))
+            #
+            # print("internal classification (w/ GRL) ACC = ")
+            # print(self.sex_classification_acc.summarize())
+            # print("external classification ACC on original raw wav inputs = ")
+            # print(self.sex_classification_acc_extern_orig.summarize())
+            # print("external classification ACC on reconstructed feats = ")
+            # print(self.sex_classification_acc_extern.summarize())
 
             if stage == sb.Stage.VALID:
                 recon_enc_out, recon_prob = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, eval=True, do_ctc=False)
@@ -279,7 +279,7 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def on_stage_start(self, stage, epoch):
         """Gets called at the beginning of each epoch"""
-        self.external_classifier = self.load_external_classifier()
+        # self.external_classifier = self.load_external_classifier()
 
         if stage != sb.Stage.TRAIN:
             if not hasattr(self, "recon_loss"):
@@ -296,7 +296,7 @@ class SexAnonymizationTraining(sb.core.Brain):
 
     def on_stage_end(self, stage, stage_loss, epoch):
         """Gets called at the end of a epoch."""
-        global _prev_sex_classifier_acc
+        # global _prev_sex_classifier_acc
         # Compute/store important stats
         stage_stats = {"loss": stage_loss}
         if stage == sb.Stage.TRAIN:
@@ -304,7 +304,7 @@ class SexAnonymizationTraining(sb.core.Brain):
         else:
             stage_stats["ACC"] = self.sex_classification_acc.summarize()
             _prev_sex_classifier_acc = self.sex_classification_acc.summarize()
-            stage_stats["ACC_external"] = self.sex_classification_acc_extern.summarize()
+            # stage_stats["ACC_external"] = self.sex_classification_acc_extern.summarize()
             stage_stats["Utility_Retention"] = self.utility_similarity_aggregator.summarize()
 
             if stage == sb.Stage.TEST:

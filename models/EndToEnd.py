@@ -53,12 +53,12 @@ class ConvReconstruction(nn.Module):
             nn.Conv1d(in_channels=32, out_channels=1, kernel_size=15, stride=1, padding=7)
         )
 
-        ## Sex classifier: num_classes = 2 ##
-        self.sex_classifier = EncoderClassifier.from_hparams(
-            source="/home/ec2-user/capstone/speech-anonymization/speechbrain_configs/",
-            hparams_file="evaluator_inference.yaml",
-            savedir="/home/ec2-user/capstone/speech-anonymization/speechbrain_configs/",
-        )
+        # ## Sex classifier: num_classes = 2 ##
+        # self.sex_classifier = EncoderClassifier.from_hparams(
+        #     source="/home/ec2-user/capstone/speech-anonymization/speechbrain_configs/",
+        #     hparams_file="evaluator_inference.yaml",
+        #     savedir="/home/ec2-user/capstone/speech-anonymization/speechbrain_configs/",
+        # )
 
 
     def forward(self, input):
