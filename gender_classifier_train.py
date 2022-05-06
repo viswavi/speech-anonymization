@@ -39,7 +39,10 @@ python gender_classifier_train.py \
     speechbrain_configs/gender_classifier.yaml \
     --device cpu
 """
+import hashlib
 import sys
+import multiprocessing
+import threading
 import torch
 import os
 import speechbrain as sb
@@ -49,6 +52,11 @@ from speechbrain.utils.distributed import run_on_main
 sys.path.append("speechbrain/recipes/LibriSpeech")
 from librispeech_prepare import prepare_librispeech  # noqa
 
+import numpy as np
+import pickle
+import soundfile as sf
+import pyworld as pw
+from tqdm import tqdm
 
 
 # 1.  # Dataset prep (parsing Librispeech)
@@ -100,6 +108,7 @@ class GenderBrain(sb.Brain):
         # concatenate the original and the augment batches in a single bigger
         # batch. This is more memory-demanding, but helps to improve the
         # performance. Change it if you run OOM.
+        '''
         if stage == sb.Stage.TRAIN:
             if hasattr(self.modules, "env_corrupt"):
                 wavs_noise = self.modules.env_corrupt(wavs, lens)
@@ -108,6 +117,7 @@ class GenderBrain(sb.Brain):
 
             if hasattr(self.hparams, "augmentation"):
                 wavs = self.hparams.augmentation(wavs, lens)
+        '''
 
         # Feature extraction and normalization
         feats = self.modules.compute_features(wavs)
@@ -137,9 +147,11 @@ class GenderBrain(sb.Brain):
         gender, _ = batch.gender_encoded
 
         # Concatenate labels (due to data augmentation)
+        '''
         if stage == sb.Stage.TRAIN and hasattr(self.modules, "env_corrupt"):
             gender = torch.cat([gender, gender], dim=0)
             lens = torch.cat([lens, lens])
+        '''
 
         # Compute the cost function
         loss = sb.nnet.losses.nll_loss(predictions, gender, lens)
@@ -222,11 +234,7 @@ class GenderBrain(sb.Brain):
                 test_stats=stats,
             )
 
-def dataio_prepare(hparams):
-    """This function prepares the datasets to be used in the brain class.
-    It also defines the data processing pipeline through user-defined functions."""
-    data_folder = hparams["data_folder"]
-
+def generate_datasets(hparams, data_folder):
     train_data = sb.dataio.dataset.DynamicItemDataset.from_csv(
         csv_path=hparams["train_csv"], replacements={"data_root": data_folder},
     )
@@ -262,9 +270,90 @@ def dataio_prepare(hparams):
         csv_path=hparams["test_csv"], replacements={"data_root": data_folder},
     )
     test_data = test_data.filtered_sorted(sort_key="duration")
+    return train_data, valid_data, test_data
 
-    label_encoder = sb.dataio.encoder.CategoricalEncoder()
+def vocoder_single(wav_row, MAX_PAD_LEN, cache_path, sample_rate, n_mels):
+    if len(wav_row) == MAX_PAD_LEN:
+        wav_row_padded = wav_row
+    else:
+        if MAX_PAD_LEN - len(wav_row) < 0:
+            breakpoint()
+        wav_row_padded = np.pad(wav_row,
+                            (0, MAX_PAD_LEN - len(wav_row)),
+                            mode="constant",
+                            constant_values=0)
+
+    data_hash = hashlib.md5(wav_row_padded.data.tobytes()).hexdigest()
+    mel_spec_feature_file = os.path.join(cache_path, data_hash + ".pkl")
+
+    overwrite = False
+
+    if os.path.exists(mel_spec_feature_file) and not overwrite:
+        mfcc = pickle.load(open(mel_spec_feature_file, 'rb'))
+    else:
+        f0, sp, ap = pw.wav2world(wav_row_padded, sample_rate, frame_period=10)
+        mfcc = pw.code_spectral_envelope(sp, sample_rate, n_mels)
+        mfcc = mfcc.astype('float32',casting='same_kind')
+        os.makedirs(cache_path, exist_ok=True)
+        pickle.dump(mfcc, open(mel_spec_feature_file, 'wb'))
+
+def vocoder_batch(batch, hparams):
+    max_pad_len = hparams["MAX_PAD_LEN"]
+    sample_rate = hparams["compute_features"].compute_fbanks.sample_rate
+    n_mels = hparams["compute_features"].compute_fbanks.n_mels
+    cache_path = hparams["compute_features"].cache_path
+    threads = list()
+
+    '''
+    for index in range(len(batch)):
+        vocoder_single(batch[index], max_pad_len, cache_path, sample_rate, n_mels)
+    '''
+
+    for index in range(len(batch)):
+        x = multiprocessing.Process(target=vocoder_single, args=(batch[index], max_pad_len, cache_path, sample_rate, n_mels))
+        threads.append(x)
+        x.start()
+
+    for index, thread in enumerate(threads):
+        thread.join()
+
+
+def dataio_prepare(hparams):
+    """This function prepares the datasets to be used in the brain class.
+    It also defines the data processing pipeline through user-defined functions."""
+    data_folder = hparams["data_folder"]
+
+    train_data, valid_data, test_datasets = generate_datasets(hparams, data_folder)
+    datasets = [train_data, valid_data, test_datasets]
+    MAX_PAD_LEN = 0
+    for dataset in datasets:
+        for data_dict in dataset.data.values():
+            wav_data, sr = sf.read(data_dict["wav"])
+            MAX_PAD_LEN = max(len(wav_data), MAX_PAD_LEN)
+    hparams["MAX_PAD_LEN"] = MAX_PAD_LEN
+
+
+    '''
+    train_data, valid_data, test_datasets = generate_datasets(hparams, data_folder)
+    datasets = [train_data, valid_data, test_datasets]
+    MAX_PAD_LEN = 0
+    BATCH_SIZE = multiprocessing.cpu_count()
+    for dataset in datasets:
+        batch = [] 
+        for data_dict in tqdm(dataset.data.values()):
+            wav_data, sr = sf.read(data_dict["wav"])
+            MAX_PAD_LEN = max(len(wav_data), MAX_PAD_LEN)
+            batch.append(wav_data)
+            if len(batch) == BATCH_SIZE:
+                vocoder_batch(batch, hparams)
+                batch = []
+    if len(batch) > 0:
+        vocoder_batch(batch, hparams)
+    '''
+
+    train_data, valid_data, test_data = generate_datasets(hparams, data_folder)
     datasets = [train_data, valid_data, test_data]
+    label_encoder = sb.dataio.encoder.CategoricalEncoder()
 
     @sb.utils.data_pipeline.takes("wav")
     @sb.utils.data_pipeline.provides("sig")
@@ -295,7 +384,7 @@ def dataio_prepare(hparams):
         output_key="gender",
     )
 
-    return train_data, valid_data, test_data
+    return train_data, valid_data, test_data, hparams["MAX_PAD_LEN"]
 
 
 if __name__ == "__main__":
@@ -333,7 +422,7 @@ if __name__ == "__main__":
     )
 
     # Create dataset objects "train", "valid", and "test".
-    train_data, valid_data, test_data = dataio_prepare(hparams)
+    train_data, valid_data, test_data, max_pad_len = dataio_prepare(hparams)
 
     # TODO right place?
     # run_on_main(hparams["pretrainer"].collect_files)
@@ -344,7 +433,7 @@ if __name__ == "__main__":
     hparams["embedding_model"].eval()
     hparams["embedding_model"].to(run_opts["device"])
 
-
+    hparams["modules"]['compute_features'].max_pad_len = max_pad_len
 
     # Initialize the Brain object to prepare for mask training.
     gender_brain = GenderBrain(

@@ -3285,3 +3285,805 @@ Traceback (most recent call last):
     if not torch.isfinite(loss):
 KeyboardInterrupt
 >>>>>>> main
+2022-05-04 01:44:34,695 - speechbrain.core - INFO - Beginning experiment!
+2022-05-04 01:44:34,695 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-05-04 01:44:39,202 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+argon2-cffi @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi_1640817743617/work
+argon2-cffi-bindings @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi-bindings_1649500321618/work
+asttokens @ file:///home/conda/feedstock_root/build_artifacts/asttokens_1618968359944/work
+attrs @ file:///home/conda/feedstock_root/build_artifacts/attrs_1640799537051/work
+audioread==2.1.9
+backcall @ file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393461/work
+backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1618230623929/work
+beautifulsoup4 @ file:///home/conda/feedstock_root/build_artifacts/beautifulsoup4_1631087867185/work
+bleach @ file:///home/conda/feedstock_root/build_artifacts/bleach_1629908509068/work
+certifi==2021.10.8
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1636046055389/work
+charset-normalizer==2.0.12
+cycler==0.11.0
+Cython==0.29.28
+decorator @ file:///home/conda/feedstock_root/build_artifacts/decorator_1641555617451/work
+defusedxml @ file:///home/conda/feedstock_root/build_artifacts/defusedxml_1615232257335/work
+entrypoints @ file:///home/conda/feedstock_root/build_artifacts/entrypoints_1643888246732/work
+executing @ file:///home/conda/feedstock_root/build_artifacts/executing_1646044401614/work
+filelock==3.6.0
+flit_core @ file:///home/conda/feedstock_root/build_artifacts/flit-core_1645629044586/work/source/flit_core
+fonttools==4.32.0
+gmpy2 @ file:///home/conda/feedstock_root/build_artifacts/gmpy2_1641732907770/work
+huggingface-hub==0.5.1
+HyperPyYAML==1.0.0
+idna==3.3
+importlib-metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1648728288044/work
+importlib-resources @ file:///home/conda/feedstock_root/build_artifacts/importlib_resources_1648277295813/work
+ipykernel @ file:///home/conda/feedstock_root/build_artifacts/ipykernel_1620912942381/work/dist/ipykernel-5.5.5-py3-none-any.whl
+ipython @ file:///home/conda/feedstock_root/build_artifacts/ipython_1648413562175/work
+ipython-genutils==0.2.0
+jedi @ file:///home/conda/feedstock_root/build_artifacts/jedi_1649067096717/work
+Jinja2 @ file:///home/conda/feedstock_root/build_artifacts/jinja2_1648299710939/work
+joblib==1.1.0
+json5 @ file:///home/conda/feedstock_root/build_artifacts/json5_1600692310011/work
+jsonschema @ file:///home/conda/feedstock_root/build_artifacts/jsonschema-meta_1642000296051/work
+jupyter-client @ file:///home/conda/feedstock_root/build_artifacts/jupyter_client_1642858610849/work
+jupyter-core @ file:///home/conda/feedstock_root/build_artifacts/jupyter_core_1645024267147/work
+jupyterlab==2.1.0
+jupyterlab-pygments @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_pygments_1601375948261/work
+jupyterlab-server @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_server_1589712729745/work
+kaldiio==2.17.2
+kiwisolver==1.4.2
+librosa==0.9.1
+llvmlite==0.38.0
+MarkupSafe @ file:///home/conda/feedstock_root/build_artifacts/markupsafe_1648737556467/work
+matplotlib==3.5.1
+matplotlib-inline @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-inline_1631080358261/work
+mistune @ file:///home/conda/feedstock_root/build_artifacts/mistune_1635844679781/work
+mpmath @ file:///home/conda/feedstock_root/build_artifacts/mpmath_1612895720168/work
+nbclient @ file:///home/conda/feedstock_root/build_artifacts/nbclient_1646999386773/work
+nbconvert @ file:///home/conda/feedstock_root/build_artifacts/nbconvert-meta_1649676641343/work
+nbformat @ file:///home/conda/feedstock_root/build_artifacts/nbformat_1646951096007/work
+nest-asyncio @ file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1638419302549/work
+notebook @ file:///home/conda/feedstock_root/build_artifacts/notebook_1647377876077/work
+numba==0.55.1
+numpy @ file:///home/conda/feedstock_root/build_artifacts/numpy_1649572667348/work
+packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1637239678211/work
+pandas==1.4.2
+pandocfilters @ file:///home/conda/feedstock_root/build_artifacts/pandocfilters_1631603243851/work
+parso @ file:///home/conda/feedstock_root/build_artifacts/parso_1638334955874/work
+pexpect @ file:///home/conda/feedstock_root/build_artifacts/pexpect_1602535608087/work
+pickleshare @ file:///home/conda/feedstock_root/build_artifacts/pickleshare_1602536217715/work
+Pillow @ file:///home/conda/feedstock_root/build_artifacts/pillow_1649817996082/work
+pooch==1.6.0
+prometheus-client @ file:///home/conda/feedstock_root/build_artifacts/prometheus_client_1643395600215/work
+prompt-toolkit @ file:///home/conda/feedstock_root/build_artifacts/prompt-toolkit_1644497866770/work
+ptyprocess @ file:///home/conda/feedstock_root/build_artifacts/ptyprocess_1609419310487/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
+pure-eval @ file:///home/conda/feedstock_root/build_artifacts/pure_eval_1642875951954/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1636257122734/work
+Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1641580240686/work
+pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1642753572664/work
+pyrsistent @ file:///home/conda/feedstock_root/build_artifacts/pyrsistent_1649013355209/work
+PySoundFile==0.9.0.post1
+python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
+pytz==2022.1
+pyworld @ file:///home/ec2-user/Python-Wrapper-for-World-Vocoder
+PyYAML==6.0
+pyzmq @ file:///home/conda/feedstock_root/build_artifacts/pyzmq_1649055645150/work
+requests==2.27.1
+resampy==0.2.2
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scikit-learn==1.0.2
+scipy==1.8.0
+Send2Trash @ file:///home/conda/feedstock_root/build_artifacts/send2trash_1628511208346/work
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+SoundFile==0.10.3.post1
+soupsieve @ file:///home/conda/feedstock_root/build_artifacts/soupsieve_1638550740809/work
+-e git+https://github.com/viswavi/speechbrain.git@28c21eb03c3fa92a027a5c0acf78e76432c99b83#egg=speechbrain&subdirectory=../../speechbrain
+stack-data @ file:///home/conda/feedstock_root/build_artifacts/stack_data_1644872665635/work
+sympy @ file:///home/conda/feedstock_root/build_artifacts/sympy_1647802532210/work
+terminado @ file:///home/conda/feedstock_root/build_artifacts/terminado_1649103779998/work
+testpath @ file:///home/conda/feedstock_root/build_artifacts/testpath_1645693042223/work
+threadpoolctl==3.1.0
+tinycss2 @ file:///home/conda/feedstock_root/build_artifacts/tinycss2_1637612658783/work
+torch==1.10.2
+torchaudio==0.10.2
+torchvision==0.11.3
+tornado @ file:///home/conda/feedstock_root/build_artifacts/tornado_1648827245914/work
+tqdm==4.64.0
+traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1635260543454/work
+typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1644850595256/work
+urllib3==1.26.9
+wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1600965781394/work
+webencodings==0.5.1
+zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1643828507773/work
+
+
+2022-05-04 01:44:39,213 - speechbrain.utils.superpowers - DEBUG - 4bd6e4e
+
+
+2022-05-04 01:44:39,513 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-05-04 01:44:39,519 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-05-04 01:44:39,519 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-05-04 01:44:39,520 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-05-04 01:44:44,687 - speechbrain.core - INFO - Info: ckpt_interval_minutes arg from hparam file is used
+2022-05-04 01:44:44,688 - speechbrain.core - INFO - 3.2M trainable parameters in GenderBrain
+2022-05-04 01:44:44,691 - speechbrain.utils.checkpoints - INFO - Loading a checkpoint from results/gender_classifier/1230/save/CKPT+2022-04-19+09-12-03+00
+2022-05-04 01:44:48,881 - speechbrain.utils.epoch_loop - INFO - Going into epoch 2
+2022-05-04 02:40:51,716 - speechbrain.core - INFO - Beginning experiment!
+2022-05-04 02:40:51,716 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-05-04 02:40:52,341 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+argon2-cffi @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi_1640817743617/work
+argon2-cffi-bindings @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi-bindings_1649500321618/work
+asttokens @ file:///home/conda/feedstock_root/build_artifacts/asttokens_1618968359944/work
+attrs @ file:///home/conda/feedstock_root/build_artifacts/attrs_1640799537051/work
+audioread==2.1.9
+backcall @ file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393461/work
+backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1618230623929/work
+beautifulsoup4 @ file:///home/conda/feedstock_root/build_artifacts/beautifulsoup4_1631087867185/work
+bleach @ file:///home/conda/feedstock_root/build_artifacts/bleach_1629908509068/work
+certifi==2021.10.8
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1636046055389/work
+charset-normalizer==2.0.12
+cycler==0.11.0
+Cython==0.29.28
+decorator @ file:///home/conda/feedstock_root/build_artifacts/decorator_1641555617451/work
+defusedxml @ file:///home/conda/feedstock_root/build_artifacts/defusedxml_1615232257335/work
+entrypoints @ file:///home/conda/feedstock_root/build_artifacts/entrypoints_1643888246732/work
+executing @ file:///home/conda/feedstock_root/build_artifacts/executing_1646044401614/work
+filelock==3.6.0
+flit_core @ file:///home/conda/feedstock_root/build_artifacts/flit-core_1645629044586/work/source/flit_core
+fonttools==4.32.0
+gmpy2 @ file:///home/conda/feedstock_root/build_artifacts/gmpy2_1641732907770/work
+huggingface-hub==0.5.1
+HyperPyYAML==1.0.0
+idna==3.3
+importlib-metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1648728288044/work
+importlib-resources @ file:///home/conda/feedstock_root/build_artifacts/importlib_resources_1648277295813/work
+ipykernel @ file:///home/conda/feedstock_root/build_artifacts/ipykernel_1620912942381/work/dist/ipykernel-5.5.5-py3-none-any.whl
+ipython @ file:///home/conda/feedstock_root/build_artifacts/ipython_1648413562175/work
+ipython-genutils==0.2.0
+jedi @ file:///home/conda/feedstock_root/build_artifacts/jedi_1649067096717/work
+Jinja2 @ file:///home/conda/feedstock_root/build_artifacts/jinja2_1648299710939/work
+joblib==1.1.0
+json5 @ file:///home/conda/feedstock_root/build_artifacts/json5_1600692310011/work
+jsonschema @ file:///home/conda/feedstock_root/build_artifacts/jsonschema-meta_1642000296051/work
+jupyter-client @ file:///home/conda/feedstock_root/build_artifacts/jupyter_client_1642858610849/work
+jupyter-core @ file:///home/conda/feedstock_root/build_artifacts/jupyter_core_1645024267147/work
+jupyterlab==2.1.0
+jupyterlab-pygments @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_pygments_1601375948261/work
+jupyterlab-server @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_server_1589712729745/work
+kaldiio==2.17.2
+kiwisolver==1.4.2
+librosa==0.9.1
+llvmlite==0.38.0
+MarkupSafe @ file:///home/conda/feedstock_root/build_artifacts/markupsafe_1648737556467/work
+matplotlib==3.5.1
+matplotlib-inline @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-inline_1631080358261/work
+mistune @ file:///home/conda/feedstock_root/build_artifacts/mistune_1635844679781/work
+mpmath @ file:///home/conda/feedstock_root/build_artifacts/mpmath_1612895720168/work
+nbclient @ file:///home/conda/feedstock_root/build_artifacts/nbclient_1646999386773/work
+nbconvert @ file:///home/conda/feedstock_root/build_artifacts/nbconvert-meta_1649676641343/work
+nbformat @ file:///home/conda/feedstock_root/build_artifacts/nbformat_1646951096007/work
+nest-asyncio @ file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1638419302549/work
+notebook @ file:///home/conda/feedstock_root/build_artifacts/notebook_1647377876077/work
+numba==0.55.1
+numpy @ file:///home/conda/feedstock_root/build_artifacts/numpy_1649572667348/work
+packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1637239678211/work
+pandas==1.4.2
+pandocfilters @ file:///home/conda/feedstock_root/build_artifacts/pandocfilters_1631603243851/work
+parso @ file:///home/conda/feedstock_root/build_artifacts/parso_1638334955874/work
+pexpect @ file:///home/conda/feedstock_root/build_artifacts/pexpect_1602535608087/work
+pickleshare @ file:///home/conda/feedstock_root/build_artifacts/pickleshare_1602536217715/work
+Pillow @ file:///home/conda/feedstock_root/build_artifacts/pillow_1649817996082/work
+pooch==1.6.0
+prometheus-client @ file:///home/conda/feedstock_root/build_artifacts/prometheus_client_1643395600215/work
+prompt-toolkit @ file:///home/conda/feedstock_root/build_artifacts/prompt-toolkit_1644497866770/work
+ptyprocess @ file:///home/conda/feedstock_root/build_artifacts/ptyprocess_1609419310487/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
+pure-eval @ file:///home/conda/feedstock_root/build_artifacts/pure_eval_1642875951954/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1636257122734/work
+Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1641580240686/work
+pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1642753572664/work
+pyrsistent @ file:///home/conda/feedstock_root/build_artifacts/pyrsistent_1649013355209/work
+PySoundFile==0.9.0.post1
+python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
+pytz==2022.1
+pyworld @ file:///home/ec2-user/Python-Wrapper-for-World-Vocoder
+PyYAML==6.0
+pyzmq @ file:///home/conda/feedstock_root/build_artifacts/pyzmq_1649055645150/work
+requests==2.27.1
+resampy==0.2.2
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scikit-learn==1.0.2
+scipy==1.8.0
+Send2Trash @ file:///home/conda/feedstock_root/build_artifacts/send2trash_1628511208346/work
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+SoundFile==0.10.3.post1
+soupsieve @ file:///home/conda/feedstock_root/build_artifacts/soupsieve_1638550740809/work
+-e git+https://github.com/viswavi/speechbrain.git@28c21eb03c3fa92a027a5c0acf78e76432c99b83#egg=speechbrain&subdirectory=../../speechbrain
+stack-data @ file:///home/conda/feedstock_root/build_artifacts/stack_data_1644872665635/work
+sympy @ file:///home/conda/feedstock_root/build_artifacts/sympy_1647802532210/work
+terminado @ file:///home/conda/feedstock_root/build_artifacts/terminado_1649103779998/work
+testpath @ file:///home/conda/feedstock_root/build_artifacts/testpath_1645693042223/work
+threadpoolctl==3.1.0
+tinycss2 @ file:///home/conda/feedstock_root/build_artifacts/tinycss2_1637612658783/work
+torch==1.10.2
+torchaudio==0.10.2
+torchvision==0.11.3
+tornado @ file:///home/conda/feedstock_root/build_artifacts/tornado_1648827245914/work
+tqdm==4.64.0
+traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1635260543454/work
+typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1644850595256/work
+urllib3==1.26.9
+wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1600965781394/work
+webencodings==0.5.1
+zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1643828507773/work
+
+
+2022-05-04 02:40:52,352 - speechbrain.utils.superpowers - DEBUG - 4bd6e4e
+
+
+2022-05-04 02:40:52,516 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-05-04 02:40:52,520 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-05-04 02:40:52,520 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-05-04 02:40:52,520 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-05-04 02:40:55,296 - speechbrain.core - INFO - Info: ckpt_interval_minutes arg from hparam file is used
+2022-05-04 02:40:55,297 - speechbrain.core - INFO - 3.2M trainable parameters in GenderBrain
+2022-05-04 02:40:55,300 - speechbrain.utils.checkpoints - INFO - Loading a checkpoint from results/gender_classifier/1230/save/CKPT+2022-04-19+09-12-03+00
+2022-05-04 02:40:55,350 - speechbrain.utils.epoch_loop - INFO - Going into epoch 2
+2022-05-04 02:40:55,525 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/ec2-user/speech-anonymization/gender_classifier_train.py", line 364, in <module>
+    gender_brain.fit(
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/core.py", line 1095, in fit
+    loss = self.evaluate_batch(batch, stage=Stage.VALID)
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/core.py", line 947, in evaluate_batch
+    out = self.compute_forward(batch, stage=stage)
+  File "/home/ec2-user/speech-anonymization/gender_classifier_train.py", line 82, in compute_forward
+    feats, lens = self.prepare_features(batch.sig, stage)
+  File "/home/ec2-user/speech-anonymization/gender_classifier_train.py", line 115, in prepare_features
+    feats = self.modules.compute_features(wavs)
+  File "/home/ec2-user/miniconda3/envs/speech/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/lobes/features.py", line 164, in forward
+    f0, sp, ap = pw.wav2world(row, sr, frame_period=10, fft_size=self.compute_fbanks.n_fft)
+NameError: name 'sr' is not defined
+2022-05-04 02:41:20,888 - speechbrain.core - INFO - Beginning experiment!
+2022-05-04 02:41:20,888 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-05-04 02:41:21,499 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+argon2-cffi @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi_1640817743617/work
+argon2-cffi-bindings @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi-bindings_1649500321618/work
+asttokens @ file:///home/conda/feedstock_root/build_artifacts/asttokens_1618968359944/work
+attrs @ file:///home/conda/feedstock_root/build_artifacts/attrs_1640799537051/work
+audioread==2.1.9
+backcall @ file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393461/work
+backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1618230623929/work
+beautifulsoup4 @ file:///home/conda/feedstock_root/build_artifacts/beautifulsoup4_1631087867185/work
+bleach @ file:///home/conda/feedstock_root/build_artifacts/bleach_1629908509068/work
+certifi==2021.10.8
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1636046055389/work
+charset-normalizer==2.0.12
+cycler==0.11.0
+Cython==0.29.28
+decorator @ file:///home/conda/feedstock_root/build_artifacts/decorator_1641555617451/work
+defusedxml @ file:///home/conda/feedstock_root/build_artifacts/defusedxml_1615232257335/work
+entrypoints @ file:///home/conda/feedstock_root/build_artifacts/entrypoints_1643888246732/work
+executing @ file:///home/conda/feedstock_root/build_artifacts/executing_1646044401614/work
+filelock==3.6.0
+flit_core @ file:///home/conda/feedstock_root/build_artifacts/flit-core_1645629044586/work/source/flit_core
+fonttools==4.32.0
+gmpy2 @ file:///home/conda/feedstock_root/build_artifacts/gmpy2_1641732907770/work
+huggingface-hub==0.5.1
+HyperPyYAML==1.0.0
+idna==3.3
+importlib-metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1648728288044/work
+importlib-resources @ file:///home/conda/feedstock_root/build_artifacts/importlib_resources_1648277295813/work
+ipykernel @ file:///home/conda/feedstock_root/build_artifacts/ipykernel_1620912942381/work/dist/ipykernel-5.5.5-py3-none-any.whl
+ipython @ file:///home/conda/feedstock_root/build_artifacts/ipython_1648413562175/work
+ipython-genutils==0.2.0
+jedi @ file:///home/conda/feedstock_root/build_artifacts/jedi_1649067096717/work
+Jinja2 @ file:///home/conda/feedstock_root/build_artifacts/jinja2_1648299710939/work
+joblib==1.1.0
+json5 @ file:///home/conda/feedstock_root/build_artifacts/json5_1600692310011/work
+jsonschema @ file:///home/conda/feedstock_root/build_artifacts/jsonschema-meta_1642000296051/work
+jupyter-client @ file:///home/conda/feedstock_root/build_artifacts/jupyter_client_1642858610849/work
+jupyter-core @ file:///home/conda/feedstock_root/build_artifacts/jupyter_core_1645024267147/work
+jupyterlab==2.1.0
+jupyterlab-pygments @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_pygments_1601375948261/work
+jupyterlab-server @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_server_1589712729745/work
+kaldiio==2.17.2
+kiwisolver==1.4.2
+librosa==0.9.1
+llvmlite==0.38.0
+MarkupSafe @ file:///home/conda/feedstock_root/build_artifacts/markupsafe_1648737556467/work
+matplotlib==3.5.1
+matplotlib-inline @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-inline_1631080358261/work
+mistune @ file:///home/conda/feedstock_root/build_artifacts/mistune_1635844679781/work
+mpmath @ file:///home/conda/feedstock_root/build_artifacts/mpmath_1612895720168/work
+nbclient @ file:///home/conda/feedstock_root/build_artifacts/nbclient_1646999386773/work
+nbconvert @ file:///home/conda/feedstock_root/build_artifacts/nbconvert-meta_1649676641343/work
+nbformat @ file:///home/conda/feedstock_root/build_artifacts/nbformat_1646951096007/work
+nest-asyncio @ file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1638419302549/work
+notebook @ file:///home/conda/feedstock_root/build_artifacts/notebook_1647377876077/work
+numba==0.55.1
+numpy @ file:///home/conda/feedstock_root/build_artifacts/numpy_1649572667348/work
+packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1637239678211/work
+pandas==1.4.2
+pandocfilters @ file:///home/conda/feedstock_root/build_artifacts/pandocfilters_1631603243851/work
+parso @ file:///home/conda/feedstock_root/build_artifacts/parso_1638334955874/work
+pexpect @ file:///home/conda/feedstock_root/build_artifacts/pexpect_1602535608087/work
+pickleshare @ file:///home/conda/feedstock_root/build_artifacts/pickleshare_1602536217715/work
+Pillow @ file:///home/conda/feedstock_root/build_artifacts/pillow_1649817996082/work
+pooch==1.6.0
+prometheus-client @ file:///home/conda/feedstock_root/build_artifacts/prometheus_client_1643395600215/work
+prompt-toolkit @ file:///home/conda/feedstock_root/build_artifacts/prompt-toolkit_1644497866770/work
+ptyprocess @ file:///home/conda/feedstock_root/build_artifacts/ptyprocess_1609419310487/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
+pure-eval @ file:///home/conda/feedstock_root/build_artifacts/pure_eval_1642875951954/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1636257122734/work
+Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1641580240686/work
+pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1642753572664/work
+pyrsistent @ file:///home/conda/feedstock_root/build_artifacts/pyrsistent_1649013355209/work
+PySoundFile==0.9.0.post1
+python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
+pytz==2022.1
+pyworld @ file:///home/ec2-user/Python-Wrapper-for-World-Vocoder
+PyYAML==6.0
+pyzmq @ file:///home/conda/feedstock_root/build_artifacts/pyzmq_1649055645150/work
+requests==2.27.1
+resampy==0.2.2
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scikit-learn==1.0.2
+scipy==1.8.0
+Send2Trash @ file:///home/conda/feedstock_root/build_artifacts/send2trash_1628511208346/work
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+SoundFile==0.10.3.post1
+soupsieve @ file:///home/conda/feedstock_root/build_artifacts/soupsieve_1638550740809/work
+-e git+https://github.com/viswavi/speechbrain.git@28c21eb03c3fa92a027a5c0acf78e76432c99b83#egg=speechbrain&subdirectory=../../speechbrain
+stack-data @ file:///home/conda/feedstock_root/build_artifacts/stack_data_1644872665635/work
+sympy @ file:///home/conda/feedstock_root/build_artifacts/sympy_1647802532210/work
+terminado @ file:///home/conda/feedstock_root/build_artifacts/terminado_1649103779998/work
+testpath @ file:///home/conda/feedstock_root/build_artifacts/testpath_1645693042223/work
+threadpoolctl==3.1.0
+tinycss2 @ file:///home/conda/feedstock_root/build_artifacts/tinycss2_1637612658783/work
+torch==1.10.2
+torchaudio==0.10.2
+torchvision==0.11.3
+tornado @ file:///home/conda/feedstock_root/build_artifacts/tornado_1648827245914/work
+tqdm==4.64.0
+traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1635260543454/work
+typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1644850595256/work
+urllib3==1.26.9
+wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1600965781394/work
+webencodings==0.5.1
+zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1643828507773/work
+
+
+2022-05-04 02:41:21,511 - speechbrain.utils.superpowers - DEBUG - 4bd6e4e
+
+
+2022-05-04 02:41:21,677 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-05-04 02:41:21,682 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-05-04 02:41:21,682 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-05-04 02:41:21,682 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-05-04 02:41:24,467 - speechbrain.core - INFO - Info: ckpt_interval_minutes arg from hparam file is used
+2022-05-04 02:41:24,468 - speechbrain.core - INFO - 3.2M trainable parameters in GenderBrain
+2022-05-04 02:41:24,472 - speechbrain.utils.checkpoints - INFO - Loading a checkpoint from results/gender_classifier/1230/save/CKPT+2022-04-19+09-12-03+00
+2022-05-04 02:41:24,521 - speechbrain.utils.epoch_loop - INFO - Going into epoch 2
+2022-05-04 02:42:41,639 - speechbrain.core - INFO - Beginning experiment!
+2022-05-04 02:42:41,640 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-05-04 02:42:42,167 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+argon2-cffi @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi_1640817743617/work
+argon2-cffi-bindings @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi-bindings_1649500321618/work
+asttokens @ file:///home/conda/feedstock_root/build_artifacts/asttokens_1618968359944/work
+attrs @ file:///home/conda/feedstock_root/build_artifacts/attrs_1640799537051/work
+audioread==2.1.9
+backcall @ file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393461/work
+backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1618230623929/work
+beautifulsoup4 @ file:///home/conda/feedstock_root/build_artifacts/beautifulsoup4_1631087867185/work
+bleach @ file:///home/conda/feedstock_root/build_artifacts/bleach_1629908509068/work
+certifi==2021.10.8
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1636046055389/work
+charset-normalizer==2.0.12
+cycler==0.11.0
+Cython==0.29.28
+decorator @ file:///home/conda/feedstock_root/build_artifacts/decorator_1641555617451/work
+defusedxml @ file:///home/conda/feedstock_root/build_artifacts/defusedxml_1615232257335/work
+entrypoints @ file:///home/conda/feedstock_root/build_artifacts/entrypoints_1643888246732/work
+executing @ file:///home/conda/feedstock_root/build_artifacts/executing_1646044401614/work
+filelock==3.6.0
+flit_core @ file:///home/conda/feedstock_root/build_artifacts/flit-core_1645629044586/work/source/flit_core
+fonttools==4.32.0
+gmpy2 @ file:///home/conda/feedstock_root/build_artifacts/gmpy2_1641732907770/work
+huggingface-hub==0.5.1
+HyperPyYAML==1.0.0
+idna==3.3
+importlib-metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1648728288044/work
+importlib-resources @ file:///home/conda/feedstock_root/build_artifacts/importlib_resources_1648277295813/work
+ipykernel @ file:///home/conda/feedstock_root/build_artifacts/ipykernel_1620912942381/work/dist/ipykernel-5.5.5-py3-none-any.whl
+ipython @ file:///home/conda/feedstock_root/build_artifacts/ipython_1648413562175/work
+ipython-genutils==0.2.0
+jedi @ file:///home/conda/feedstock_root/build_artifacts/jedi_1649067096717/work
+Jinja2 @ file:///home/conda/feedstock_root/build_artifacts/jinja2_1648299710939/work
+joblib==1.1.0
+json5 @ file:///home/conda/feedstock_root/build_artifacts/json5_1600692310011/work
+jsonschema @ file:///home/conda/feedstock_root/build_artifacts/jsonschema-meta_1642000296051/work
+jupyter-client @ file:///home/conda/feedstock_root/build_artifacts/jupyter_client_1642858610849/work
+jupyter-core @ file:///home/conda/feedstock_root/build_artifacts/jupyter_core_1645024267147/work
+jupyterlab==2.1.0
+jupyterlab-pygments @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_pygments_1601375948261/work
+jupyterlab-server @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_server_1589712729745/work
+kaldiio==2.17.2
+kiwisolver==1.4.2
+librosa==0.9.1
+llvmlite==0.38.0
+MarkupSafe @ file:///home/conda/feedstock_root/build_artifacts/markupsafe_1648737556467/work
+matplotlib==3.5.1
+matplotlib-inline @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-inline_1631080358261/work
+mistune @ file:///home/conda/feedstock_root/build_artifacts/mistune_1635844679781/work
+mpmath @ file:///home/conda/feedstock_root/build_artifacts/mpmath_1612895720168/work
+nbclient @ file:///home/conda/feedstock_root/build_artifacts/nbclient_1646999386773/work
+nbconvert @ file:///home/conda/feedstock_root/build_artifacts/nbconvert-meta_1649676641343/work
+nbformat @ file:///home/conda/feedstock_root/build_artifacts/nbformat_1646951096007/work
+nest-asyncio @ file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1638419302549/work
+notebook @ file:///home/conda/feedstock_root/build_artifacts/notebook_1647377876077/work
+numba==0.55.1
+numpy @ file:///home/conda/feedstock_root/build_artifacts/numpy_1649572667348/work
+packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1637239678211/work
+pandas==1.4.2
+pandocfilters @ file:///home/conda/feedstock_root/build_artifacts/pandocfilters_1631603243851/work
+parso @ file:///home/conda/feedstock_root/build_artifacts/parso_1638334955874/work
+pexpect @ file:///home/conda/feedstock_root/build_artifacts/pexpect_1602535608087/work
+pickleshare @ file:///home/conda/feedstock_root/build_artifacts/pickleshare_1602536217715/work
+Pillow @ file:///home/conda/feedstock_root/build_artifacts/pillow_1649817996082/work
+pooch==1.6.0
+prometheus-client @ file:///home/conda/feedstock_root/build_artifacts/prometheus_client_1643395600215/work
+prompt-toolkit @ file:///home/conda/feedstock_root/build_artifacts/prompt-toolkit_1644497866770/work
+ptyprocess @ file:///home/conda/feedstock_root/build_artifacts/ptyprocess_1609419310487/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
+pure-eval @ file:///home/conda/feedstock_root/build_artifacts/pure_eval_1642875951954/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1636257122734/work
+Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1641580240686/work
+pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1642753572664/work
+pyrsistent @ file:///home/conda/feedstock_root/build_artifacts/pyrsistent_1649013355209/work
+PySoundFile==0.9.0.post1
+python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
+pytz==2022.1
+pyworld @ file:///home/ec2-user/Python-Wrapper-for-World-Vocoder
+PyYAML==6.0
+pyzmq @ file:///home/conda/feedstock_root/build_artifacts/pyzmq_1649055645150/work
+requests==2.27.1
+resampy==0.2.2
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scikit-learn==1.0.2
+scipy==1.8.0
+Send2Trash @ file:///home/conda/feedstock_root/build_artifacts/send2trash_1628511208346/work
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+SoundFile==0.10.3.post1
+soupsieve @ file:///home/conda/feedstock_root/build_artifacts/soupsieve_1638550740809/work
+-e git+https://github.com/viswavi/speechbrain.git@28c21eb03c3fa92a027a5c0acf78e76432c99b83#egg=speechbrain&subdirectory=../../speechbrain
+stack-data @ file:///home/conda/feedstock_root/build_artifacts/stack_data_1644872665635/work
+sympy @ file:///home/conda/feedstock_root/build_artifacts/sympy_1647802532210/work
+terminado @ file:///home/conda/feedstock_root/build_artifacts/terminado_1649103779998/work
+testpath @ file:///home/conda/feedstock_root/build_artifacts/testpath_1645693042223/work
+threadpoolctl==3.1.0
+tinycss2 @ file:///home/conda/feedstock_root/build_artifacts/tinycss2_1637612658783/work
+torch==1.10.2
+torchaudio==0.10.2
+torchvision==0.11.3
+tornado @ file:///home/conda/feedstock_root/build_artifacts/tornado_1648827245914/work
+tqdm==4.64.0
+traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1635260543454/work
+typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1644850595256/work
+urllib3==1.26.9
+wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1600965781394/work
+webencodings==0.5.1
+zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1643828507773/work
+
+
+2022-05-04 02:42:42,178 - speechbrain.utils.superpowers - DEBUG - 4bd6e4e
+
+
+2022-05-04 02:42:42,340 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-05-04 02:42:42,344 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-05-04 02:42:42,344 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-05-04 02:42:42,344 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-05-04 02:42:45,158 - speechbrain.core - INFO - Info: ckpt_interval_minutes arg from hparam file is used
+2022-05-04 02:42:45,159 - speechbrain.core - INFO - 3.1M trainable parameters in GenderBrain
+2022-05-04 02:42:45,162 - speechbrain.utils.checkpoints - INFO - Loading a checkpoint from results/gender_classifier/1230/save/CKPT+2022-04-19+09-12-03+00
+2022-05-04 02:42:45,176 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/ec2-user/speech-anonymization/gender_classifier_train.py", line 364, in <module>
+    gender_brain.fit(
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/core.py", line 1019, in fit
+    self.on_fit_start()
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/core.py", line 789, in on_fit_start
+    self.checkpointer.recover_if_possible(
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/utils/checkpoints.py", line 836, in recover_if_possible
+    self.load_checkpoint(chosen_ckpt, device)
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/utils/checkpoints.py", line 849, in load_checkpoint
+    self._call_load_hooks(checkpoint, device)
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/utils/checkpoints.py", line 984, in _call_load_hooks
+    default_hook(obj, loadpath, end_of_epoch, device)
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/utils/checkpoints.py", line 93, in torch_recovery
+    obj.load_state_dict(torch.load(path, map_location=device), strict=True)
+  File "/home/ec2-user/miniconda3/envs/speech/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1482, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for Xvector:
+	size mismatch for blocks.0.conv.weight: copying a param with shape torch.Size([512, 80, 5]) from checkpoint, the shape in current model is torch.Size([512, 34, 5]).
+2022-05-04 02:47:39,823 - speechbrain.core - INFO - Beginning experiment!
+2022-05-04 02:47:39,823 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-05-04 02:47:40,368 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+argon2-cffi @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi_1640817743617/work
+argon2-cffi-bindings @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi-bindings_1649500321618/work
+asttokens @ file:///home/conda/feedstock_root/build_artifacts/asttokens_1618968359944/work
+attrs @ file:///home/conda/feedstock_root/build_artifacts/attrs_1640799537051/work
+audioread==2.1.9
+backcall @ file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393461/work
+backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1618230623929/work
+beautifulsoup4 @ file:///home/conda/feedstock_root/build_artifacts/beautifulsoup4_1631087867185/work
+bleach @ file:///home/conda/feedstock_root/build_artifacts/bleach_1629908509068/work
+certifi==2021.10.8
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1636046055389/work
+charset-normalizer==2.0.12
+cycler==0.11.0
+Cython==0.29.28
+decorator @ file:///home/conda/feedstock_root/build_artifacts/decorator_1641555617451/work
+defusedxml @ file:///home/conda/feedstock_root/build_artifacts/defusedxml_1615232257335/work
+entrypoints @ file:///home/conda/feedstock_root/build_artifacts/entrypoints_1643888246732/work
+executing @ file:///home/conda/feedstock_root/build_artifacts/executing_1646044401614/work
+filelock==3.6.0
+flit_core @ file:///home/conda/feedstock_root/build_artifacts/flit-core_1645629044586/work/source/flit_core
+fonttools==4.32.0
+gmpy2 @ file:///home/conda/feedstock_root/build_artifacts/gmpy2_1641732907770/work
+huggingface-hub==0.5.1
+HyperPyYAML==1.0.0
+idna==3.3
+importlib-metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1648728288044/work
+importlib-resources @ file:///home/conda/feedstock_root/build_artifacts/importlib_resources_1648277295813/work
+ipykernel @ file:///home/conda/feedstock_root/build_artifacts/ipykernel_1620912942381/work/dist/ipykernel-5.5.5-py3-none-any.whl
+ipython @ file:///home/conda/feedstock_root/build_artifacts/ipython_1648413562175/work
+ipython-genutils==0.2.0
+jedi @ file:///home/conda/feedstock_root/build_artifacts/jedi_1649067096717/work
+Jinja2 @ file:///home/conda/feedstock_root/build_artifacts/jinja2_1648299710939/work
+joblib==1.1.0
+json5 @ file:///home/conda/feedstock_root/build_artifacts/json5_1600692310011/work
+jsonschema @ file:///home/conda/feedstock_root/build_artifacts/jsonschema-meta_1642000296051/work
+jupyter-client @ file:///home/conda/feedstock_root/build_artifacts/jupyter_client_1642858610849/work
+jupyter-core @ file:///home/conda/feedstock_root/build_artifacts/jupyter_core_1645024267147/work
+jupyterlab==2.1.0
+jupyterlab-pygments @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_pygments_1601375948261/work
+jupyterlab-server @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_server_1589712729745/work
+kaldiio==2.17.2
+kiwisolver==1.4.2
+librosa==0.9.1
+llvmlite==0.38.0
+MarkupSafe @ file:///home/conda/feedstock_root/build_artifacts/markupsafe_1648737556467/work
+matplotlib==3.5.1
+matplotlib-inline @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-inline_1631080358261/work
+mistune @ file:///home/conda/feedstock_root/build_artifacts/mistune_1635844679781/work
+mpmath @ file:///home/conda/feedstock_root/build_artifacts/mpmath_1612895720168/work
+nbclient @ file:///home/conda/feedstock_root/build_artifacts/nbclient_1646999386773/work
+nbconvert @ file:///home/conda/feedstock_root/build_artifacts/nbconvert-meta_1649676641343/work
+nbformat @ file:///home/conda/feedstock_root/build_artifacts/nbformat_1646951096007/work
+nest-asyncio @ file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1638419302549/work
+notebook @ file:///home/conda/feedstock_root/build_artifacts/notebook_1647377876077/work
+numba==0.55.1
+numpy @ file:///home/conda/feedstock_root/build_artifacts/numpy_1649572667348/work
+packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1637239678211/work
+pandas==1.4.2
+pandocfilters @ file:///home/conda/feedstock_root/build_artifacts/pandocfilters_1631603243851/work
+parso @ file:///home/conda/feedstock_root/build_artifacts/parso_1638334955874/work
+pexpect @ file:///home/conda/feedstock_root/build_artifacts/pexpect_1602535608087/work
+pickleshare @ file:///home/conda/feedstock_root/build_artifacts/pickleshare_1602536217715/work
+Pillow @ file:///home/conda/feedstock_root/build_artifacts/pillow_1649817996082/work
+pooch==1.6.0
+prometheus-client @ file:///home/conda/feedstock_root/build_artifacts/prometheus_client_1643395600215/work
+prompt-toolkit @ file:///home/conda/feedstock_root/build_artifacts/prompt-toolkit_1644497866770/work
+ptyprocess @ file:///home/conda/feedstock_root/build_artifacts/ptyprocess_1609419310487/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
+pure-eval @ file:///home/conda/feedstock_root/build_artifacts/pure_eval_1642875951954/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1636257122734/work
+Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1641580240686/work
+pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1642753572664/work
+pyrsistent @ file:///home/conda/feedstock_root/build_artifacts/pyrsistent_1649013355209/work
+PySoundFile==0.9.0.post1
+python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
+pytz==2022.1
+pyworld @ file:///home/ec2-user/Python-Wrapper-for-World-Vocoder
+PyYAML==6.0
+pyzmq @ file:///home/conda/feedstock_root/build_artifacts/pyzmq_1649055645150/work
+requests==2.27.1
+resampy==0.2.2
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scikit-learn==1.0.2
+scipy==1.8.0
+Send2Trash @ file:///home/conda/feedstock_root/build_artifacts/send2trash_1628511208346/work
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+SoundFile==0.10.3.post1
+soupsieve @ file:///home/conda/feedstock_root/build_artifacts/soupsieve_1638550740809/work
+-e git+https://github.com/viswavi/speechbrain.git@28c21eb03c3fa92a027a5c0acf78e76432c99b83#egg=speechbrain&subdirectory=../../speechbrain
+stack-data @ file:///home/conda/feedstock_root/build_artifacts/stack_data_1644872665635/work
+sympy @ file:///home/conda/feedstock_root/build_artifacts/sympy_1647802532210/work
+terminado @ file:///home/conda/feedstock_root/build_artifacts/terminado_1649103779998/work
+testpath @ file:///home/conda/feedstock_root/build_artifacts/testpath_1645693042223/work
+threadpoolctl==3.1.0
+tinycss2 @ file:///home/conda/feedstock_root/build_artifacts/tinycss2_1637612658783/work
+torch==1.10.2
+torchaudio==0.10.2
+torchvision==0.11.3
+tornado @ file:///home/conda/feedstock_root/build_artifacts/tornado_1648827245914/work
+tqdm==4.64.0
+traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1635260543454/work
+typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1644850595256/work
+urllib3==1.26.9
+wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1600965781394/work
+webencodings==0.5.1
+zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1643828507773/work
+
+
+2022-05-04 02:47:40,379 - speechbrain.utils.superpowers - DEBUG - 4bd6e4e
+
+
+2022-05-04 02:47:40,541 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-05-04 02:47:40,545 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-05-04 02:47:40,545 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-05-04 02:47:40,545 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-05-04 02:47:43,265 - speechbrain.core - INFO - Info: ckpt_interval_minutes arg from hparam file is used
+2022-05-04 02:47:43,266 - speechbrain.core - INFO - 3.1M trainable parameters in GenderBrain
+2022-05-04 02:47:43,269 - speechbrain.utils.checkpoints - INFO - Loading a checkpoint from results/gender_classifier/1230/save/CKPT+2022-04-19+09-12-03+00
+2022-05-04 02:47:43,281 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/ec2-user/speech-anonymization/gender_classifier_train.py", line 364, in <module>
+    gender_brain.fit(
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/core.py", line 1019, in fit
+    self.on_fit_start()
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/core.py", line 789, in on_fit_start
+    self.checkpointer.recover_if_possible(
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/utils/checkpoints.py", line 836, in recover_if_possible
+    self.load_checkpoint(chosen_ckpt, device)
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/utils/checkpoints.py", line 849, in load_checkpoint
+    self._call_load_hooks(checkpoint, device)
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/utils/checkpoints.py", line 984, in _call_load_hooks
+    default_hook(obj, loadpath, end_of_epoch, device)
+  File "/home/ec2-user/speech-anonymization/speechbrain/speechbrain/utils/checkpoints.py", line 93, in torch_recovery
+    obj.load_state_dict(torch.load(path, map_location=device), strict=True)
+  File "/home/ec2-user/miniconda3/envs/speech/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1482, in load_state_dict
+    raise RuntimeError('Error(s) in loading state_dict for {}:\n\t{}'.format(
+RuntimeError: Error(s) in loading state_dict for Xvector:
+	size mismatch for blocks.0.conv.weight: copying a param with shape torch.Size([512, 80, 5]) from checkpoint, the shape in current model is torch.Size([512, 34, 5]).
+2022-05-04 02:49:20,225 - speechbrain.core - INFO - Beginning experiment!
+2022-05-04 02:49:20,226 - speechbrain.core - INFO - Experiment folder: ./results/gender_classifier/1230
+2022-05-04 02:49:20,834 - speechbrain.utils.superpowers - DEBUG - appdirs==1.4.4
+argon2-cffi @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi_1640817743617/work
+argon2-cffi-bindings @ file:///home/conda/feedstock_root/build_artifacts/argon2-cffi-bindings_1649500321618/work
+asttokens @ file:///home/conda/feedstock_root/build_artifacts/asttokens_1618968359944/work
+attrs @ file:///home/conda/feedstock_root/build_artifacts/attrs_1640799537051/work
+audioread==2.1.9
+backcall @ file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393461/work
+backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1618230623929/work
+beautifulsoup4 @ file:///home/conda/feedstock_root/build_artifacts/beautifulsoup4_1631087867185/work
+bleach @ file:///home/conda/feedstock_root/build_artifacts/bleach_1629908509068/work
+certifi==2021.10.8
+cffi @ file:///home/conda/feedstock_root/build_artifacts/cffi_1636046055389/work
+charset-normalizer==2.0.12
+cycler==0.11.0
+Cython==0.29.28
+decorator @ file:///home/conda/feedstock_root/build_artifacts/decorator_1641555617451/work
+defusedxml @ file:///home/conda/feedstock_root/build_artifacts/defusedxml_1615232257335/work
+entrypoints @ file:///home/conda/feedstock_root/build_artifacts/entrypoints_1643888246732/work
+executing @ file:///home/conda/feedstock_root/build_artifacts/executing_1646044401614/work
+filelock==3.6.0
+flit_core @ file:///home/conda/feedstock_root/build_artifacts/flit-core_1645629044586/work/source/flit_core
+fonttools==4.32.0
+gmpy2 @ file:///home/conda/feedstock_root/build_artifacts/gmpy2_1641732907770/work
+huggingface-hub==0.5.1
+HyperPyYAML==1.0.0
+idna==3.3
+importlib-metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1648728288044/work
+importlib-resources @ file:///home/conda/feedstock_root/build_artifacts/importlib_resources_1648277295813/work
+ipykernel @ file:///home/conda/feedstock_root/build_artifacts/ipykernel_1620912942381/work/dist/ipykernel-5.5.5-py3-none-any.whl
+ipython @ file:///home/conda/feedstock_root/build_artifacts/ipython_1648413562175/work
+ipython-genutils==0.2.0
+jedi @ file:///home/conda/feedstock_root/build_artifacts/jedi_1649067096717/work
+Jinja2 @ file:///home/conda/feedstock_root/build_artifacts/jinja2_1648299710939/work
+joblib==1.1.0
+json5 @ file:///home/conda/feedstock_root/build_artifacts/json5_1600692310011/work
+jsonschema @ file:///home/conda/feedstock_root/build_artifacts/jsonschema-meta_1642000296051/work
+jupyter-client @ file:///home/conda/feedstock_root/build_artifacts/jupyter_client_1642858610849/work
+jupyter-core @ file:///home/conda/feedstock_root/build_artifacts/jupyter_core_1645024267147/work
+jupyterlab==2.1.0
+jupyterlab-pygments @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_pygments_1601375948261/work
+jupyterlab-server @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_server_1589712729745/work
+kaldiio==2.17.2
+kiwisolver==1.4.2
+librosa==0.9.1
+llvmlite==0.38.0
+MarkupSafe @ file:///home/conda/feedstock_root/build_artifacts/markupsafe_1648737556467/work
+matplotlib==3.5.1
+matplotlib-inline @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-inline_1631080358261/work
+mistune @ file:///home/conda/feedstock_root/build_artifacts/mistune_1635844679781/work
+mpmath @ file:///home/conda/feedstock_root/build_artifacts/mpmath_1612895720168/work
+nbclient @ file:///home/conda/feedstock_root/build_artifacts/nbclient_1646999386773/work
+nbconvert @ file:///home/conda/feedstock_root/build_artifacts/nbconvert-meta_1649676641343/work
+nbformat @ file:///home/conda/feedstock_root/build_artifacts/nbformat_1646951096007/work
+nest-asyncio @ file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1638419302549/work
+notebook @ file:///home/conda/feedstock_root/build_artifacts/notebook_1647377876077/work
+numba==0.55.1
+numpy @ file:///home/conda/feedstock_root/build_artifacts/numpy_1649572667348/work
+packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1637239678211/work
+pandas==1.4.2
+pandocfilters @ file:///home/conda/feedstock_root/build_artifacts/pandocfilters_1631603243851/work
+parso @ file:///home/conda/feedstock_root/build_artifacts/parso_1638334955874/work
+pexpect @ file:///home/conda/feedstock_root/build_artifacts/pexpect_1602535608087/work
+pickleshare @ file:///home/conda/feedstock_root/build_artifacts/pickleshare_1602536217715/work
+Pillow @ file:///home/conda/feedstock_root/build_artifacts/pillow_1649817996082/work
+pooch==1.6.0
+prometheus-client @ file:///home/conda/feedstock_root/build_artifacts/prometheus_client_1643395600215/work
+prompt-toolkit @ file:///home/conda/feedstock_root/build_artifacts/prompt-toolkit_1644497866770/work
+ptyprocess @ file:///home/conda/feedstock_root/build_artifacts/ptyprocess_1609419310487/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
+pure-eval @ file:///home/conda/feedstock_root/build_artifacts/pure_eval_1642875951954/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1636257122734/work
+Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1641580240686/work
+pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1642753572664/work
+pyrsistent @ file:///home/conda/feedstock_root/build_artifacts/pyrsistent_1649013355209/work
+PySoundFile==0.9.0.post1
+python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
+pytz==2022.1
+pyworld @ file:///home/ec2-user/Python-Wrapper-for-World-Vocoder
+PyYAML==6.0
+pyzmq @ file:///home/conda/feedstock_root/build_artifacts/pyzmq_1649055645150/work
+requests==2.27.1
+resampy==0.2.2
+ruamel.yaml==0.17.21
+ruamel.yaml.clib==0.2.6
+scikit-learn==1.0.2
+scipy==1.8.0
+Send2Trash @ file:///home/conda/feedstock_root/build_artifacts/send2trash_1628511208346/work
+sentencepiece==0.1.96
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
+SoundFile==0.10.3.post1
+soupsieve @ file:///home/conda/feedstock_root/build_artifacts/soupsieve_1638550740809/work
+-e git+https://github.com/viswavi/speechbrain.git@28c21eb03c3fa92a027a5c0acf78e76432c99b83#egg=speechbrain&subdirectory=../../speechbrain
+stack-data @ file:///home/conda/feedstock_root/build_artifacts/stack_data_1644872665635/work
+sympy @ file:///home/conda/feedstock_root/build_artifacts/sympy_1647802532210/work
+terminado @ file:///home/conda/feedstock_root/build_artifacts/terminado_1649103779998/work
+testpath @ file:///home/conda/feedstock_root/build_artifacts/testpath_1645693042223/work
+threadpoolctl==3.1.0
+tinycss2 @ file:///home/conda/feedstock_root/build_artifacts/tinycss2_1637612658783/work
+torch==1.10.2
+torchaudio==0.10.2
+torchvision==0.11.3
+tornado @ file:///home/conda/feedstock_root/build_artifacts/tornado_1648827245914/work
+tqdm==4.64.0
+traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1635260543454/work
+typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1644850595256/work
+urllib3==1.26.9
+wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1600965781394/work
+webencodings==0.5.1
+zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1643828507773/work
+
+
+2022-05-04 02:49:20,846 - speechbrain.utils.superpowers - DEBUG - 4bd6e4e
+
+
+2022-05-04 02:49:21,012 - librispeech_prepare - INFO - Skipping preparation, completed in previous run.
+2022-05-04 02:49:21,016 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-05-04 02:49:21,016 - speechbrain.dataio.encoder - INFO - Load called, but CategoricalEncoder is not empty. Loaded data will overwrite everything. This is normal if there is e.g. an unk label defined at init.
+2022-05-04 02:49:21,016 - speechbrain.dataio.encoder - DEBUG - Loaded categorical encoding from ./results/gender_classifier/1230/save/label_encoder.txt
+2022-05-04 02:49:23,808 - speechbrain.core - INFO - Info: ckpt_interval_minutes arg from hparam file is used
+2022-05-04 02:49:23,809 - speechbrain.core - INFO - 3.1M trainable parameters in GenderBrain
+2022-05-04 02:51:52,721 - speechbrain.core - ERROR - Exception:
+Traceback (most recent call last):
+  File "/home/ec2-user/speech-anonymization/gender_classifier_train.py", line 365, in <module>
+    gender_brain.fit(
+  File "/home/ec2-user/speech-anonymization/gender_classifier_train.py", line 365, in <module>
+    gender_brain.fit(
+  File "/home/ec2-user/miniconda3/envs/speech/lib/python3.9/bdb.py", line 88, in trace_dispatch
+    return self.dispatch_line(frame)
+  File "/home/ec2-user/miniconda3/envs/speech/lib/python3.9/bdb.py", line 113, in dispatch_line
+    if self.quitting: raise BdbQuit
+bdb.BdbQuit

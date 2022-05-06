@@ -18,19 +18,19 @@ __set_seed: !!python/object/apply:torch.manual_seed [!ref <seed>]
 # 4- Set data_folder with the local path.
 # Reading data from the local disk of the compute node (e.g. $SLURM_TMPDIR with SLURM-based clusters) is very important.
 # It allows you to read the data much faster without slowing down the shared filesystem.
-data_folder: /home/ec2-user/LibriSpeech 
+data_folder: /home/ec2-user/LibriSpeech
 data_folder_rirs: !ref <data_folder>
 train_splits: ["train-clean-100"]
-dev_splits: ["dev-clean-100"]
+dev_splits: ["dev-clean"]
 test_splits: ["test-clean"]
 skip_prep: False
-train_csv: !ref <data_folder>/train-clean.csv
+train_csv: !ref <data_folder>/train-clean-100.csv
 valid_csv: !ref <data_folder>/dev-clean.csv
 test_csv: !ref <data_folder>/test-clean.csv
 
 sorting: random
 
-output_folder: !ref ./results/gender_classifier/<seed>
+output_folder: !ref ./results/gender_classifier_vocoder_features/<seed>
 save_folder: !ref <output_folder>/save
 train_log: !ref <output_folder>/train_log.txt
 
@@ -53,14 +53,14 @@ ckpt_interval_minutes: 5 # save checkpoint every N min
 # Feature parameters
 sample_rate: 16000
 n_fft: 400
-n_mels: 80
+n_mels: 34
 
 pretrain_path: speechbrain/spkrec-xvect-voxceleb
 
 
 # Training Parameters
-number_of_epochs: 5
-batch_size: 32
+number_of_epochs: 7
+batch_size: 24
 lr_start: 0.001
 lr_final: 0.0001
 n_classes: 2 # In this case, we have 2 classes as we are assuming a gender binary
@@ -91,6 +91,7 @@ compute_features: !new:speechbrain.lobes.features.Fbank
     sample_rate: !ref <sample_rate>
     n_fft: !ref <n_fft>
     n_mels: !ref <n_mels>
+    cache_path: /home/ec2-user/data_cache
 
 # Mean and std normalization of the input features
 mean_var_norm: !new:speechbrain.processing.features.InputNormalization

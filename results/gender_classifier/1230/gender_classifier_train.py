@@ -49,6 +49,8 @@ from speechbrain.utils.distributed import run_on_main
 sys.path.append("speechbrain/recipes/LibriSpeech")
 from librispeech_prepare import prepare_librispeech  # noqa
 
+import soundfile as sf
+import pyworld as pw
 
 
 # 1.  # Dataset prep (parsing Librispeech)
@@ -79,7 +81,6 @@ class GenderBrain(sb.Brain):
         # Compute features, embeddings, and predictions
         feats, lens = self.prepare_features(batch.sig, stage)
         embeddings = self.modules.embedding_model(feats, lens)
-        # embeddings = hparams["embedding_model"](feats, lens)
 
         predictions = self.modules.classifier(embeddings)
 
@@ -337,8 +338,11 @@ if __name__ == "__main__":
     train_data, valid_data, test_data = dataio_prepare(hparams)
 
     # TODO right place?
-    run_on_main(hparams["pretrainer"].collect_files)
-    hparams["pretrainer"].load_collected(device=(run_opts["device"]))
+    # run_on_main(hparams["pretrainer"].collect_files)
+    # hparams["pretrainer"].load_collected(device=(run_opts["device"]))
+#    hparams["embedding_model"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/embedding_model.ckpt"))
+ #   hparams["classifier"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/classifier.ckpt"))
+  #  hparams["normalizer"].load_state_dict(torch.load("results/gender_classifier/1230/save/CKPT+2022-03-31+05-26-22+00/normalizer.ckpt"))
     hparams["embedding_model"].eval()
     hparams["embedding_model"].to(run_opts["device"])
 
@@ -357,6 +361,7 @@ if __name__ == "__main__":
     # necessary to update the parameters of the model. Since all objects
     # with changing state are managed by the Checkpointer, training can be
     # stopped at any point, and will be resumed on next call.
+    breakpoint()
     gender_brain.fit(
         epoch_counter=gender_brain.hparams.epoch_counter,
         train_set=train_data,
