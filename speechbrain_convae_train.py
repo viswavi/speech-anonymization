@@ -29,6 +29,10 @@ from gender_classifier_train import GenderBrain
 from speechbrain.pretrained import EncoderClassifier
 import torch.nn.functional as F
 
+import pyworld as pw
+import numpy as np
+import soundfile as sf
+
 logger = logging.getLogger(__name__)
 
 
@@ -163,9 +167,9 @@ class SexAnonymizationTraining(sb.core.Brain):
                 print("utility retention ASR = ")
                 print(self.utility_similarity_aggregator.peek())
             else:
-                enc_out, predictions = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, eval=True, do_ctc=True)
-                recon_enc_out, recon_prob, _, _, _, _, = enc_out
-                ids, predicted_words, target_words = predictions
+                # enc_out, predictions = self.asr_brain.get_predictions(reconstructed_speech, wav_lens, tokens_bos, batch, eval=True, do_ctc=True)
+                # recon_enc_out, recon_prob, _, _, _, _, = enc_out
+                # ids, predicted_words, target_words = predictions
 
                 enc_out, predictions = self.asr_brain.get_predictions(feats, wav_lens, tokens_bos, batch, eval=True, do_ctc=True)
                 orig_enc_out, orig_prob, _, _, _, _, = enc_out
@@ -174,13 +178,18 @@ class SexAnonymizationTraining(sb.core.Brain):
                 cos_sim = torch.nn.CosineSimilarity(dim=-1, eps=1e-8)
                 self.utility_similarity_aggregator.append(cos_sim(recon_enc_out.view(recon_enc_out.shape[0], -1), orig_enc_out.view(orig_enc_out.shape[0], -1)))
 
-                print(predicted_words)
-                print(target_words)
-                print(o_predicted_words)
-                self.wer_metric.append(ids, predicted_words, target_words)
+                # print(predicted_words)
+                # print(target_words)
+                # print(o_predicted_words)
+                # self.wer_metric.append(ids, predicted_words, target_words)
 
-                print("utility retention ASR = ")
-                print(self.utility_similarity_aggregator.peek())
+                # print(o_predicted_words)
+                print(o_target_words)
+                print(o_predicted_words)
+                self.wer_metric.append(o_ids, o_predicted_words, o_target_words)
+
+                # print("utility retention ASR = ")
+                # print(self.utility_similarity_aggregator.peek())
 
                 print("WER summary = ")
                 print(self.wer_metric.summarize("error_rate"))
@@ -471,13 +480,28 @@ def dataio_prepare(hparams):
     tokenizer = hparams["tokenizer"]
 
     # 2. Define audio pipeline:
+    # @sb.utils.data_pipeline.takes("wav")
+    # @sb.utils.data_pipeline.provides("sig")
+    # def audio_pipeline(wav):
+    #     sig = sb.dataio.dataio.read_audio(wav)
+    #     return sig
+
     @sb.utils.data_pipeline.takes("wav")
     @sb.utils.data_pipeline.provides("sig")
-    def audio_pipeline(wav):
-        sig = sb.dataio.dataio.read_audio(wav)
+    def audio_pipeline_pitch_norm(wav):
+        wav_data, sr = sf.read(wav)
+        f0, sp, ap = pw.wav2world(wav_data, sr)
+        voiced_idx = np.where(f0 != 0)
+        voiced = f0[voiced_idx]
+        voiced = np.maximum(0, (voiced - np.mean(voiced)) + 500)
+        f0[voiced_idx] = voiced
+        rec = pw.synthesize(f0, sp, ap, sr)
+
+        # sig = sb.dataio.dataio.read_audio(wav)
+        sig = torch.from_numpy(rec).float()
         return sig
 
-    sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline)
+    sb.dataio.dataset.add_dynamic_item(datasets, audio_pipeline_pitch_norm)
 
     # 3. Define text pipeline:
     @sb.utils.data_pipeline.takes("wrd")
